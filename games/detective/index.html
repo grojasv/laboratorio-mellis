@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f6ecd6">
+  <title>Detective Agency · Laboratorio Mellis</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔍</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../shared/styles.css">
+  <link rel="stylesheet" href="../../shared/game.css">
+  <link rel="stylesheet" href="detective.css">
+</head>
+<body class="agency">
+  <header class="topbar">
+    <a class="home" href="../../index.html" aria-label="home">🏠</a>
+    <h1 class="title" id="title"></h1>
+    <div id="controls"></div>
+  </header>
+
+  <!-- Agency office -->
+  <main id="lobby" class="screen lobby">
+    <div class="lobby-mascots"><div id="mascots"></div><span class="lens">🔍</span></div>
+    <p class="rank" id="rank"></p>
+    <div class="badges" id="badges"></div>
+    <button class="go-btn" id="new-case">🕵️ <span id="new-case-label"></span></button>
+  </main>
+
+  <!-- A case in progress -->
+  <main id="case" class="screen case" hidden>
+    <div class="steps" id="steps">
+      <span data-step="intro">📁</span><span data-step="foot">👣</span><span data-step="code">🔐</span><span data-step="suspects">🕵️</span><span data-step="print">✋</span>
+    </div>
+
+    <section class="step" id="step-intro">
+      <div class="file">
+        <p class="file-no" id="case-no"></p>
+        <div class="file-item" id="case-item"></div>
+        <p class="file-q" id="case-q"></p>
+      </div>
+      <button class="go-btn" id="start-case">🔎 <span id="start-label"></span></button>
+    </section>
+
+    <section class="step" id="step-foot" hidden>
+      <div class="say-row"><p class="task" id="foot-task"></p><button class="round-btn say" data-say="foot-task">🔊</button></div>
+      <div class="mud"><div id="footprint"></div></div>
+      <div class="choices" id="foot-choices"></div>
+    </section>
+
+    <section class="step" id="step-code" hidden>
+      <div class="say-row"><p class="task" id="code-task"></p><button class="round-btn say" data-say="code-task">🔊</button></div>
+      <div class="note" id="note"></div>
+      <div class="key" id="key"></div>
+    </section>
+
+    <section class="step" id="step-suspects" hidden>
+      <div class="say-row"><p class="task small" id="sus-task"></p><button class="round-btn say" data-say="clues">🔊</button></div>
+      <ol class="clues" id="clues"></ol>
+      <div class="suspects" id="suspects"></div>
+    </section>
+
+    <section class="step" id="step-print" hidden>
+      <div class="say-row"><p class="task" id="print-task"></p><button class="round-btn say" data-say="print-task">🔊</button></div>
+      <div class="lens-view" id="print-scene"></div>
+      <div class="prints" id="prints"></div>
+    </section>
+
+    <!-- New clue pop-up between steps -->
+    <div class="clue-pop" id="clue-pop" hidden>
+      <div class="clue-card">
+        <p class="clue-head" id="clue-head"></p>
+        <p class="clue-text" id="clue-text"></p>
+        <button class="go-btn" id="clue-next">➡️</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Solved -->
+  <div id="win" class="win" hidden>
+    <div class="win-box">
+      <p class="win-text" id="win-text"></p>
+      <div class="caught" id="caught"></div>
+      <p class="win-rank" id="win-rank"></p>
+      <div class="win-buttons">
+        <button class="big-btn" id="again" style="background:var(--orange)">🔁</button>
+        <button class="big-btn" id="to-lobby" style="background:var(--teal)">🏢</button>
+        <a class="big-btn" href="../../index.html" style="background:var(--yellow)">🏠</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../shared/app.js"></script>
+  <script src="detective.js"></script>
+</body>
+</html>

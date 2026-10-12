@@ -87,18 +87,37 @@
     loadVoices();
     speechSynthesis.addEventListener('voiceschanged', loadVoices);
   }
+  // Accepts 'ca' / 'es' / 'en' or a full tag like 'en-GB'.
+  const VOICE_TAGS = { ca: 'ca-ES', es: 'es-ES', en: 'en-GB' };
+  function voiceFor(tag) {
+    const norm = (v) => v.lang.replace('_', '-');
+    return voices.find((v) => norm(v) === tag) ||
+      voices.find((v) => norm(v).startsWith(tag.slice(0, 2))) || null;
+  }
+  // False only when we know the device has no voice for that language
+  // (never read Catalan with an English voice).
+  function canSpeak(lang) {
+    if (!window.speechSynthesis) return false;
+    if (!voices.length) return true;
+    return !!voiceFor(VOICE_TAGS[lang] || lang);
+  }
   function speak(text, voiceLang) {
     if (muted || !window.speechSynthesis) return;
-    const wanted = voiceLang || 'en-GB';
+    const tag = VOICE_TAGS[voiceLang] || voiceLang || 'en-GB';
+    const voice = voiceFor(tag);
+    if (voices.length && !voice) return;
     speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
-    u.lang = wanted;
-    u.voice = voices.find((v) => v.lang === wanted) ||
-      voices.find((v) => v.lang.replace('_', '-').startsWith(wanted.slice(0, 2))) || null;
+    u.lang = tag;
+    u.voice = voice;
     u.rate = 0.85;
     u.pitch = 1.1;
     speechSynthesis.speak(u);
   }
+  // iOS only speaks after a tap: say nothing once inside the first tap to unlock it.
+  window.addEventListener('pointerdown', () => {
+    if (window.speechSynthesis) speechSynthesis.speak(new SpeechSynthesisUtterance(''));
+  }, { once: true });
 
   function isMuted() { return muted; }
   function setMuted(value) {
@@ -209,7 +228,7 @@
 
   window.Mellis = {
     LANGS, get lang() { return lang; }, setLang, t, onLang: (fn) => langListeners.push(fn),
-    sounds, speak, isMuted, setMuted, mountControls, mascotsSVG, confetti,
+    sounds, speak, canSpeak, isMuted, setMuted, mountControls, mascotsSVG, confetti,
   };
   document.documentElement.lang = lang;
 })();

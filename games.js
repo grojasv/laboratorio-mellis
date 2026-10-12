@@ -25,4 +25,12 @@ window.MELLIS_GAMES = [
     name: { ca: 'Laboratori de monstres', es: 'Laboratorio de monstruos', en: 'Monster Lab' },
     tagline: { ca: 'Anglès de Halloween', es: 'Inglés de Halloween', en: 'Halloween English' },
   },
+  {
+    id: 'detective',
+    path: 'games/detective/index.html',
+    icon: '🕵️',
+    color: '#ff9f1c',
+    name: { ca: 'Agència de detectives', es: 'Agencia de detectives', en: 'Detective Agency' },
+    tagline: { ca: 'Pistes, codis i empremtes', es: 'Pistas, códigos y huellas', en: 'Clues, codes & prints' },
+  },
 ];
