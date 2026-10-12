@@ -46,12 +46,16 @@
     .party .kid { animation: party-dance .5s ease-in-out 6 !important; }
     .party .kid-b { animation-delay: -.25s !important; }
     @keyframes party-dance { 25% { transform: translateY(-14px) rotate(-8deg); } 75% { transform: translateY(-14px) rotate(8deg); } }
-    .bubble-talk::before {
+    .bubble-talk::before { /* tail: a white diamond whose outer edges continue the border */
       content: '';
       position: absolute;
-      left: -16px; bottom: 18px;
-      border: 10px solid transparent;
-      border-right: 14px solid var(--ink);
+      left: -12px; bottom: 26px;
+      width: 20px; height: 20px;
+      background: #fff;
+      border-left: 3px solid var(--ink);
+      border-bottom: 3px solid var(--ink);
+      border-bottom-left-radius: 4px;
+      transform: rotate(45deg);
     }
 
     .games {
