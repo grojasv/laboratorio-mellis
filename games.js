@@ -17,4 +17,12 @@ window.MELLIS_GAMES = [
     name: { ca: 'Laboratori de pocions', es: 'Laboratorio de pociones', en: 'Potion Lab' },
     tagline: { ca: 'Sumes i restes', es: 'Sumas y restas', en: 'Adding & taking away' },
   },
+  {
+    id: 'monsters',
+    path: 'games/monsters/index.html',
+    icon: '🎃',
+    color: '#9b5de5',
+    name: { ca: 'Laboratori de monstres', es: 'Laboratorio de monstruos', en: 'Monster Lab' },
+    tagline: { ca: 'Anglès de Halloween', es: 'Inglés de Halloween', en: 'Halloween English' },
+  },
 ];

@@ -80,10 +80,31 @@
     },
   };
 
+  // ---------- Speech (device text-to-speech) ----------
+  let voices = [];
+  function loadVoices() { voices = window.speechSynthesis ? speechSynthesis.getVoices() : []; }
+  if (window.speechSynthesis) {
+    loadVoices();
+    speechSynthesis.addEventListener('voiceschanged', loadVoices);
+  }
+  function speak(text, voiceLang) {
+    if (muted || !window.speechSynthesis) return;
+    const wanted = voiceLang || 'en-GB';
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = wanted;
+    u.voice = voices.find((v) => v.lang === wanted) ||
+      voices.find((v) => v.lang.replace('_', '-').startsWith(wanted.slice(0, 2))) || null;
+    u.rate = 0.85;
+    u.pitch = 1.1;
+    speechSynthesis.speak(u);
+  }
+
   function isMuted() { return muted; }
   function setMuted(value) {
     muted = value;
     save(MUTE_KEY, value ? '1' : '0');
+    if (value && window.speechSynthesis) speechSynthesis.cancel();
   }
 
   // ---------- Shared UI bits ----------
@@ -188,7 +209,7 @@
 
   window.Mellis = {
     LANGS, get lang() { return lang; }, setLang, t, onLang: (fn) => langListeners.push(fn),
-    sounds, isMuted, setMuted, mountControls, mascotsSVG, confetti,
+    sounds, speak, isMuted, setMuted, mountControls, mascotsSVG, confetti,
   };
   document.documentElement.lang = lang;
 })();
