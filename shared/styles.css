@@ -108,6 +108,13 @@ button {
 .mascots .arm { fill: none; stroke: #fff; stroke-width: 14; stroke-linecap: round; }
 .mascots .kid { animation: bob 2.4s ease-in-out infinite; transform-origin: center bottom; }
 .mascots .kid-b { animation-delay: -1.2s; }
+.mascots .kid { cursor: pointer; transform-box: fill-box; }
+.mascots .kid.boing { animation: boing .6s cubic-bezier(.3, 1.6, .6, 1); }
+.mascots .kid.spin { animation: spin .7s ease-in-out; transform-origin: center; }
+.mascots .kid.wobble { animation: wobble-kid .6s ease-in-out; }
+@keyframes boing { 30% { transform: translateY(4px) scale(1.08, .9); } 60% { transform: translateY(-22px) scale(.95, 1.06); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes wobble-kid { 20% { transform: rotate(-10deg); } 40% { transform: rotate(9deg); } 60% { transform: rotate(-6deg); } 80% { transform: rotate(4deg); } }
 .mascots .wave { animation: wave 1s ease-in-out infinite; transform-origin: 206px 132px; transform-box: view-box; }
 .mascots .eyes { animation: blink 4s infinite; transform-origin: center; transform-box: fill-box; }
 .mascots .bubble { animation: flaskbubble 1.4s ease-in infinite; }

@@ -20,7 +20,7 @@
     }
 
     .welcome { display: flex; align-items: flex-end; gap: 8px; margin: 8px 0 20px; }
-    .welcome .mascots { width: min(46vw, 300px); flex: none; }
+    .welcome .mascots { width: min(54vw, 320px); flex: none; }
     .bubble-talk {
       position: relative;
       background: #fff;
@@ -32,6 +32,20 @@
       box-shadow: var(--shadow);
       margin-bottom: 28%;
     }
+    .bubble-talk { cursor: pointer; transition: transform .12s; }
+    .bubble-talk:active { transform: scale(.96); }
+    .bubble-talk.talk { animation: talk .45s cubic-bezier(.3, 1.6, .6, 1); }
+    @keyframes talk { 0% { transform: scale(.85) rotate(-3deg); } 100% { transform: none; } }
+    .bubble-talk:not(.tapped)::after { /* hint: tap me */
+      content: '👆';
+      position: absolute; right: -10px; bottom: -18px;
+      font-size: 1.6rem;
+      animation: poke 1.2s ease-in-out infinite;
+    }
+    @keyframes poke { 50% { transform: translate(-4px, -6px) rotate(-10deg); } }
+    .party .kid { animation: party-dance .5s ease-in-out 6 !important; }
+    .party .kid-b { animation-delay: -.25s !important; }
+    @keyframes party-dance { 25% { transform: translateY(-14px) rotate(-8deg); } 75% { transform: translateY(-14px) rotate(8deg); } }
     .bubble-talk::before {
       content: '';
       position: absolute;
@@ -117,18 +131,82 @@
   <script src="games.js"></script>
   <script>
     const M = window.Mellis;
-    const GREETING = {
-      ca: 'Hola! Som les Mellis. A què juguem avui?',
-      es: '¡Hola! Somos las Mellis. ¿A qué jugamos hoy?',
-      en: "Hi! We're the Mellis. What shall we play today?",
+    const L = (ca, es, en) => ({ ca, es, en });
+    // First line shown when the hub opens (one at random)
+    const WELCOMES = [
+      L('Hola! Som les Mellis. A què juguem avui?', '¡Hola! Somos las Mellis. ¿A qué jugamos hoy?', "Hi! We're the Mellis. What shall we play today?"),
+      L('Benvingudes al laboratori! Compte, que les pocions fan bombolles! 🧪', '¡Bienvenidas al laboratorio! ¡Cuidado, que las pociones hacen burbujas! 🧪', 'Welcome to the lab! Careful, the potions are bubbling! 🧪'),
+      L("Hola, científiques! Toca'ns i farem cares divertides! 👆", '¡Hola, científicas! ¡Tócanos y haremos caras divertidas! 👆', "Hello, scientists! Tap us and we'll make funny faces! 👆"),
+    ];
+    // Tapping the bubble: jokes, fun facts and silly challenges
+    const FUNNY = [
+      L('Saps què? Els pops tenen tres cors! 🐙', '¿Sabes qué? ¡Los pulpos tienen tres corazones! 🐙', 'Guess what? Octopuses have three hearts! 🐙'),
+      L('Què fa una vaca amb els ulls tancats? Llet concentrada! 🐄', '¿Qué hace una vaca con los ojos cerrados? ¡Leche concentrada! 🐄', 'What do you call a sleeping dinosaur? A dino-snore! 🦕'),
+      L('Hem perdut la lupa... ah no, la porto al cap! 🔍', 'Hemos perdido la lupa... ¡ah no, la llevo en la cabeza! 🔍', "We lost our magnifying glass... oh wait, it's on my head! 🔍"),
+      L('Quants són 2 + 2? ... Peix! 🐟 Ah no, 4! Ja ja!', '¿Cuánto es 2 + 2? ... ¡Pez! 🐟 ¡Ah no, 4! ¡Ja ja!', "What's 2 + 2? ... Fish! 🐟 No wait, 4! Ha ha!"),
+      L("Repte: digues «setze jutges d'un jutjat» molt de pressa! 👅", 'Reto: ¡di «tres tristes tigres» muy rápido! 👅', "Challenge: say 'red lorry, yellow lorry' really fast! 👅"),
+      L('Els flamencs són rosa pel menjar que mengen! 🦩', '¡Los flamencos son rosas por la comida que comen! 🦩', 'Flamingos are pink because of the food they eat! 🦩'),
+      L('Ups! Hem fet explotar una altra poció! 💥', '¡Uy! ¡Hemos hecho explotar otra poción! 💥', 'Oops! We blew up another potion! 💥'),
+      L("Per què el llibre de mates està trist? Perquè té massa problemes! 📕", '¿Por qué está triste el libro de mates? ¡Porque tiene demasiados problemas! 📕', 'Why was the maths book sad? It had too many problems! 📕'),
+      L('Una abella fa bzzz, un drac fa rots... i tu què fas? 🐝', 'Una abeja hace bzzz, un dragón eructa... ¿y tú qué haces? 🐝', 'A bee goes bzzz, a dragon burps... what do you do? 🐝'),
+      L('Els cargols poden dormir molt i molt de temps. Quina mandra! 🐌', 'Los caracoles pueden dormir muchísimo tiempo. ¡Qué pereza! 🐌', 'Snails can sleep for a really, really long time. So lazy! 🐌'),
+      L('Fem una cara de pop? Glu glu! 🐙', '¿Hacemos cara de pulpo? ¡Glu glu! 🐙', "Let's make an octopus face! Blub blub! 🐙"),
+    ];
+    // What a twin says after a tap, by the face she pulls
+    const REACTIONS = {
+      laugh: L('Ji ji ji! Pessigolles no! 😆', '¡Ji ji ji! ¡Cosquillas no! 😆', 'Hee hee! No tickling! 😆'),
+      surprised: L('Uaaa! Quin ensurt! 😮', '¡Uaaa! ¡Qué susto! 😮', 'Whoa! You scared me! 😮'),
+      tongue: L('Bleeeh! 😜', '¡Bleeeh! 😜', 'Bleeeh! 😜'),
+      wink: L('Ep! Tu i jo fem un bon equip! 😉', '¡Eh! ¡Tú y yo hacemos un buen equipo! 😉', 'Hey! You and me make a great team! 😉'),
+      love: L("T'estimem! 💖", '¡Te queremos! 💖', 'We love you! 💖'),
+      dizzy: L("Uiii, m'he marejat! 💫", '¡Uyyy, me he mareado! 💫', "Whoa, I'm dizzy! 💫"),
+      starry: L('Tinc una idea brillant! ✨', '¡Tengo una idea brillante! ✨', "I've got a brilliant idea! ✨"),
+      sneeze: L('Atxím! Perdó, és la pols del laboratori! 🤧', '¡Achís! ¡Perdón, es el polvo del laboratorio! 🤧', 'Achoo! Sorry, lab dust! 🤧'),
     };
+    const PARTY = L('Festa al laboratori! 🎉💃', '¡Fiesta en el laboratorio! 🎉💃', 'Lab party! 🎉💃');
     const SOON = { ca: 'Aviat, més experiments!', es: '¡Pronto, más experimentos!', en: 'More experiments soon!' };
 
     M.mountControls(document.getElementById('controls'));
-    document.getElementById('mascots').innerHTML = M.mascotsSVG('wave');
+    const mascots = document.getElementById('mascots');
+    const bubble = document.getElementById('greeting');
+    mascots.innerHTML = M.mascotsSVG('wave');
+    let said = WELCOMES[Math.floor(Math.random() * WELCOMES.length)];
+
+    function sayLine(line, speakIt) {
+      said = line;
+      bubble.textContent = M.t(line);
+      bubble.classList.remove('talk'); void bubble.offsetWidth; bubble.classList.add('talk');
+      if (speakIt) M.speak(M.t(line).replace(/\p{Extended_Pictographic}|\uFE0F/gu, ''), M.lang);
+    }
+
+    // Bubble: a new joke / fact each tap (no repeats until all are used)
+    let deck = [];
+    bubble.addEventListener('click', () => {
+      if (!deck.length) deck = FUNNY.slice().sort(() => Math.random() - 0.5).filter((l) => l !== said);
+      M.sounds.pop();
+      bubble.classList.add('tapped');
+      sayLine(deck.pop(), true);
+    });
+
+    // Twins: funny face + reaction; lots of quick taps start a party
+    let taps = [];
+    M.playfulMascots(mascots, (expr) => {
+      const now = Date.now();
+      taps = taps.filter((t) => now - t < 4000).concat(now);
+      if (taps.length >= 7) { taps = []; party(); return; }
+      sayLine(REACTIONS[expr], true);
+    });
+    function party() {
+      mascots.innerHTML = M.mascotsSVG('cheer');
+      mascots.classList.add('party');
+      M.sounds.win();
+      M.confetti();
+      sayLine(PARTY, true);
+      setTimeout(() => { mascots.classList.remove('party'); mascots.innerHTML = M.mascotsSVG('wave'); }, 3500);
+    }
 
     function render() {
-      document.getElementById('greeting').textContent = M.t(GREETING);
+      bubble.textContent = M.t(said);
       const cards = window.MELLIS_GAMES.map((g) => `
         <a class="game" href="${g.path}" style="background:${g.color}">
           <span class="icon">${g.icon}</span>

@@ -74,6 +74,9 @@
       [523, 659, 784].forEach((f, i) => tone(f, i * 0.09, 0.18, 'triangle', 0.25));
     },
     miss() { tone(330, 0, 0.25, 'sine', 0.18, 200); },
+    giggle() { [880, 1047, 880, 1175, 988].forEach((f, i) => tone(f, i * 0.07, 0.07, 'sine', 0.2)); },
+    raspberry() { tone(140, 0, 0.45, 'sawtooth', 0.12, 90); },
+    sneeze() { tone(600, 0, 0.25, 'sine', 0.12, 900); tone(1400, 0.3, 0.12, 'square', 0.1, 300); },
     win() {
       [523, 659, 784, 1047, 784, 1047].forEach((f, i) =>
         tone(f, i * 0.12, 0.22, 'square', 0.12));
@@ -175,7 +178,7 @@
         (wave ? `<g class="wave">${armPaths(wave, '')}</g>` : '') +
         (!cheer && !flip ? `<g class="flask" transform="translate(${x + 26} 146)"><path d="M-6 -12 h12 v10 l10 16 a4 4 0 0 1 -3 6 h-26 a4 4 0 0 1 -3 -6 l10 -16 z" fill="#e8fbff" stroke="#3a3a5c" stroke-width="2.5"/><path d="M-12 8 h24 l3 4 a3 3 0 0 1 -3 4 h-24 a3 3 0 0 1 -3 -4 z" fill="#9b5de5"/><circle class="bubble" cx="0" cy="-16" r="3" fill="#9b5de5"/></g>` : '');
       return `
-      <g class="kid${flip ? ' kid-b' : ''}">
+      <g class="kid${flip ? ' kid-b' : ''}" data-x="${x}">
         ${arm}
         <path d="M${x - 30} 190 q0 -62 30 -64 q30 2 30 64 z" fill="#ffffff" stroke="#3a3a5c" stroke-width="3"/>
         <path d="M${x - 9} 128 l9 18 l9 -18" fill="none" stroke="#3a3a5c" stroke-width="3" stroke-linejoin="round"/>
@@ -187,9 +190,8 @@
         <circle cx="${x - 14}" cy="64" r="11" fill="${goggles}" stroke="#3a3a5c" stroke-width="3"/>
         <circle cx="${x + 14}" cy="64" r="11" fill="${goggles}" stroke="#3a3a5c" stroke-width="3"/>
         <circle cx="${x - 17}" cy="61" r="3" fill="#fff"/><circle cx="${x + 11}" cy="61" r="3" fill="#fff"/>
-        <g class="eyes"><ellipse cx="${x - 12}" cy="92" rx="4" ry="5" fill="#3a3a5c"/><ellipse cx="${x + 12}" cy="92" rx="4" ry="5" fill="#3a3a5c"/></g>
         <circle cx="${x - 22}" cy="104" r="6" fill="#ff9ec7" opacity=".7"/><circle cx="${x + 22}" cy="104" r="6" fill="#ff9ec7" opacity=".7"/>
-        <path d="M${x - 10} 106 q10 ${cheer ? 14 : 10} 20 0" fill="${cheer ? '#ff6f91' : 'none'}" stroke="#3a3a5c" stroke-width="3" stroke-linecap="round"/>
+        <g class="face">${faceSVG(x, cheer ? 'laugh' : 'happy')}</g>
       </g>`;
     }
     return `<svg class="mascots" viewBox="40 20 220 175" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -197,6 +199,66 @@
       ${kid(180, '#d4b8ff', '#9b5de5', true)}
     </svg>`;
   }
+
+  // Facial expressions for the twins (eyes + mouth around centre x).
+  const INK = '#3a3a5c';
+  const EXPRESSIONS = ['laugh', 'surprised', 'tongue', 'wink', 'love', 'dizzy', 'starry', 'sneeze'];
+  function faceSVG(x, e) {
+    const L = x - 12, R = x + 12, Y = 92;
+    const line = `fill="none" stroke="${INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"`;
+    const dot = (cx) => `<ellipse cx="${cx}" cy="${Y}" rx="4" ry="5" fill="${INK}"/>`;
+    const closed = (cx) => `<path d="M${cx - 5} ${Y + 2} q5 -7 10 0" ${line}/>`;
+    const smile = `<path d="M${x - 10} 106 q10 10 20 0" ${line}/>`;
+    const open = `<path d="M${x - 12} 104 q12 18 24 0 z" fill="#ff6f91" stroke="${INK}" stroke-width="3" stroke-linejoin="round"/>`;
+    const heart = (cx) => `<path d="M${cx} ${Y + 5} l-6.5 -6.5 a3.6 3.6 0 0 1 6.5 -4.5 a3.6 3.6 0 0 1 6.5 4.5 z" fill="#ff4d6d" stroke="${INK}" stroke-width="1.5"/>`;
+    const star = (cx) => `<path d="M${cx} ${Y - 7} l2.2 4.6 5 .7 -3.6 3.5 .9 5 -4.5 -2.4 -4.5 2.4 .9 -5 -3.6 -3.5 5 -.7 z" fill="#ffd23f" stroke="${INK}" stroke-width="1.5"/>`;
+    const swirl = (cx) => `<circle cx="${cx}" cy="${Y}" r="5.5" ${line} stroke-width="2"/><circle cx="${cx}" cy="${Y}" r="2" fill="${INK}"/>`;
+    switch (e) {
+      case 'laugh': return closed(L) + closed(R) + open;
+      case 'surprised': return `<ellipse cx="${L}" cy="${Y}" rx="5.5" ry="7" fill="${INK}"/><ellipse cx="${R}" cy="${Y}" rx="5.5" ry="7" fill="${INK}"/>` +
+        `<circle cx="${L + 2}" cy="${Y - 3}" r="1.8" fill="#fff"/><circle cx="${R + 2}" cy="${Y - 3}" r="1.8" fill="#fff"/>` +
+        `<ellipse cx="${x}" cy="111" rx="5" ry="6.5" fill="#5a1a3a" stroke="${INK}" stroke-width="2.5"/>`;
+      case 'tongue': return `<path d="M${L - 5} ${Y} l9 -3 M${L - 5} ${Y} l9 3" ${line}/><path d="M${R + 5} ${Y} l-9 -3 M${R + 5} ${Y} l-9 3" ${line}/>` +
+        `<path d="M${x - 10} 105 q10 8 20 0" ${line}/><path d="M${x - 3} 108 v6 a4 4 0 0 0 8 0 v-6.5" fill="#ff7aa8" stroke="${INK}" stroke-width="2.5"/>`;
+      case 'wink': return dot(L) + closed(R) + `<path d="M${x - 9} 107 q11 8 19 -3" ${line}/>`;
+      case 'love': return heart(L) + heart(R) + open;
+      case 'dizzy': return swirl(L) + swirl(R) + `<path d="M${x - 10} 109 q2.5 -4 5 0 t5 0 t5 0 t5 0" ${line}/>`;
+      case 'starry': return star(L) + star(R) + open;
+      case 'sneeze': return `<path d="M${L - 5} ${Y - 3} l9 3 l-9 3" ${line}/><path d="M${R + 5} ${Y - 3} l-9 3 l9 3" ${line}/>` +
+        `<ellipse cx="${x}" cy="109" rx="4" ry="3.5" fill="#5a1a3a"/>`;
+      default: return `<g class="eyes">${dot(L)}${dot(R)}</g>` + smile;
+    }
+  }
+
+  // Makes the twins inside `el` react to taps: a funny face + a jump.
+  // onReact(expression, twinIndex) lets the page answer (e.g. in a speech bubble).
+  function playfulMascots(el, onReact) {
+    const timers = [];
+    el.addEventListener('click', (e) => {
+      const kidEl = e.target.closest('.kid');
+      if (!kidEl) return;
+      const kids = [...el.querySelectorAll('.kid')];
+      const i = kids.indexOf(kidEl);
+      const current = kidEl.dataset.expr;
+      const expr = pick(EXPRESSIONS.filter((x) => x !== current));
+      setFace(kidEl, expr);
+      const move = pick(['boing', 'spin', 'wobble']);
+      kidEl.classList.remove('boing', 'spin', 'wobble'); void kidEl.getBBox(); kidEl.classList.add(move);
+      (REACTION_SOUNDS[expr] || sounds.pop)();
+      clearTimeout(timers[i]);
+      timers[i] = setTimeout(() => { setFace(kidEl, 'happy'); kidEl.classList.remove(move); }, 2600);
+      if (onReact) onReact(expr, i);
+    });
+  }
+  function setFace(kidEl, expr) {
+    kidEl.dataset.expr = expr;
+    kidEl.querySelector('.face').innerHTML = faceSVG(+kidEl.dataset.x, expr);
+  }
+  function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+  const REACTION_SOUNDS = {
+    laugh: () => sounds.giggle(), surprised: () => sounds.boing(), tongue: () => sounds.raspberry(),
+    sneeze: () => sounds.sneeze(), love: () => sounds.match(), starry: () => sounds.match(),
+  };
 
   // Confetti burst on a full-screen canvas.
   function confetti() {
@@ -228,7 +290,7 @@
 
   window.Mellis = {
     LANGS, get lang() { return lang; }, setLang, t, onLang: (fn) => langListeners.push(fn),
-    sounds, speak, canSpeak, isMuted, setMuted, mountControls, mascotsSVG, confetti,
+    sounds, speak, canSpeak, isMuted, setMuted, mountControls, mascotsSVG, playfulMascots, confetti,
   };
   document.documentElement.lang = lang;
 })();
