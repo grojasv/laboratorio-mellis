@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#e8f4ff">
+  <title>Read-aloud Stories · Laboratorio Mellis</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Andika is designed for children learning to read -->
+  <link href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Fredoka:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../shared/styles.css">
+  <link rel="stylesheet" href="../../shared/game.css">
+  <link rel="stylesheet" href="reading.css">
+</head>
+<body class="library">
+  <header class="topbar">
+    <a class="home" href="../../index.html" aria-label="home">🏠</a>
+    <h1 class="title" id="title"></h1>
+    <div id="controls"></div>
+  </header>
+
+  <!-- Bookshelf -->
+  <main id="shelf" class="screen">
+    <div class="tabs">
+      <button class="tab" data-level="short" id="tab-short"></button>
+      <button class="tab" data-level="long" id="tab-long"></button>
+    </div>
+    <div class="books" id="books"></div>
+  </main>
+
+  <!-- Reading -->
+  <main id="read" class="screen read" hidden>
+    <div class="chapter" id="chapter"></div>
+    <div class="scene" id="scene"></div>
+    <article class="page"><p id="text"></p></article>
+
+    <div class="mic-panel" id="mic-panel">
+      <button class="mic" id="mic"><span class="mic-icon">🎙️</span><span id="mic-label"></span></button>
+      <div class="meter" id="meter" hidden><div class="meter-fill" id="meter-fill"></div><span class="meter-stars">⭐⭐⭐</span></div>
+      <p class="mic-note" id="mic-note" hidden></p>
+    </div>
+
+    <div class="after" id="after" hidden>
+      <p class="great" id="great"></p>
+      <button class="listen" id="listen">▶️ <span id="listen-label"></span></button>
+      <p class="what-now" id="what-now"></p>
+      <div class="choices" id="choices"></div>
+    </div>
+  </main>
+
+  <!-- Question -->
+  <main id="quiz" class="screen quiz" hidden>
+    <div class="scene">🕵️‍♀️❓</div>
+    <p class="q-head" id="q-head"></p>
+    <p class="q" id="q"></p>
+    <div class="answers" id="answers"></div>
+  </main>
+
+  <!-- Finished -->
+  <div id="win" class="win" hidden>
+    <div class="win-box">
+      <p class="win-text" id="win-text"></p>
+      <div class="new-book" id="new-book"></div>
+      <button class="listen" id="listen-all">▶️ <span id="listen-all-label"></span></button>
+      <div class="win-buttons">
+        <button class="big-btn" id="again" style="background:var(--pink)">🔁</button>
+        <button class="big-btn" id="to-shelf" style="background:var(--blue)">📚</button>
+        <a class="big-btn" href="../../index.html" style="background:var(--yellow)">🏠</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../shared/app.js"></script>
+  <script src="stories.js"></script>
+  <script src="reading.js"></script>
+</body>
+</html>

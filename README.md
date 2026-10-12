@@ -12,6 +12,7 @@ Simple learning games for 7-year-olds, in Catalan, Spanish and English. Built fo
 | 🧪 Laboratori de pocions | Adding and subtracting up to 100 (3 levels), with a collection of creatures |
 | 🎃 Laboratori de monstres | Halloween English: build the monster you hear (colours, numbers, body parts). Spoken with text-to-speech, plus a 💡 translation hint |
 | 🕵️ Agència de detectives | Cases in 4 steps: footprint → secret code (symbols or A=1) → rule out suspects with clues (logic, reading "NOT") → fingerprint match. Earns badges and detective ranks |
+| 📖 Contes en veu alta | Funny branching stories to read **out loud** (short/long). A voice meter fills while she reads, she can play back her own voice, and a question at the end adds the book to her shelf. Stories live in `games/reading/stories.js` |
 
 ## Structure
 

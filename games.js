@@ -33,4 +33,12 @@ window.MELLIS_GAMES = [
     name: { ca: 'Agència de detectives', es: 'Agencia de detectives', en: 'Detective Agency' },
     tagline: { ca: 'Pistes, codis i empremtes', es: 'Pistas, códigos y huellas', en: 'Clues, codes & prints' },
   },
+  {
+    id: 'reading',
+    path: 'games/reading/index.html',
+    icon: '📖',
+    color: '#3a86ff',
+    name: { ca: 'Contes en veu alta', es: 'Cuentos en voz alta', en: 'Read-aloud Stories' },
+    tagline: { ca: 'Llegeix i tria què passa', es: 'Lee y elige qué pasa', en: 'Read and choose what happens' },
+  },
 ];
