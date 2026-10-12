@@ -1,0 +1,20 @@
+// The game catalogue shown on the hub. To add a game: create games/<id>/index.html
+// and add one entry here.
+window.MELLIS_GAMES = [
+  {
+    id: 'memory',
+    path: 'games/memory/index.html',
+    icon: '🗓️',
+    color: '#ff6fb5',
+    name: { ca: 'Memory dels mesos', es: 'Memory de los meses', en: 'Months Memory' },
+    tagline: { ca: 'Mesos i estacions', es: 'Meses y estaciones', en: 'Months & seasons' },
+  },
+  {
+    id: 'potions',
+    path: 'games/potions/index.html',
+    icon: '🧪',
+    color: '#2ec4b6',
+    name: { ca: 'Laboratori de pocions', es: 'Laboratorio de pociones', en: 'Potion Lab' },
+    tagline: { ca: 'Sumes i restes', es: 'Sumas y restas', en: 'Adding & taking away' },
+  },
+];

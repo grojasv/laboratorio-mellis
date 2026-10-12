@@ -1,0 +1,121 @@
+:root {
+  --ink: #3a3a5c;
+  --pink: #ff6fb5;
+  --teal: #2ec4b6;
+  --yellow: #ffd23f;
+  --purple: #9b5de5;
+  --orange: #ff9f1c;
+  --blue: #3a86ff;
+  --cream: #fff8ef;
+  --radius: 28px;
+  --shadow: 0 6px 0 rgba(58, 58, 92, 0.25);
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  overscroll-behavior: none;
+}
+
+body {
+  font-family: 'Fredoka', 'Baloo 2', 'Comic Sans MS', system-ui, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 15% 20%, #ffe3f1 0 18%, transparent 19%),
+    radial-gradient(circle at 85% 10%, #dff7ff 0 14%, transparent 15%),
+    radial-gradient(circle at 80% 85%, #fff3c4 0 20%, transparent 21%),
+    linear-gradient(160deg, #ffe9f5 0%, #fdf1ff 45%, #e6f9ff 100%);
+  background-attachment: fixed;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  border: 0;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+/* Floating background bubbles */
+.bubbles { position: fixed; inset: 0; pointer-events: none; z-index: -1; overflow: hidden; }
+.bubbles span {
+  position: absolute;
+  bottom: -60px;
+  border-radius: 50%;
+  border: 3px solid rgba(155, 93, 229, 0.25);
+  background: rgba(255, 255, 255, 0.45);
+  animation: rise linear infinite;
+}
+@keyframes rise {
+  to { transform: translateY(-115vh) translateX(20px); }
+}
+
+/* Top bar: language flags + mute */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  padding-top: max(12px, env(safe-area-inset-top));
+}
+.controls { display: flex; gap: 8px; margin-left: auto; }
+.flag, .mute, .home {
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  font-weight: 700;
+  font-size: 1.05rem;
+  display: grid;
+  place-items: center;
+  transition: transform 0.12s;
+  border: 3px solid var(--ink);
+}
+.flag span {
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 8px;
+  padding: 0 5px;
+}
+.flag { opacity: 0.55; }
+.flag.active { opacity: 1; transform: scale(1.1); }
+.flag-ca { background: repeating-linear-gradient(180deg, #fcdd09 0 6px, #da121a 6px 12px); }
+.flag-es { background: linear-gradient(180deg, #aa151b 0 25%, #f1bf00 25% 75%, #aa151b 75%); }
+.flag-en {
+  background:
+    linear-gradient(90deg, transparent 42%, #c8102e 42% 58%, transparent 58%),
+    linear-gradient(180deg, transparent 40%, #c8102e 40% 60%, transparent 60%),
+    linear-gradient(90deg, transparent 36%, #fff 36% 64%, transparent 64%),
+    linear-gradient(180deg, transparent 34%, #fff 34% 66%, transparent 66%),
+    #012169;
+}
+.mute, .home { background: #fff; font-size: 1.6rem; }
+.flag:active, .mute:active, .home:active { transform: scale(0.9); }
+
+.confetti { position: fixed; inset: 0; pointer-events: none; z-index: 50; }
+
+/* Mascots */
+.mascots { width: 100%; height: auto; overflow: visible; }
+.mascots .arm-o { fill: none; stroke: var(--ink); stroke-width: 20; stroke-linecap: round; }
+.mascots .arm { fill: none; stroke: #fff; stroke-width: 14; stroke-linecap: round; }
+.mascots .kid { animation: bob 2.4s ease-in-out infinite; transform-origin: center bottom; }
+.mascots .kid-b { animation-delay: -1.2s; }
+.mascots .wave { animation: wave 1s ease-in-out infinite; transform-origin: 206px 132px; transform-box: view-box; }
+.mascots .eyes { animation: blink 4s infinite; transform-origin: center; transform-box: fill-box; }
+.mascots .bubble { animation: flaskbubble 1.4s ease-in infinite; }
+@keyframes bob { 50% { transform: translateY(-5px); } }
+@keyframes wave { 50% { transform: rotate(-18deg); } }
+@keyframes blink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.1); } }
+@keyframes flaskbubble { to { transform: translateY(-18px); opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

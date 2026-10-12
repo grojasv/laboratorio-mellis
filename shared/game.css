@@ -1,0 +1,84 @@
+/* Common layout for game pages: top bar, level picker, win screen. */
+body { min-height: 100dvh; overflow: hidden; }
+
+.home { text-decoration: none; flex: none; }
+.title {
+  flex: 1;
+  margin: 0;
+  font-size: clamp(1.1rem, 4.5vw, 1.8rem);
+  color: var(--purple);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.topbar .controls { margin-left: 0; }
+@media (max-width: 520px) {
+  .title { display: none; }
+  .topbar .controls { margin-left: auto; }
+}
+
+/* ---------- Level picker ---------- */
+.levels {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px 24px;
+  height: calc(100dvh - 90px);
+  overflow-y: auto;
+}
+.levels-mascots { width: min(60vw, 260px); }
+.levels-ask { font-size: clamp(1.3rem, 5vw, 2rem); font-weight: 700; margin: 0; text-align: center; }
+.level-buttons { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; width: 100%; }
+.level {
+  flex: 1 1 240px;
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 20px;
+  border-radius: var(--radius);
+  border: 4px solid var(--ink);
+  box-shadow: 0 8px 0 var(--ink);
+  color: #fff;
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+.level:active { transform: translateY(6px); box-shadow: 0 2px 0 var(--ink); }
+.level-icons { font-size: 2.4rem; letter-spacing: 4px; }
+.level-name { font-size: 1.8rem; font-weight: 700; text-shadow: 0 2px 0 rgba(0,0,0,.2); }
+.level-sub { font-size: 1.1rem; background: rgba(255,255,255,.9); color: var(--ink); border-radius: 999px; padding: 2px 14px; }
+
+/* ---------- Win ---------- */
+.win {
+  position: fixed; inset: 0;
+  background: rgba(58, 58, 92, 0.45);
+  display: grid; place-items: center;
+  z-index: 30;
+  padding: 16px;
+}
+.win-box {
+  background: var(--cream);
+  border: 4px solid var(--ink);
+  border-radius: 32px;
+  box-shadow: 0 10px 0 var(--ink);
+  padding: 20px;
+  width: min(420px, 100%);
+  text-align: center;
+  animation: pop-in-c 0.4s cubic-bezier(.3, 1.6, .6, 1);
+}
+#mascots-win { width: 70%; margin: 0 auto; }
+@keyframes pop-in-c { from { transform: scale(0.5); opacity: 0; } }
+.win-text { font-size: 2rem; font-weight: 700; margin: 8px 0 16px; color: var(--pink); }
+.win-buttons { display: flex; gap: 14px; justify-content: center; }
+.big-btn {
+  width: 84px; height: 84px;
+  border-radius: 24px;
+  border: 4px solid var(--ink);
+  box-shadow: 0 6px 0 var(--ink);
+  font-size: 2.4rem;
+  display: grid; place-items: center;
+  text-decoration: none;
+}
+.big-btn:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--ink); }
