@@ -117,7 +117,13 @@
   // The twin scientists. `mood` = 'wave' | 'cheer'
   function mascotsSVG(mood) {
     const cheer = mood === 'cheer';
-    function kid(x, hair, goggles, flip) {
+    function kid(x, goggles, accent, flip) {
+      // Long hair with two pigtails tied with bows in the twin's colour
+      const hair =
+        `M${x - 38} 78 q-6 -38 38 -42 q42 0 40 40 q-14 -18 -40 -14 q-24 -2 -38 16 z` +
+        `M${x - 34} 70 q-28 8 -26 44 q4 14 16 4 q-8 -22 12 -40 z` +
+        `M${x + 34} 70 q28 8 26 44 q-4 14 -16 4 q8 -22 -12 -40 z`;
+      const bow = (bx) => `<path d="M${bx} 72 l-11 -8 v16 z M${bx} 72 l11 -8 v16 z" fill="${accent}" stroke="#3a3a5c" stroke-width="2.5" stroke-linejoin="round"/><circle cx="${bx}" cy="72" r="4" fill="${accent}" stroke="#3a3a5c" stroke-width="2.5"/>`;
       const arms = cheer
         ? [`M${x - 26} 132 q-14 -30 -6 -50`, `M${x + 26} 132 q14 -30 6 -50`]
         : flip
@@ -136,6 +142,7 @@
         <circle cx="${x + 14}" cy="160" r="3" fill="#ff6fb5"/>
         <circle cx="${x}" cy="88" r="38" fill="#ffd9b8" stroke="#3a3a5c" stroke-width="3"/>
         <path d="${hair}" fill="#6b3f2a" stroke="#3a3a5c" stroke-width="3" stroke-linejoin="round"/>
+        ${bow(x - 40)}${bow(x + 40)}
         <rect x="${x - 38}" y="62" width="76" height="8" rx="4" fill="#3a3a5c"/>
         <circle cx="${x - 14}" cy="64" r="11" fill="${goggles}" stroke="#3a3a5c" stroke-width="3"/>
         <circle cx="${x + 14}" cy="64" r="11" fill="${goggles}" stroke="#3a3a5c" stroke-width="3"/>
@@ -145,11 +152,9 @@
         <path d="M${x - 10} 106 q10 ${cheer ? 14 : 10} 20 0" fill="${cheer ? '#ff6f91' : 'none'}" stroke="#3a3a5c" stroke-width="3" stroke-linecap="round"/>
       </g>`;
     }
-    const hairA = 'M62 72 q-4 -34 38 -38 q38 0 40 34 q-10 -10 -20 -8 q-10 -12 -22 -4 q-14 -8 -36 16 z';
-    const hairB = 'M142 74 q-6 -36 36 -40 q40 2 40 38 q-18 -18 -40 -12 q-18 -4 -36 14 z M212 66 q22 4 18 26 q-12 -6 -18 -26 z M146 66 q-22 4 -18 26 q12 -6 18 -26 z';
     return `<svg class="mascots" viewBox="40 20 220 175" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      ${kid(100, hairA, '#7ef0e6', false)}
-      ${kid(180, hairB, '#ffb3d9', true)}
+      ${kid(100, '#ffb3d9', '#ff6fb5', false)}
+      ${kid(180, '#d4b8ff', '#9b5de5', true)}
     </svg>`;
   }
 
