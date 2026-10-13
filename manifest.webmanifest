@@ -1,0 +1,20 @@
+{
+  "id": "./",
+  "name": "Laboratorio Mellis",
+  "short_name": "Mellis",
+  "description": "Jocs per aprendre en català, castellà i anglès — learning games for kids.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#ffe9f5",
+  "theme_color": "#ffe9f5",
+  "lang": "ca",
+  "categories": ["education", "games", "kids"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

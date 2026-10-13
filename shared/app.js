@@ -288,9 +288,33 @@
     })();
   }
 
+  // ---------- Installable web app (offline + home-screen icon) ----------
+  const appScript = document.currentScript;
+  if ('serviceWorker' in navigator && location.protocol.startsWith('http') && appScript) {
+    navigator.serviceWorker.register(new URL('../sw.js', appScript.src)).catch(() => { /* ignore */ });
+  }
+  // Chrome/Android offer an install prompt we can trigger from our own button.
+  let installEvent = null;
+  const installListeners = [];
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    installEvent = e;
+    installListeners.forEach((fn) => fn(true));
+  });
+  window.addEventListener('appinstalled', () => { installEvent = null; installListeners.forEach((fn) => fn(false)); });
+  function onInstallable(fn) { installListeners.push(fn); fn(!!installEvent); }
+  async function install() {
+    if (!installEvent) return;
+    installEvent.prompt();
+    await installEvent.userChoice;
+    installEvent = null;
+    installListeners.forEach((fn) => fn(false));
+  }
+
   window.Mellis = {
     LANGS, get lang() { return lang; }, setLang, t, onLang: (fn) => langListeners.push(fn),
     sounds, speak, canSpeak, isMuted, setMuted, mountControls, mascotsSVG, playfulMascots, confetti,
+    onInstallable, install,
   };
   document.documentElement.lang = lang;
 })();

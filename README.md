@@ -27,11 +27,18 @@ shared/game.css     top bar, level picker, win screen for game pages
 games/<id>/         one folder per game
 ```
 
+### Installable app
+
+It's a PWA: `manifest.webmanifest` + `sw.js` (offline cache) + `icons/`. On iPhone/iPad: Safari → Share → *Add to Home Screen*. On Android/Chrome: the hub shows an "Install" button (or menu → *Install app*).
+
+`sw.js` serves files from the cache and refreshes them in the background, so changes appear on the second open after a deploy.
+
 ### Adding a game
 
 1. Create `games/<id>/index.html`. Copy an existing game for the top bar and the shared scripts.
 2. Add an entry to `games.js`.
-3. Use only relative paths. Pages are served under `/laboratorio-mellis/`.
+3. Add its files to `PRECACHE` in `sw.js` so it works offline from the start.
+4. Use only relative paths. Pages are served under `/laboratorio-mellis/`.
 
 ### Run locally
 
