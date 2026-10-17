@@ -25,6 +25,10 @@ body.night {
   margin: 0 auto;
 }
 
+.status { display: flex; gap: 14px; align-items: center; }
+#win-stars { margin-bottom: 8px; }
+.parade.gold div { filter: drop-shadow(0 0 10px #ffd23f); position: relative; }
+.parade.gold div::before { content: "👑"; position: absolute; top: -18px; left: 50%; transform: translateX(-50%); font-size: 1.4rem; }
 .progress { display: flex; gap: 8px; font-size: 1.6rem; }
 .progress span { opacity: 0.25; filter: grayscale(1); transition: all 0.3s; }
 .progress span.done { opacity: 1; filter: none; transform: scale(1.2); }

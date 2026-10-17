@@ -2,6 +2,7 @@
   const M = window.Mellis;
   const INK = '#3a3a5c';
   const SOLVED_KEY = 'mellis.detective.solved';
+  const GOLD_KEY = 'mellis.detective.gold';    // cases solved with ⭐⭐⭐
 
   // ---------- Content ----------
   const ANIMALS = ['🦊', '🐱', '🐰', '🐻', '🐭', '🐸', '🐷', '🐼', '🐵', '🐶', '🐯', '🐨'];
@@ -82,6 +83,12 @@
 
   function solvedCount() {
     try { return parseInt(localStorage.getItem(SOLVED_KEY), 10) || 0; } catch (e) { return 0; }
+  }
+  function goldCount() {
+    try { return parseInt(localStorage.getItem(GOLD_KEY), 10) || 0; } catch (e) { return 0; }
+  }
+  function addGold() {
+    try { localStorage.setItem(GOLD_KEY, String(goldCount() + 1)); } catch (e) { /* ignore */ }
   }
   function setSolved(n) {
     try { localStorage.setItem(SOLVED_KEY, String(n)); } catch (e) { /* ignore */ }
@@ -236,8 +243,11 @@
   function renderLobby() {
     const n = solvedCount();
     $('rank').textContent = '🕵️ ' + M.t(rankFor(n));
+    const gold = Math.min(goldCount(), n);
+    const shown = Math.min(n, 20);
+    const g = Math.min(gold, shown);
     $('badges').innerHTML = n
-      ? '🏅'.repeat(Math.min(n, 20)) + (n > 20 ? ` +${n - 20}` : '')
+      ? '🥇'.repeat(g) + '🏅'.repeat(shown - g) + (n > 20 ? ` +${n - 20}` : '')
       : '<span class="empty">🏅🏅🏅</span>';
     $('new-case-label').textContent = M.t(TEXT.newCase);
   }
@@ -291,7 +301,12 @@
   });
 
   // ---------- Steps ----------
+  // The Mellis rule: 3 hearts per case, "oh oh" + pause on mistakes,
+  // 0 hearts = a brand-new case (so remembered answers don't help)
+  const round = M.round({ heartsEl: $('hearts'), onOut: () => newCase() });
+
   function newCase() {
+    round.start();
     kase = makeCase();
     revealed = 0;
     show('intro');
@@ -309,8 +324,17 @@
   }
   $('foot-choices').addEventListener('click', (e) => {
     const b = e.target.closest('.choice');
-    if (!b) return;
-    if (b.dataset.shoe !== kase.clues[0].val) { M.sounds.miss(); bump(b); return; }
+    if (!b || round.busy || b.classList.contains('used')) return;
+    if (b.dataset.shoe !== kase.clues[0].val) {
+      bump(b);
+      b.classList.add('used');
+      round.wrong('foot').then(({ reveal }) => {
+        if (!reveal) return;
+        document.querySelector(`.choice[data-shoe="${kase.clues[0].val}"]`).classList.add('reveal');
+        setTimeout(() => giveClue(startCode), 1400);
+      });
+      return;
+    }
     giveClue(startCode);
   });
 
@@ -337,17 +361,31 @@
   }
   $('key').addEventListener('click', (e) => {
     const b = e.target.closest('.keybtn');
-    if (!b || codeIdx >= codeWord.length) return;
-    if (b.dataset.l !== codeWord[codeIdx]) { M.sounds.miss(); bump(b); return; }
+    if (!b || codeIdx >= codeWord.length || round.busy) return;
+    if (b.dataset.l !== codeWord[codeIdx]) {
+      bump(b);
+      const at = codeIdx;
+      round.wrong('code' + at).then(({ reveal }) => {
+        if (!reveal || codeIdx !== at) return;
+        const right = document.querySelector(`.keybtn[data-l="${codeWord[at]}"]`);
+        right.classList.add('reveal');
+        setTimeout(() => { right.classList.remove('reveal'); typeLetter(codeWord[at]); }, 1400);
+      });
+      return;
+    }
+    typeLetter(b.dataset.l);
+  });
+
+  function typeLetter(l) {
     M.sounds.flip();
     const slots = $('note').children;
-    slots[codeIdx].querySelector('.let').textContent = b.dataset.l;
+    slots[codeIdx].querySelector('.let').textContent = l;
     slots[codeIdx].classList.remove('now');
     codeIdx++;
     if (codeIdx < codeWord.length) { slots[codeIdx].classList.add('now'); return; }
     $('note').classList.add('solved');
     setTimeout(() => giveClue(startSuspects), 600);
-  });
+  }
 
   function startSuspects() {
     show('suspects');
@@ -360,23 +398,37 @@
   // A cross-out only counts if a clue she already has rules that suspect out.
   $('suspects').addEventListener('click', (e) => {
     const b = e.target.closest('.suspect');
-    if (!b || b.classList.contains('out') || !$('clue-pop').hidden) return;
+    if (!b || b.classList.contains('out') || !$('clue-pop').hidden || round.busy) return;
     const s = kase.suspects[+b.dataset.i];
     const known = kase.clues.slice(0, revealed);
     if (known.every((c) => matches(s, c))) {
-      M.sounds.miss();
       b.classList.remove('nope'); void b.offsetWidth; b.classList.add('nope');
-      say(M.t(TEXT.notYet));
+      round.wrong('suspects' + revealed).then(({ reveal }) => {
+        if (!reveal) return;
+        // 2nd miss with these clues: show who the clues rule out
+        const cards = [...$('suspects').children];
+        cards.forEach((c, i) => {
+          if (!c.classList.contains('out') && !known.every((k) => matches(kase.suspects[i], k))) c.classList.add('reveal');
+        });
+        setTimeout(() => {
+          cards.forEach((c) => { if (c.classList.contains('reveal')) { c.classList.remove('reveal'); c.classList.add('out'); } });
+          afterCross(known);
+        }, 1600);
+      });
       return;
     }
     b.classList.add('out');
     M.sounds.pop();
+    afterCross(known);
+  });
+
+  function afterCross(known) {
     const standing = kase.suspects.filter((x, i) => !$('suspects').children[i].classList.contains('out'));
     const pending = standing.filter((x) => !known.every((c) => matches(x, c)));
     if (pending.length) return;
     if (standing.length === 1) { setTimeout(startPrint, 700); return; }
     setTimeout(() => giveClue(renderClues), 500);
-  });
+  }
 
   function startPrint() {
     show('print');
@@ -387,18 +439,30 @@
   }
   $('prints').addEventListener('click', (e) => {
     const b = e.target.closest('.print');
-    if (!b) return;
-    if (b.dataset.ok !== '1') { M.sounds.miss(); bump(b); return; }
+    if (!b || round.busy || b.classList.contains('used')) return;
+    if (b.dataset.ok !== '1') {
+      bump(b);
+      b.classList.add('used');
+      round.wrong('print').then(({ reveal }) => {
+        if (!reveal) return;
+        document.querySelector('.print[data-ok="1"]').classList.add('reveal');
+        setTimeout(solved, 1400);
+      });
+      return;
+    }
     solved();
   });
 
   function solved() {
     const n = solvedCount() + 1;
     setSolved(n);
+    const stars = round.stars();
+    if (stars === 3) addGold();
+    $('win-stars').innerHTML = M.starsHTML(stars);
     const thief = kase.suspects.find((s) => s.thief);
     $('win-text').textContent = M.t(TEXT.caught);
     $('caught').innerHTML = `${thief.animal}<small>${kase.crime.item}</small>`;
-    $('win-rank').textContent = `🏅 ${n} · ${M.t(rankFor(n))}`;
+    $('win-rank').textContent = `${stars === 3 ? '🥇' : '🏅'} ${n} · ${M.t(rankFor(n))}`;
     $('win').hidden = false;
     M.sounds.win();
     M.confetti();

@@ -80,6 +80,8 @@
   75% { transform: rotateY(180deg) translateX(6px); }
 }
 
+.win-stars { margin: -8px 0 16px; }
+
 /* ---------- Toast ---------- */
 .toast {
   position: fixed;

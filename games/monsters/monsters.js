@@ -179,8 +179,12 @@
   let level = 1, order = null, built = {}, made = [], busy = false;
   renderText();
 
+  // The Mellis rule: 3 hearts, "oh oh" + pause on mistakes, 0 hearts = new round
+  const round = M.round({ heartsEl: $('hearts'), onOut: () => start(level) });
+
   function start(lvl) {
     level = lvl;
+    round.start();
     made = [];
     order = null;
     $('levels').hidden = true;
@@ -251,12 +255,16 @@
     const wrong = Object.keys(order).filter((p) => built[p] !== order[p]);
     if (wrong.length) {
       drawMonster('nope');
-      M.sounds.miss();
-      wrong.forEach((p) => {
-        const row = document.querySelector(`.row[data-part="${p}"]`);
-        row.classList.remove('wrong'); void row.offsetWidth; row.classList.add('wrong');
+      busy = true;
+      round.wrong('monster' + made.length).then(({ reveal }) => {
+        busy = false;
+        if (!reveal) return;
+        // 2nd miss on this monster: now show which parts are wrong
+        wrong.forEach((p) => {
+          const row = document.querySelector(`.row[data-part="${p}"]`);
+          row.classList.remove('wrong'); void row.offsetWidth; row.classList.add('wrong');
+        });
       });
-      M.speak(find(wrong[0], order[wrong[0]]).en);
       return;
     }
     busy = true;
@@ -274,6 +282,9 @@
   });
 
   function party() {
+    const stars = round.stars();
+    $('win-stars').innerHTML = M.starsHTML(stars);
+    $('parade').classList.toggle('gold', stars === 3);
     $('parade').innerHTML = made.map((s) => `<div>${monsterSVG(s)}</div>`).join('');
     $('win').hidden = false;
     M.sounds.win();

@@ -75,6 +75,7 @@
     },
     miss() { tone(330, 0, 0.25, 'sine', 0.18, 200); },
     giggle() { [880, 1047, 880, 1175, 988].forEach((f, i) => tone(f, i * 0.07, 0.07, 'sine', 0.2)); },
+    ohoh() { tone(520, 0, 0.2, 'triangle', 0.25, 500); tone(380, 0.24, 0.35, 'triangle', 0.25, 330); },
     raspberry() { tone(140, 0, 0.45, 'sawtooth', 0.12, 90); },
     sneeze() { tone(600, 0, 0.25, 'sine', 0.12, 900); tone(1400, 0.3, 0.12, 'square', 0.1, 300); },
     win() {
@@ -191,7 +192,7 @@
         <circle cx="${x + 14}" cy="64" r="11" fill="${goggles}" stroke="#3a3a5c" stroke-width="3"/>
         <circle cx="${x - 17}" cy="61" r="3" fill="#fff"/><circle cx="${x + 11}" cy="61" r="3" fill="#fff"/>
         <circle cx="${x - 22}" cy="104" r="6" fill="#ff9ec7" opacity=".7"/><circle cx="${x + 22}" cy="104" r="6" fill="#ff9ec7" opacity=".7"/>
-        <g class="face">${faceSVG(x, cheer ? 'laugh' : 'happy')}</g>
+        <g class="face">${faceSVG(x, cheer ? 'laugh' : mood === 'oops' ? (flip ? 'dizzy' : 'surprised') : 'happy')}</g>
       </g>`;
     }
     return `<svg class="mascots" viewBox="40 20 220 175" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -260,6 +261,93 @@
     sneeze: () => sounds.sneeze(), love: () => sounds.match(), starry: () => sounds.match(),
   };
 
+  // ---------- The Mellis rule: hearts, "oh oh", stars ----------
+  // Every interactive game uses this so guessing never pays:
+  //  * 3 hearts per round; a wrong answer breaks one, says "oh oh!" and pauses 2 s
+  //  * the 2nd miss on the same question reveals the answer (the game decides how)
+  //  * hearts left at the end = stars; 3 stars = golden reward
+  //  * 0 hearts: silly-sad twins, then the whole round restarts with new questions
+  const RULE_TEXT = {
+    ohoh: { ca: 'Oh, oh!', es: '¡Oh, oh!', en: 'Uh oh!' },
+    out: { ca: 'Oh, oh! No queden cors!', es: '¡Oh, oh! ¡No quedan corazones!', en: 'Uh oh! No hearts left!' },
+    again: { ca: 'Tornem-hi!', es: '¡Otra vez!', en: 'Try again!' },
+  };
+  const HEARTS = 3;
+  const PAUSE_MS = 2000;
+
+  function ruleLayer() {
+    let el = document.getElementById('mellis-rule');
+    if (el) return el;
+    el = document.createElement('div');
+    el.id = 'mellis-rule';
+    el.innerHTML = `
+      <div class="ohoh" hidden><span class="ohoh-heart">💔</span><span class="ohoh-text"></span></div>
+      <div class="out" hidden><div class="out-box">
+        <div class="out-twins"></div><p class="out-text"></p>
+        <button class="out-btn">🔁 <span></span></button>
+      </div></div>`;
+    document.body.appendChild(el);
+    return el;
+  }
+
+  // round = M.round({ heartsEl, onOut }) ... round.start(), round.wrong(key), round.stars()
+  function round(opts) {
+    let hearts = HEARTS, misses = {}, busy = false;
+    function draw(broken) {
+      if (!opts.heartsEl) return;
+      opts.heartsEl.classList.add('hearts');
+      opts.heartsEl.innerHTML = Array.from({ length: HEARTS }, (_, i) =>
+        `<span class="${i < hearts ? '' : 'lost'}${i === broken ? ' breaking' : ''}">${i < hearts ? '❤️' : '🤍'}</span>`).join('');
+    }
+    function start() { hearts = HEARTS; misses = {}; busy = false; draw(); }
+    // Call on every wrong answer. Resolves after the pause with
+    // { reveal: true } on the 2nd miss of `key`, or never if the hearts ran out.
+    function wrong(key) {
+      if (busy) return new Promise(() => {});
+      busy = true;
+      hearts--;
+      misses[key] = (misses[key] || 0) + 1;
+      draw(hearts);
+      const layer = ruleLayer();
+      const oh = layer.querySelector('.ohoh');
+      layer.querySelector('.ohoh-text').textContent = t(RULE_TEXT.ohoh);
+      oh.hidden = false;
+      oh.style.animation = 'none'; void oh.offsetWidth; oh.style.animation = '';
+      sounds.ohoh();
+      speak(t(RULE_TEXT.ohoh).replace(/[¡!]/g, ''), lang);
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          oh.hidden = true;
+          busy = false;
+          if (hearts <= 0) { showOut(); return; }
+          resolve({ reveal: misses[key] >= 2 });
+        }, PAUSE_MS);
+      });
+    }
+    function showOut() {
+      const layer = ruleLayer();
+      const out = layer.querySelector('.out');
+      layer.querySelector('.out-twins').innerHTML = mascotsSVG('oops');
+      layer.querySelector('.out-text').textContent = t(RULE_TEXT.out);
+      layer.querySelector('.out-btn span').textContent = t(RULE_TEXT.again);
+      out.hidden = false;
+      sounds.boing();
+      speak(t(RULE_TEXT.out).replace(/[¡!]/g, ''), lang);
+      layer.querySelector('.out-btn').onclick = () => {
+        sounds.pop();
+        out.hidden = true;
+        opts.onOut();
+      };
+    }
+    return { start, wrong, stars: () => Math.max(1, hearts), get busy() { return busy; } };
+  }
+
+  // ⭐⭐☆ for win screens
+  function starsHTML(n) {
+    return `<span class="stars${n === 3 ? ' gold' : ''}">` +
+      [0, 1, 2].map((i) => `<span class="${i < n ? '' : 'off'}">⭐</span>`).join('') + '</span>';
+  }
+
   // Confetti burst on a full-screen canvas.
   function confetti() {
     const canvas = document.createElement('canvas');
@@ -314,7 +402,7 @@
   window.Mellis = {
     LANGS, get lang() { return lang; }, setLang, t, onLang: (fn) => langListeners.push(fn),
     sounds, speak, canSpeak, isMuted, setMuted, mountControls, mascotsSVG, playfulMascots, confetti,
-    onInstallable, install,
+    onInstallable, install, round, starsHTML,
   };
   document.documentElement.lang = lang;
 })();

@@ -2,6 +2,7 @@
   const M = window.Mellis;
   const STORIES = window.MELLIS_STORIES;
   const DONE_KEY = 'mellis.reading.done';
+  const GOLD_KEY = 'mellis.reading.gold';      // stories finished with ⭐⭐⭐
   const MS_PER_WORD = 300;   // voiced time needed per word (pauses don't count)
   const PATH_LEN = { short: 3, long: 5 };
 
@@ -33,6 +34,14 @@
   function doneList() {
     try { return JSON.parse(localStorage.getItem(DONE_KEY)) || []; } catch (e) { return []; }
   }
+  function goldList() {
+    try { return JSON.parse(localStorage.getItem(GOLD_KEY)) || []; } catch (e) { return []; }
+  }
+  function markGold(id) {
+    const list = goldList();
+    if (!list.includes(id)) list.push(id);
+    try { localStorage.setItem(GOLD_KEY, JSON.stringify(list)); } catch (e) { /* ignore */ }
+  }
   function markDone(id) {
     const list = doneList();
     if (!list.includes(id)) list.push(id);
@@ -52,18 +61,18 @@
   }
 
   // ---------- Shelf ----------
-  function bookHTML(s, done) {
-    return `<button class="book" data-id="${s.id}" style="background:${s.color}">
+  function bookHTML(s, done, gold) {
+    return `<button class="book${gold ? ' golden' : ''}" data-id="${s.id}" style="background:${s.color}">
       <span class="b-icon">${s.icon}</span><span class="b-title">${M.t(s.title)}</span>
-      ${done ? '<span class="b-done">⭐</span>' : ''}</button>`;
+      ${done ? `<span class="b-done">${gold ? '🌟' : '⭐'}</span>` : ''}</button>`;
   }
   function renderShelf() {
-    const done = doneList();
+    const done = doneList(), gold = goldList();
     $('tab-short').textContent = M.t(TEXT.short);
     $('tab-long').textContent = M.t(TEXT.long);
     document.querySelectorAll('.tab').forEach((t) => t.classList.toggle('on', t.dataset.level === level));
     $('books').innerHTML = STORIES.filter((s) => s.level === level)
-      .map((s) => bookHTML(s, done.includes(s.id))).join('');
+      .map((s) => bookHTML(s, done.includes(s.id), gold.includes(s.id))).join('');
   }
   document.querySelector('.tabs').addEventListener('click', (e) => {
     const t = e.target.closest('.tab');
@@ -289,8 +298,12 @@
   $('listen-all').addEventListener('click', () => { M.sounds.pop(); play(path.map((id) => recordings[id])); });
 
   // ---------- Quiz & finish ----------
+  // The Mellis rule: hearts on the question, "oh oh" + pause, 2nd miss shows the answer
+  const round = M.round({ heartsEl: $('hearts'), onOut: () => startStory(story) });
+
   function startQuiz() {
     show('quiz');
+    round.start();
     quizOrder = shuffle(story.question.options.map((o, i) => i));
     renderQuiz();
   }
@@ -302,15 +315,26 @@
   }
   $('answers').addEventListener('click', (e) => {
     const b = e.target.closest('.answer');
-    if (!b) return;
-    if (b.dataset.i !== '0') { M.sounds.miss(); b.classList.add('wrong'); return; }
+    if (!b || round.busy || b.classList.contains('wrong')) return;
+    if (b.dataset.i !== '0') {
+      b.classList.add('wrong');
+      round.wrong('quiz').then(({ reveal }) => {
+        if (!reveal) return;
+        document.querySelector('.answer[data-i="0"]').classList.add('reveal');
+        setTimeout(finish, 1600);
+      });
+      return;
+    }
     finish();
   });
 
   function finish() {
     markDone(story.id);
+    const stars = round.stars();
+    if (stars === 3) markGold(story.id);
+    $('win-stars').innerHTML = M.starsHTML(stars);
     $('win-text').textContent = M.t(TEXT.win);
-    $('new-book').innerHTML = bookHTML(story, true);
+    $('new-book').innerHTML = bookHTML(story, true, stars === 3);
     $('listen-all-label').textContent = M.t(TEXT.listenAll);
     $('listen-all').hidden = !path.some((id) => recordings[id]);
     $('win').hidden = false;
@@ -330,7 +354,7 @@
     if (screen === 'quiz' && story) renderQuiz();
     if (!$('win').hidden) {
       $('win-text').textContent = M.t(TEXT.win);
-      $('new-book').innerHTML = bookHTML(story, true);
+      $('new-book').innerHTML = bookHTML(story, true, goldList().includes(story.id));
       $('listen-all-label').textContent = M.t(TEXT.listenAll);
     }
   }

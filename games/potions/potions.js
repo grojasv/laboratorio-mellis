@@ -2,6 +2,7 @@
   const M = window.Mellis;
   const ROUND = 10;                       // correct answers needed per potion
   const STORE_KEY = 'mellis.potions.creatures';
+  const GOLD_KEY = 'mellis.potions.gold';      // creatures won with ⭐⭐⭐
 
   const CREATURES = ['🐉', '🦄', '🐙', '🦖', '🐸', '🦊', '🐼', '🦋',
     '🐢', '🦉', '🐳', '👾', '🐝', '🦩', '🐧', '🦔'];
@@ -75,6 +76,14 @@
   function owned() {
     try { return JSON.parse(localStorage.getItem(STORE_KEY)) || []; } catch (e) { return []; }
   }
+  function golden() {
+    try { return JSON.parse(localStorage.getItem(GOLD_KEY)) || []; } catch (e) { return []; }
+  }
+  function addGolden(c) {
+    const list = golden();
+    if (!list.includes(c)) list.push(c);
+    try { localStorage.setItem(GOLD_KEY, JSON.stringify(list)); } catch (e) { /* ignore */ }
+  }
   function addCreature(c) {
     const list = owned();
     if (!list.includes(c)) list.push(c);
@@ -122,8 +131,12 @@
   // ---------- Game ----------
   let level = 1, done = 0, current = null, busy = false, seen = new Set();
 
+  // The Mellis rule: 3 hearts, "oh oh" + pause on mistakes, 0 hearts = new round
+  const round = M.round({ heartsEl: $('hearts'), onOut: () => start(level) });
+
   function start(lvl) {
     level = lvl;
+    round.start();
     done = 0;
     seen = new Set();
     $('levels').hidden = true;
@@ -154,10 +167,21 @@
     if (!btn || busy) return;
     if (+btn.dataset.n !== current.answer) {
       btn.classList.add('wrong');
-      M.sounds.miss();
+      busy = true;
+      round.wrong(current.key).then(({ reveal }) => {
+        if (!reveal) { busy = false; return; }
+        // 2nd miss: show the right bottle, then pour it
+        const right = [...$('answers').children].find((b) => +b.dataset.n === current.answer);
+        right.classList.add('reveal');
+        setTimeout(() => pour(right), 1400);
+      });
       return;
     }
     busy = true;
+    pour(btn);
+  });
+
+  function pour(btn) {
     const color = btn.style.background;
     $('question').querySelector('.q').textContent = current.answer;
     M.sounds.pop();
@@ -174,7 +198,7 @@
       if (done === ROUND) setTimeout(finish, 600);
       else setTimeout(next, 700);
     });
-  });
+  }
 
   // A drop of the bottle's colour arcs into the cauldron.
   function flyInto(btn, color, then) {
@@ -206,9 +230,13 @@
       const fresh = CREATURES.filter((c) => !have.includes(c));
       const creature = pick(fresh.length ? fresh : CREATURES);
       addCreature(creature);
+      const stars = round.stars();
+      if (stars === 3) addGolden(creature);
+      $('win-stars').innerHTML = M.starsHTML(stars);
       const el = $('creature');
       el.textContent = creature;
-      el.style.background = pick(COLORS);
+      el.classList.toggle('golden', stars === 3);
+      el.style.background = stars === 3 ? 'radial-gradient(circle, #fff6c9, #ffd23f)' : pick(COLORS);
       el.style.animation = 'none'; void el.offsetWidth; el.style.animation = '';
       $('win').hidden = false;
       renderText();
@@ -218,9 +246,9 @@
   }
 
   function showShelf() {
-    const have = owned();
+    const have = owned(), gold = golden();
     $('shelf-grid').innerHTML = CREATURES.map((c) =>
-      `<span class="${have.includes(c) ? '' : 'locked'}"><i>${c}</i></span>`).join('');
+      `<span class="${!have.includes(c) ? 'locked' : gold.includes(c) ? 'gold' : ''}"><i>${c}</i></span>`).join('');
     $('shelf').hidden = false;
   }
 

@@ -44,6 +44,8 @@ body.agency {
 
 /* ---------- Case ---------- */
 .case { display: flex; flex-direction: column; gap: 10px; height: calc(100dvh - 84px); }
+.case-hearts { display: flex; justify-content: center; margin-bottom: -4px; }
+.choice.used, .keybtn.used, .print.used { opacity: .4; }
 .steps { display: flex; justify-content: center; gap: 10px; font-size: 1.5rem; }
 .steps span { opacity: .3; filter: grayscale(1); transition: all .3s; }
 .steps span.done { opacity: .8; filter: none; }

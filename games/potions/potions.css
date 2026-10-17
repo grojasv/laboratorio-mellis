@@ -24,6 +24,9 @@
   margin: 0 auto;
 }
 
+#hearts { margin-bottom: -4px; }
+#win-stars { margin: -6px 0 10px; }
+.shelf-grid span.gold { background: radial-gradient(circle, #fff6c9, #ffd23f); box-shadow: 0 0 12px 3px rgba(255, 210, 63, .8); }
 .progress { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
 .progress span {
   width: clamp(20px, 6vw, 30px);

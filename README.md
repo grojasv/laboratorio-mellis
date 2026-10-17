@@ -14,6 +14,10 @@ Simple learning games for 7-year-olds, in Catalan, Spanish and English. Built fo
 | 🕵️ Agència de detectives | Cases in 4 steps: footprint → secret code (symbols or A=1) → rule out suspects with clues (logic, reading "NOT") → fingerprint match. Earns badges and detective ranks |
 | 📖 Contes en veu alta | Funny branching stories to read **out loud** (short/long). A voice meter fills while she reads, she can play back her own voice, and a question at the end adds the book to her shelf. Stories live in `games/reading/stories.js` |
 
+## Game rules
+
+Every interactive game follows **the Mellis rule** (see `CLAUDE.md`): 3 hearts ❤️❤️❤️, a wrong answer = 💔 + "oh oh!" + a 2-second pause, no hints, the 2nd miss on a question reveals the answer, hearts left = stars, ⭐⭐⭐ = golden reward, 0 hearts = the round restarts with new questions. Memory uses stars only.
+
 ## Structure
 
 Plain HTML/CSS/JS, with no build step.
@@ -36,7 +40,7 @@ It's a PWA: `manifest.webmanifest` + `sw.js` (offline cache) + `icons/`. On iPho
 ### Adding a game
 
 1. Create `games/<id>/index.html`. Copy an existing game for the top bar and the shared scripts.
-2. Add an entry to `games.js`.
+2. Add an entry to `games.js` and follow the Mellis rule (`Mellis.round()`).
 3. Add its files to `PRECACHE` in `sw.js` so it works offline from the start.
 4. Use only relative paths. Pages are served under `/laboratorio-mellis/`.
 

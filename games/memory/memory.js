@@ -24,8 +24,9 @@
   ].map((m, i) => ({ ...m, num: i + 1 }));
 
   const LEVELS = {
-    easy: { items: () => SEASONS, hint: true },
-    medium: { items: () => shuffle(MONTHS.slice()).slice(0, 8), hint: false },
+    // stars: mismatches allowed for ⭐⭐⭐ / ⭐⭐ (Memory has no hearts: flipping is the game)
+    easy: { items: () => SEASONS, hint: true, stars: [2, 5] },
+    medium: { items: () => shuffle(MONTHS.slice()).slice(0, 8), hint: false, stars: [6, 12] },
   };
 
   const TEXT = {
@@ -73,6 +74,7 @@
   let open = [];      // indexes of face-up, unmatched cards (max 2)
   let locked = false;
   let found = 0;
+  let misses = 0;
 
   function start(lvl) {
     level = lvl;
@@ -88,6 +90,7 @@
     open = [];
     locked = false;
     found = 0;
+    misses = 0;
     $('levels').hidden = true;
     $('win').hidden = true;
     $('play').hidden = false;
@@ -166,6 +169,7 @@
         if (++found === cards.length / 2) setTimeout(win, 700);
       }, 350);
     } else {
+      misses++;
       setTimeout(() => {
         els.forEach((x) => x.classList.add('shake'));
         M.sounds.miss();
@@ -190,6 +194,8 @@
   }
 
   function win() {
+    const [three, two] = LEVELS[level].stars;
+    $('win-stars').innerHTML = M.starsHTML(misses <= three ? 3 : misses <= two ? 2 : 1);
     $('toast').hidden = true;
     $('win').hidden = false;
     M.sounds.win();
