@@ -4,6 +4,10 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.10.3] — 2026-10-17
+### Changed
+- `CLAUDE.md`: new "Small phones" rule for every current and future game (test at 320×568 and 390×844, main action always on screen, `.stick-bottom`, no scroll lock, scrollable overlays).
+
 ## [1.10.2] — 2026-10-17
 ### Fixed
 - Continue buttons stay in reach on short phones: shared `.stick-bottom` (sticky to the bottom of the screen) on the Puppet Show ➡️ (builder, *All about me*), ▶️ *Watch the show*, the detective 🕵️/🔎 buttons and the hub news 👍.

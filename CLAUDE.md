@@ -13,6 +13,16 @@ Guessing must never pay. Use the shared `Mellis.round()` from `shared/app.js`; d
 5. **0 hearts** → silly-sad twins + "Oh, oh! No queden cors!" → the **whole round restarts with new questions** (`onOut`), never the same ones.
 6. Exception — **Memory-style games** (exploring is the mechanic): no hearts, stars from the number of mismatches.
 
+## Small phones (every screen, current and future)
+
+She must never need to know she has to scroll to continue.
+
+1. **Test every flow at 320×568 and 390×844** (start → each step → win/overlays), not just the first screen.
+2. **Main action always on screen**: the continue / ➡️ / ▶️ button, the 🎙️ and the answer options must be visible without scrolling. Prefer compact layouts on short screens (`@media (max-height: 700–760px)`) over relying on scroll.
+3. If a screen can be taller than the phone (pickers, long lists), give its continue button `class="stick-bottom"` (shared, sticky to the bottom). Never let a floating button cover something she must tap (e.g. a keyboard) — put the button beside it instead (see the puppet name step).
+4. Never lock page scroll (`overflow: hidden` on `body`); only `overflow-x`. Overlays/pop-ups (`position: fixed`) must scroll inside when taller than the screen (`display: flex; overflow-y: auto` + `margin: auto` on the box).
+5. No horizontal overflow at 320 px (grids use `minmax(min(100%, Npx), 1fr)` with N small enough for 2 columns).
+
 ## Changelogs (update on every change, in the same commit)
 - **`CHANGELOG.md`** — technical, Keep a Changelog + SemVer (new game/feature = minor, fix = patch). Add a new version section at the top.
 - **`news.js`** — kid-facing news for the hub's 🎁: only changes the girls would notice, a few words, emoji + CA/ES/EN, `id` always increasing, `type: 'game'` + `game: '<id>'` for new games (adds the "NOU!" card sticker until played). Pure technical changes don't go here.
