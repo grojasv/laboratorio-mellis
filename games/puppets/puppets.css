@@ -105,6 +105,10 @@ body.theatre {
   min-height: 60px; display: grid; place-items: center;
   font-size: 2rem; font-weight: 700; letter-spacing: 2px; margin-bottom: 10px;
 }
+.name-row { display: flex; gap: 10px; align-items: stretch; margin-bottom: 10px; }
+.name-row .name-box { flex: 1; min-width: 0; margin: 0; overflow: hidden; font-size: clamp(1.3rem, 6.5vw, 2rem); }
+.name-go { margin: 0; padding: 4px 18px; flex: none; animation: nudge 1.4s ease-in-out infinite; }
+@keyframes nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
 .keys { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
 .key {
   height: 46px; background: #fff; border: 3px solid var(--ink); border-radius: 12px;
@@ -112,6 +116,10 @@ body.theatre {
 }
 .key:active { transform: translateY(3px); box-shadow: none; }
 .key.wide { grid-column: span 2; background: #ffe0e0; }
+@media (max-height: 700px) {
+  .keys { gap: 5px; } .key { height: 40px; }
+  .about-body { margin-top: 10px; gap: 8px; } .pick { padding: 4px; } .pick .p-icon { font-size: 2rem; }
+}
 
 /* ---------- Stage ---------- */
 .stage { display: flex; flex-direction: column; gap: 10px; }
@@ -150,6 +158,15 @@ body.theatre {
 .opt:active { transform: translateY(5px); box-shadow: 0 2px 0 #2a0e1b; }
 .opt.used { opacity: .35; pointer-events: none; }
 .opt.pic { padding: 6px; height: 104px; }
+@media (max-height: 700px) {
+  .curtains { min-height: 120px; padding-top: 10px; }
+  .scene .window, .scene .table { width: min(100%, 230px); }
+  .scene .feel-scene { width: 96px; }
+  .scene .bag-scene { font-size: 4rem; }
+  .host-puppet { width: 66px; }
+  .opt { min-height: 62px; padding: 8px 6px; }
+  .opt.pic { height: 88px; }
+}
 .opt.pic svg { width: 76px; height: 76px; }
 .thing-emoji { font-size: 3.6rem; line-height: 1; }
 .flying { position: fixed; z-index: 30; pointer-events: none; width: 70px; height: 70px; display: grid; place-items: center; font-size: 3rem; }
@@ -269,3 +286,14 @@ body.theatre {
 
 .flower { position: absolute; top: -40px; font-size: 1.8rem; z-index: 4; animation: e-flower 2.2s ease-in forwards; pointer-events: none; }
 @keyframes e-flower { to { transform: translateY(260px) rotate(300deg); } }
+
+/* Short phones: the finale (stage + line + mic + watch) fits without scrolling */
+@media (max-height: 700px) {
+  .showtime { font-size: 1.4rem; }
+  .final-puppet { width: min(30vw, 130px); }
+  .line-box { padding: 8px 12px; }
+  .line { font-size: clamp(1.3rem, 6vw, 1.8rem); }
+  .line-sub { font-size: .9rem; }
+  .mic .mic-icon { width: 40px; height: 40px; font-size: 1.5rem; }
+  .watch { padding: 8px 22px; }
+}

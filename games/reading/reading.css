@@ -22,7 +22,7 @@ body.library {
 }
 .tab.on { opacity: 1; background: var(--yellow); box-shadow: var(--shadow); }
 
-.books { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr)); gap: 16px; }
+.books { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 125px), 1fr)); gap: 16px; }
 .book {
   position: relative;
   aspect-ratio: 3 / 4;
@@ -166,3 +166,13 @@ body.library {
 .new-book { display: flex; justify-content: center; margin-bottom: 12px; }
 .new-book .book { width: 140px; animation: pop-in-c .6s cubic-bezier(.3, 1.6, .6, 1); }
 .win .listen { margin-bottom: 16px; }
+
+/* Short phones: tighter page so the 🎙️ button is on screen under the text */
+@media (max-height: 760px) {
+  .read { gap: 8px; }
+  .scene { font-size: clamp(2rem, 9vw, 2.8rem); }
+  .page { padding: 10px 14px; }
+  .page p { font-size: clamp(1.15rem, 5vw, 1.6rem); line-height: 1.4; }
+  .mic { padding: 6px 20px 6px 10px; }
+  .mic .mic-icon { width: 42px; height: 42px; font-size: 1.6rem; }
+}

@@ -178,7 +178,9 @@
     if (step.id === 'name') {
       body.className = 'about-body wide';
       const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÈÉÍÏÒÓÚÜÇÑ'.split('');
-      body.innerHTML = `<div class="name-box" id="name-box">${current.me.name || ''}&nbsp;</div>
+      // ➡️ sits beside the name (not at the bottom) so it never covers the keyboard
+      body.innerHTML = `<div class="name-row"><div class="name-box" id="name-box">${current.me.name || ''}&nbsp;</div>
+        <button class="go name-go" id="name-go"${current.me.name ? '' : ' hidden'}>➡️</button></div>
         <div class="keys">${letters.map((l) => `<button class="key" data-k="${l}">${l}</button>`).join('')}<button class="key wide" data-k="del">⌫</button></div>`;
     } else {
       body.className = 'about-body';
@@ -190,7 +192,7 @@
         return `<button class="pick${on}" data-v="${o.id}">${icon}${o.en}</button>`;
       }).join('');
     }
-    $('about-next').hidden = !current.me[step.id];
+    $('about-next').hidden = step.id === 'name' || !current.me[step.id];
   }
   function sayAbout() { talk($('about-puppet'), ABOUT[aboutIdx].q); }
   $('about-say').addEventListener('click', () => { M.sounds.pop(); sayAbout(); });
@@ -204,9 +206,10 @@
       else if (n.length < 12) n += key.dataset.k;
       current.me.name = n ? n[0] + n.slice(1).toLowerCase() : '';
       $('name-box').innerHTML = (current.me.name || '') + '&nbsp;';
-      $('about-next').hidden = !current.me.name;
+      $('name-go').hidden = !current.me.name;
       return;
     }
+    if (e.target.closest('#name-go')) { $('about-next').click(); return; }
     const b = e.target.closest('.pick');
     if (!b) return;
     const v = step.id === 'age' ? +b.dataset.v : b.dataset.v;

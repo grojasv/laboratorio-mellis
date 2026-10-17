@@ -221,6 +221,7 @@
   // ---------- Screens ----------
   let kase = null, step = 'lobby', revealed = 0, codeIdx = 0, codeWord = '', codeMap = {};
   const STEPS = ['intro', 'foot', 'code', 'suspects', 'print'];
+  window.__case = () => ({ kase, codeWord, revealed }); // for automated testing
 
   function show(name) {
     $('lobby').hidden = name !== 'lobby';

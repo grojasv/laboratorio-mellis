@@ -99,6 +99,11 @@ button {
 }
 .mute, .home { background: #fff; font-size: 1.6rem; }
 .flag:active, .mute:active, .home:active { transform: scale(0.9); }
+@media (max-width: 370px) {
+  .topbar { gap: 8px; padding-left: 12px; padding-right: 12px; }
+  .controls { gap: 6px; }
+  .flag, .mute, .home { width: 48px; height: 48px; border-radius: 15px; }
+}
 
 .confetti { position: fixed; inset: 0; pointer-events: none; z-index: 50; }
 
@@ -178,3 +183,7 @@ button {
 .reveal { animation: reveal-glow 1s ease-in-out 2; box-shadow: 0 0 0 5px #2fbf71, 0 0 24px 8px rgba(47, 191, 113, .7) !important; }
 @keyframes reveal-glow { 50% { transform: scale(1.08); } }
 .golden { box-shadow: 0 0 0 6px #ffd23f, 0 0 30px 10px rgba(255, 210, 63, .8) !important; }
+
+/* Continue buttons stay in reach on short screens: they float at the bottom
+   while the page scrolls, and sit in their normal place once reached. */
+.stick-bottom { position: sticky; bottom: max(14px, env(safe-area-inset-bottom)); z-index: 5; }

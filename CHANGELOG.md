@@ -4,6 +4,16 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.10.2] — 2026-10-17
+### Fixed
+- Continue buttons stay in reach on short phones: shared `.stick-bottom` (sticky to the bottom of the screen) on the Puppet Show ➡️ (builder, *All about me*), ▶️ *Watch the show*, the detective 🕵️/🔎 buttons and the hub news 👍.
+- Puppet Show name step: ➡️ sits beside the typed name so it never covers the keyboard; compact keyboard, answer grids, stage and finale on short screens (`max-height: 700px`) so 🎙️ and the answers stay on screen.
+- Level pickers (Memory, Potions, Monsters): compact cards on phones so every level is visible without scrolling.
+- Detective: suspects grid leaves room for the 3rd clue on short screens; clue pop-up and win overlays scroll when taller than the screen.
+- Stories: 2 books per row on 320 px phones; tighter reading page on short screens so 🎙️ is under the text.
+- Hub news pop-up no longer overflows 320 px phones; smaller top-bar buttons under 370 px wide.
+- Service worker cache `mellis-v7`.
+
 ## [1.10.1] — 2026-10-17
 ### Fixed
 - Game pages could not scroll vertically on small phones (`body { overflow: hidden }` in `shared/game.css`), so e.g. the Puppet Show builder's ➡️ button was unreachable. Now only horizontal overflow is hidden.
