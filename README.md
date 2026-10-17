@@ -26,6 +26,8 @@ Plain HTML/CSS/JS, with no build step.
 ```
 index.html          hub
 games.js            game catalogue shown on the hub
+news.js             kid-friendly news (hub 🎁 button)
+CHANGELOG.md        technical changelog (SemVer)
 shared/app.js       language, sounds, mascots, confetti (window.Mellis)
 shared/styles.css   colours, flags, mascots
 shared/game.css     top bar, level picker, win screen for game pages

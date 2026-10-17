@@ -399,6 +399,14 @@
     })();
   }
 
+  // ---------- Remember which games were played (removes the hub's "NOU!" sticker) ----------
+  const gameMatch = location.pathname.match(/\/games\/([^/]+)\//);
+  if (gameMatch) {
+    let played = [];
+    try { played = JSON.parse(load('mellis.played')) || []; } catch (e) { /* ignore */ }
+    if (!played.includes(gameMatch[1])) { played.push(gameMatch[1]); save('mellis.played', JSON.stringify(played)); }
+  }
+
   // ---------- Installable web app (offline + home-screen icon) ----------
   const appScript = document.currentScript;
   if ('serviceWorker' in navigator && location.protocol.startsWith('http') && appScript) {

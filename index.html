@@ -118,6 +118,69 @@
       95% { transform: rotate(-6deg); }
     }
     .tap { animation: tap 0.35s; }
+    .news-banner {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; margin: 0 0 18px;
+      background: linear-gradient(90deg, #ffd23f, #ff9f1c);
+      border: 4px solid var(--ink); border-radius: 22px; box-shadow: 0 7px 0 var(--ink);
+      padding: 12px; font-size: 1.35rem; font-weight: 700;
+      animation: gift-bounce 1.6s ease-in-out infinite;
+    }
+    .news-banner:active { transform: translateY(5px); box-shadow: 0 2px 0 var(--ink); }
+    @keyframes gift-bounce { 0%, 70%, 100% { transform: none; } 80% { transform: scale(1.04) rotate(-1.5deg); } 90% { transform: scale(1.04) rotate(1.5deg); } }
+    .news-count {
+      min-width: 34px; height: 34px; border-radius: 999px;
+      background: #e03131; color: #fff; display: inline-grid; place-items: center;
+      border: 3px solid var(--ink); font-size: 1.1rem;
+    }
+    .new-sticker {
+      position: absolute; top: 12px; right: -34px; z-index: 2;
+      background: #e03131; color: #fff;
+      padding: 4px 40px; transform: rotate(35deg);
+      font-weight: 700; font-size: 1rem; letter-spacing: .05em;
+      border-top: 3px solid #fff; border-bottom: 3px solid #fff;
+      box-shadow: 0 3px 0 rgba(0,0,0,.2);
+    }
+    .hub-foot { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 28px; }
+    .hub-foot .install { margin: 0; }
+    .news-pop { position: fixed; inset: 0; z-index: 40; background: rgba(58, 58, 92, .5); display: grid; place-items: center; padding: 16px; }
+    .news-box {
+      width: min(440px, 100%); max-height: calc(100dvh - 32px); overflow-y: auto;
+      background: var(--cream); border: 4px solid var(--ink); border-radius: 30px; box-shadow: 0 10px 0 var(--ink);
+      padding: 16px; text-align: center;
+      animation: news-in .4s cubic-bezier(.3, 1.6, .6, 1);
+    }
+    @keyframes news-in { from { transform: scale(.5); opacity: 0; } }
+    .news-twins { width: 46%; margin: 0 auto; }
+    .news-head { margin: 4px 0 12px; font-size: 1.8rem; font-weight: 700; color: var(--pink); }
+    .news-list { display: flex; flex-direction: column; gap: 10px; text-align: left; }
+    .n-new {
+      position: absolute; top: -10px; right: 10px;
+      background: #e03131; color: #fff; border: 2px solid #fff; border-radius: 999px;
+      padding: 0 8px; font-size: .8rem; font-weight: 700; box-shadow: 0 2px 0 rgba(0,0,0,.2);
+    }
+    .news-item {
+      position: relative;
+      display: flex; align-items: center; gap: 12px;
+      background: #fff; border: 3px solid var(--ink); border-radius: 20px; padding: 10px 12px;
+    }
+    .n-icon { font-size: 2.6rem; flex: none; }
+    .n-text { flex: 1; display: flex; flex-direction: column; line-height: 1.2; }
+    .n-text b { font-size: 1.25rem; }
+    .n-text span { font-size: 1.1rem; }
+    .n-text small { color: var(--purple); font-size: .9rem; margin-top: 2px; }
+    .n-play {
+      flex: none; text-decoration: none; color: #fff;
+      background: var(--teal); border: 3px solid var(--ink); border-radius: 16px;
+      box-shadow: 0 4px 0 var(--ink); padding: 8px 10px; font-weight: 700;
+    }
+    .n-none { font-size: 1.3rem; font-weight: 700; text-align: center; }
+    .news-ok {
+      margin-top: 14px;
+      background: var(--yellow); border: 4px solid var(--ink); border-radius: 22px; box-shadow: 0 6px 0 var(--ink);
+      padding: 10px 28px; font-size: 1.4rem; font-weight: 700;
+    }
+    .news-ok:active, .n-play:active { transform: translateY(4px); box-shadow: none; }
     .install {
       display: block;
       margin: 28px auto 0;
@@ -146,12 +209,27 @@
       <div id="mascots"></div>
       <p class="bubble-talk" id="greeting"></p>
     </section>
+    <button class="news-banner" id="news-banner" hidden>🎁 <span id="news-banner-label"></span> <b class="news-count" id="news-count"></b></button>
     <section class="games" id="games"></section>
-    <button class="install" id="install" hidden>📲 <span id="install-label"></span></button>
+    <div class="hub-foot">
+      <button class="install" id="news-all">🎁 <span id="news-all-label"></span></button>
+      <button class="install" id="install" hidden>📲 <span id="install-label"></span></button>
+    </div>
   </main>
+
+  <!-- What's new (for the kids) -->
+  <div class="news-pop" id="news-pop" hidden>
+    <div class="news-box">
+      <div class="news-twins" id="news-twins"></div>
+      <p class="news-head" id="news-head"></p>
+      <div class="news-list" id="news-list"></div>
+      <button class="news-ok" id="news-ok">👍 <span id="news-ok-label"></span></button>
+    </div>
+  </div>
 
   <script src="shared/app.js"></script>
   <script src="games.js"></script>
+  <script src="news.js"></script>
   <script>
     const M = window.Mellis;
     const L = (ca, es, en) => ({ ca, es, en });
@@ -228,11 +306,116 @@
       setTimeout(() => { mascots.classList.remove('party'); mascots.innerHTML = M.mascotsSVG('wave'); }, 3500);
     }
 
+    // ---------- What's new: news since this device last looked ----------
+    const NEWS = (window.MELLIS_NEWS || []).slice().sort((a, b) => a.id - b.id);
+    const LAST_ID = NEWS.length ? NEWS[NEWS.length - 1].id : 0;
+    const NT = {
+      banner: L('Hi ha coses noves!', '¡Hay cosas nuevas!', "There's something new!"),
+      all: L('Novetats', 'Novedades', "What's new"),
+      head: L('Què hi ha de nou?', '¿Qué hay de nuevo?', "What's new?"),
+      nothing: L('Ja ho has vist tot! 😄', '¡Ya lo has visto todo! 😄', "You've seen it all! 😄"),
+      ok: L('Entesos!', '¡Entendido!', 'Got it!'),
+      play: L('Juguem!', '¡A jugar!', "Let's play!"),
+      sticker: L('NOU!', '¡NUEVO!', 'NEW!'),
+      today: L('avui', 'hoy', 'today'),
+      yesterday: L('ahir', 'ayer', 'yesterday'),
+      daysAgo: L('fa {n} dies', 'hace {n} días', '{n} days ago'),
+    };
+    const store = {
+      get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+      set(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* ignore */ } },
+    };
+    // First visit ever: nothing is "new" (everything is). A device that already has
+    // progress from before the news existed gets the latest 3 items.
+    if (store.get('mellis.news.seen') === null) {
+      let returning = false;
+      try { returning = Object.keys(localStorage).some((k) => k.startsWith('mellis.') && !k.startsWith('mellis.news') && k !== 'mellis.played'); } catch (e) { /* ignore */ }
+      const start = returning ? Math.max(0, LAST_ID - 3) : LAST_ID;
+      store.set('mellis.news.seen', String(start));
+      store.set('mellis.news.base', String(start));
+    }
+    const seenId = () => +store.get('mellis.news.seen') || 0;
+    const baseId = +store.get('mellis.news.base') || 0;
+    const played = () => { try { return JSON.parse(store.get('mellis.played')) || []; } catch (e) { return []; } };
+    const unread = () => NEWS.filter((n) => n.id > seenId());
+    // "NOU!" sticker: a game announced after this device started, not played yet
+    const isNewGame = (id) => NEWS.some((n) => n.type === 'game' && n.game === id && n.id > baseId) && !played().includes(id);
+
+    function ago(date) {
+      const days = Math.round((new Date().setHours(0, 0, 0, 0) - new Date(date + 'T00:00:00').getTime()) / 86400000);
+      if (days <= 0) return M.t(NT.today);
+      if (days === 1) return M.t(NT.yesterday);
+      return M.t(NT.daysAgo).replace('{n}', days);
+    }
+
+    let popItems = [];
+    function openNews(items) {
+      popItems = items;
+      const pop = document.getElementById('news-pop');
+      document.getElementById('news-twins').innerHTML = M.mascotsSVG('cheer');
+      renderNews();
+      pop.hidden = false;
+      M.sounds.win();
+      // the twins read the unseen news aloud (all of it if everything was seen), one after another
+      const toRead = items.filter((n) => n.id > seenId());
+      const say = (toRead.length ? toRead : items).slice().reverse().map((n) => `${M.t(n.title)} ${M.t(n.text)}`);
+      (function next() {
+        const line = say.shift();
+        if (!line || pop.hidden) return;
+        M.speak(line.replace(/\p{Extended_Pictographic}|\uFE0F/gu, ''), M.lang, { onend: () => setTimeout(next, 250) });
+      })();
+    }
+    function renderNews() {
+      const items = popItems.slice().reverse();
+      document.getElementById('news-head').textContent = M.t(NT.head);
+      document.getElementById('news-ok-label').textContent = M.t(NT.ok);
+      document.getElementById('news-list').innerHTML = items.length ? items.map((n) => `
+        <div class="news-item">
+          <span class="n-icon">${n.icon}</span>
+          ${n.id > seenId() ? `<span class="n-new">${M.t(NT.sticker)}</span>` : ''}
+          <span class="n-text"><b>${M.t(n.title)}</b><span>${M.t(n.text)}</span><small>${ago(n.date)}</small></span>
+          ${n.game ? `<a class="n-play" href="games/${n.game}/index.html">▶ ${M.t(NT.play)}</a>` : ''}
+        </div>`).join('') : `<p class="n-none">${M.t(NT.nothing)}</p>`;
+    }
+    function closeNews() {
+      document.getElementById('news-pop').hidden = true;
+      if (window.speechSynthesis) speechSynthesis.cancel();
+      store.set('mellis.news.seen', String(LAST_ID));
+      renderNewsButtons();
+    }
+    function renderNewsButtons() {
+      const n = unread().length;
+      document.getElementById('news-banner').hidden = !n;
+      document.getElementById('news-banner-label').textContent = M.t(NT.banner);
+      document.getElementById('news-count').textContent = n;
+      document.getElementById('news-all-label').textContent = M.t(NT.all);
+    }
+    document.getElementById('news-banner').addEventListener('click', () => { M.sounds.pop(); openNews(unread()); });
+    // the bottom button shows the latest few, even if already seen
+    // always available: the latest 5, with the unseen ones marked "NOU!"
+    document.getElementById('news-all').addEventListener('click', () => {
+      M.sounds.pop();
+      const fresh = unread();
+      openNews(fresh.length > 5 ? fresh : NEWS.slice(-5));
+    });
+    document.getElementById('news-ok').addEventListener('click', () => { M.sounds.pop(); closeNews(); });
+    document.getElementById('news-list').addEventListener('click', (e) => {
+      const a = e.target.closest('.n-play');
+      if (!a) return;
+      e.preventDefault();
+      store.set('mellis.news.seen', String(LAST_ID));
+      M.sounds.pop();
+      setTimeout(() => { location.href = a.getAttribute('href'); }, 250);
+    });
+
     function render() {
       bubble.textContent = M.t(said);
+      renderNewsButtons();
+      if (!document.getElementById('news-pop').hidden) renderNews();
       document.getElementById('install-label').textContent = M.t(INSTALL);
       const cards = window.MELLIS_GAMES.map((g) => `
         <a class="game" href="${g.path}" style="background:${g.color}">
+          ${isNewGame(g.id) ? `<span class="new-sticker">${M.t(NT.sticker)}</span>` : ''}
           <span class="icon">${g.icon}</span>
           <span class="name">${M.t(g.name)}</span>
           <span class="tag">${M.t(g.tagline)}</span>

@@ -1,0 +1,36 @@
+// What's new — for the kids (shown on the hub's 🎁 button).
+// Add one entry per change they would notice. Keep it to a few words!
+// `id` must keep increasing; `game` links to a game id in games.js
+// (type 'game' also puts a "NOU!" sticker on that game's card until it is played).
+window.MELLIS_NEWS = [
+  { id: 1, date: '2026-10-12', icon: '🗓️', type: 'game', game: 'memory',
+    title: { ca: 'Joc nou!', es: '¡Juego nuevo!', en: 'New game!' },
+    text: { ca: 'Memory dels mesos', es: 'Memory de los meses', en: 'Months Memory' } },
+  { id: 2, date: '2026-10-12', icon: '🧪', type: 'game', game: 'potions',
+    title: { ca: 'Joc nou!', es: '¡Juego nuevo!', en: 'New game!' },
+    text: { ca: 'Laboratori de pocions', es: 'Laboratorio de pociones', en: 'Potion Lab' } },
+  { id: 3, date: '2026-10-12', icon: '🎃', type: 'game', game: 'monsters',
+    title: { ca: 'Joc nou!', es: '¡Juego nuevo!', en: 'New game!' },
+    text: { ca: 'Laboratori de monstres', es: 'Laboratorio de monstruos', en: 'Monster Lab' } },
+  { id: 4, date: '2026-10-12', icon: '🕵️', type: 'game', game: 'detective',
+    title: { ca: 'Joc nou!', es: '¡Juego nuevo!', en: 'New game!' },
+    text: { ca: 'Agència de detectives', es: 'Agencia de detectives', en: 'Detective Agency' } },
+  { id: 5, date: '2026-10-12', icon: '📖', type: 'game', game: 'reading',
+    title: { ca: 'Joc nou!', es: '¡Juego nuevo!', en: 'New game!' },
+    text: { ca: 'Contes en veu alta', es: 'Cuentos en voz alta', en: 'Read-aloud Stories' } },
+  { id: 6, date: '2026-10-12', icon: '😜', type: 'change',
+    title: { ca: 'Toca les Mellis!', es: '¡Toca a las Mellis!', en: 'Tap the Mellis!' },
+    text: { ca: 'Fan cares divertides', es: 'Hacen caras divertidas', en: 'They make funny faces' } },
+  { id: 7, date: '2026-10-13', icon: '📲', type: 'change',
+    title: { ca: 'Ara és una app!', es: '¡Ahora es una app!', en: "It's an app now!" },
+    text: { ca: 'I funciona sense internet', es: 'Y funciona sin internet', en: 'And it works without internet' } },
+  { id: 8, date: '2026-10-17', icon: '❤️', type: 'change',
+    title: { ca: 'Ara tens 3 cors!', es: '¡Ahora tienes 3 corazones!', en: 'Now you have 3 hearts!' },
+    text: { ca: 'Compte amb els errors!', es: '¡Cuidado con los errores!', en: 'Careful with mistakes!' } },
+  { id: 9, date: '2026-10-17', icon: '⭐', type: 'change',
+    title: { ca: '3 estrelles = premi daurat!', es: '¡3 estrellas = premio dorado!', en: '3 stars = golden prize!' },
+    text: { ca: 'Sense cap error', es: 'Sin ningún error', en: 'With no mistakes' } },
+  { id: 10, date: '2026-10-17', icon: '🎭', type: 'game', game: 'puppets',
+    title: { ca: 'Joc nou!', es: '¡Juego nuevo!', en: 'New game!' },
+    text: { ca: 'Teatre de titelles', es: 'Teatro de títeres', en: 'Puppet Show' } },
+];
