@@ -206,3 +206,66 @@ body.theatre {
 .win-puppet { width: 120px; aspect-ratio: 200 / 282; margin: 0 auto; }
 .sticker { font-size: 1.2rem; font-weight: 700; color: #b8860b; margin: 4px 0 10px; }
 #win-stars { margin: -4px 0 6px; }
+
+/* ---------- Finale: audience, dance moves and funny endings ---------- */
+.curtains.open { position: relative; padding-bottom: 46px; }
+.final-puppet { position: relative; }
+.final-puppet svg.puppet { transform-origin: 50% 90%; transition: transform .06s linear; }
+.audience {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 44px;
+  display: flex; justify-content: space-around; align-items: flex-end;
+  background: linear-gradient(180deg, transparent, rgba(0,0,0,.45));
+  font-size: 1.9rem; z-index: 3; pointer-events: none;
+}
+.audience span { animation: crowd 1.4s ease-in-out infinite; }
+.audience span:nth-child(odd) { animation-delay: -.7s; }
+.audience.cheer span { animation: crowd-cheer .45s ease-in-out infinite; }
+.audience.cheer span:nth-child(even) { animation-delay: -.2s; }
+@keyframes crowd { 50% { transform: translateY(-3px); } }
+@keyframes crowd-cheer { 50% { transform: translateY(-16px) rotate(-8deg); } }
+
+.move-hop { animation: m-hop .75s cubic-bezier(.3, 1.6, .6, 1); }
+.move-wiggle { animation: m-wiggle .75s ease-in-out; }
+.move-twirl { animation: m-twirl .75s ease-in-out; }
+.move-squash { animation: m-squash .75s ease-in-out; }
+@keyframes m-hop { 40% { transform: translateY(-40px) rotate(-6deg); } 70% { transform: translateY(0) scale(1.1, .9); } }
+@keyframes m-wiggle { 20% { transform: rotate(-12deg); } 40% { transform: rotate(12deg); } 60% { transform: rotate(-8deg); } 80% { transform: rotate(6deg); } }
+@keyframes m-twirl { to { transform: rotateY(360deg); } }
+@keyframes m-squash { 30% { transform: scale(1.25, .7); } 60% { transform: scale(.85, 1.2); } }
+
+/* bow: bends forward, hair/accessory fly off */
+.end-bow { animation: e-bow 1.6s ease-in-out forwards; transform-origin: 50% 95%; }
+@keyframes e-bow { 30%, 70% { transform: rotate(28deg) translateX(10px); } 100% { transform: none; } }
+.end-bow .hair, .end-bow .extra { animation: e-fly 1.6s ease-in forwards; transform-box: fill-box; transform-origin: center; }
+@keyframes e-fly { 25% { transform: translate(30px, -10px) rotate(30deg); } 60% { transform: translate(90px, -120px) rotate(200deg); } 100% { transform: translate(140px, 60px) rotate(400deg); opacity: 0; } }
+
+/* sneeze: inflates, then explodes into a shake */
+.end-sneeze-build { animation: e-build 2s ease-in forwards; }
+@keyframes e-build { to { transform: scale(1.18, 1.08) rotate(-10deg) translateY(-6px); } }
+.end-sneeze { animation: e-sneeze .9s ease-out; }
+@keyframes e-sneeze { 10% { transform: scale(.85, 1.15) rotate(14deg) translateX(18px); } 30% { transform: translateX(-14px) rotate(-8deg); } 50% { transform: translateX(10px); } 70% { transform: translateX(-6px); } }
+
+/* spin: triple spin, then dizzy wobble */
+.end-spin { animation: e-spin 1.5s cubic-bezier(.5, 0, .5, 1); }
+@keyframes e-spin { 50% { transform: rotate(540deg) scale(.8); } to { transform: rotate(1080deg); } }
+.end-dizzy { animation: e-dizzy .8s ease-in-out infinite; transform-origin: 50% 95%; }
+@keyframes e-dizzy { 25% { transform: rotate(-9deg) translateX(-6px); } 75% { transform: rotate(9deg) translateX(6px); } }
+
+/* burp: big jolt */
+.end-burp { animation: e-burp .9s cubic-bezier(.3, 1.6, .6, 1); }
+@keyframes e-burp { 20% { transform: scale(1.25, .8) translateY(10px); } 50% { transform: scale(.9, 1.15) translateY(-20px); } }
+.puff { position: absolute; left: 62%; top: 38%; font-size: 3rem; animation: e-puff 1.4s ease-out forwards; pointer-events: none; }
+@keyframes e-puff { from { transform: scale(.3); opacity: 1; } to { transform: translate(60px, -40px) scale(2.2); opacity: 0; } }
+
+/* jump: out through the top of the stage and back with a squash */
+.end-jump { animation: e-jump 1.7s cubic-bezier(.45, 0, .55, 1); }
+@keyframes e-jump {
+  15% { transform: scale(1.2, .75); }
+  45% { transform: translateY(-420px) rotate(360deg); }
+  55% { transform: translateY(-420px) rotate(360deg); }
+  85% { transform: translateY(0) rotate(720deg) scale(1.25, .7); }
+  100% { transform: rotate(720deg); }
+}
+
+.flower { position: absolute; top: -40px; font-size: 1.8rem; z-index: 4; animation: e-flower 2.2s ease-in forwards; pointer-events: none; }
+@keyframes e-flower { to { transform: translateY(260px) rotate(300deg); } }

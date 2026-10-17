@@ -4,6 +4,16 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.10.0] — 2026-10-17
+### Added
+- Puppet Show finale is much sillier:
+  - Voice-driven body motion during playback (bounce, sway, squash, arms waving) and a little wiggle while recording.
+  - Her recording plays back as a squeaky "puppet voice" (`playbackRate` 1.3, pitch not preserved).
+  - A random dance move between lines (hop, wiggle, twirl, squash).
+  - A random surprise ending, never the same twice in a row: bow (hair/accessory fly off), giant sneeze + confetti, dizzy triple spin, burp 💨, jump out of the stage.
+  - Audience row that bounces along and cheers; flowers thrown onto the stage.
+- `art.js`: animatable arms (`.arm-l/.arm-r`), hair/accessory groups, `dizzy` face.
+
 ## [1.9.0] — 2026-10-17
 ### Added
 - `CHANGELOG.md` (this file) and `news.js`: kid-facing news, shown on the hub's 🎁 button with an unread counter; the twins read the news aloud.

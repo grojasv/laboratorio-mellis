@@ -22,8 +22,8 @@
     const body = `
       <rect x="42" y="132" width="116" height="122" rx="10" fill="${dark}" ${line}/>
       <path d="M62 140 v108 M138 140 v108" stroke="rgba(0,0,0,.12)" stroke-width="5"/>
-      <rect x="24" y="150" width="26" height="62" rx="13" fill="${c}" ${line}/>
-      <rect x="150" y="150" width="26" height="62" rx="13" fill="${c}" ${line}/>`;
+      <rect class="arm-l" x="24" y="150" width="26" height="62" rx="13" fill="${c}" ${line}/>
+      <rect class="arm-r" x="150" y="150" width="26" height="62" rx="13" fill="${c}" ${line}/>`;
 
     // mouth cavity (shows when the jaw drops) + jaw flap
     const cavity = `<rect class="cavity" x="58" y="112" width="84" height="4" rx="4" fill="#5a1a3a"/>`;
@@ -39,15 +39,18 @@
     return `<svg class="puppet${feel === 'scared' ? ' shiver' : ''}" viewBox="0 -24 200 282" xmlns="http://www.w3.org/2000/svg">
       ${p.hair === 'pigtails' ? hairSVG(p.hair, c, 'back') : ''}
       ${body}${cavity}${jaw}${head}
-      ${hairSVG(p.hair, c, 'front')}
+      <g class="hair">${hairSVG(p.hair, c, 'front')}</g>
       ${eyesSVG(p.eyes, feel)}
       ${feelSVG(feel)}
-      ${extraSVG(p.extra)}
+      <g class="extra">${extraSVG(p.extra)}</g>
     </svg>`;
   }
 
   function eyesSVG(type, feel) {
     const L = 74, R = 126, Y = 66;
+    if (feel === 'dizzy') {
+      return [L, R].map((x) => `<circle cx="${x}" cy="${Y}" r="14" fill="#fff" ${line}/><path d="M${x} ${Y} m-2 0 a2 2 0 1 1 4 0 a4 4 0 1 1 -8 0 a6 6 0 1 1 12 0 a8 8 0 1 1 -16 0" fill="none" stroke="${INK}" stroke-width="2.5"/>`).join('');
+    }
     if (feel === 'scared') {
       return [L, R].map((x) => `<circle cx="${x}" cy="${Y}" r="15" fill="#fff" ${line}/><circle cx="${x}" cy="${Y}" r="4" fill="${INK}"/>`).join('');
     }
@@ -67,6 +70,7 @@
   // Feelings drawn on the face (brows + mouth line + extras)
   function feelSVG(feel) {
     if (!feel) return '';
+    if (feel === 'dizzy') return `<path d="M78 104 q5 -6 10 0 t10 0 t10 0 t10 0 t10 0" fill="none" ${line}/>`;
     const brows = {
       happy: 'M60 44 q14 -10 28 0 M112 44 q14 -10 28 0',
       sad: 'M60 46 l26 -8 M140 46 l-26 -8',

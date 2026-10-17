@@ -450,7 +450,7 @@
     $('mic-note').hidden = true;
     const buf = new Float32Array(analyser.fftSize);
     const t0 = performance.now();
-    let last = t0, floor = Infinity, threshold = 0.02, voiced = 0, lastVoice = 0, fullAt = 0;
+    let last = t0, floor = Infinity, threshold = 0.02, voiced = 0, lastVoice = 0, fullAt = 0, amp = 0;
     (function tick(now) {
       if (!live) return;
       analyser.getFloatTimeDomainData(buf);
@@ -462,7 +462,10 @@
       if (rms < floor) { floor = rms; threshold = Math.min(0.06, Math.max(0.012, floor * 3 + 0.008)); }
       if (rms > threshold) lastVoice = now;
       if (now - lastVoice < 200) voiced += dt;
-      setJaw($('final-puppet'), now - lastVoice < 120 ? Math.min(1, rms * 8) : 0); // the puppet mouths along
+      const talkNow = now - lastVoice < 120 ? Math.min(1, rms * 8) : 0;
+      amp += (talkNow * 0.5 - amp) * 0.25;
+      setJaw($('final-puppet'), talkNow);           // the puppet mouths along
+      move($('final-puppet'), amp, now);             // ...and wiggles a little
       const progress = Math.min(1, voiced / needed);
       $('meter-fill').style.width = (progress * 100).toFixed(1) + '%';
       if (progress >= 1 && !fullAt) fullAt = now;
@@ -480,6 +483,7 @@
     recorder = null;
     $('mic').classList.remove('live');
     setJaw($('final-puppet'), 0);
+    move($('final-puppet'), 0, 0);
     if (done) lineRead(); else renderLine();
   }
   $('mic').addEventListener('click', () => {
@@ -492,13 +496,17 @@
     $('mic-note').hidden = false;
   });
 
-  // Playback: curtains open, her recordings play and the puppet lip-syncs to them.
+  // Playback: curtains open, her recordings play in a squeaky "puppet voice",
+  // the puppet bounces / sways / waves to her voice, and the show ends with a surprise.
   let playing = false;
   async function watchShow() {
     if (playing) return;
     playing = true;
+    $('watch').hidden = true;
     releaseMic();          // free the mic first so iOS plays through the speaker
     const stage = $('final-curtains'), el = $('final-puppet');
+    el.innerHTML = A.puppetSVG(current.puppet);
+    $('audience').classList.remove('cheer');
     stage.classList.add('closed');
     await wait(900);
     stage.classList.remove('closed');
@@ -511,38 +519,147 @@
       $('line-sub').textContent = '';
       if (recordings[i]) await playWithLips(ctx, recordings[i], el);
       else await new Promise((r) => talk(el, lines[i], r));   // no recording → the puppet says it
-      await wait(250);
+      if (i < lines.length - 1) await danceMove(el);
     }
     ctx.close();
+    $('line').innerHTML = '🎉';
+    await bigFinish(el);
+    $('audience').classList.add('cheer');
+    throwFlowers();
     M.sounds.win();
     M.confetti();
     $('line').innerHTML = '👏👏👏';
     playing = false;
-    setTimeout(finish, 1200);
+    setTimeout(finish, 2600);
   }
+
+  // Voice-driven body motion: bounce, sway, squash and arms up.
+  function move(el, amp, t) {
+    const svg = el.querySelector('svg.puppet');
+    if (!svg) return;
+    svg.style.transform = amp > 0.02
+      ? `translateY(${(-amp * 22).toFixed(1)}px) rotate(${(Math.sin(t / 160) * amp * 12).toFixed(1)}deg) scale(${(1 + amp * 0.1).toFixed(3)}, ${(1 - amp * 0.06).toFixed(3)})`
+      : '';
+    const l = svg.querySelector('.arm-l'), r = svg.querySelector('.arm-r');
+    if (l) l.setAttribute('transform', `rotate(${(amp * 70 + Math.sin(t / 120) * amp * 20).toFixed(1)} 37 154)`);
+    if (r) r.setAttribute('transform', `rotate(${(-amp * 70 - Math.cos(t / 120) * amp * 20).toFixed(1)} 163 154)`);
+  }
+
   function playWithLips(ctx, url, el) {
     return new Promise((resolve) => {
       const audio = new Audio(url);
+      // squeaky puppet voice: faster + higher (pitch is not preserved)
+      audio.preservesPitch = false;
+      audio.webkitPreservesPitch = false;
+      audio.mozPreservesPitch = false;
+      audio.playbackRate = 1.3;
       const src = ctx.createMediaElementSource(audio);
       const an = ctx.createAnalyser();
       an.fftSize = 512;
       src.connect(an);
       an.connect(ctx.destination);
       const buf = new Float32Array(an.fftSize);
-      let raf2 = 0;
-      const loop = () => {
+      let raf2 = 0, amp = 0;
+      const loop = (t) => {
         an.getFloatTimeDomainData(buf);
         let s = 0;
         for (let i = 0; i < buf.length; i++) s += buf[i] * buf[i];
-        setJaw(el, Math.min(1, Math.sqrt(s / buf.length) * 9));
+        const target = Math.min(1, Math.sqrt(s / buf.length) * 9);
+        amp += (target - amp) * 0.35;                // smooth so it wobbles instead of jitters
+        setJaw(el, target);
+        move(el, amp, t || performance.now());
         raf2 = requestAnimationFrame(loop);
       };
-      const end = () => { cancelAnimationFrame(raf2); setJaw(el, 0); el.classList.remove('talking'); resolve(); };
+      const end = () => { cancelAnimationFrame(raf2); setJaw(el, 0); move(el, 0, 0); resolve(); };
       audio.onended = end;
       audio.onerror = end;
-      el.classList.add('talking');
-      audio.play().then(loop).catch(end);
+      audio.play().then(() => loop()).catch(end);
     });
+  }
+
+  // A quick silly move between lines
+  function danceMove(el) {
+    const m = pick(['move-hop', 'move-wiggle', 'move-twirl', 'move-squash']);
+    el.classList.add(m);
+    M.sounds.boing();
+    return wait(750).then(() => el.classList.remove(m));
+  }
+
+  // ---------- The big finish: a different funny ending each time ----------
+  let lastEnding = '';
+  function sayP(text) { return new Promise((r) => talk($('final-puppet'), text, r)); }
+  async function bigFinish(el, force) {
+    const p = current.puppet;
+    const options = ['sneeze', 'spin', 'burp', 'jump'];
+    if (p.hair !== 'none' || p.extra !== 'none') options.push('bow', 'bow');
+    let ending;
+    do { ending = force || pick(options); } while (!force && ending === lastEnding && options.length > 1);
+    lastEnding = ending;
+    window.__lastEnding = ending; // for automated testing
+
+    if (ending === 'bow') {
+      await sayP('Thank you, thank you!');
+      el.classList.add('end-bow');
+      M.sounds.boing();
+      await wait(1300);
+      await sayP('Oops!');
+      await wait(400);
+    } else if (ending === 'sneeze') {
+      el.classList.add('end-sneeze-build');
+      await sayP('Aaah... aaah...');
+      el.classList.remove('end-sneeze-build');
+      el.classList.add('end-sneeze');
+      M.sounds.sneeze();
+      M.confetti();
+      await sayP('ACHOO!');
+      await wait(700);
+      await sayP('Excuse me!');
+    } else if (ending === 'spin') {
+      el.classList.add('end-spin');
+      M.sounds.giggle();
+      await wait(1500);
+      el.classList.remove('end-spin');
+      el.innerHTML = A.puppetSVG(p, 'dizzy');
+      el.classList.add('end-dizzy');
+      await sayP("Wheee! I'm so dizzy!");
+      await wait(600);
+    } else if (ending === 'burp') {
+      el.classList.add('end-burp');
+      setJaw(el, 1);
+      M.sounds.raspberry();
+      puff(el);
+      await wait(900);
+      setJaw(el, 0);
+      await sayP('Oh! Excuse me!');
+      await wait(300);
+    } else {
+      el.classList.add('end-jump');
+      M.sounds.boing();
+      await wait(1700);
+      await sayP('Ta-da!');
+    }
+    await wait(300);
+    ['end-bow', 'end-sneeze', 'end-dizzy', 'end-burp', 'end-jump'].forEach((c) => el.classList.remove(c));
+  }
+  window.__bigFinish = (name) => { lastEnding = ''; return bigFinish($('final-puppet'), name); }; // for testing
+  function puff(el) {
+    const f = document.createElement('span');
+    f.className = 'puff';
+    f.textContent = '💨';
+    el.appendChild(f);
+    setTimeout(() => f.remove(), 1400);
+  }
+  function throwFlowers() {
+    const stage = $('final-curtains');
+    for (let i = 0; i < 9; i++) {
+      const f = document.createElement('span');
+      f.className = 'flower';
+      f.textContent = pick(['🌹', '💐', '🌸', '⭐', '🌷']);
+      f.style.left = 10 + Math.random() * 80 + '%';
+      f.style.animationDelay = (Math.random() * 0.8).toFixed(2) + 's';
+      stage.appendChild(f);
+      setTimeout(() => f.remove(), 3200);
+    }
   }
   const wait = (ms) => new Promise((r) => setTimeout(r, ms));
   $('watch').addEventListener('click', () => { M.sounds.pop(); watchShow(); });

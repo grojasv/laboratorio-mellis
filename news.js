@@ -33,4 +33,7 @@ window.MELLIS_NEWS = [
   { id: 10, date: '2026-10-17', icon: '🎭', type: 'game', game: 'puppets',
     title: { ca: 'Joc nou!', es: '¡Juego nuevo!', en: 'New game!' },
     text: { ca: 'Teatre de titelles', es: 'Teatro de títeres', en: 'Puppet Show' } },
+  { id: 11, date: '2026-10-17', icon: '🤪', type: 'change', game: 'puppets',
+    title: { ca: 'El titella fa el pallasso!', es: '¡El títere hace el payaso!', en: 'The puppet is super silly!' },
+    text: { ca: "Mira com acaba l'espectacle", es: 'Mira cómo acaba el espectáculo', en: 'See how the show ends' } },
 ];
