@@ -13,6 +13,7 @@ Simple learning games for 7-year-olds, in Catalan, Spanish and English. Built fo
 | 🎃 Laboratori de monstres | Halloween English: build the monster you hear (colours, numbers, body parts). Spoken with text-to-speech, plus a 💡 translation hint |
 | 🕵️ Agència de detectives | Cases in 4 steps: footprint → secret code (symbols or A=1) → rule out suspects with clues (logic, reading "NOT") → fingerprint match. Earns badges and detective ranks |
 | 📖 Contes en veu alta | Funny branching stories to read **out loud** (short/long). A voice meter fills while she reads, she can play back her own voice, and a question at the end adds the book to her shelf. Stories live in `games/reading/stories.js` |
+| 🎭 Teatre de titelles | English from the school's *Back to School* unit: build your puppet, answer *All about me*, then the puppet hosts scenes (feelings, weather, seasons, school things, counting to 20). The finale is a puppet show where she reads her own *All about me* aloud and the puppet lip-syncs to her recording |
 
 ## Game rules
 

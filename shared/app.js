@@ -105,17 +105,40 @@
     if (!voices.length) return true;
     return !!voiceFor(VOICE_TAGS[lang] || lang);
   }
-  function speak(text, voiceLang) {
-    if (muted || !window.speechSynthesis) return;
+  // opts (optional): { onstart, onend } — onend always fires once, even when muted,
+  // when there is no voice, or when the engine forgets to report the end.
+  let speakDone = null;
+  function speak(text, voiceLang, opts) {
+    const o = opts || {};
+    if (speakDone) speakDone();          // a new line cancels the previous one
+    let finished = false, timer = 0;
+    const done = () => {
+      if (finished) return;
+      finished = true;
+      clearTimeout(timer);
+      if (speakDone === done) speakDone = null;
+      if (o.onend) o.onend();
+    };
+    const estimate = 600 + text.length * 75;   // fallback if onend never comes
     const tag = VOICE_TAGS[voiceLang] || voiceLang || 'en-GB';
-    const voice = voiceFor(tag);
-    if (voices.length && !voice) return;
+    const voice = window.speechSynthesis ? voiceFor(tag) : null;
+    if (muted || !window.speechSynthesis || (voices.length && !voice)) {
+      if (o.onstart) o.onstart();
+      speakDone = done;
+      timer = setTimeout(done, muted ? 0 : estimate);
+      return;
+    }
     speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
     u.lang = tag;
     u.voice = voice;
     u.rate = 0.85;
     u.pitch = 1.1;
+    u.onend = done;
+    u.onerror = done;
+    speakDone = done;
+    if (o.onstart) o.onstart();
+    timer = setTimeout(done, estimate * 1.6);
     speechSynthesis.speak(u);
   }
   // iOS only speaks after a tap: say nothing once inside the first tap to unlock it.

@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#5b1f3a">
+  <link rel="manifest" href="../../manifest.webmanifest">
+  <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Mellis">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>Puppet Show · Laboratorio Mellis</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎭</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Fredoka:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../shared/styles.css">
+  <link rel="stylesheet" href="../../shared/game.css">
+  <link rel="stylesheet" href="puppets.css">
+</head>
+<body class="theatre">
+  <header class="topbar">
+    <a class="home" href="../../index.html" aria-label="home">🏠</a>
+    <h1 class="title" id="title"></h1>
+    <div id="controls"></div>
+  </header>
+
+  <!-- Puppet wardrobe: saved puppets (one per twin) -->
+  <main id="wardrobe" class="screen">
+    <p class="lead" id="pick-label"></p>
+    <div class="cards" id="cards"></div>
+  </main>
+
+  <!-- Build your puppet -->
+  <main id="build" class="screen" hidden>
+    <p class="lead" id="build-label"></p>
+    <div class="build">
+      <div class="build-puppet" id="build-puppet"></div>
+      <div class="pickers" id="build-pickers"></div>
+    </div>
+    <button class="go" id="build-next">➡️</button>
+  </main>
+
+  <!-- All about me -->
+  <main id="about" class="screen" hidden>
+    <div class="dots" id="about-dots"></div>
+    <div class="about-head">
+      <div class="mini-puppet" id="about-puppet"></div>
+      <div class="bubble">
+        <p class="q-en" id="about-q"></p>
+        <p class="q-sub" id="about-sub"></p>
+      </div>
+      <button class="round-btn" id="about-say">🔊</button>
+    </div>
+    <div class="about-body" id="about-body"></div>
+    <button class="go" id="about-next" hidden>➡️</button>
+  </main>
+
+  <!-- Stage: puppet asks the school questions -->
+  <main id="stage" class="screen stage" hidden>
+    <div class="status"><div id="hearts"></div><div class="dots" id="scene-dots"></div></div>
+    <div class="curtains">
+      <div class="scene" id="scene"></div>
+    </div>
+    <div class="host">
+      <div class="host-puppet" id="host-puppet"></div>
+      <div class="bubble">
+        <p class="q-en" id="question"></p>
+      </div>
+      <button class="round-btn" id="say">🔊</button>
+    </div>
+    <div class="options" id="options"></div>
+  </main>
+
+  <!-- Finale: All about me show -->
+  <main id="finale" class="screen stage" hidden>
+    <p class="showtime" id="showtime"></p>
+    <div class="curtains open" id="final-curtains">
+      <div class="final-puppet" id="final-puppet"></div>
+    </div>
+    <div class="line-box">
+      <p class="line" id="line"></p>
+      <p class="line-sub" id="line-sub"></p>
+    </div>
+    <div class="mic-panel">
+      <button class="mic" id="mic"><span class="mic-icon">🎙️</span><span id="mic-label"></span></button>
+      <div class="meter" id="meter" hidden><div class="meter-fill" id="meter-fill"></div></div>
+      <p class="mic-note" id="mic-note" hidden></p>
+    </div>
+    <button class="watch" id="watch" hidden>▶️ <span id="watch-label"></span></button>
+  </main>
+
+  <!-- End -->
+  <div id="win" class="win" hidden>
+    <div class="win-box">
+      <p class="win-text" id="win-text"></p>
+      <div id="win-stars"></div>
+      <div class="win-puppet" id="win-puppet"></div>
+      <p class="sticker" id="sticker" hidden></p>
+      <div class="win-buttons">
+        <button class="big-btn" id="replay-show" style="background:var(--pink)">▶️</button>
+        <button class="big-btn" id="again" style="background:var(--orange)">🔁</button>
+        <button class="big-btn" id="to-wardrobe" style="background:var(--purple)">🎭</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../shared/app.js"></script>
+  <script src="art.js"></script>
+  <script src="puppets.js"></script>
+</body>
+</html>

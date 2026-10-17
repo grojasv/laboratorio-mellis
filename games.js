@@ -41,4 +41,12 @@ window.MELLIS_GAMES = [
     name: { ca: 'Contes en veu alta', es: 'Cuentos en voz alta', en: 'Read-aloud Stories' },
     tagline: { ca: 'Llegeix i tria què passa', es: 'Lee y elige qué pasa', en: 'Read and choose what happens' },
   },
+  {
+    id: 'puppets',
+    path: 'games/puppets/index.html',
+    icon: '🎭',
+    color: '#c0392b',
+    name: { ca: 'Teatre de titelles', es: 'Teatro de títeres', en: 'Puppet Show' },
+    tagline: { ca: 'Anglès: Back to School', es: 'Inglés: Back to School', en: 'English: Back to School' },
+  },
 ];
