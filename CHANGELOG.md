@@ -4,6 +4,11 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.10.1] — 2026-10-17
+### Fixed
+- Game pages could not scroll vertically on small phones (`body { overflow: hidden }` in `shared/game.css`), so e.g. the Puppet Show builder's ➡️ button was unreachable. Now only horizontal overflow is hidden.
+- Service worker cache `mellis-v6`.
+
 ## [1.10.0] — 2026-10-17
 ### Added
 - Puppet Show finale is much sillier:

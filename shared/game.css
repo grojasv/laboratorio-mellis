@@ -1,5 +1,5 @@
 /* Common layout for game pages: top bar, level picker, win screen. */
-body { min-height: 100dvh; overflow: hidden; }
+body { min-height: 100dvh; overflow-x: hidden; } /* vertical scroll stays on: small phones need it */
 
 .home { text-decoration: none; flex: none; }
 .title {
