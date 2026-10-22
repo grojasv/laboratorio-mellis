@@ -39,4 +39,10 @@ window.MELLIS_NEWS = [
   { id: 12, date: '2026-10-22', icon: '🧪', type: 'change', game: 'monsters',
     title: { ca: 'Monstres més difícils!', es: '¡Monstruos más difíciles!', en: 'Harder monsters!' },
     text: { ca: 'Ales, cues, ratlles i la Doctora Bombolles', es: 'Alas, colas, rayas y la Doctora Burbujas', en: 'Wings, tails, stripes and Dr. Bubbles' } },
+  { id: 13, date: '2026-10-22', icon: '🦉', type: 'change', game: 'detective',
+    title: { ca: 'Casos nous de detectives!', es: '¡Casos nuevos de detectives!', en: 'New detective cases!' },
+    text: { ca: 'Sospitosos que parlen i el Mussol', es: 'Sospechosos que hablan y el Búho', en: 'Talking suspects and the Owl' } },
+  { id: 14, date: '2026-10-22', icon: '🎵', type: 'change',
+    title: { ca: 'Ara hi ha música!', es: '¡Ahora hay música!', en: 'Now there is music!' },
+    text: { ca: 'Toca 🎵 per apagar-la', es: 'Toca 🎵 para apagarla', en: 'Tap 🎵 to turn it off' } },
 ];

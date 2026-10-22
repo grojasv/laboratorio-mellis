@@ -4,6 +4,16 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.12.0] — 2026-10-22
+### Added
+- Detective: case levels unlocked by rank — Easy (today's case), Medium after 3 solved cases (8 suspects; bag, shoe colour, ear shape and carried item; mirror-writing or symbol key with decoys; 4–5 clues shown as chips on a cork board), Hard after 6 (+ alibis on a 4-room map: tap a suspect to hear where they were, the room shows on the card; letter-shift code with an alphabet strip; 5 clues).
+- Detective: Agent Mussol, a sleepy owl boss who briefs every case and wakes up shocked at the end; talking suspects (tap → own excuse and voice pitch, then ✖️ to cross out or ↩️); arrest scene with a net, the thief's confession and the item given back.
+- Detective: 🚔 gallery of the last 60 caught thieves ("CAUGHT" stamp, 👑 for ⭐⭐⭐); tap one to hear the confession.
+- Detective plays the soft swing loop (🎵 in the lobby and next to the hearts). `speak()` accepts `opts.pitch`.
+### Changed
+- Detective restyled as a noir office (dark wall, desk-lamp glow, rainy window, cork board).
+- Service worker cache `mellis-v9`.
+
 ## [1.11.0] — 2026-10-22
 ### Added
 - Shared background music (`Mellis.music`): synthesized WebAudio loops (spooky music-box waltz, soft swing jazz), quiet, ducks while a voice speaks, its own 🎵 on/off (`mellis.music`), silenced by 🔇 and when the tab is hidden. `speak()` accepts `opts.rate`. Monster Lab plays the spooky waltz (detective jazz comes with the detective update).

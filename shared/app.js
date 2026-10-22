@@ -265,7 +265,7 @@
     if (!voices.length) return true;
     return !!voiceFor(VOICE_TAGS[lang] || lang);
   }
-  // opts (optional): { onstart, onend, rate } — onend always fires once, even when muted,
+  // opts (optional): { onstart, onend, rate, pitch } — onend always fires once, even when muted,
   // when there is no voice, or when the engine forgets to report the end.
   let speakDone = null;
   function speak(text, voiceLang, opts) {
@@ -294,7 +294,7 @@
     u.lang = tag;
     u.voice = voice;
     u.rate = o.rate || 0.85;
-    u.pitch = 1.1;
+    u.pitch = o.pitch || 1.1;
     u.onend = done;
     u.onerror = done;
     speakDone = done;

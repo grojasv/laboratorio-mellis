@@ -26,22 +26,42 @@
     <div id="controls"></div>
   </header>
 
+  <div class="rain" aria-hidden="true"></div>
+
   <!-- Agency office -->
   <main id="lobby" class="screen lobby">
-    <div class="lobby-mascots"><div id="mascots"></div><span class="lens">🔍</span></div>
+    <div class="owl-row">
+      <div class="owl" id="owl-lobby"></div>
+      <p class="bubble" id="owl-lobby-say"></p>
+    </div>
     <p class="rank" id="rank"></p>
     <div class="badges" id="badges"></div>
-    <button class="go-btn stick-bottom" id="new-case">🕵️ <span id="new-case-label"></span></button>
+    <div class="case-levels">
+      <button class="case-level" data-level="1" style="background:var(--orange)"><span class="cl-icon">📁</span><span class="cl-name" id="cl1"></span><span class="cl-lock"></span></button>
+      <button class="case-level" data-level="2" style="background:var(--purple)"><span class="cl-icon">🗂️</span><span class="cl-name" id="cl2"></span><span class="cl-lock"></span></button>
+      <button class="case-level" data-level="3" style="background:#c0392b"><span class="cl-icon">🗺️</span><span class="cl-name" id="cl3"></span><span class="cl-lock"></span></button>
+    </div>
+    <div class="lobby-tools">
+      <button class="round-btn" id="gallery-btn" aria-label="caught thieves">🚔</button>
+      <button class="round-btn" id="music-lobby"></button>
+    </div>
   </main>
 
   <!-- A case in progress -->
   <main id="case" class="screen case" hidden>
-    <div id="hearts" class="case-hearts"></div>
-    <div class="steps" id="steps">
-      <span data-step="intro">📁</span><span data-step="foot">👣</span><span data-step="code">🔐</span><span data-step="suspects">🕵️</span><span data-step="print">✋</span>
+    <div class="case-top">
+      <div id="hearts" class="case-hearts"></div>
+      <div class="steps" id="steps">
+        <span data-step="intro">📁</span><span data-step="foot">👣</span><span data-step="code">🔐</span><span data-step="suspects">🕵️</span><span data-step="print">✋</span>
+      </div>
+      <button class="round-btn" id="music-case"></button>
     </div>
 
     <section class="step" id="step-intro">
+      <div class="owl-row brief">
+        <div class="owl" id="owl-intro"></div>
+        <p class="bubble" id="owl-brief"></p>
+      </div>
       <div class="file">
         <p class="file-no" id="case-no"></p>
         <div class="file-item" id="case-item"></div>
@@ -59,12 +79,16 @@
     <section class="step" id="step-code" hidden>
       <div class="say-row"><p class="task" id="code-task"></p><button class="round-btn say" data-say="code-task">🔊</button></div>
       <div class="note" id="note"></div>
+      <div class="abc" id="abc" hidden></div>
       <div class="key" id="key"></div>
     </section>
 
     <section class="step" id="step-suspects" hidden>
       <div class="say-row"><p class="task small" id="sus-task"></p><button class="round-btn say" data-say="clues">🔊</button></div>
-      <ol class="clues" id="clues"></ol>
+      <div class="board">
+        <div class="rooms" id="rooms" hidden></div>
+        <ol class="clues" id="clues"></ol>
+      </div>
       <div class="suspects" id="suspects"></div>
     </section>
 
@@ -82,20 +106,42 @@
         <button class="go-btn" id="clue-next">➡️</button>
       </div>
     </div>
+
+    <!-- Talking to a suspect -->
+    <div class="clue-pop" id="talk-pop" hidden>
+      <div class="clue-card talk-card">
+        <div class="talk-face" id="talk-face"></div>
+        <p class="bubble talk-text" id="talk-text"></p>
+        <div class="talk-buttons">
+          <button class="go-btn" id="talk-back" style="background:var(--teal)">↩️</button>
+          <button class="go-btn" id="talk-out" style="background:#e03131">✖️</button>
+        </div>
+      </div>
+    </div>
   </main>
 
-  <!-- Solved -->
+  <!-- Solved: the arrest -->
   <div id="win" class="win" hidden>
     <div class="win-box">
-      <p class="win-text" id="win-text"></p>
+      <div class="win-head"><div class="owl small" id="win-owl"></div><p class="win-text" id="win-text"></p></div>
       <div id="win-stars"></div>
       <div class="caught" id="caught"></div>
+      <p class="bubble confess" id="confess"></p>
       <p class="win-rank" id="win-rank"></p>
       <div class="win-buttons">
         <button class="big-btn" id="again" style="background:var(--orange)">🔁</button>
         <button class="big-btn" id="to-lobby" style="background:var(--teal)">🏢</button>
         <a class="big-btn" href="../../index.html" style="background:var(--yellow)">🏠</a>
       </div>
+    </div>
+  </div>
+
+  <!-- Caught thieves -->
+  <div id="gallery" class="win" hidden>
+    <div class="win-box gallery-box">
+      <p class="win-text" id="gallery-title"></p>
+      <div class="gallery-grid" id="gallery-grid"></div>
+      <button class="big-btn stick-bottom" id="gallery-close" style="background:var(--yellow)">👍</button>
     </div>
   </div>
 
