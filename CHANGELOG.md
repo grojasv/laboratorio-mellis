@@ -4,6 +4,13 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.16.0] — 2026-10-22
+### Added
+- Aprenem **El meu poble** (`learn/town/`): a drawn map of the made-up *Poble Mellis* with 12 places. Lesson 1 *Places*: tap every building, then "where would you go if…?" (a walker strolls to the place) and odd-one-out by kind (shops, help, learn/play). Lesson 2 *Jobs*: meet 12 workers, walk each one to their workplace, "what do they work with?", "who works at…?". Album = the town map, which colours in as she learns places and jobs. Mellis rule as usual.
+- Aprenem **Bons amics** (`learn/friends/`): 9 short stories with the Mellis and classmates (Nur, Jan, Laia, Biel, Aina, Pol) in 3 lessons — *Being a good friend*, *Is it fair?*, *When we get angry* — plus "How does … feel?" questions. No hearts: a wrong choice shows the consequence (the friend's mood + why) and she picks again; stars from first-try choices. Friendship-corner stickers.
+### Changed
+- `CLAUDE.md`: Mellis-rule exception for social-emotional stories. Service worker cache `mellis-v13`.
+
 ## [1.15.0] — 2026-10-22
 ### Added
 - Aprenem: **Human body unit** (`learn/body/`), 4 lessons with explore → activities → odd-one-out check (Mellis rule) → stickers:

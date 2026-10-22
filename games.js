@@ -69,4 +69,20 @@ window.MELLIS_LEARN = [
     name: { ca: 'El cos humà', es: 'El cuerpo humano', en: 'The human body' },
     tagline: { ca: 'Sentits, esquelet, menjar, hàbits', es: 'Sentidos, esqueleto, comida, hábitos', en: 'Senses, skeleton, food, habits' },
   },
+  {
+    id: 'town',
+    path: 'learn/town/index.html',
+    icon: '🏘️',
+    color: '#ff9f1c',
+    name: { ca: 'El meu poble', es: 'Mi pueblo', en: 'My town' },
+    tagline: { ca: 'Llocs i oficis', es: 'Sitios y oficios', en: 'Places & jobs' },
+  },
+  {
+    id: 'friends',
+    path: 'learn/friends/index.html',
+    icon: '💛',
+    color: '#c2185b',
+    name: { ca: 'Bons amics', es: 'Buenos amigos', en: 'Good friends' },
+    tagline: { ca: 'Amistat i emocions', es: 'Amistad y emociones', en: 'Friendship & feelings' },
+  },
 ];

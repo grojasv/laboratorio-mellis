@@ -54,4 +54,10 @@ window.MELLIS_NEWS = [
   { id: 17, date: '2026-10-22', icon: '🫀', type: 'game', game: 'body', path: 'learn/body/index.html',
     title: { ca: 'Nou: el cos humà!', es: '¡Nuevo: el cuerpo humano!', en: 'New: the human body!' },
     text: { ca: 'Sentits, esquelet, menjar i hàbits', es: 'Sentidos, esqueleto, comida y hábitos', en: 'Senses, skeleton, food and habits' } },
+  { id: 18, date: '2026-10-22', icon: '🏘️', type: 'game', game: 'town', path: 'learn/town/index.html',
+    title: { ca: 'Nou: el meu poble!', es: '¡Nuevo: mi pueblo!', en: 'New: my town!' },
+    text: { ca: 'Llocs i oficis del Poble Mellis', es: 'Sitios y oficios del Pueblo Mellis', en: 'Places and jobs in Mellis Town' } },
+  { id: 19, date: '2026-10-22', icon: '💛', type: 'game', game: 'friends', path: 'learn/friends/index.html',
+    title: { ca: 'Nou: bons amics!', es: '¡Nuevo: buenos amigos!', en: 'New: good friends!' },
+    text: { ca: 'Què faria un bon amic?', es: '¿Qué haría un buen amigo?', en: 'What would a good friend do?' } },
 ];

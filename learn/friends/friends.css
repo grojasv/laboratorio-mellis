@@ -1,0 +1,53 @@
+/* "Bons amics": shares ../animals/animals.css (lessons) and ../body/body.css (stickers) */
+body.friends-bg {
+  background:
+    radial-gradient(circle at 15% 15%, #fff3c4 0 14%, transparent 15%),
+    radial-gradient(circle at 85% 80%, #ffe0ee 0 18%, transparent 19%),
+    linear-gradient(170deg, #fff8e1 0%, #ffeef6 60%, #f3f0ff 100%);
+  background-attachment: fixed;
+}
+.friends-bg .title, .friends-bg .unit-head h2, .friends-bg .album-title { color: #c2185b; }
+.friends-bg .l-num { background: #ffb703; }
+.friends-bg .album-sec { color: #c2185b; }
+
+/* the scene: place, friend and how they feel */
+.scene {
+  position: relative; width: 100%; height: clamp(84px, 22vw, 120px);
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+  background: #fff; border: 4px solid var(--ink); border-radius: 22px; box-shadow: 0 5px 0 var(--ink);
+}
+.scene.small { height: 76px; }
+.sc-place { font-size: clamp(2.6rem, 13vw, 4rem); }
+.sc-kid { font-size: clamp(2.6rem, 13vw, 4rem); }
+.sc-mood { font-size: 2.2rem; background: #fff; border: 3px solid var(--ink); border-radius: 50%; width: 52px; height: 52px; display: grid; place-items: center; }
+.sc-mood.show { animation: pop-in .4s; }
+.story-text { font-size: clamp(1rem, 4.3vw, 1.3rem); font-weight: 600; }
+.story-ask { margin: 0; font-size: clamp(1.1rem, 5vw, 1.4rem); font-weight: 700; color: #c2185b; }
+
+.choices { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+.choice, .feeling {
+  display: flex; align-items: center; gap: 10px; width: 100%; text-align: left;
+  background: #fff; border: 4px solid var(--ink); border-radius: 18px; box-shadow: 0 5px 0 var(--ink);
+  padding: 8px 12px; font-weight: 700; font-size: clamp(.95rem, 4.2vw, 1.2rem); line-height: 1.2;
+}
+.choice:active, .feeling:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--ink); }
+.ch-e { font-size: 1.8rem; flex: none; }
+.choice.tried, .feeling.tried { opacity: .45; box-shadow: none; transform: translateY(3px); text-decoration: line-through; text-decoration-thickness: 2px; }
+.choice.right, .feeling.right { outline: 5px solid #3fb36b; animation: pop-in .4s; }
+.feelings { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; width: 100%; }
+.feeling { flex-direction: column; text-align: center; border-color: var(--c); gap: 2px; }
+.feeling .ch-e { font-size: 2.4rem; }
+.fact.result.good { background: #e7ffe1; border-color: #3fb36b; }
+.fact.result.bad { background: #ffeaea; border-color: #e5383b; }
+.album-sections { width: 100%; }
+/* the result covers the story text, so the choices never move */
+.story-stage { position: relative; width: 100%; display: flex; flex-direction: column; gap: 10px; }
+.story-stage .fact.over { top: auto; bottom: 0; font-size: clamp(1rem, 4.4vw, 1.25rem); }
+
+@media (max-height: 700px) {
+  .scene { height: 70px; }
+  .sc-place, .sc-kid { font-size: 2.6rem; }
+  .sc-mood { width: 44px; height: 44px; font-size: 1.8rem; }
+  .choice { padding: 5px 10px; }
+  .ch-e { font-size: 1.5rem; }
+}

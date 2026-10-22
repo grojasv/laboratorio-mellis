@@ -1,0 +1,55 @@
+/* "El meu poble": shares the lesson styles in ../animals/animals.css */
+body.town-bg {
+  background:
+    radial-gradient(circle at 88% 8%, #fff3a6 0 6%, transparent 6.5%),
+    linear-gradient(180deg, #bfe6ff 0%, #e8f7ff 40%, #e9f7dc 100%);
+  background-attachment: fixed;
+}
+.town-bg .title, .town-bg .unit-head h2, .town-bg .album-title { color: #b5651d; }
+.town-bg .l-num { background: #ff9f1c; }
+
+/* the map: buildings on a green block, grey streets in between */
+.town {
+  position: relative; width: 100%; max-width: 460px;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 10px;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 calc(25% - 5px), #9aa5b1 calc(25% - 5px) calc(25% + 5px)),
+    #8fd18a;
+  border: 4px solid var(--ink); border-radius: 20px; box-shadow: 0 5px 0 var(--ink);
+}
+.bld {
+  position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px;
+  aspect-ratio: 1; background: #fffaf0; border: 3px solid var(--ink); border-radius: 12px 12px 6px 6px;
+  box-shadow: 0 3px 0 var(--ink); padding: 2px; font-weight: 700; transition: transform .15s;
+}
+.bld:active { transform: translateY(2px); }
+.b-e { font-size: clamp(1.5rem, 8vw, 2.3rem); line-height: 1; }
+.b-name { font-size: clamp(.55rem, 2.6vw, .8rem); line-height: 1.05; text-align: center; }
+.bld.heard { background: #e7ffe1; }
+.bld.heard::after { content: "✅"; position: absolute; top: -6px; right: -6px; font-size: .8rem; }
+.bld.right { outline: 4px solid #3fb36b; }
+.bld.reveal { outline: 4px dashed #ffd23f; }
+.bld.visit { animation: pop-in .4s; }
+.bld.off { filter: grayscale(1); opacity: .45; }
+.b-job { position: absolute; bottom: -8px; right: -8px; font-size: 1.2rem; background: #fff; border: 2px solid var(--ink); border-radius: 50%; width: 28px; height: 28px; display: grid; place-items: center; }
+.walker {
+  position: absolute; z-index: 3; width: 36px; height: 36px; font-size: 1.9rem; line-height: 1; pointer-events: none;
+  transition: left .9s ease-in-out, top .9s ease-in-out; animation: waddle .3s ease-in-out infinite alternate;
+}
+@keyframes waddle { to { transform: rotate(8deg) translateY(-3px); } }
+.ask-e { font-size: 1.6rem; margin-right: 6px; vertical-align: middle; }
+
+.groups.jobs { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.groups.jobs .g-ex { font-size: 2rem; }
+.groups.jobs .g-name { font-size: clamp(.7rem, 3.2vw, .95rem); }
+.odds.three { grid-template-columns: repeat(3, 1fr); }
+.odds.three .odd { font-size: clamp(.72rem, 3.3vw, 1rem); line-height: 1.1; }
+.choose-item { display: flex; flex-direction: column; align-items: center; }
+.album-town .bld { cursor: pointer; }
+.mini-card { font-size: 2rem; }
+
+@media (max-height: 700px) {
+  .town { gap: 7px; padding: 7px; }
+  .groups.jobs .group { padding: 2px; }
+  .groups.jobs .g-ex { font-size: 1.6rem; }
+}

@@ -23,6 +23,8 @@ School subjects as short interactive lessons, following what the girls study thi
 |---|---|
 | 🐾 Els animals | 1. Vertebrates & invertebrates (sort into the 5 groups, trick animals) · 2. What they eat (feed the right plate, build food chains) · 3. How they're born (egg or tummy, order life cycles: frog, butterfly, chicken) · 4. Where they live & how they move (sky/land/water scene, pick the move and watch it). Each ends with odd-one-out questions. 📒 animal-card album filled in by all lessons. Data in `learn/animals/animals-data.js` |
 | 🫀 El cos humà | 1. The 5 senses (which sense for each action, tap the organ on a face) · 2. Body & skeleton (tap body parts on a kid figure, build the skeleton top to bottom) · 3. Food & digestion (sort foods on the healthy plate, the sandwich's journey) · 4. Healthy habits (good habit or not, order hand-washing and teeth-brushing). 📒 sticker album. Data in `learn/body/body-data.js`; shares the lesson styles in `learn/animals/animals.css` |
+| 🏘️ El meu poble | Made-up *Poble Mellis* map: 1. Places (tap the 12 buildings, "where would you go if…?" and a walker strolls there, odd one out) · 2. Jobs (walk each worker to their workplace, what they work with, who works where). The map colours in as she learns (album). Data in `learn/town/town-data.js` |
+| 💛 Bons amics | Short stories with the Mellis and classmates: 1. Being a good friend · 2. Is it fair? · 3. When we get angry. She picks what a good friend would do; wrong choices show the consequence (no hearts), then "How does … feel?". Friendship-corner stickers. Data in `learn/friends/friends-data.js` |
 
 ## Game rules
 

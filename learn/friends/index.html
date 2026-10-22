@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ff9ec7">
+  <link rel="manifest" href="../../manifest.webmanifest">
+  <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Mellis">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>Aprenem: bons amics · Laboratorio Mellis</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💛</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../shared/styles.css">
+  <link rel="stylesheet" href="../../shared/game.css">
+  <link rel="stylesheet" href="../animals/animals.css">
+  <link rel="stylesheet" href="../body/body.css">
+  <link rel="stylesheet" href="friends.css">
+</head>
+<body class="friends-bg">
+  <header class="topbar">
+    <a class="home" href="../../index.html" aria-label="home">🏠</a>
+    <h1 class="title" id="title"></h1>
+    <div id="controls"></div>
+  </header>
+
+  <div class="lesson-bar" id="lesson-bar" hidden>
+    <div class="lesson-steps" id="lesson-steps"></div>
+  </div>
+
+  <main id="unit" class="screen unit">
+    <div class="unit-head"><div id="mascots" class="unit-mascots"></div><h2 id="unit-title"></h2></div>
+    <div class="lessons" id="lessons"></div>
+    <button class="go-btn album-btn stick-bottom" id="album-btn">💛 <span id="album-label"></span> <b id="album-count"></b></button>
+  </main>
+
+  <main id="explore" class="screen" hidden>
+    <div class="say-row"><p class="task" id="explore-intro"></p><button class="round-btn" id="say-explore">🔊</button></div>
+    <p class="fact" id="explore-fact" hidden></p>
+    <div class="groups" id="groups"></div>
+    <button class="go-btn stick-bottom" id="explore-next" hidden>➡️</button>
+  </main>
+
+  <!-- A short story: what would a good friend do? -->
+  <main id="story" class="screen" hidden>
+    <div class="choose-progress" id="story-progress"></div>
+    <div class="story-stage">
+      <div class="scene" id="scene"></div>
+      <div class="say-row"><p class="task story-text" id="story-text"></p><button class="round-btn" id="say-story">🔊</button></div>
+      <p class="fact result over" id="story-msg" hidden></p>
+    </div>
+    <p class="story-ask" id="story-ask"></p>
+    <div class="choices" id="choices"></div>
+  </main>
+
+  <!-- How do they feel? -->
+  <main id="feel" class="screen" hidden>
+    <div class="story-stage">
+      <div class="scene small"><span class="sc-kid" id="feel-kid"></span></div>
+      <div class="say-row"><p class="task story-text" id="feel-text"></p><button class="round-btn" id="say-feel">🔊</button></div>
+      <p class="fact over" id="feel-msg" hidden></p>
+    </div>
+    <p class="story-ask" id="feel-ask"></p>
+    <div class="feelings" id="feelings"></div>
+  </main>
+
+  <main id="album" class="screen" hidden>
+    <h2 class="album-title" id="album-title"></h2>
+    <div class="album-sections" id="album-grid"></div>
+    <button class="go-btn stick-bottom" id="album-back">👍</button>
+  </main>
+
+  <div id="win" class="win" hidden>
+    <div class="win-box">
+      <div class="win-twins" id="win-twins"></div>
+      <p class="win-text" id="win-text"></p>
+      <div id="win-stars"></div>
+      <p class="win-new" id="win-new"></p>
+      <div class="win-cards" id="win-cards"></div>
+      <div class="win-buttons">
+        <button class="big-btn" id="again" style="background:var(--orange)">🔁</button>
+        <button class="big-btn" id="to-album" style="background:var(--teal)">💛</button>
+        <button class="big-btn" id="to-unit" style="background:var(--yellow)">🎒</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../shared/app.js"></script>
+  <script src="friends-data.js"></script>
+  <script src="friends.js"></script>
+</body>
+</html>
