@@ -48,4 +48,7 @@ window.MELLIS_NEWS = [
   { id: 15, date: '2026-10-22', icon: '🐾', type: 'game', game: 'animals', path: 'learn/animals/index.html',
     title: { ca: 'Nou: Aprenem!', es: '¡Nuevo: Aprendemos!', en: "New: Let's learn!" },
     text: { ca: 'Els animals, com a l\'escola', es: 'Los animales, como en el cole', en: 'Animals, like at school' } },
+  { id: 16, date: '2026-10-22', icon: '🥚', type: 'change', game: 'animals', path: 'learn/animals/index.html',
+    title: { ca: '3 lliçons noves d\'animals!', es: '¡3 lecciones nuevas de animales!', en: '3 new animal lessons!' },
+    text: { ca: 'Què mengen, com neixen i on viuen', es: 'Qué comen, cómo nacen y dónde viven', en: 'Food, babies and homes' } },
 ];

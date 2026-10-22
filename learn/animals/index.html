@@ -28,7 +28,7 @@
 
   <div class="lesson-bar" id="lesson-bar" hidden>
     <div id="hearts"></div>
-    <div class="lesson-steps" id="lesson-steps"><span data-i="0">🔍</span><span data-i="1">🏠</span><span data-i="2">🤔</span></div>
+    <div class="lesson-steps" id="lesson-steps"></div>
   </div>
 
   <!-- Unit: the lessons + album -->
@@ -46,13 +46,23 @@
     <button class="go-btn stick-bottom" id="explore-next" hidden>➡️</button>
   </main>
 
-  <!-- 2. Sort into groups -->
-  <main id="sort" class="screen" hidden>
-    <div class="sort-progress" id="sort-progress"></div>
-    <div class="say-row"><p class="task" id="sort-ask"></p><button class="round-btn" id="say-sort">🔊</button></div>
-    <div class="sort-animal" id="sort-animal"></div>
-    <p class="fact" id="sort-msg" hidden></p>
-    <div class="houses" id="houses"></div>
+  <!-- 2. Choose: group / plate / birth / place / move -->
+  <main id="choose" class="screen" hidden>
+    <div class="choose-progress" id="choose-progress"></div>
+    <div class="say-row"><p class="task" id="choose-ask"></p><button class="round-btn" id="say-choose">🔊</button></div>
+    <div class="a-stage">
+      <div class="choose-animal" id="choose-animal"></div>
+      <p class="fact over" id="choose-msg" hidden></p>
+    </div>
+    <div class="options" id="options"></div>
+  </main>
+
+  <!-- 2b. Order: food chains / life cycles -->
+  <main id="order" class="screen" hidden>
+    <div class="say-row"><p class="task" id="order-ask"></p><button class="round-btn" id="say-order">🔊</button></div>
+    <div class="slots" id="slots"></div>
+    <p class="fact" id="order-msg" hidden></p>
+    <div class="pieces" id="pieces"></div>
   </main>
 
   <!-- 3. Check: odd one out -->

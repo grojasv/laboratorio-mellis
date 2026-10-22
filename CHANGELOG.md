@@ -4,6 +4,15 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.14.0] — 2026-10-22
+### Added
+- Animals unit, lessons 2–4: *What do they eat?* (feed each animal the right plate: plants / animals / everything, then build food chains in order), *How are they born?* (egg or mother's tummy, then order life cycles: frog, butterfly, chicken), *Where do they live and how do they move?* (send each animal to the sky, land or water of a scene, then pick how it moves and watch it walk/fly/swim/crawl/jump). Each ends with odd-one-out questions under the Mellis rule.
+- Animal data: diet, birth, habitat and movement per animal (left out when it isn't clear-cut), CA/ES adjective agreement, food chains and life cycles (tadpole and chrysalis drawn as SVG).
+- Album cards gain icons for each fact learned; tapping a card reads everything she knows about it.
+### Changed
+- `learn/animals/animals.js` is now a small lesson engine (explore → choose / order activities → check); cards store facts per field (old `g` migrates to `group`). Explanations overlay the animal so the answer buttons never move off small screens.
+- Service worker cache `mellis-v11`.
+
 ## [1.13.0] — 2026-10-22
 ### Added
 - New hub section **🎒 Aprenem**: school subjects as short lessons (explore → do → check with the Mellis rule → album cards). Catalogue `MELLIS_LEARN` in `games.js`; pages under `learn/<unit>/` (also counted as "played" for the NOU! sticker); news items can link with `path`.

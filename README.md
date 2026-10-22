@@ -21,7 +21,7 @@ School subjects as short interactive lessons, following what the girls study thi
 
 | Unit | Lessons |
 |---|---|
-| 🐾 Els animals | 1. Vertebrates & invertebrates (sort into the 5 groups, trick animals, odd one out) · 2–4 coming: what they eat, how they're born, where they live & move. 📒 animal-card album shared by all lessons. Data in `learn/animals/animals-data.js` |
+| 🐾 Els animals | 1. Vertebrates & invertebrates (sort into the 5 groups, trick animals) · 2. What they eat (feed the right plate, build food chains) · 3. How they're born (egg or tummy, order life cycles: frog, butterfly, chicken) · 4. Where they live & how they move (sky/land/water scene, pick the move and watch it). Each ends with odd-one-out questions. 📒 animal-card album filled in by all lessons. Data in `learn/animals/animals-data.js` |
 | 🫀 El cos humà | Coming: 5 senses, body & skeleton, food & digestion, healthy habits |
 
 ## Game rules
