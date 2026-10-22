@@ -45,4 +45,7 @@ window.MELLIS_NEWS = [
   { id: 14, date: '2026-10-22', icon: '🎵', type: 'change',
     title: { ca: 'Ara hi ha música!', es: '¡Ahora hay música!', en: 'Now there is music!' },
     text: { ca: 'Toca 🎵 per apagar-la', es: 'Toca 🎵 para apagarla', en: 'Tap 🎵 to turn it off' } },
+  { id: 15, date: '2026-10-22', icon: '🐾', type: 'game', game: 'animals', path: 'learn/animals/index.html',
+    title: { ca: 'Nou: Aprenem!', es: '¡Nuevo: Aprendemos!', en: "New: Let's learn!" },
+    text: { ca: 'Els animals, com a l\'escola', es: 'Los animales, como en el cole', en: 'Animals, like at school' } },
 ];

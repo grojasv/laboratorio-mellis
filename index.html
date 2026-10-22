@@ -103,6 +103,7 @@
       background: rgba(255,255,255,.9); color: var(--ink);
       border-radius: 999px; padding: 4px 14px;
     }
+    .section-title { margin: 22px 4px 10px; font-size: clamp(1.4rem, 6vw, 1.9rem); color: var(--purple); }
     .game.soon {
       background: repeating-linear-gradient(45deg, #fff 0 16px, #f3eaff 16px 32px);
       color: var(--purple);
@@ -216,7 +217,10 @@
       <p class="bubble-talk" id="greeting"></p>
     </section>
     <button class="news-banner" id="news-banner" hidden>🎁 <span id="news-banner-label"></span> <b class="news-count" id="news-count"></b></button>
+    <h2 class="section-title" id="games-title"></h2>
     <section class="games" id="games"></section>
+    <h2 class="section-title" id="learn-title"></h2>
+    <section class="games" id="learn"></section>
     <div class="hub-foot">
       <button class="install" id="news-all">🎁 <span id="news-all-label"></span></button>
       <button class="install" id="install" hidden>📲 <span id="install-label"></span></button>
@@ -380,7 +384,7 @@
           <span class="n-icon">${n.icon}</span>
           ${n.id > seenId() ? `<span class="n-new">${M.t(NT.sticker)}</span>` : ''}
           <span class="n-text"><b>${M.t(n.title)}</b><span>${M.t(n.text)}</span><small>${ago(n.date)}</small></span>
-          ${n.game ? `<a class="n-play" href="games/${n.game}/index.html">▶ ${M.t(NT.play)}</a>` : ''}
+          ${n.game ? `<a class="n-play" href="${n.path || `games/${n.game}/index.html`}">▶ ${M.t(NT.play)}</a>` : ''}
         </div>`).join('') : `<p class="n-none">${M.t(NT.nothing)}</p>`;
     }
     function closeNews() {
@@ -432,7 +436,18 @@
           <span class="name">${M.t(SOON)}</span>
         </button>`);
       document.getElementById('games').innerHTML = cards.join('');
+      document.getElementById('games-title').textContent = M.t(GAMES_T);
+      document.getElementById('learn-title').textContent = M.t(LEARN_T);
+      document.getElementById('learn').innerHTML = window.MELLIS_LEARN.map((u) => `
+        <a class="game${u.soon ? ' soon' : ''}" ${u.soon ? '' : `href="${u.path}"`} style="${u.soon ? '' : `background:${u.color}`}">
+          ${isNewGame(u.id) ? `<span class="new-sticker">${M.t(NT.sticker)}</span>` : ''}
+          <span class="icon">${u.icon}</span>
+          <span class="name">${M.t(u.name)}</span>
+          <span class="tag">${M.t(u.tagline)}</span>
+        </a>`).join('');
     }
+    const GAMES_T = L('🎮 Jocs', '🎮 Juegos', '🎮 Games');
+    const LEARN_T = L('🎒 Aprenem', '🎒 Aprendemos', "🎒 Let's learn");
     const INSTALL = L("Instal·la el laboratori", 'Instala el laboratorio', 'Install the lab');
     render();
     M.onLang(render);
@@ -440,7 +455,7 @@
     document.getElementById('install').addEventListener('click', () => { M.sounds.pop(); M.install(); });
 
     // Tap feedback: wiggle + sound, then go to the game
-    document.getElementById('games').addEventListener('click', (e) => {
+    const onCard = (e) => {
       const card = e.target.closest('.game');
       if (!card) return;
       e.preventDefault();
@@ -448,7 +463,9 @@
       if (card.classList.contains('soon')) { M.sounds.boing(); return; }
       M.sounds.pop();
       setTimeout(() => { location.href = card.getAttribute('href'); }, 300);
-    });
+    };
+    document.getElementById('games').addEventListener('click', onCard);
+    document.getElementById('learn').addEventListener('click', onCard);
 
     // Background bubbles
     const bubbles = document.querySelector('.bubbles');

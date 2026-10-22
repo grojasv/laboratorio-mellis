@@ -50,3 +50,23 @@ window.MELLIS_GAMES = [
     tagline: { ca: 'Anglès: Back to School', es: 'Inglés: Back to School', en: 'English: Back to School' },
   },
 ];
+
+// "Aprenem" (we learn): school subjects as short interactive lessons, one card per unit.
+window.MELLIS_LEARN = [
+  {
+    id: 'animals',
+    path: 'learn/animals/index.html',
+    icon: '🐾',
+    color: '#3fb36b',
+    name: { ca: 'Els animals', es: 'Los animales', en: 'Animals' },
+    tagline: { ca: 'Vertebrats, què mengen, com neixen…', es: 'Vertebrados, qué comen, cómo nacen…', en: 'Groups, food, babies…' },
+  },
+  {
+    id: 'body',
+    icon: '🫀',
+    color: '#ff6fb5',
+    soon: true,
+    name: { ca: 'El cos humà', es: 'El cuerpo humano', en: 'The human body' },
+    tagline: { ca: 'Aviat!', es: '¡Pronto!', en: 'Soon!' },
+  },
+];

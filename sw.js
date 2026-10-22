@@ -1,7 +1,7 @@
 // Offline support. Pages and assets are served from the cache straight away
 // and refreshed in the background, so a new version shows on the next visit.
 // When you add a game, add its files to PRECACHE (or they get cached on first visit).
-const CACHE = 'mellis-v9';
+const CACHE = 'mellis-v10';
 const PRECACHE = [
   './',
   './games.js',
@@ -11,6 +11,10 @@ const PRECACHE = [
   './games/memory/index.html',
   './games/memory/memory.css',
   './games/memory/memory.js',
+  './learn/animals/index.html',
+  './learn/animals/animals.css',
+  './learn/animals/animals-data.js',
+  './learn/animals/animals.js',
   './games/monsters/index.html',
   './games/monsters/monsters.css',
   './games/monsters/monsters.js',

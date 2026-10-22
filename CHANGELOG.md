@@ -4,6 +4,14 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.13.0] — 2026-10-22
+### Added
+- New hub section **🎒 Aprenem**: school subjects as short lessons (explore → do → check with the Mellis rule → album cards). Catalogue `MELLIS_LEARN` in `games.js`; pages under `learn/<unit>/` (also counted as "played" for the NOU! sticker); news items can link with `path`.
+- Animals unit (`learn/animals/`): lesson 1 *Vertebrates & invertebrates* — tap the 6 groups to hear what defines them, sort 8 animals (2 trick ones: whale, bat, penguin, shark, octopus…) into group houses with a spoken explanation, then 3 odd-one-out questions; 📒 album of 35 animal cards that later lessons will fill in. Lessons 2–4 shown as "Soon".
+- Human body unit announced as "Soon" on the hub.
+### Changed
+- Hub: section titles 🎮 Jocs / 🎒 Aprenem. Service worker cache `mellis-v10` (precaches the animals unit).
+
 ## [1.12.1] — 2026-10-22
 ### Changed
 - README: "Ideas & references" section (Marble curriculum); `CLAUDE.md` points to it when brainstorming new games.

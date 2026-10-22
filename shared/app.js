@@ -563,7 +563,7 @@
   }
 
   // ---------- Remember which games were played (removes the hub's "NOU!" sticker) ----------
-  const gameMatch = location.pathname.match(/\/games\/([^/]+)\//);
+  const gameMatch = location.pathname.match(/\/(?:games|learn)\/([^/]+)\//);
   if (gameMatch) {
     let played = [];
     try { played = JSON.parse(load('mellis.played')) || []; } catch (e) { /* ignore */ }

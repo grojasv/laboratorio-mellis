@@ -10,10 +10,19 @@ Simple learning games for 7-year-olds, in Catalan, Spanish and English. Built fo
 |---|---|
 | 🗓️ Memory dels mesos | Months and seasons: match a picture with a word in a mix of CA/ES/EN |
 | 🧪 Laboratori de pocions | Adding and subtracting up to 100 (3 levels), with a collection of creatures |
-| 🎃 Laboratori de monstres | Halloween English: build the monster you hear (colours, numbers, body parts). Spoken with text-to-speech, plus a 💡 translation hint |
-| 🕵️ Agència de detectives | Cases in 4 steps: footprint → secret code (symbols or A=1) → rule out suspects with clues (logic, reading "NOT") → fingerprint match. Earns badges and detective ranks |
+| 🎃 Laboratori de monstres | Halloween English: build the monster you hear. Easy → Medium (spots/stripes, arms, tail/wings, size) → Hard ("NO …" parts) → Expert (listen only). Doctora Bombolles, 📒 monster album, spooky music |
+| 🕵️ Agència de detectives | Cases in 4 steps: footprint → secret code → rule out suspects with clues (logic, reading "NOT") → fingerprint match. Medium/Hard cases unlock by rank (more suspects and features, mirror/shift ciphers, alibis on a room map). Agent Mussol, talking suspects, arrest scene, 🚔 caught-thieves gallery, jazz music |
 | 📖 Contes en veu alta | Funny branching stories to read **out loud** (short/long). A voice meter fills while she reads, she can play back her own voice, and a question at the end adds the book to her shelf. Stories live in `games/reading/stories.js` |
 | 🎭 Teatre de titelles | English from the school's *Back to School* unit: build your puppet, answer *All about me*, then the puppet hosts scenes (feelings, weather, seasons, school things, counting to 20). The finale is a puppet show where she reads her own *All about me* aloud and the puppet lip-syncs to her recording |
+
+## Aprenem (we learn)
+
+School subjects as short interactive lessons, following what the girls study this term (in Catalan). Each lesson: **explore** (tap and listen) → **do** (an interactive task) → **check** (Mellis rule) → **reward** (cards for the unit's album).
+
+| Unit | Lessons |
+|---|---|
+| 🐾 Els animals | 1. Vertebrates & invertebrates (sort into the 5 groups, trick animals, odd one out) · 2–4 coming: what they eat, how they're born, where they live & move. 📒 animal-card album shared by all lessons. Data in `learn/animals/animals-data.js` |
+| 🫀 El cos humà | Coming: 5 senses, body & skeleton, food & digestion, healthy habits |
 
 ## Game rules
 
@@ -38,6 +47,7 @@ shared/app.js       language, sounds, mascots, confetti (window.Mellis)
 shared/styles.css   colours, flags, mascots
 shared/game.css     top bar, level picker, win screen for game pages
 games/<id>/         one folder per game
+learn/<unit>/       one folder per Aprenem unit (catalogue: MELLIS_LEARN in games.js)
 ```
 
 ### Installable app
