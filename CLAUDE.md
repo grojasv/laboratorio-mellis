@@ -30,6 +30,7 @@ She must never need to know she has to scroll to continue.
 
 ## New ideas
 - When brainstorming new games or interactive lessons, check the references in README → "Ideas & references" (e.g. the Marble curriculum) for topics and skills.
+- **Aprenem lessons** (`learn/<unit>/`, catalogue `MELLIS_LEARN` in `games.js`) follow what the girls study at school (in Catalan) and always go explore (tap & listen) → do (interactive task) → check (Mellis rule) → reward (cards for the unit album). Keep unit data in one shared file so later lessons extend the same cards.
 
 ## Other conventions
 - Languages CA / ES / EN everywhere (`Mellis.t({ca, es, en})`); Catalan forms are feminine where they refer to the girls.
