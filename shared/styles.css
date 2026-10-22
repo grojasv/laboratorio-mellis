@@ -187,3 +187,9 @@ button {
 /* Continue buttons stay in reach on short screens: they float at the bottom
    while the page scrolls, and sit in their normal place once reached. */
 .stick-bottom { position: sticky; bottom: max(14px, env(safe-area-inset-bottom)); z-index: 5; }
+
+/* 🎵 background-music toggle (M.music.button) */
+.music-btn { position: relative; width: 48px; height: 48px; border-radius: 50%; background: #fff; border: 3px solid var(--ink); font-size: 1.4rem; display: grid; place-items: center; flex: none; }
+.music-btn.off { opacity: .55; }
+.music-btn.off::after { content: ""; position: absolute; left: 8px; right: 8px; top: 50%; height: 4px; background: #e5383b; border-radius: 2px; transform: rotate(-45deg); }
+.music-btn:active { transform: scale(0.9); }

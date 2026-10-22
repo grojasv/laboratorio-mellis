@@ -29,29 +29,41 @@
   <!-- Level picker -->
   <main id="levels" class="levels">
     <div id="mascots-levels" class="levels-mascots"></div>
-    <p class="levels-ask" id="ask"></p>
+    <div class="levels-tools">
+      <button class="round-btn" id="album-btn" aria-label="album">📒</button>
+      <p class="levels-ask" id="ask"></p>
+      <button class="round-btn" id="music-levels"></button>
+    </div>
     <div class="level-buttons">
       <button class="level" data-level="1" style="background:var(--orange)">
         <span class="level-icons">⭐</span>
         <span class="level-name" id="l1-name"></span>
-        <span class="level-sub">🎨 👀</span>
+        <span class="level-sub">🎨 👀 🎩 👄</span>
       </button>
       <button class="level" data-level="2" style="background:var(--purple)">
         <span class="level-icons">⭐⭐</span>
         <span class="level-name" id="l2-name"></span>
-        <span class="level-sub">🎨 👀 🎩</span>
+        <span class="level-sub">+ 🐆 💪 🦇 📏</span>
       </button>
       <button class="level" data-level="3" style="background:#3fb36b">
         <span class="level-icons">⭐⭐⭐</span>
         <span class="level-name" id="l3-name"></span>
-        <span class="level-sub">🎨 👀 🎩 👄</span>
+        <span class="level-sub">🚫 NO!</span>
+      </button>
+      <button class="level" data-level="4" style="background:#e5383b">
+        <span class="level-icons">👂</span>
+        <span class="level-name" id="l4-name"></span>
+        <span class="level-sub">🔊 🇬🇧</span>
       </button>
     </div>
   </main>
 
   <!-- Build -->
   <main id="play" class="play" hidden>
-    <div class="status"><div id="hearts"></div><div class="progress" id="progress"></div></div>
+    <div class="status">
+      <div id="hearts"></div><div class="progress" id="progress"></div>
+      <button class="round-btn" id="music"></button>
+    </div>
     <div class="order">
       <div class="order-text">
         <p id="order-en" class="order-en"></p>
@@ -63,10 +75,14 @@
       </div>
     </div>
     <div class="stage">
+      <div class="flask f1">🧪<i></i><i></i><i></i></div>
+      <div class="flask f2">⚗️<i></i><i></i><i></i></div>
       <div class="monster" id="monster"></div>
+      <div class="dr" id="dr"><div class="dr-say" id="dr-say" hidden></div><div class="dr-face" id="dr-face"></div></div>
       <button class="alive" id="alive">⚡ It's alive!</button>
     </div>
-    <div class="pickers" id="pickers"></div>
+    <div class="tabs" id="tabs"></div>
+    <div class="panel" id="panel"></div>
   </main>
 
   <div class="flash" id="flash" hidden></div>
@@ -74,6 +90,7 @@
   <!-- Monster party -->
   <div id="win" class="win" hidden>
     <div class="win-box">
+      <div class="win-dr" id="win-dr"></div>
       <p class="win-text" id="win-text"></p>
       <div id="win-stars"></div>
       <div class="parade" id="parade"></div>
@@ -82,6 +99,15 @@
         <button class="big-btn" id="other" style="background:var(--purple)">🎚️</button>
         <a class="big-btn" href="../../index.html" style="background:var(--yellow)">🏠</a>
       </div>
+    </div>
+  </div>
+
+  <!-- Album -->
+  <div id="album" class="win" hidden>
+    <div class="win-box album-box">
+      <p class="win-text" id="album-title"></p>
+      <div class="album-grid" id="album-grid"></div>
+      <button class="big-btn stick-bottom" id="album-close" style="background:var(--yellow)">👍</button>
     </div>
   </div>
 

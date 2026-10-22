@@ -84,6 +84,166 @@
     },
   };
 
+
+  // ---------- Background music (synthesized loops, no files) ----------
+  // M.music.play('spooky' | 'jazz'); quiet, ducks while a voice speaks, own on/off (🎵).
+  const MUSIC_KEY = 'mellis.music';
+  const NOTE_IX = { C: 0, 'C#': 1, Db: 1, D: 2, 'D#': 3, Eb: 3, E: 4, F: 5, 'F#': 6, Gb: 6, G: 7, 'G#': 8, Ab: 8, A: 9, 'A#': 10, Bb: 10, B: 11 };
+  function freq(n) {
+    const m = /^([A-G][b#]?)(\d)$/.exec(n);
+    return 440 * Math.pow(2, (NOTE_IX[m[1]] + (+m[2] + 1) * 12 - 69) / 12);
+  }
+  // A track is [[note | chord[] | null, steps], …]; compiled into events per step.
+  function compile(theme) {
+    const events = [];
+    let total = 0;
+    theme.tracks.forEach(({ voice, seq, vol }) => {
+      let at = 0;
+      seq.forEach(([n, len]) => {
+        if (n) (events[at] = events[at] || []).push({ voice, notes: [].concat(n).map(freq), len, vol });
+        at += len;
+      });
+      total = Math.max(total, at);
+    });
+    return { ...theme, events, total };
+  }
+    const THEMES = {
+    // Spooky music-box waltz in A minor (3/4, 6 eighth-steps per bar)
+    spooky: {
+      step: 60 / 100 / 2,
+      tracks: [
+        { voice: 'box', vol: 0.16, seq: [
+          ['E5', 2], ['A5', 2], ['C6', 2], ['B5', 2], ['A5', 2], ['E5', 2],
+          ['F5', 2], ['A5', 2], ['D6', 2], ['C6', 2], ['B5', 2], ['G#5', 2],
+          ['A5', 2], ['C6', 2], ['E6', 2], ['F6', 2], ['E6', 1], ['D6', 1], ['C6', 2],
+          ['B5', 2], ['G#5', 2], ['D6', 2], ['A5', 6],
+          ['C6', 2], ['B5', 1], ['A5', 1], ['E5', 2], ['D6', 2], ['C6', 1], ['B5', 1], ['G5', 2],
+          ['C6', 2], ['A5', 2], ['F5', 2], ['G#5', 3], ['A5', 1], ['B5', 2],
+          ['A5', 2], ['D6', 2], ['F6', 2], ['E6', 2], ['C6', 2], ['A5', 2],
+          ['B5', 2], ['D6', 2], ['G#5', 2], ['A5', 6],
+        ] },
+        { voice: 'pluck', vol: 0.2, seq: [
+          'A2 A2 D3 E2 A2 F2 E2 A2 A2 G2 F2 E2 D3 A2 E2 A2'.split(' ').map((n) => [n, 6]),
+        ].flat() },
+        { voice: 'soft', vol: 0.06, seq: [
+          ['C4', 'E4'], ['C4', 'E4'], ['D4', 'F4'], ['G#3', 'D4'], ['C4', 'E4'], ['A3', 'C4'], ['G#3', 'D4'], ['A3', 'C4'],
+          ['C4', 'E4'], ['B3', 'D4'], ['A3', 'C4'], ['G#3', 'D4'], ['D4', 'F4'], ['C4', 'E4'], ['G#3', 'D4'], ['A3', 'C4'],
+        ].flatMap((c) => [[null, 2], [c, 2], [c, 2]]) },
+      ],
+    },
+    // Soft swing in F (4/4, triplet steps: 12 per bar, swung eighths on steps 0 and 2)
+    jazz: {
+      step: 60 / 104 / 3,
+      tracks: [
+        { voice: 'vibes', vol: 0.12, seq: [
+          ['D5', 3], ['F5', 2], ['A5', 4], [null, 3],
+          ['G5', 3], ['E5', 2], ['C5', 4], [null, 3],
+          ['A5', 6], ['G5', 2], ['F5', 4],
+          ['F#5', 3], ['A5', 2], ['C6', 4], [null, 3],
+          ['Bb5', 3], ['A5', 2], ['G5', 2], ['F5', 2], ['D5', 3],
+          ['E5', 3], ['G5', 2], ['Bb5', 4], [null, 3],
+          ['A5', 9], [null, 3],
+          [null, 6], ['C5', 2], ['D5', 2], ['F5', 2],
+        ] },
+        { voice: 'bass', vol: 0.22, seq: (
+          'G2 A2 Bb2 B2 C3 Bb2 A2 G2 F2 A2 C3 C#3 D3 F#2 A2 Ab2 ' +
+          'G2 Bb2 D3 Db3 C3 Bb2 G2 E2 F2 E2 D2 C2 F2 A2 C3 F#2').split(' ').map((n) => [n, 3]) },
+        { voice: 'keys', vol: 0.05, seq: [
+          ['Bb3', 'D4', 'F4'], ['Bb3', 'E4', 'G4'], ['A3', 'C4', 'E4'], ['A3', 'C4', 'F#4'],
+          ['Bb3', 'D4', 'F4'], ['Bb3', 'E4', 'G4'], ['A3', 'C4', 'E4'], ['A3', 'C4', 'E4'],
+        ].flatMap((c) => [[c, 5], [c, 7]]) },
+        { voice: 'brush', vol: 0.05, seq: Array(8).fill([[null, 3], ['C4', 2], ['C4', 1], [null, 3], ['C4', 2], ['C4', 1]]).flat() },
+      ],
+    },
+  };
+  const music = (() => {
+    let on = load(MUSIC_KEY) !== '0', theme = null, timer = 0, bus = null, ducked = false;
+    let nextT = 0, stepIx = 0, noise = null;
+    const buttons = [];
+    function out() {
+      if (!ctx || bus) return bus;
+      bus = ctx.createGain();
+      bus.gain.value = 0;
+      bus.connect(ctx.destination);
+      return bus;
+    }
+    const audible = () => on && !muted && theme && !document.hidden;
+    function level() {
+      if (!bus) return;
+      bus.gain.setTargetAtTime(audible() ? (ducked ? 0.3 : 1) : 0, ctx.currentTime, 0.2);
+    }
+    function play1(voice, f, t, len, vol) {
+      const dur = len * theme.step;
+      const osc = ctx.createOscillator(), g = ctx.createGain();
+      let src = osc, decay = dur;
+      if (voice === 'brush') {
+        if (!noise) {
+          noise = ctx.createBuffer(1, ctx.sampleRate * 0.2, ctx.sampleRate);
+          const d = noise.getChannelData(0);
+          for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+        }
+        src = ctx.createBufferSource();
+        src.buffer = noise;
+        const hp = ctx.createBiquadFilter();
+        hp.type = 'highpass'; hp.frequency.value = 5000;
+        src.connect(hp).connect(g);
+        decay = 0.09;
+      } else {
+        osc.type = { box: 'sine', vibes: 'sine', pluck: 'triangle', bass: 'triangle', keys: 'triangle', soft: 'sine' }[voice];
+        osc.frequency.value = f;
+        osc.connect(g);
+        decay = { box: 1.2, vibes: 1.4, pluck: 0.5, bass: dur * 0.95, keys: 0.7, soft: 0.35 }[voice];
+        if (voice === 'box' || voice === 'vibes') {
+          const o2 = ctx.createOscillator(), g2 = ctx.createGain();
+          o2.frequency.value = f * (voice === 'box' ? 3 : 4);
+          g2.gain.value = 0.18;
+          o2.connect(g2).connect(g);
+          o2.start(t); o2.stop(t + decay + 0.1);
+        }
+      }
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(vol, t + 0.012);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + decay);
+      g.connect(bus);
+      src.start(t);
+      src.stop(t + decay + 0.1);
+    }
+    function tick() {
+      if (!ctx || ctx.state !== 'running' || !audible() || !out()) return;
+      if (nextT < ctx.currentTime) nextT = ctx.currentTime + 0.1;
+      while (nextT < ctx.currentTime + 0.5) {
+        (theme.events[stepIx] || []).forEach((e) =>
+          e.notes.forEach((f) => play1(e.voice, f, nextT, e.len, e.vol / Math.sqrt(e.notes.length))));
+        nextT += theme.step;
+        stepIx = (stepIx + 1) % theme.total;
+      }
+    }
+    function refresh() {
+      buttons.forEach((b) => { b.classList.toggle('off', !on); b.setAttribute('aria-pressed', on); });
+      out(); level();
+    }
+    function play(name) {
+      theme = compile(THEMES[name]);
+      stepIx = 0; nextT = 0;
+      clearInterval(timer);
+      timer = setInterval(tick, 150);
+      refresh();
+    }
+    function toggle() { on = !on; save(MUSIC_KEY, on ? '1' : '0'); refresh(); }
+    // 🎵 button for a page (e.g. next to the hearts)
+    function button(el) {
+      el.classList.add('music-btn');
+      el.textContent = '🎵';
+      el.setAttribute('aria-label', 'music');
+      el.addEventListener('click', () => { toggle(); sounds.pop(); });
+      buttons.push(el);
+      refresh();
+    }
+    document.addEventListener('visibilitychange', () => { nextT = 0; level(); });
+    window.addEventListener('pointerdown', refresh);
+    return { play, toggle, button, refresh, duck: (d) => { ducked = d; level(); }, get on() { return on; } };
+  })();
+
   // ---------- Speech (device text-to-speech) ----------
   let voices = [];
   function loadVoices() { voices = window.speechSynthesis ? speechSynthesis.getVoices() : []; }
@@ -105,7 +265,7 @@
     if (!voices.length) return true;
     return !!voiceFor(VOICE_TAGS[lang] || lang);
   }
-  // opts (optional): { onstart, onend } — onend always fires once, even when muted,
+  // opts (optional): { onstart, onend, rate } — onend always fires once, even when muted,
   // when there is no voice, or when the engine forgets to report the end.
   let speakDone = null;
   function speak(text, voiceLang, opts) {
@@ -117,6 +277,7 @@
       finished = true;
       clearTimeout(timer);
       if (speakDone === done) speakDone = null;
+      music.duck(false);
       if (o.onend) o.onend();
     };
     const estimate = 600 + text.length * 75;   // fallback if onend never comes
@@ -132,11 +293,12 @@
     const u = new SpeechSynthesisUtterance(text);
     u.lang = tag;
     u.voice = voice;
-    u.rate = 0.85;
+    u.rate = o.rate || 0.85;
     u.pitch = 1.1;
     u.onend = done;
     u.onerror = done;
     speakDone = done;
+    music.duck(true);
     if (o.onstart) o.onstart();
     timer = setTimeout(done, estimate * 1.6);
     speechSynthesis.speak(u);
@@ -151,6 +313,7 @@
     muted = value;
     save(MUTE_KEY, value ? '1' : '0');
     if (value && window.speechSynthesis) speechSynthesis.cancel();
+    music.refresh();
   }
 
   // ---------- Shared UI bits ----------
@@ -432,7 +595,7 @@
 
   window.Mellis = {
     LANGS, get lang() { return lang; }, setLang, t, onLang: (fn) => langListeners.push(fn),
-    sounds, speak, canSpeak, isMuted, setMuted, mountControls, mascotsSVG, playfulMascots, confetti,
+    sounds, music, speak, canSpeak, isMuted, setMuted, mountControls, mascotsSVG, playfulMascots, confetti,
     onInstallable, install, round, starsHTML,
   };
   document.documentElement.lang = lang;

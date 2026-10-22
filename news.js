@@ -36,4 +36,7 @@ window.MELLIS_NEWS = [
   { id: 11, date: '2026-10-17', icon: '🤪', type: 'change', game: 'puppets',
     title: { ca: 'El titella fa el pallasso!', es: '¡El títere hace el payaso!', en: 'The puppet is super silly!' },
     text: { ca: "Mira com acaba l'espectacle", es: 'Mira cómo acaba el espectáculo', en: 'See how the show ends' } },
+  { id: 12, date: '2026-10-22', icon: '🧪', type: 'change', game: 'monsters',
+    title: { ca: 'Monstres més difícils!', es: '¡Monstruos más difíciles!', en: 'Harder monsters!' },
+    text: { ca: 'Ales, cues, ratlles i la Doctora Bombolles', es: 'Alas, colas, rayas y la Doctora Burbujas', en: 'Wings, tails, stripes and Dr. Bubbles' } },
 ];
