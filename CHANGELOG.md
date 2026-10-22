@@ -7,7 +7,7 @@ The kid-friendly version of this list lives in `news.js` (shown on the hub's �
 ## [1.11.0] — 2026-10-22
 ### Added
 - Shared background music (`Mellis.music`): synthesized WebAudio loops (spooky music-box waltz, soft swing jazz), quiet, ducks while a voice speaks, its own 🎵 on/off (`mellis.music`), silenced by 🔇 and when the tab is hidden. `speak()` accepts `opts.rate`. Monster Lab plays the spooky waltz (detective jazz comes with the detective update).
-- Monster Lab: harder levels. Easy = the old Hard (🎨 👀 🎩 👄); Medium adds spots/stripes in a second colour, 2/4/6 arms, tail or bat wings and big/small, with orders naming 5–6 random parts (the rest are free); Hard adds "NO …" parts (✖️ option to remove them); new Expert level is listen-only (no text, no 💡, slower voice, off when the device has no English voice).
+- Monster Lab: harder levels. Easy = the old Hard (🎨 👀 🎩 👄); Medium adds spots/stripes in a second colour, 2/4/6 arms, tail or bat wings and big/small, with orders naming 5–6 random parts (the rest are free); Hard adds "NO …" parts (✖️ option to remove them); new Expert level is listen-only (no text, no 💡, slower voice, off when muted or the device has no English voice).
 - Monster Lab: Doctora Bombolles, a mad scientist who greets every order and reacts when the monster comes alive (never on mistakes); monsters show off their parts (wings flap and fly, tails wag, arms wave, teeth chomp, big ones stomp, small ones hop).
 - Monster Lab: 📒 album of the last 60 monsters (👑 for ⭐⭐⭐ parties); tap one to hear it described in English.
 ### Changed

@@ -80,7 +80,7 @@
     win: { ca: 'Quina festa de monstres!', es: '¡Qué fiesta de monstruos!', en: 'What a monster party!' },
     album: { ca: 'Els meus monstres', es: 'Mis monstruos', en: 'My monsters' },
     empty: { ca: 'Encara no hi ha cap monstre. A treballar!', es: 'Todavía no hay monstruos. ¡A trabajar!', en: 'No monsters yet. Get to work!' },
-    noVoice: { ca: 'Aquest aparell no parla anglès', es: 'Este aparato no habla inglés', en: 'This device has no English voice' },
+    noVoice: { ca: 'Cal so en anglès! 🔊', es: '¡Hace falta sonido en inglés! 🔊', en: 'This needs English sound! 🔊' },
   };
   // Doctora Bombolles: short lines, never about what is wrong (no hints)
   const DR = {
@@ -572,7 +572,7 @@
   document.querySelectorAll('.level').forEach((b) =>
     b.addEventListener('click', () => {
       const lvl = +b.dataset.level;
-      if (lvl === 4 && !M.canSpeak('en')) { M.sounds.miss(); drSayLevels(); return; }
+      if (lvl === 4 && (M.isMuted() || !M.canSpeak('en'))) { M.sounds.miss(); drSayLevels(); return; }
       M.sounds.pop();
       start(lvl);
     }));
