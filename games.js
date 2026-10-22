@@ -63,10 +63,10 @@ window.MELLIS_LEARN = [
   },
   {
     id: 'body',
+    path: 'learn/body/index.html',
     icon: '🫀',
     color: '#ff6fb5',
-    soon: true,
     name: { ca: 'El cos humà', es: 'El cuerpo humano', en: 'The human body' },
-    tagline: { ca: 'Aviat!', es: '¡Pronto!', en: 'Soon!' },
+    tagline: { ca: 'Sentits, esquelet, menjar, hàbits', es: 'Sentidos, esqueleto, comida, hábitos', en: 'Senses, skeleton, food, habits' },
   },
 ];

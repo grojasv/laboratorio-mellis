@@ -1,0 +1,81 @@
+/* Human body unit: shares the lesson styles in ../animals/animals.css */
+body.clinic {
+  background:
+    radial-gradient(circle at 12% 18%, #ffe0ee 0 14%, transparent 15%),
+    radial-gradient(circle at 90% 75%, #dff3ff 0 18%, transparent 19%),
+    repeating-linear-gradient(0deg, transparent 0 46px, rgba(255, 111, 181, .06) 46px 48px),
+    linear-gradient(170deg, #fff0f6 0%, #f3f0ff 55%, #e6f7ff 100%);
+  background-attachment: fixed;
+}
+.clinic .title, .clinic .unit-head h2, .clinic .album-title { color: #d6336c; }
+.clinic .l-num { background: #ff6fb5; }
+
+.choose-item { display: flex; flex-direction: column; align-items: center; }
+.choose-item.jump .big-face { animation: hop .5s ease-in-out 2; }
+.choose-item .a-name { font-size: clamp(1.1rem, 5vw, 1.5rem); text-align: center; border-radius: 18px; max-width: 100%; }
+
+/* answer buttons */
+.opts-sense { grid-template-columns: repeat(5, 1fr); gap: 5px; }
+.opts-food { grid-template-columns: repeat(2, 1fr); }
+.opts-good { grid-template-columns: repeat(2, 1fr); }
+.opts-sense .option, .opts-food .option, .opts-good .option {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  background: #fff; border: 4px solid var(--c); border-radius: 18px; box-shadow: 0 5px 0 var(--ink);
+  padding: 8px 2px; font-size: clamp(.75rem, 3.4vw, 1.05rem); line-height: 1.1; text-align: center;
+}
+.opts-sense .o-icon { font-size: clamp(1.6rem, 8vw, 2.2rem); }
+.opts-food .option { flex-direction: row; justify-content: flex-start; gap: 8px; padding: 8px 10px; text-align: left; }
+.opts-food .o-icon { font-size: 1.8rem; }
+.opts-good .o-icon { font-size: clamp(2.2rem, 11vw, 3rem); }
+.opts-good .option { font-size: clamp(1rem, 4.6vw, 1.3rem); }
+
+/* tap on the face / body */
+.drawing { display: flex; justify-content: center; width: 100%; }
+.drawing svg { height: calc(100dvh - 280px); max-height: 420px; min-height: 220px; width: auto; max-width: 100%; overflow: visible; }
+.drawing.face svg { max-height: 330px; }
+.drawing .tap { cursor: pointer; transition: filter .2s; }
+.drawing .tap:active { filter: brightness(.9); }
+.drawing .tap.right { filter: drop-shadow(0 0 6px #3fb36b) drop-shadow(0 0 10px #3fb36b); }
+.drawing .tap.reveal { filter: drop-shadow(0 0 6px #ffd23f) drop-shadow(0 0 12px #ffd23f); animation: pulse .6s ease-in-out 3; }
+.drawing .tap.wrong { filter: drop-shadow(0 0 6px #e5383b); }
+@keyframes pulse { 50% { opacity: .55; } }
+
+/* vertical skeleton: slots stacked top to bottom */
+.slots.vertical { flex-direction: column; gap: 4px; }
+.slots.vertical .slot { flex: none; width: 150px; max-width: 150px; aspect-ratio: auto; height: 40px; flex-direction: row; gap: 8px; }
+.slots.vertical .slot:not(:last-child)::after { content: "⬇"; right: auto; left: 50%; top: auto; bottom: -11px; margin-left: -6px; }
+.slots.vertical .slot .emoji { font-size: 1.6rem; }
+.slots.vertical .slot svg { width: 34px; max-height: 34px; }
+
+/* five pieces fit on one row */
+.pieces.five { gap: 5px; }
+.pieces.five .piece { width: clamp(54px, 17vw, 90px); border-width: 3px; }
+.pieces.five .piece .emoji { font-size: clamp(1.7rem, 8.5vw, 2.6rem); }
+.pieces.five .piece span:not(.emoji) { font-size: clamp(.62rem, 2.9vw, .9rem); }
+.slots:not(.vertical) .slot { min-width: 0; }
+
+/* check with long phrases */
+.odds.wordy .odd { font-size: clamp(.8rem, 3.6vw, 1rem); line-height: 1.15; padding: 6px; }
+.odds.wordy .odd .emoji { font-size: clamp(2rem, 10vw, 2.8rem); }
+
+/* sticker album (sections, not one grid) */
+.clinic .album-grid { display: block; }
+.album-sec { width: 100%; margin: 10px 0 4px; font-size: 1.15rem; color: #d6336c; }
+.sticker-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 66px), 1fr)); gap: 6px; width: 100%; }
+.sticker {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 84px;
+  background: #fff; border: 3px solid #ff6fb5; border-radius: 50% 50% 16px 16px / 40% 40% 16px 16px;
+  box-shadow: 0 4px 0 var(--ink); padding: 4px 2px; font-weight: 700;
+}
+.sticker .emoji { font-size: 1.9rem; }
+.sticker span:not(.emoji) { font-size: .62rem; line-height: 1.1; text-align: center; }
+.sticker.unknown { border-style: dashed; border-color: #d8c8d8; background: #f7f1f6; box-shadow: none; }
+.sticker.unknown .emoji { opacity: .35; font-size: 1.5rem; }
+.sticker.jump { animation: hop .5s ease-in-out; }
+.win-cards .sticker { width: 52px; min-height: 60px; animation: pop-in .5s backwards; }
+.win-cards .sticker.gold { border-color: #ffd23f; box-shadow: 0 0 10px #ffd23f; }
+
+@media (max-height: 700px) {
+  .drawing svg { height: calc(100dvh - 240px); min-height: 200px; }
+  .opts-food .option { padding: 5px 8px; }
+}

@@ -4,6 +4,17 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.15.0] — 2026-10-22
+### Added
+- Aprenem: **Human body unit** (`learn/body/`), 4 lessons with explore → activities → odd-one-out check (Mellis rule) → stickers:
+  1. *The five senses*: which sense for each action (smell stinky socks, taste a sour lemon…), then tap the right organ on a big drawn face.
+  2. *Body & skeleton*: tap head, neck, trunk, arm, elbow, hand, leg, knee, foot on a drawn kid; build the skeleton top to bottom (skull, ribs, hip, leg bone, foot).
+  3. *Food & digestion*: sort foods on the healthy plate (fruit & veg, bread/pasta/rice, meat/fish/eggs/beans, only sometimes), then the sandwich's journey (mouth → food pipe → stomach → intestines).
+  4. *Healthy habits*: good habit or not, then order hand-washing and teeth-brushing steps.
+- 📒 Sticker album grouped by lesson; tap a sticker to hear it again. The hub card is now live.
+### Changed
+- Service worker cache `mellis-v12` (precaches the body unit).
+
 ## [1.14.0] — 2026-10-22
 ### Added
 - Animals unit, lessons 2–4: *What do they eat?* (feed each animal the right plate: plants / animals / everything, then build food chains in order), *How are they born?* (egg or mother's tummy, then order life cycles: frog, butterfly, chicken), *Where do they live and how do they move?* (send each animal to the sky, land or water of a scene, then pick how it moves and watch it walk/fly/swim/crawl/jump). Each ends with odd-one-out questions under the Mellis rule.

@@ -51,4 +51,7 @@ window.MELLIS_NEWS = [
   { id: 16, date: '2026-10-22', icon: '🥚', type: 'change', game: 'animals', path: 'learn/animals/index.html',
     title: { ca: '3 lliçons noves d\'animals!', es: '¡3 lecciones nuevas de animales!', en: '3 new animal lessons!' },
     text: { ca: 'Què mengen, com neixen i on viuen', es: 'Qué comen, cómo nacen y dónde viven', en: 'Food, babies and homes' } },
+  { id: 17, date: '2026-10-22', icon: '🫀', type: 'game', game: 'body', path: 'learn/body/index.html',
+    title: { ca: 'Nou: el cos humà!', es: '¡Nuevo: el cuerpo humano!', en: 'New: the human body!' },
+    text: { ca: 'Sentits, esquelet, menjar i hàbits', es: 'Sentidos, esqueleto, comida y hábitos', en: 'Senses, skeleton, food and habits' } },
 ];
