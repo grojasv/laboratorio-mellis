@@ -19,6 +19,12 @@ Simple learning games for 7-year-olds, in Catalan, Spanish and English. Built fo
 
 Every interactive game follows **the Mellis rule** (see `CLAUDE.md`): 3 hearts ❤️❤️❤️, a wrong answer = 💔 + "oh oh!" + a 2-second pause, no hints, the 2nd miss on a question reveals the answer, hearts left = stars, ⭐⭐⭐ = golden reward, 0 hearts = the round restarts with new questions. Memory uses stars only.
 
+## Ideas & references
+
+Sources to check when we brainstorm new games or more interactive lessons:
+
+- [Marble curriculum](https://withmarble.com/curriculum/): a well-structured kids' learning curriculum. Use it to pick topics and skills for new games and lessons.
+
 ## Structure
 
 Plain HTML/CSS/JS, with no build step.

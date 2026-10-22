@@ -28,6 +28,9 @@ She must never need to know she has to scroll to continue.
 - **`news.js`** — kid-facing news for the hub's 🎁: only changes the girls would notice, a few words, emoji + CA/ES/EN, `id` always increasing, `type: 'game'` + `game: '<id>'` for new games (adds the "NOU!" card sticker until played). Pure technical changes don't go here.
 - Add `news.js`/new files to `PRECACHE` and bump `CACHE` in `sw.js` when needed.
 
+## New ideas
+- When brainstorming new games or interactive lessons, check the references in README → "Ideas & references" (e.g. the Marble curriculum) for topics and skills.
+
 ## Other conventions
 - Languages CA / ES / EN everywhere (`Mellis.t({ca, es, en})`); Catalan forms are feminine where they refer to the girls.
 - Touch-first: big targets, no keyboard, works at 375 px wide.

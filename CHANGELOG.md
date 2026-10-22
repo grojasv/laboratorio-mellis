@@ -4,6 +4,10 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.12.1] — 2026-10-22
+### Changed
+- README: "Ideas & references" section (Marble curriculum); `CLAUDE.md` points to it when brainstorming new games.
+
 ## [1.12.0] — 2026-10-22
 ### Added
 - Detective: case levels unlocked by rank — Easy (today's case), Medium after 3 solved cases (8 suspects; bag, shoe colour, ear shape and carried item; mirror-writing or symbol key with decoys; 4–5 clues shown as chips on a cork board), Hard after 6 (+ alibis on a 4-room map: tap a suspect to hear where they were, the room shows on the card; letter-shift code with an alphabet strip; 5 clues).
