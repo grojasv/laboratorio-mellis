@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#5b3a29">
+  <link rel="manifest" href="../../manifest.webmanifest">
+  <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Mellis">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>Rellotgeria Tic-Tac · Laboratorio Mellis</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕰️</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../shared/styles.css">
+  <link rel="stylesheet" href="../../shared/game.css">
+  <link rel="stylesheet" href="clock.css">
+</head>
+<body class="shop">
+  <header class="topbar">
+    <a class="home" href="../../index.html" aria-label="home">🏠</a>
+    <h1 class="title" id="title"></h1>
+    <div id="controls"></div>
+  </header>
+
+  <!-- Level picker -->
+  <main id="levels" class="levels">
+    <div class="levels-head">
+      <div class="tictac big" id="tictac-levels"></div>
+      <div class="levels-tools">
+        <button class="round-btn" id="album-btn" aria-label="album">🐦</button>
+        <button class="round-btn" id="music-levels"></button>
+      </div>
+    </div>
+    <p class="levels-ask" id="ask"></p>
+    <div class="level-buttons">
+      <button class="level" data-level="1" style="background:var(--orange)">
+        <span class="level-icons">⭐</span>
+        <span class="level-name" id="l1-name"></span>
+        <span class="level-sub" id="l1-sub"></span>
+      </button>
+      <button class="level" data-level="2" style="background:#e76f51">
+        <span class="level-icons">⭐⭐</span>
+        <span class="level-name" id="l2-name"></span>
+        <span class="level-sub" id="l2-sub"></span>
+      </button>
+      <button class="level" data-level="3" style="background:#3a86ff">
+        <span class="level-icons">⭐⭐⭐</span>
+        <span class="level-name" id="l3-name"></span>
+        <span class="level-sub" id="l3-sub"></span>
+      </button>
+      <button class="level" data-level="4" style="background:#6a4c93">
+        <span class="level-icons">⏳</span>
+        <span class="level-name" id="l4-name"></span>
+        <span class="level-sub" id="l4-sub"></span>
+      </button>
+    </div>
+    <button class="free-btn" id="free-btn"></button>
+  </main>
+
+  <!-- Serving the customers -->
+  <main id="play" class="play" hidden>
+    <div class="status">
+      <div id="hearts"></div><div class="progress" id="progress"></div>
+      <button class="round-btn" id="music"></button>
+    </div>
+    <div class="scene">
+      <div class="window" id="window"><span class="sky-body" id="sky-body"></span></div>
+      <div class="cuckoo-house" id="house">
+        <div class="roof"></div>
+        <div class="door"><div class="bird" id="bird"></div></div>
+        <div class="pendulum"></div>
+      </div>
+      <div class="call" id="call" hidden></div>
+      <div class="customer" id="customer"><span class="who" id="who"></span><span class="thing" id="thing"></span></div>
+      <div class="counter">
+        <div class="tictac" id="tictac"></div>
+        <div class="bubble" id="bubble"><button class="round-btn say" id="say" aria-label="listen">🔊</button><p class="req" id="req"></p></div>
+      </div>
+    </div>
+    <div class="work" id="work">
+      <div class="clock-wrap" id="clock-wrap">
+        <span class="now-label" id="now-label" hidden></span>
+        <svg class="clock" id="clock" viewBox="-125 -125 250 250" xmlns="http://www.w3.org/2000/svg"></svg>
+        <span class="badge" id="badge" hidden></span>
+      </div>
+      <div class="opts" id="opts"></div>
+      <button class="go-btn" id="done">✅</button>
+    </div>
+  </main>
+
+  <!-- Free play: move the hands and hear the time -->
+  <main id="free" class="play free" hidden>
+    <div class="free-read">
+      <p class="free-digital" id="free-digital"></p>
+      <p class="free-words" id="free-words"></p>
+    </div>
+    <div class="clock-wrap free-clock">
+      <svg class="clock" id="free-clock" viewBox="-125 -125 250 250" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+    <div class="free-tools">
+      <button class="go-btn back" id="free-back">⬅️</button>
+      <button class="round-btn" id="free-style">🕐</button>
+      <button class="round-btn" id="free-half">🌙</button>
+      <button class="round-btn" id="free-say" aria-label="listen">🔊</button>
+    </div>
+  </main>
+
+  <!-- Happy shop -->
+  <div id="win" class="win" hidden>
+    <div class="win-box">
+      <div class="tictac win-tt" id="win-tt"></div>
+      <p class="win-text" id="win-text"></p>
+      <div id="win-stars"></div>
+      <div class="parade" id="parade"></div>
+      <div class="win-buttons">
+        <button class="big-btn" id="again" style="background:var(--orange)">🔁</button>
+        <button class="big-btn" id="other" style="background:#e76f51">🎚️</button>
+        <a class="big-btn" href="../../index.html" style="background:var(--yellow)">🏠</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cuckoo album -->
+  <div id="album" class="win" hidden>
+    <div class="win-box album-box">
+      <p class="win-text" id="album-title"></p>
+      <p class="album-count" id="album-count"></p>
+      <div class="album-grid" id="album-grid"></div>
+      <p class="album-name" id="album-name"></p>
+      <button class="big-btn album-ok" id="album-close" style="background:var(--yellow)">👍</button>
+    </div>
+  </div>
+
+  <script src="../../shared/app.js"></script>
+  <script src="clock.js"></script>
+</body>
+</html>

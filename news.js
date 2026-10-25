@@ -69,4 +69,7 @@ window.MELLIS_NEWS = [
   { id: 22, date: '2026-10-25', icon: '📻', type: 'game', game: 'radio',
     title: { ca: 'Nou: Ràdio Mellis!', es: '¡Nuevo: Radio Mellis!', en: 'New: Radio Mellis!' },
     text: { ca: 'Feu teatre radiofònic amb veus boges', es: 'Haced radioteatro con voces locas', en: 'Make a radio play with silly voices' } },
+  { id: 23, date: '2026-10-25', icon: '🕰️', type: 'game', game: 'clock',
+    title: { ca: 'Joc nou!', es: '¡Juego nuevo!', en: 'New game!' },
+    text: { ca: 'Rellotgeria Tic-Tac: rellotges de pizza i cucuts bojos', es: 'Relojería Tic-Tac: relojes de pizza y cucos locos', en: 'Tic-Tac Clock Shop: pizza clocks and silly cuckoos' } },
 ];

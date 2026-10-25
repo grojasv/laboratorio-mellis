@@ -34,6 +34,14 @@ window.MELLIS_GAMES = [
     tagline: { ca: 'Pistes, codis i empremtes', es: 'Pistas, códigos y huellas', en: 'Clues, codes & prints' },
   },
   {
+    id: 'clock',
+    path: 'games/clock/index.html',
+    icon: '🕰️',
+    color: '#e76f51',
+    name: { ca: 'Rellotgeria Tic-Tac', es: 'Relojería Tic-Tac', en: 'Tic-Tac Clock Shop' },
+    tagline: { ca: 'Aprèn a llegir el rellotge', es: 'Aprende a leer el reloj', en: 'Learn to tell the time' },
+  },
+  {
     id: 'reading',
     section: 'reading',
     path: 'games/reading/index.html',

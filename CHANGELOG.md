@@ -4,6 +4,13 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.21.0] — 2026-10-25
+### Added
+- **Rellotgeria Tic-Tac** (`games/clock/`, 🎮 Jocs): learn to tell the time. Senyor Tic-Tac (moustache dances on right answers) serves 5 customers per round, each with their own reason and hour (bear, rooster, vampire, princess, dinosaur, astronaut, tortoise, owl, witch, pig, dog, robot). Three answer modes mixed per round: set the clock by dragging the hands (minute hand carries the hour past 12, snaps to the level's step; starts on a wrong time so ✅ alone never wins), pick the right clock out of 3, pick the right words for a clock. Decoys are the real traps: hour before/after (the *quarts* count towards the next hour), swapped hands, other minute marks, 15:00 read as 5. Levels: Easy (*en punt*, *dos quarts*) and Medium (all *quarts*) on a **pizza clock** whose eaten quarters follow the minute hand; Hard: 5-minute steps on a classic clock with minute labels, requests in 24 h digits and part-of-day answers (shop window sky: dawn/day/dusk/night); Expert: time passing (pizza in the oven, cake, train, nap, film, Moon trip; 15 min to 2 h). Mellis rule (3 hearts, reveal on 2nd miss, restart at 0). Each right answer pops one of 20 silly cuckoos (sneezy, sleepy, opera, pirate, pizza…) with its own call; 🐦 album, golden on ⭐⭐⭐. 🍕 free play: move the hands and hear the time (pizza/classic face, ☀️/🌙 for 24 h). CA uses the traditional *quarts* system; ES/EN their usual forms.
+- Shared: `Mellis.sounds.cuckoo()` and `tick()`; `M.music.play('clock')` tick-tock music box (new `wood` voice).
+### Changed
+- Service worker cache `mellis-v19`.
+
 ## [1.20.0] — 2026-10-25
 ### Changed
 - **Updates reach installed phones.** The service worker now serves pages and code (HTML/JS/CSS/manifest) network-first, revalidating with the server (`cache: 'no-cache'`), with the cache as fallback when offline or after a 3 s timeout; images and fonts stay cache-first. Precaching bypasses the HTTP cache (`cache: 'reload'`), so a new version never stores stale files.
