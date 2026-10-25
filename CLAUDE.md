@@ -37,5 +37,5 @@ She must never need to know she has to scroll to continue.
 ## Other conventions
 - Languages CA / ES / EN everywhere (`Mellis.t({ca, es, en})`); Catalan forms are feminine where they refer to the girls.
 - Touch-first: big targets, no keyboard, works at 375 px wide.
-- New game: folder `games/<id>/`, entry in `games.js`, files added to `PRECACHE` in `sw.js` (bump `CACHE`).
+- New game: folder `games/<id>/`, entry in `games.js` **with a `guide` text** (2–3 sentences for adults, CA/ES/EN: what she does + what it practises; shown on `families/`), files added to `PRECACHE` in `sw.js` (bump `CACHE`).
 - Commits use the GitHub noreply email (repo-local git config), never a work address.
