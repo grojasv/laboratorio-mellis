@@ -1,7 +1,7 @@
 // Shared helpers for the hub and every game: language, sound, mascots.
 // Classic script (no modules) so pages also work when opened straight from disk.
 (function () {
-  const VERSION = '1.23.0'; // bump on every release (shown in the hub footer), with CACHE in sw.js
+  const VERSION = '1.24.0'; // bump on every release (shown in the hub footer), with CACHE in sw.js
   const LANGS = ['ca', 'es', 'en'];
   const LANG_KEY = 'mellis.lang';
   const MUTE_KEY = 'mellis.muted';
@@ -89,7 +89,7 @@
 
 
   // ---------- Background music (synthesized loops, no files) ----------
-  // M.music.play('spooky' | 'jazz' | 'clock' | 'winter' | 'spring' | 'summer' | 'autumn'); quiet, ducks while a voice speaks, own on/off (🎵).
+  // M.music.play('spooky' | 'jazz' | 'clock' | 'potion' | 'winter' | 'spring' | 'summer' | 'autumn'); quiet, ducks while a voice speaks, own on/off (🎵).
   const MUSIC_KEY = 'mellis.music';
   const NOTE_IX = { C: 0, 'C#': 1, Db: 1, D: 2, 'D#': 3, Eb: 3, E: 4, F: 5, 'F#': 6, Gb: 6, G: 7, 'G#': 8, Ab: 8, A: 9, 'A#': 10, Bb: 10, B: 11 };
   function freq(n) {
@@ -192,6 +192,18 @@
   THEMES.spring = seasonTune('vibes', 100);
   THEMES.summer = seasonTune('vibes', 116, [{ voice: 'brush', vol: 0.04, seq: Array(8).fill([[null, 2], ['C4', 1], ['C4', 1], [null, 2]]).flat() }]);
   THEMES.autumn = seasonTune('box', 92, [{ voice: 'wood', vol: 0.035, seq: Array(8).fill([['G6', 2], ['D6', 2], ['D6', 2]]).flat() }]);
+  // Potion Lab: bubbly waltz in F (3/4, 6 eighth-steps per bar) with bubble plops on beats 2 and 3
+  THEMES.potion = {
+    step: 60 / 132 / 2,
+    tracks: [
+      { voice: 'vibes', vol: 0.11, seq: [
+        ['C5', 2], ['F5', 2], ['A5', 2], ['G5', 2], ['F5', 2], ['E5', 2], ['F5', 2], ['A5', 2], ['C6', 2], ['Bb5', 6],
+        ['A5', 2], ['C6', 2], ['F6', 2], ['E6', 2], ['D6', 2], ['C6', 2], ['Bb5', 2], ['G5', 2], ['E5', 2], ['F5', 6],
+      ] },
+      { voice: 'pluck', vol: 0.17, seq: 'F2 C3 F2 Bb2 F2 Bb2 C3 F2'.split(' ').map((n) => [n, 6]) },
+      { voice: 'plop', vol: 0.07, seq: Array(8).fill([[null, 2], ['A5', 2], ['C6', 2]]).flat() },
+    ],
+  };
   const music = (() => {
     let on = load(MUSIC_KEY) !== '0', theme = null, timer = 0, bus = null, ducked = false;
     let nextT = 0, stepIx = 0, noise = null;
@@ -225,10 +237,14 @@
         src.connect(hp).connect(g);
         decay = 0.09;
       } else {
-        osc.type = { wood: 'sine', box: 'sine', vibes: 'sine', pluck: 'triangle', bass: 'triangle', keys: 'triangle', soft: 'sine' }[voice];
+        osc.type = { plop: 'sine', wood: 'sine', box: 'sine', vibes: 'sine', pluck: 'triangle', bass: 'triangle', keys: 'triangle', soft: 'sine' }[voice];
         osc.frequency.value = f;
         osc.connect(g);
-        decay = { wood: 0.035, box: 1.2, vibes: 1.4, pluck: 0.5, bass: dur * 0.95, keys: 0.7, soft: 0.35 }[voice];
+        decay = { plop: 0.12, wood: 0.035, box: 1.2, vibes: 1.4, pluck: 0.5, bass: dur * 0.95, keys: 0.7, soft: 0.35 }[voice];
+        if (voice === 'plop') {
+          osc.frequency.setValueAtTime(f * 2, t);
+          osc.frequency.exponentialRampToValueAtTime(f, t + 0.08);
+        }
         if (voice === 'box' || voice === 'vibes') {
           const o2 = ctx.createOscillator(), g2 = ctx.createGain();
           o2.frequency.value = f * (voice === 'box' ? 3 : 4);

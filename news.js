@@ -75,4 +75,7 @@ window.MELLIS_NEWS = [
   { id: 24, date: '2026-10-25', icon: '🐿️', type: 'change', game: 'memory',
     title: { ca: 'Memory nou amb la Nou!', es: '¡Memory nuevo con Nou!', en: 'New Memory with Nou!' },
     text: { ca: 'Dies de la setmana, 12 mesos i adhesius pel calendari', es: 'Días de la semana, 12 meses y pegatinas para el calendario', en: 'Days of the week, 12 months and calendar stickers' } },
+  { id: 25, date: '2026-10-25', icon: '🧙‍♀️', type: 'change', game: 'potions',
+    title: { ca: 'Pocions noves amb la Xiruca!', es: '¡Pociones nuevas con Xiruca!', en: 'New potions with Xiruca!' },
+    text: { ca: 'Dobles, salts màgics i un jardí de criatures', es: 'Dobles, saltos mágicos y un jardín de criaturas', en: 'Doubles, magic hops and a creature garden' } },
 ];

@@ -19,7 +19,8 @@
   <link rel="stylesheet" href="../../shared/game.css">
   <link rel="stylesheet" href="potions.css">
 </head>
-<body>
+<body class="hut">
+  <div class="jars" aria-hidden="true">🫙 🧪 🍄 🕯️ 🫙 🌿 ⚗️ 🧪 🦴 🫙 🕯️ 🍄</div>
   <header class="topbar">
     <a class="home" href="../../index.html" aria-label="home">🏠</a>
     <h1 class="title" id="title"></h1>
@@ -28,34 +29,50 @@
 
   <!-- Level picker -->
   <main id="levels" class="levels">
-    <div id="mascots-levels" class="levels-mascots"></div>
+    <div class="levels-head">
+      <div class="xiruca big" id="xiruca-levels"></div>
+      <div class="levels-tools">
+        <button class="round-btn" id="music-levels"></button>
+      </div>
+    </div>
     <p class="levels-ask" id="ask"></p>
-    <div class="level-buttons">
+    <div class="level-grid">
       <button class="level" data-level="1" style="background:var(--teal)">
-        <span class="level-icons">⭐</span>
         <span class="level-name" id="l1-name"></span>
-        <span class="level-sub">7 + 5 &nbsp;·&nbsp; 15 − 3</span>
+        <span class="level-sub">7 + 5 · 15 − 3</span>
       </button>
       <button class="level" data-level="2" style="background:var(--orange)">
-        <span class="level-icons">⭐⭐</span>
         <span class="level-name" id="l2-name"></span>
-        <span class="level-sub">34 + 5 &nbsp;·&nbsp; 70 − 20</span>
+        <span class="level-sub">34 + 5 · 70 − 20</span>
       </button>
       <button class="level" data-level="3" style="background:var(--purple)">
-        <span class="level-icons">⭐⭐⭐</span>
         <span class="level-name" id="l3-name"></span>
-        <span class="level-sub">38 + 7 &nbsp;·&nbsp; 52 − 9</span>
+        <span class="level-sub">38 + 7 · 52 − 9</span>
+      </button>
+      <button class="level" data-level="4" style="background:#3a86ff">
+        <span class="level-name" id="l4-name"></span>
+        <span class="level-sub">🔍 ? + 4 = 9</span>
+      </button>
+      <button class="level" data-level="5" style="background:#e5383b">
+        <span class="level-name" id="l5-name"></span>
+        <span class="level-sub" id="l5-sub"></span>
+      </button>
+      <button class="level" data-level="6" style="background:#3fb36b">
+        <span class="level-name" id="l6-name"></span>
+        <span class="level-sub">🦘 15, 20, 25, ?</span>
       </button>
     </div>
-    <button class="shelf-btn" id="open-shelf">🫙 <span id="shelf-label"></span> <b id="shelf-count"></b></button>
+    <button class="shelf-btn" id="open-garden">🌳 <span id="garden-label"></span> <b id="garden-count"></b></button>
   </main>
 
   <!-- Play -->
   <main id="play" class="play" hidden>
-    <div id="hearts"></div>
+    <div class="status"><div id="hearts"></div><button class="round-btn" id="music"></button></div>
     <div class="progress" id="progress"></div>
     <div class="question" id="question"></div>
     <div class="lab">
+      <p class="say" id="say"></p>
+      <div class="xiruca" id="xiruca"></div>
       <div class="cauldron" id="cauldron">
         <svg viewBox="0 0 200 170" aria-hidden="true">
           <defs>
@@ -70,7 +87,9 @@
           <rect x="22" y="50" width="156" height="16" rx="8" fill="#5e5e8c" stroke="#3a3a5c" stroke-width="5"/>
         </svg>
         <div class="splash" id="splash"></div>
+        <div class="smoke" id="smoke" hidden><i></i><i></i><i></i><i></i></div>
       </div>
+      <div class="cat" id="cat"><span class="cat-say" id="cat-say" hidden></span></div>
     </div>
     <div class="answers" id="answers"></div>
   </main>
@@ -81,23 +100,23 @@
       <p class="win-text" id="win-text"></p>
       <div id="win-stars"></div>
       <div class="creature" id="creature"></div>
+      <p class="creature-name" id="creature-name"></p>
       <div class="win-buttons">
         <button class="big-btn" id="again" style="background:var(--pink)">🔁</button>
-        <button class="big-btn" id="to-shelf" style="background:var(--teal)">🫙</button>
-        <a class="big-btn" href="../../index.html" style="background:var(--yellow)">🏠</a>
+        <button class="big-btn" id="other" style="background:var(--orange)">🎚️</button>
+        <button class="big-btn" id="to-garden" style="background:#3fb36b">🌳</button>
       </div>
     </div>
   </div>
 
-  <!-- Collection shelf -->
-  <div id="shelf" class="win" hidden>
-    <div class="win-box shelf-box">
-      <p class="win-text" id="shelf-title"></p>
-      <div class="shelf-grid" id="shelf-grid"></div>
-      <div class="win-buttons">
-        <button class="big-btn" id="close-shelf" style="background:var(--teal)">↩️</button>
-      </div>
+  <!-- Creature garden -->
+  <div id="garden" class="garden" hidden>
+    <div class="garden-top">
+      <p class="garden-title"><span id="garden-title"></span> <b id="garden-count2"></b></p>
+      <button class="round-btn" id="close-garden">↩️</button>
     </div>
+    <div class="garden-field" id="garden-field"></div>
+    <p class="garden-name" id="garden-name"></p>
   </div>
 
   <script src="../../shared/app.js"></script>

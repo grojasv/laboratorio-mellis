@@ -21,11 +21,11 @@ window.MELLIS_GAMES = [
     icon: '🧪',
     color: '#2ec4b6',
     name: { ca: 'Laboratori de pocions', es: 'Laboratorio de pociones', en: 'Potion Lab' },
-    tagline: { ca: 'Sumes i restes', es: 'Sumas y restas', en: 'Adding & taking away' },
+    tagline: { ca: 'Sumes, restes, dobles i salts', es: 'Sumas, restas, dobles y saltos', en: 'Sums, doubles & counting on' },
     guide: {
-      ca: "Prepara pocions sumant i restant ingredients fins a 100, en tres nivells. Cada poció encertada fa néixer una criatura per a la col·lecció. Treballa el càlcul mental.",
-      es: "Prepara pociones sumando y restando ingredientes hasta 100, en tres niveles. Cada poción acertada hace nacer una criatura para la colección. Trabaja el cálculo mental.",
-      en: "Brew potions by adding and taking away ingredients up to 100, across three levels. Each correct potion hatches a creature for the collection. Practises mental arithmetic.",
+      ca: "Amb la bruixa Xiruca i el seu gat Bigotis, prepara pocions triant l'ampolla amb el número correcte: sumes i restes fins a 20 i fins a 100 (amb i sense portar-ne), l'ingredient secret (? + 4 = 9), dobles i meitats i salts de 2, 5 i 10. Cada poció fa néixer una criatura amb nom que viu al jardí màgic. Treballa el càlcul mental i el sentit del número.",
+      es: "Con la bruja Xiruca y su gato Bigotis, prepara pociones eligiendo la botella con el número correcto: sumas y restas hasta 20 y hasta 100 (con y sin llevadas), el ingrediente secreto (? + 4 = 9), dobles y mitades y saltos de 2, 5 y 10. Cada poción hace nacer una criatura con nombre que vive en el jardín mágico. Trabaja el cálculo mental y el sentido del número.",
+      en: "With Xiruca the witch and her cat Bigotis, brew potions by picking the bottle with the right number: sums up to 20 and 100 (with and without carrying), the secret ingredient (? + 4 = 9), doubles and halves, and counting by 2, 5 and 10. Each potion hatches a named creature that lives in the magic garden. Practises mental arithmetic and number sense.",
     },
   },
   {

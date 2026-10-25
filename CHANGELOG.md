@@ -4,6 +4,13 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.24.0] — 2026-10-25
+### Added
+- **Laboratori de pocions revamp.** Hosts: Bruixa Xiruca (a young witch whose hat jumps on mistakes) and her cat Bigotis (miaus, sneezes), with short lines that never hint; coloured smoke puffs on wrong answers. Three new levels (6 in a 2-column picker): 🔍 *Ingredient secret* (missing number, within 20 or in tens; decoy: doing the other operation), 🪞 *Doble i meitat* (doubles to 50, halves to 100; decoys: forgot to double, doubled instead of halving), 🦘 *Salts màgics* (counting by 2, 5, 10, gap at the end or in the middle; decoys: the wrong step). Decoys never repeat a number already shown. 30 named creatures (was 16 unnamed) living in 🌳 *El jardí màgic*: they wander on a loose grid, jump and say their name when tapped, golden ones glow. Xiruca's hut look (teal walls, jar shelf).
+- Shared: `M.music.play('potion')` bubbly waltz with a new `plop` voice.
+### Fixed
+- Potion Lab: the pour no longer stalls when the phone pauses animations (timeout fallback). Service worker cache `mellis-v22`.
+
 ## [1.23.0] — 2026-10-25
 ### Added
 - **Memory dels mesos revamp.** Host: Nou, a forgetful squirrel (speech bubble, hops on matches, scratches her head on misses; never hints), acorn card backs and a 🌰 found counter. New levels: *Dies* (7 days of the week, pictures from the sky names — 🌙 dilluns, 🔴 dimarts… — plus a week strip with the weekend marked) and *Difícil* (all 12 months, 24 square cards; long words shrink to fit). Seasonal scene: background, falling ❄️/🌸/🦋/🍂 and music follow the season of each pair found (starts on the real season). 📅 *El meu calendari*: 12 months × 3 stickers; every game awards one from the board's months (missing ones first), two golden ones on ⭐⭐⭐.
