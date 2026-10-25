@@ -144,6 +144,7 @@
     }
     .hub-foot { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 28px; }
     .hub-foot .install { margin: 0; }
+    .families-link { color: var(--ink); text-decoration: none; font-size: 1rem; }
     .version { text-align: center; margin: 14px 0 0; font-size: 0.75rem; opacity: 0.45; }
     .news-pop { position: fixed; inset: 0; z-index: 40; background: rgba(58, 58, 92, .5); display: flex; align-items: center; justify-content: center; padding: 16px; }
     .news-box {
@@ -227,6 +228,7 @@
     <div class="hub-foot">
       <button class="install" id="news-all">🎁 <span id="news-all-label"></span></button>
       <button class="install" id="install" hidden>📲 <span id="install-label"></span></button>
+      <a class="install families-link" href="families/index.html">👪 <span id="families-label"></span></a>
     </div>
     <p class="version" id="version"></p>
   </main>
@@ -428,6 +430,7 @@
       renderNewsButtons();
       if (!document.getElementById('news-pop').hidden) renderNews();
       document.getElementById('install-label').textContent = M.t(INSTALL);
+      document.getElementById('families-label').textContent = M.t(FAMILIES);
       const card = (g) => `
         <a class="game${g.soon ? ' soon' : ''}" ${g.soon ? '' : `href="${g.path}"`} style="${g.soon ? '' : `background:${g.color}`}">
           ${isNewGame(g.id) ? `<span class="new-sticker">${M.t(NT.sticker)}</span>` : ''}
@@ -452,6 +455,7 @@
     const READ_T = L('📚 Llegim', '📚 Leemos', "📚 Let's read");
     const LEARN_T = L('🎒 Aprenem', '🎒 Aprendemos', "🎒 Let's learn");
     const INSTALL = L("Instal·la el laboratori", 'Instala el laboratorio', 'Install the lab');
+    const FAMILIES = L('Per a famílies i mestres', 'Para familias y docentes', 'For parents & teachers');
     render();
     M.onLang(render);
     M.onInstallable((can) => { document.getElementById('install').hidden = !can; });

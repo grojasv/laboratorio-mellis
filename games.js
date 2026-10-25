@@ -1,5 +1,6 @@
 // The game catalogue shown on the hub. To add a game: create games/<id>/index.html
 // and add one entry here. section: 'reading' puts it under 📚 Llegim instead of 🎮 Jocs.
+// guide: 2–3 sentences for adults (what she does + what it practises), shown on families/.
 window.MELLIS_GAMES = [
   {
     id: 'memory',
@@ -8,6 +9,11 @@ window.MELLIS_GAMES = [
     color: '#ff6fb5',
     name: { ca: 'Memory dels mesos', es: 'Memory de los meses', en: 'Months Memory' },
     tagline: { ca: 'Mesos i estacions', es: 'Meses y estaciones', en: 'Months & seasons' },
+    guide: {
+      ca: "Memory clàssic amb els mesos i les estacions: cada parella uneix un dibuix amb la seva paraula, barrejant català, castellà i anglès. Treballa la memòria, l'ordre de l'any i el vocabulari en tres llengües.",
+      es: "Memory clásico con los meses y las estaciones: cada pareja une un dibujo con su palabra, mezclando catalán, castellano e inglés. Trabaja la memoria, el orden del año y el vocabulario en tres idiomas.",
+      en: "Classic memory with the months and seasons: each pair matches a picture with its word, mixing Catalan, Spanish and English. Practises memory, the order of the year and vocabulary in three languages.",
+    },
   },
   {
     id: 'potions',
@@ -16,6 +22,11 @@ window.MELLIS_GAMES = [
     color: '#2ec4b6',
     name: { ca: 'Laboratori de pocions', es: 'Laboratorio de pociones', en: 'Potion Lab' },
     tagline: { ca: 'Sumes i restes', es: 'Sumas y restas', en: 'Adding & taking away' },
+    guide: {
+      ca: "Prepara pocions sumant i restant ingredients fins a 100, en tres nivells. Cada poció encertada fa néixer una criatura per a la col·lecció. Treballa el càlcul mental.",
+      es: "Prepara pociones sumando y restando ingredientes hasta 100, en tres niveles. Cada poción acertada hace nacer una criatura para la colección. Trabaja el cálculo mental.",
+      en: "Brew potions by adding and taking away ingredients up to 100, across three levels. Each correct potion hatches a creature for the collection. Practises mental arithmetic.",
+    },
   },
   {
     id: 'monsters',
@@ -24,6 +35,11 @@ window.MELLIS_GAMES = [
     color: '#9b5de5',
     name: { ca: 'Laboratori de monstres', es: 'Laboratorio de monstruos', en: 'Monster Lab' },
     tagline: { ca: 'Anglès de Halloween', es: 'Inglés de Halloween', en: 'Halloween English' },
+    guide: {
+      ca: "Escolta en anglès com és el monstre i construeix-lo (colors, ulls, banyes, taques…). Els nivells alts afegeixen negacions (\"NO horns\") i només àudio. Treballa la comprensió oral en anglès.",
+      es: "Escucha en inglés cómo es el monstruo y constrúyelo (colores, ojos, cuernos, manchas…). Los niveles altos añaden negaciones (\"NO horns\") y solo audio. Trabaja la comprensión oral en inglés.",
+      en: "Listen to an English description of a monster and build it (colours, eyes, horns, spots…). Higher levels add negatives (\"NO horns\") and audio only. Practises English listening.",
+    },
   },
   {
     id: 'detective',
@@ -32,6 +48,11 @@ window.MELLIS_GAMES = [
     color: '#ff9f1c',
     name: { ca: 'Agència de detectives', es: 'Agencia de detectives', en: 'Detective Agency' },
     tagline: { ca: 'Pistes, codis i empremtes', es: 'Pistas, códigos y huellas', en: 'Clues, codes & prints' },
+    guide: {
+      ca: "Casos en quatre passos: seguir petjades, desxifrar un codi secret, descartar sospitosos amb pistes i comparar empremtes. Treballa la lògica, la lectura atenta (\"NO porta barret\") i l'observació.",
+      es: "Casos en cuatro pasos: seguir huellas, descifrar un código secreto, descartar sospechosos con pistas y comparar huellas dactilares. Trabaja la lógica, la lectura atenta (\"NO lleva sombrero\") y la observación.",
+      en: "Cases in four steps: follow footprints, crack a secret code, rule out suspects with clues and match fingerprints. Practises logic, careful reading (\"NOT wearing a hat\") and observation.",
+    },
   },
   {
     id: 'clock',
@@ -40,6 +61,11 @@ window.MELLIS_GAMES = [
     color: '#e76f51',
     name: { ca: 'Rellotgeria Tic-Tac', es: 'Relojería Tic-Tac', en: 'Tic-Tac Clock Shop' },
     tagline: { ca: 'Aprèn a llegir el rellotge', es: 'Aprende a leer el reloj', en: 'Learn to tell the time' },
+    guide: {
+      ca: "Aprendre a llegir el rellotge a la manera catalana (\"un quart de cinc\"): posar les agulles, triar el rellotge correcte i dir l'hora. Comença amb un rellotge-pizza i arriba a les 24 h i al pas del temps.",
+      es: "Aprender a leer el reloj, también a la manera catalana (\"un quart de cinc\" = las 4:15): poner las agujas, elegir el reloj correcto y decir la hora. Empieza con un reloj-pizza y llega a las 24 h y al paso del tiempo.",
+      en: "Learning to tell the time, including the Catalan way (\"un quart de cinc\" = 4:15): set the hands, pick the right clock and say the time. Starts with a pizza clock and goes up to 24-hour times and time passing.",
+    },
   },
   {
     id: 'reading',
@@ -49,6 +75,11 @@ window.MELLIS_GAMES = [
     color: '#3a86ff',
     name: { ca: 'Contes en veu alta', es: 'Cuentos en voz alta', en: 'Read-aloud Stories' },
     tagline: { ca: 'Llegeix i tria què passa', es: 'Lee y elige qué pasa', en: 'Read and choose what happens' },
+    guide: {
+      ca: "Contes divertits per llegir en veu alta, amb camins a triar. Un indicador s'omple mentre llegeix, pot escoltar la seva pròpia veu i una pregunta final comprova que ho ha entès. Treballa la fluïdesa lectora i la comprensió.",
+      es: "Cuentos divertidos para leer en voz alta, con caminos a elegir. Un indicador se llena mientras lee, puede escuchar su propia voz y una pregunta final comprueba que lo ha entendido. Trabaja la fluidez lectora y la comprensión.",
+      en: "Funny branching stories to read out loud. A meter fills while she reads, she can play back her own voice, and a final question checks understanding. Practises reading fluency and comprehension.",
+    },
   },
   {
     id: 'puppets',
@@ -57,6 +88,11 @@ window.MELLIS_GAMES = [
     color: '#c0392b',
     name: { ca: 'Teatre de titelles', es: 'Teatro de títeres', en: 'Puppet Show' },
     tagline: { ca: 'Anglès: Back to School', es: 'Inglés: Back to School', en: 'English: Back to School' },
+    guide: {
+      ca: "Anglès de la unitat \"Back to School\": crea un titella, respon \"All about me\" i el titella presenta escenes (emocions, temps, estacions, material escolar, comptar fins a 20). Al final llegeix en veu alta i el titella mou la boca amb la seva veu.",
+      es: "Inglés de la unidad \"Back to School\": crea un títere, responde \"All about me\" y el títere presenta escenas (emociones, tiempo, estaciones, material escolar, contar hasta 20). Al final lee en voz alta y el títere mueve la boca con su voz.",
+      en: "English from the \"Back to School\" unit: make a puppet, answer \"All about me\", and the puppet hosts scenes (feelings, weather, seasons, school things, counting to 20). At the end she reads aloud and the puppet lip-syncs to her voice.",
+    },
   },
   {
     id: 'passport',
@@ -66,6 +102,11 @@ window.MELLIS_GAMES = [
     color: '#2a9d8f',
     name: { ca: 'Passaport lector', es: 'Pasaporte lector', en: 'Reading passport' },
     tagline: { ca: 'Els llibres que llegim en família', es: 'Los libros que leemos en familia', en: 'The books we read as a family' },
+    guide: {
+      ca: "El passaport dels llibres de paper que llegiu en família: foto de la coberta, qui l'ha llegit, valoració amb cares i adhesius, segells i medalles. El dau 🎲 \"En parlem?\" proposa preguntes per comentar el llibre. Tot es queda al mòbil.",
+      es: "El pasaporte de los libros de papel que leéis en familia: foto de la portada, quién lo ha leído, valoración con caras y pegatinas, sellos y medallas. El dado 🎲 \"¿Hablamos?\" propone preguntas para comentar el libro. Todo se queda en el móvil.",
+      en: "A passport for the paper books you read as a family: cover photo, who read it, face ratings and stickers, stamps and medals. The 🎲 \"Let's talk\" die suggests questions to discuss the book. Everything stays on the phone.",
+    },
   },
   {
     id: 'radio',
@@ -75,6 +116,11 @@ window.MELLIS_GAMES = [
     color: '#6a4c93',
     name: { ca: 'Ràdio Mellis', es: 'Radio Mellis', en: 'Radio Mellis' },
     tagline: { ca: 'Teatre radiofònic en família', es: 'Radioteatro en familia', en: 'A family radio play' },
+    guide: {
+      ca: "Teatre radiofònic amb un sol mòbil: una ruleta reparteix els personatges, cadascú llegeix les seves frases mantenint premut el 🎙️ i al final s'escolta el programa amb veus divertides i efectes. Lectura expressiva i per torns.",
+      es: "Radioteatro con un solo móvil: una ruleta reparte los personajes, cada uno lee sus frases manteniendo pulsado el 🎙️ y al final se escucha el programa con voces divertidas y efectos. Lectura expresiva y por turnos.",
+      en: "A radio play on one phone: a roulette hands out the parts, everyone reads their lines holding the 🎙️, and then you listen to the show with silly voices and sound effects. Expressive reading and taking turns.",
+    },
   },
 ];
 
@@ -87,6 +133,11 @@ window.MELLIS_LEARN = [
     color: '#3fb36b',
     name: { ca: 'Els animals', es: 'Los animales', en: 'Animals' },
     tagline: { ca: 'Vertebrats, què mengen, com neixen…', es: 'Vertebrados, qué comen, cómo nacen…', en: 'Groups, food, babies…' },
+    guide: {
+      ca: "Vertebrats i invertebrats, què mengen (cadenes alimentàries), com neixen (cicles de vida) i on viuen i com es mouen. Segueix el que estudien a l'escola, amb un àlbum de cromos d'animals.",
+      es: "Vertebrados e invertebrados, qué comen (cadenas alimentarias), cómo nacen (ciclos de vida) y dónde viven y cómo se mueven. Sigue lo que estudian en la escuela, con un álbum de cromos de animales.",
+      en: "Vertebrates and invertebrates, what they eat (food chains), how they're born (life cycles), and where they live and how they move. Follows what they study at school, with an animal-card album.",
+    },
   },
   {
     id: 'body',
@@ -95,6 +146,11 @@ window.MELLIS_LEARN = [
     color: '#ff6fb5',
     name: { ca: 'El cos humà', es: 'El cuerpo humano', en: 'The human body' },
     tagline: { ca: 'Sentits, esquelet, menjar, hàbits', es: 'Sentidos, esqueleto, comida, hábitos', en: 'Senses, skeleton, food, habits' },
+    guide: {
+      ca: "Els cinc sentits, les parts del cos i l'esquelet, l'alimentació i la digestió, i hàbits saludables (rentar-se les mans, les dents). Segueix el temari de l'escola, amb un àlbum d'adhesius.",
+      es: "Los cinco sentidos, las partes del cuerpo y el esqueleto, la alimentación y la digestión, y hábitos saludables (lavarse las manos, los dientes). Sigue el temario de la escuela, con un álbum de pegatinas.",
+      en: "The five senses, body parts and the skeleton, food and digestion, and healthy habits (washing hands, brushing teeth). Follows the school syllabus, with a sticker album.",
+    },
   },
   {
     id: 'town',
@@ -103,6 +159,11 @@ window.MELLIS_LEARN = [
     color: '#ff9f1c',
     name: { ca: 'El meu poble', es: 'Mi pueblo', en: 'My town' },
     tagline: { ca: 'Llocs i oficis', es: 'Sitios y oficios', en: 'Places & jobs' },
+    guide: {
+      ca: "Un poble inventat per conèixer els llocs (escola, hospital, mercat…) i els oficis: a on aniries si…?, qui hi treballa i amb què. El mapa es va pintant a mesura que aprèn.",
+      es: "Un pueblo inventado para conocer los sitios (escuela, hospital, mercado…) y los oficios: ¿a dónde irías si…?, quién trabaja allí y con qué. El mapa se va pintando a medida que aprende.",
+      en: "A made-up town to learn places (school, hospital, market…) and jobs: where would you go if…?, who works there and with what. The map colours in as she learns.",
+    },
   },
   {
     id: 'friends',
@@ -111,5 +172,10 @@ window.MELLIS_LEARN = [
     color: '#c2185b',
     name: { ca: 'Bons amics', es: 'Buenos amigos', en: 'Good friends' },
     tagline: { ca: 'Amistat i emocions', es: 'Amistad y emociones', en: 'Friendship & feelings' },
+    guide: {
+      ca: "Històries curtes de classe sobre ser un bon amic, què és just i què fer quan ens enfadem. Tria què faria un bon amic; si s'equivoca, veu com se sent l'altre i per què. Educació emocional, sense penalitzacions.",
+      es: "Historias cortas de clase sobre ser un buen amigo, qué es justo y qué hacer cuando nos enfadamos. Elige qué haría un buen amigo; si se equivoca, ve cómo se siente el otro y por qué. Educación emocional, sin penalizaciones.",
+      en: "Short classroom stories about being a good friend, fairness and what to do when we get angry. She picks what a good friend would do; a wrong choice shows how the other child feels and why. Social-emotional learning, no penalties.",
+    },
   },
 ];

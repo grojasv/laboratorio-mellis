@@ -325,7 +325,7 @@
     svg.addEventListener('pointerdown', (e) => {
       if (!st.knobs || (o.locked && o.locked())) return;
       const { a, d } = angleOf(e), t = snapped();
-      if (d < 14) return;
+      if (!(d >= 14)) return;   // centre, or a hidden clock (NaN)
       const gm = gap(a, mod(t, 60) * 6), gh = gap(a, t / 2);
       drag = gm + 12 < gh ? 'min' : gh + 12 < gm ? 'hour' : d > 62 ? 'min' : 'hour';
       prevA = a;
@@ -336,6 +336,7 @@
     function move(e) {
       if (!drag) return;
       const { a } = angleOf(e), before = snapped();
+      if (!Number.isFinite(a)) return;
       if (drag === 'min') {
         let delta = a - prevA;
         if (delta > 180) delta -= 360;
@@ -374,7 +375,11 @@
     $('free-btn').textContent = M.t(TEXT.free);
     $('album-title').textContent = M.t(TEXT.album);
     $('win-text').textContent = M.t(TEXT.win);
-    if (q && !$('play').hidden) { renderRequest(); if (!$('now-label').hidden) nowLabel(); }
+    if (q && !$('play').hidden && !busy) {
+      renderRequest();
+      if (!$('now-label').hidden) nowLabel();
+      if (q.mode === 'words') renderWordOpts();
+    }
     if (!$('free').hidden) freeRead();
   }
 
@@ -469,11 +474,11 @@
   function sayRequest() { M.speak(requestText(M.lang).say, M.lang); }
 
   // Sky in the shop window for the customer's hour
+  const skyOf = (H) => (H >= 6 && H < 8 ? 'dawn' : H >= 8 && H < 18 ? 'day' : H >= 18 && H < 21 ? 'dusk' : 'night');
+  const skyIcon = (H) => (skyOf(H) === 'night' ? '🌙' : '☀️');
   function sky(H) {
-    const cls = H >= 6 && H < 8 ? 'dawn' : H >= 8 && H < 18 ? 'day' : H >= 18 && H < 21 ? 'dusk' : 'night';
-    $('window').className = 'window ' + cls;
-    $('sky-body').textContent = cls === 'night' ? '🌙' : '☀️';
-    return cls;
+    $('window').className = 'window ' + skyOf(H);
+    $('sky-body').textContent = skyIcon(H);
   }
 
   // ---------- Round flow ----------
@@ -546,18 +551,23 @@
       const shown = lv.expert ? q.now : q.ans;
       clock.set(key(shown));
       if (lv.expert) nowLabel();
-      let list = all.map((t) => ({ t, w: words(t, !!lv.h24) }));
+      q.list = all.map((t) => ({ t }));
       if (lv.h24) {
-        // Hard: the sky tells morning from night, so one option is the right time at the wrong part of the day
+        // Hard: the sky tells day from night, so one option can be the right time at the wrong
+        // part of the day, but only when the badge really shows the difference (☀️ vs 🌙)
         const flip = { ...q.ans, H: mod(q.ans.H + 12, 24) };
-        list = shuffle([{ t: q.ans, w: words(q.ans, true) }, { t: flip, w: words(flip, true), bad: true },
-          { t: q.decoys[0], w: words(q.decoys[0], true) }]);
+        const other = skyIcon(flip.H) !== skyIcon(q.ans.H) ? { t: flip, bad: true } : { t: q.decoys[1] };
+        q.list = shuffle([{ t: q.ans }, other, { t: q.decoys[0] }]);
         $('badge').hidden = false;
-        $('badge').textContent = $('sky-body').textContent;
+        $('badge').textContent = skyIcon(q.ans.H);
       }
       opts.classList.add('word-opts');
-      opts.innerHTML = list.map((x) => `<button class="opt-word" data-k="${x.bad ? -1 : key(x.t)}">${x.w}</button>`).join('');
+      renderWordOpts();
     }
+  }
+  function renderWordOpts() {
+    $('opts').innerHTML = q.list.map((x) =>
+      `<button class="opt-word" data-k="${x.bad ? -1 : key(x.t)}">${words(x.t, !!lv.h24)}</button>`).join('');
   }
 
   function nowLabel() {
@@ -726,5 +736,5 @@
   $('other').addEventListener('click', () => { M.sounds.pop(); toLevels(); });
 
   // test hook
-  window.__clock = () => ({ q, level, served, busy, t: clock.get(), key, words, PHRASES });
+  window.__clock = () => ({ q, level, served, busy, t: clock.get(), key, words, PHRASES, force: (mode) => { used = new Set(); q = newQuestion(served); q.mode = mode; renderWork(); return q; } });
 })();

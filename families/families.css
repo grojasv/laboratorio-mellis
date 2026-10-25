@@ -1,0 +1,43 @@
+/* Guide for parents and teachers: calmer, readable text, same colours as the app. */
+.guide { max-width: 760px; margin: 0 auto; padding: 8px 16px 40px; }
+.guide p, .guide li { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; line-height: 1.5; }
+.guide { -webkit-user-select: text; user-select: text; }
+
+.intro { text-align: center; }
+.intro-twins { width: min(200px, 55%); margin: 0 auto; }
+.intro h2 { margin: 4px 0 6px; font-size: 1.7rem; color: var(--pink); }
+.lead { margin: 0 auto 14px; max-width: 34em; font-size: 1.05rem; }
+
+.actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.actions.foot { margin-top: 26px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #fff; color: var(--ink); text-decoration: none;
+  border: 3px solid var(--ink); border-radius: 999px; box-shadow: var(--shadow);
+  padding: 9px 18px; font-size: 1.05rem; font-weight: 700;
+}
+.btn-main { background: var(--yellow); }
+.btn:active { transform: translateY(4px); box-shadow: none; }
+.toast { margin: 10px 0 0; font-weight: 700; color: var(--teal); }
+
+.panel {
+  margin-top: 22px; background: #fff; border: 3px solid var(--ink); border-radius: 22px;
+  padding: 14px 16px;
+}
+.panel h3, .sec { margin: 0 0 8px; font-size: 1.3rem; }
+.sec { margin-top: 26px; }
+.sec-note { margin: -2px 0 10px; font-size: 0.95rem; }
+.points { margin: 0; padding: 0; list-style: none; }
+.points li { display: flex; gap: 10px; margin: 8px 0; }
+.points .pi { flex: none; }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 12px; }
+.card {
+  display: flex; gap: 12px; align-items: flex-start;
+  background: #fff; border: 3px solid var(--ink); border-left-width: 12px; border-radius: 18px;
+  padding: 12px 14px; color: var(--ink); text-decoration: none;
+}
+.card .icon { font-size: 2rem; line-height: 1; }
+.card h4 { margin: 0; font-size: 1.1rem; }
+.card .tag { margin: 0 0 4px; font-size: 0.9rem; opacity: 0.7; }
+.card p:last-child { margin: 0; font-size: 0.95rem; }

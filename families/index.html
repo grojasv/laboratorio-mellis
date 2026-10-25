@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffe9f5">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Mellis">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="description" content="Laboratorio Mellis: jocs per aprendre (6–8 anys) en català, castellà i anglès. Guia per a famílies i mestres.">
+  <title>Famílies i mestres · Laboratorio Mellis</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👪</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared/styles.css">
+  <link rel="stylesheet" href="../shared/game.css">
+  <link rel="stylesheet" href="families.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="home" href="../index.html" aria-label="home">🏠</a>
+    <h1 class="title" id="title"></h1>
+    <div id="controls"></div>
+  </header>
+
+  <main class="guide">
+    <section class="intro">
+      <div class="intro-twins" id="mascots"></div>
+      <h2 id="h-title"></h2>
+      <p class="lead" id="lead"></p>
+      <div class="actions">
+        <a class="btn btn-main" href="../index.html">🧪 <span id="open-label"></span></a>
+        <button class="btn" id="share" type="button">📤 <span id="share-label"></span></button>
+      </div>
+      <p class="toast" id="copied" hidden></p>
+    </section>
+
+    <section class="panel">
+      <h3 id="idea-title"></h3>
+      <ul class="points" id="idea"></ul>
+    </section>
+
+    <h3 class="sec" id="games-title"></h3>
+    <div class="cards" id="games"></div>
+    <h3 class="sec" id="read-title"></h3>
+    <div class="cards" id="read"></div>
+    <h3 class="sec" id="learn-title"></h3>
+    <p class="sec-note" id="learn-note"></p>
+    <div class="cards" id="learn"></div>
+
+    <section class="panel">
+      <h3 id="tips-title"></h3>
+      <ul class="points" id="tips"></ul>
+    </section>
+
+    <div class="actions foot">
+      <a class="btn btn-main" href="../index.html">🧪 <span id="open-label-2"></span></a>
+      <button class="btn" id="share-2" type="button">📤 <span id="share-label-2"></span></button>
+    </div>
+  </main>
+
+  <script src="../shared/app.js"></script>
+  <script src="../games.js"></script>
+  <script src="families.js"></script>
+</body>
+</html>
