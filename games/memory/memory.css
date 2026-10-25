@@ -1,5 +1,5 @@
 /* ---------- Board ---------- */
-.play { display: grid; place-items: center; padding: 0 12px 12px; }
+.play { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 0 12px 12px; }
 .board { display: grid; gap: var(--gap, 10px); }
 
 .card {
@@ -34,15 +34,17 @@
 }
 .back {
   background:
-    radial-gradient(circle at 30% 30%, rgba(255,255,255,.5) 0 10%, transparent 11%),
-    radial-gradient(circle at 70% 75%, rgba(255,255,255,.35) 0 8%, transparent 9%),
-    var(--back, var(--pink));
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,.45) 0 10%, transparent 11%),
+    radial-gradient(circle at 70% 75%, rgba(255,255,255,.3) 0 8%, transparent 9%),
+    repeating-linear-gradient(45deg, rgba(0,0,0,.05) 0 6px, transparent 6px 12px),
+    var(--back);
   font-size: calc(var(--cw) * 0.42);
 }
+.acorn-back { filter: drop-shadow(0 2px 0 rgba(0,0,0,.25)); }
 .front {
   background: #fff;
   transform: rotateY(180deg);
-  padding: 4px;
+  padding: 2px;
 }
 .card:active:not(.open) .card-inner { transform: scale(0.94); }
 
@@ -55,7 +57,7 @@
   font-weight: 700;
   line-height: 1.05;
   text-align: center;
-  word-break: break-word;
+  white-space: nowrap;
   font-size: var(--wf);
 }
 .hint { font-size: calc(var(--cw) * 0.22); opacity: 0.45; margin-top: 4px; }
@@ -84,6 +86,7 @@
 
 /* ---------- Toast ---------- */
 .toast {
+  pointer-events: none;
   position: fixed;
   left: 50%; bottom: max(16px, env(safe-area-inset-bottom));
   transform: translateX(-50%);
@@ -103,3 +106,91 @@
 .toast .t-words span::before { content: attr(data-l); font-size: .7em; color: var(--purple); margin-right: 4px; }
 @keyframes pop-in { from { transform: translateX(-50%) scale(0.5); opacity: 0; } }
 
+
+/* ---------- Seasons ---------- */
+body.forest { --back: #b5651d; transition: background 0.8s; background-attachment: fixed; }
+body.winter { --back: #5fa8d3; background: linear-gradient(180deg, #e8f4ff 0%, #cfe6fb 70%, #fff 100%); }
+body.spring { --back: #6fbf73; background: linear-gradient(180deg, #fff0f6 0%, #e6f8de 70%, #bfe8a8 100%); }
+body.summer { --back: #ff9f1c; background: linear-gradient(180deg, #fff6d6 0%, #d8f1ff 70%, #ffe7a3 100%); }
+body.autumn { --back: #c8733a; background: linear-gradient(180deg, #fff1e0 0%, #ffe0bd 70%, #e9b07a 100%); }
+.falling { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+.falling span { position: absolute; top: -40px; font-size: 1.4rem; opacity: .55; animation: fall linear infinite; }
+@keyframes fall {
+  0% { transform: translate(0, -40px) rotate(0); }
+  50% { transform: translate(30px, 50vh) rotate(180deg); }
+  100% { transform: translate(-10px, 105vh) rotate(360deg); }
+}
+.topbar, main, .win, .toast { position: relative; z-index: 1; }
+.win { position: fixed; z-index: 30; }
+.toast { position: fixed; z-index: 20; }
+
+/* ---------- Nou the squirrel ---------- */
+.nou svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.nou .tail { transform-box: fill-box; transform-origin: 10% 90%; animation: tail 1.6s ease-in-out infinite alternate; }
+@keyframes tail { to { transform: rotate(8deg); } }
+.nou.hop { animation: nou-hop .5s; }
+.nou.think { animation: nou-think .8s; }
+@keyframes nou-hop { 40% { transform: translateY(-14px) rotate(-6deg); } }
+@keyframes nou-think { 30%, 70% { transform: rotate(-12deg); } }
+
+.levels-head { display: flex; align-items: center; justify-content: center; gap: 18px; }
+.nou.big { width: min(34vw, 150px); }
+.round-btn {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: #fff3d6; border: 3px solid var(--ink);
+  font-size: 1.4rem; display: grid; place-items: center; flex: none;
+}
+.round-btn:active { transform: scale(0.9); }
+
+.status { display: flex; align-items: center; gap: 8px; width: 100%; max-width: 640px; }
+.status .nou { width: 46px; flex: none; }
+.nou-say {
+  flex: 1; margin: 0; background: #fff; border: 3px solid var(--ink); border-radius: 16px;
+  padding: 3px 10px; font-weight: 700; font-size: clamp(.85rem, 3.6vw, 1.05rem); line-height: 1.2;
+  animation: pop-in-c .3s;
+}
+.acorns { font-weight: 700; font-size: 1.1rem; white-space: nowrap; }
+.status .round-btn { width: 40px; height: 40px; font-size: 1.1rem; }
+
+/* days: a little week strip under the picture */
+.week { display: flex; gap: 2px; margin-top: 4px; }
+.week i { width: calc(var(--cw) * 0.08); height: calc(var(--cw) * 0.08); border-radius: 50%; background: #ddd; border: 1px solid var(--ink); }
+.week i.we { background: #ffe08a; }
+.week i.on { background: var(--pink); transform: scale(1.35); }
+
+/* ---------- Win prize + calendar album ---------- */
+.win-nou { width: 110px; margin: 0 auto; }
+.prize p { margin: 0 0 6px; font-weight: 700; }
+.prize-stickers { display: flex; justify-content: center; gap: 14px; margin-bottom: 14px; }
+.prize-one { display: flex; flex-direction: column; align-items: center; gap: 2px; font-weight: 700; font-size: .9rem; }
+.sticker {
+  display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 50%;
+  background: #fff; border: 2px solid var(--ink); font-size: 1.25rem; padding: 0;
+}
+.sticker.big { width: 64px; height: 64px; font-size: 2.3rem; border-width: 3px; animation: pop-in-c .5s cubic-bezier(.3, 1.6, .6, 1); }
+.sticker.gold { background: radial-gradient(circle, #fff6c9, #ffd23f); box-shadow: 0 0 10px #ffd23f; }
+.sticker.empty { background: rgba(255, 255, 255, .5); border-style: dashed; color: #aaa; }
+.sticker.wiggle { animation: nou-think .5s; }
+.album-count { margin: -10px 0 8px; font-weight: 700; color: #8d5a2b; }
+.cal-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.cal-month { border: 3px solid var(--ink); border-radius: 14px; padding: 4px 2px; background: #fff; }
+.cal-month.winter { background: #e3f1ff; } .cal-month.spring { background: #eafbe3; }
+.cal-month.summer { background: #fff4cf; } .cal-month.autumn { background: #ffe6cc; }
+.cal-name { display: block; font-weight: 700; font-size: .85rem; }
+.cal-stickers { display: flex; justify-content: center; gap: 1px; }
+.cal-stickers .sticker { width: min(26px, 7vw); height: min(26px, 7vw); font-size: min(.95rem, 4.4vw); }
+.album-ok { margin: 10px auto 0; }
+
+@media (max-height: 700px) {
+  .nou.big { width: 76px; }
+  .levels .levels-ask { display: none; }
+  .levels .level-buttons { gap: 10px; }
+  .levels .level-buttons .level { padding: 6px 12px; }
+  .levels .level-name { font-size: 1.25rem; }
+  .levels .level-sub { font-size: .85rem; padding: 1px 10px; white-space: nowrap; }
+  .levels .level-icons { font-size: 1.1rem; min-width: 4.4rem; }
+  .win-nou { width: 76px; }
+  .win .win-text { font-size: 1.5rem; margin: 4px 0 8px; }
+  .album-box { padding: 12px; }
+  .album-box .big-btn { width: 64px; height: 64px; font-size: 1.8rem; }
+}

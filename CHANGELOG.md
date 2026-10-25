@@ -4,6 +4,13 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.23.0] — 2026-10-25
+### Added
+- **Memory dels mesos revamp.** Host: Nou, a forgetful squirrel (speech bubble, hops on matches, scratches her head on misses; never hints), acorn card backs and a 🌰 found counter. New levels: *Dies* (7 days of the week, pictures from the sky names — 🌙 dilluns, 🔴 dimarts… — plus a week strip with the weekend marked) and *Difícil* (all 12 months, 24 square cards; long words shrink to fit). Seasonal scene: background, falling ❄️/🌸/🦋/🍂 and music follow the season of each pair found (starts on the real season). 📅 *El meu calendari*: 12 months × 3 stickers; every game awards one from the board's months (missing ones first), two golden ones on ⭐⭐⭐.
+- Shared: seasonal music `M.music.play('winter' | 'spring' | 'summer' | 'autumn')` — one folk tune in four arrangements.
+### Changed
+- Memory toasts no longer block taps. Service worker cache `mellis-v21`.
+
 ## [1.22.0] — 2026-10-25
 ### Added
 - **Guide for parents & teachers** (`families/`): its own page (CA/ES/EN, readable adult text, same look) with the idea behind the lab (age, school link, no-guessing scoring, no ads/accounts, data stays on the device, offline + install), every game and Aprenem unit with 2–3 lines on what she does and what it practises, and tips for adults. 📤 *Comparteix* shares the guide's link through the native share sheet (copy-link fallback), so the person receiving it lands on the guide first; 🧪 *Obre el laboratori* goes to the hub.

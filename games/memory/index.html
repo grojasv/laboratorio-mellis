@@ -19,7 +19,8 @@
   <link rel="stylesheet" href="../../shared/game.css">
   <link rel="stylesheet" href="memory.css">
 </head>
-<body>
+<body class="forest">
+  <div class="falling" id="falling" aria-hidden="true"></div>
   <header class="topbar">
     <a class="home" href="../../index.html" aria-label="home">🏠</a>
     <h1 class="title" id="title"></h1>
@@ -28,7 +29,11 @@
 
   <!-- Level picker -->
   <main id="levels" class="levels">
-    <div id="mascots-levels" class="levels-mascots"></div>
+    <div class="levels-head">
+      <button class="round-btn" id="album-btn" aria-label="calendar">📅</button>
+      <div class="nou big" id="nou-levels"></div>
+      <button class="round-btn" id="music-levels"></button>
+    </div>
     <p class="levels-ask" id="ask"></p>
     <div class="level-buttons">
       <button class="level" data-level="easy" style="background:var(--teal)">
@@ -36,16 +41,32 @@
         <span class="level-name" id="easy-name"></span>
         <span class="level-sub" id="easy-sub"></span>
       </button>
+      <button class="level" data-level="days" style="background:var(--orange)">
+        <span class="level-icons">🌙⚡☀️</span>
+        <span class="level-name" id="days-name"></span>
+        <span class="level-sub" id="days-sub"></span>
+      </button>
       <button class="level" data-level="medium" style="background:var(--purple)">
         <span class="level-icons">👑🌹🍉🎃</span>
         <span class="level-name" id="medium-name"></span>
         <span class="level-sub" id="medium-sub"></span>
+      </button>
+      <button class="level" data-level="hard" style="background:#e5383b">
+        <span class="level-icons">🗓️×12</span>
+        <span class="level-name" id="hard-name"></span>
+        <span class="level-sub" id="hard-sub"></span>
       </button>
     </div>
   </main>
 
   <!-- Board -->
   <main id="play" class="play" hidden>
+    <div class="status">
+      <div class="nou" id="nou"></div>
+      <p class="nou-say" id="nou-say"></p>
+      <span class="acorns" id="acorns"></span>
+      <button class="round-btn" id="music"></button>
+    </div>
     <div id="board" class="board"></div>
   </main>
 
@@ -55,14 +76,25 @@
   <!-- Win -->
   <div id="win" class="win" hidden>
     <div class="win-box">
-      <div id="mascots-win"></div>
+      <div class="nou win-nou" id="nou-win"></div>
       <p class="win-text" id="win-text"></p>
       <div id="win-stars" class="win-stars"></div>
+      <div class="prize" id="prize"></div>
       <div class="win-buttons">
         <button class="big-btn" id="again" style="background:var(--pink)">🔁</button>
         <button class="big-btn" id="other" style="background:var(--teal)">🎚️</button>
         <a class="big-btn" href="../../index.html" style="background:var(--yellow)">🏠</a>
       </div>
+    </div>
+  </div>
+
+  <!-- El meu calendari: sticker album -->
+  <div id="album" class="win" hidden>
+    <div class="win-box album-box">
+      <p class="win-text" id="album-title"></p>
+      <p class="album-count" id="album-count"></p>
+      <div class="cal-grid" id="cal-grid"></div>
+      <button class="big-btn album-ok" id="album-close" style="background:var(--yellow)">👍</button>
     </div>
   </div>
 

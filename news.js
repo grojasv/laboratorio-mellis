@@ -72,4 +72,7 @@ window.MELLIS_NEWS = [
   { id: 23, date: '2026-10-25', icon: '🕰️', type: 'game', game: 'clock',
     title: { ca: 'Joc nou!', es: '¡Juego nuevo!', en: 'New game!' },
     text: { ca: 'Rellotgeria Tic-Tac: rellotges de pizza i cucuts bojos', es: 'Relojería Tic-Tac: relojes de pizza y cucos locos', en: 'Tic-Tac Clock Shop: pizza clocks and silly cuckoos' } },
+  { id: 24, date: '2026-10-25', icon: '🐿️', type: 'change', game: 'memory',
+    title: { ca: 'Memory nou amb la Nou!', es: '¡Memory nuevo con Nou!', en: 'New Memory with Nou!' },
+    text: { ca: 'Dies de la setmana, 12 mesos i adhesius pel calendari', es: 'Días de la semana, 12 meses y pegatinas para el calendario', en: 'Days of the week, 12 months and calendar stickers' } },
 ];

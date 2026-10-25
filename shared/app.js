@@ -1,7 +1,7 @@
 // Shared helpers for the hub and every game: language, sound, mascots.
 // Classic script (no modules) so pages also work when opened straight from disk.
 (function () {
-  const VERSION = '1.22.0'; // bump on every release (shown in the hub footer), with CACHE in sw.js
+  const VERSION = '1.23.0'; // bump on every release (shown in the hub footer), with CACHE in sw.js
   const LANGS = ['ca', 'es', 'en'];
   const LANG_KEY = 'mellis.lang';
   const MUTE_KEY = 'mellis.muted';
@@ -89,7 +89,7 @@
 
 
   // ---------- Background music (synthesized loops, no files) ----------
-  // M.music.play('spooky' | 'jazz' | 'clock'); quiet, ducks while a voice speaks, own on/off (🎵).
+  // M.music.play('spooky' | 'jazz' | 'clock' | 'winter' | 'spring' | 'summer' | 'autumn'); quiet, ducks while a voice speaks, own on/off (🎵).
   const MUSIC_KEY = 'mellis.music';
   const NOTE_IX = { C: 0, 'C#': 1, Db: 1, D: 2, 'D#': 3, Eb: 3, E: 4, F: 5, 'F#': 6, Gb: 6, G: 7, 'G#': 8, Ab: 8, A: 9, 'A#': 10, Bb: 10, B: 11 };
   function freq(n) {
@@ -173,6 +173,25 @@
       ],
     },
   };
+  // Memory's folk tune in G (3/4, 6 eighth-steps per bar), dressed differently each season
+  function seasonTune(voice, bpm, more) {
+    return {
+      step: 60 / bpm / 2,
+      tracks: [
+        { voice, vol: voice === 'box' ? 0.13 : 0.12, seq: [
+          ['G5', 2], ['B5', 2], ['D6', 2], ['C6', 2], ['B5', 2], ['A5', 2], ['G5', 2], ['A5', 2], ['B5', 2], ['A5', 6],
+          ['B5', 2], ['D6', 2], ['G6', 2], ['F#6', 2], ['E6', 2], ['D6', 2], ['C6', 2], ['A5', 2], ['F#5', 2], ['G5', 6],
+        ] },
+        { voice: 'pluck', vol: 0.16, seq: 'G2 C3 G2 D3 G2 B2 D3 G2'.split(' ').map((n) => [n, 6]) },
+        { voice: 'soft', vol: 0.05, seq: [['B3', 'D4'], ['C4', 'E4'], ['B3', 'D4'], ['A3', 'F#4'], ['B3', 'D4'], ['B3', 'D4'], ['A3', 'F#4'], ['B3', 'D4']]
+          .flatMap((c) => [[null, 2], [c, 2], [c, 2]]) },
+      ].concat(more || []),
+    };
+  }
+  THEMES.winter = seasonTune('box', 80);
+  THEMES.spring = seasonTune('vibes', 100);
+  THEMES.summer = seasonTune('vibes', 116, [{ voice: 'brush', vol: 0.04, seq: Array(8).fill([[null, 2], ['C4', 1], ['C4', 1], [null, 2]]).flat() }]);
+  THEMES.autumn = seasonTune('box', 92, [{ voice: 'wood', vol: 0.035, seq: Array(8).fill([['G6', 2], ['D6', 2], ['D6', 2]]).flat() }]);
   const music = (() => {
     let on = load(MUSIC_KEY) !== '0', theme = null, timer = 0, bus = null, ducked = false;
     let nextT = 0, stepIx = 0, noise = null;

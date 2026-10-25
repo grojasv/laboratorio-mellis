@@ -8,7 +8,7 @@ Simple learning games for 7-year-olds, in Catalan, Spanish and English. Built fo
 
 | Game | What it practises |
 |---|---|
-| 🗓️ Memory dels mesos | Months and seasons: match a picture with a word in a mix of CA/ES/EN |
+| 🗓️ Memory dels mesos | Match a picture with its word (mix of CA/ES/EN), hosted by Nou the forgetful squirrel (acorn card backs, 🌰 counter). Levels: 4 seasons → 7 days of the week (sky-named: 🌙 dilluns…, week strip on the card) → 8 months → all 12 months. The scene (background, falling snow/petals/butterflies/leaves and the music) changes to the season of each pair found. Each game earns stickers for 📅 *El meu calendari* (12 months × 3 stickers, golden pair on ⭐⭐⭐) |
 | 🧪 Laboratori de pocions | Adding and subtracting up to 100 (3 levels), with a collection of creatures |
 | 🎃 Laboratori de monstres | Halloween English: build the monster you hear. Easy → Medium (spots/stripes, arms, tail/wings, size) → Hard ("NO …" parts) → Expert (listen only). Doctora Bombolles, 📒 monster album, spooky music |
 | 🕵️ Agència de detectives | Cases in 4 steps: footprint → secret code → rule out suspects with clues (logic, reading "NOT") → fingerprint match. Medium/Hard cases unlock by rank (more suspects and features, mirror/shift ciphers, alibis on a room map). Agent Mussol, talking suspects, arrest scene, 🚔 caught-thieves gallery, jazz music |

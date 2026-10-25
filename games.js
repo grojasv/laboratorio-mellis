@@ -8,11 +8,11 @@ window.MELLIS_GAMES = [
     icon: '🗓️',
     color: '#ff6fb5',
     name: { ca: 'Memory dels mesos', es: 'Memory de los meses', en: 'Months Memory' },
-    tagline: { ca: 'Mesos i estacions', es: 'Meses y estaciones', en: 'Months & seasons' },
+    tagline: { ca: 'Mesos, dies i estacions', es: 'Meses, días y estaciones', en: 'Months, days & seasons' },
     guide: {
-      ca: "Memory clàssic amb els mesos i les estacions: cada parella uneix un dibuix amb la seva paraula, barrejant català, castellà i anglès. Treballa la memòria, l'ordre de l'any i el vocabulari en tres llengües.",
-      es: "Memory clásico con los meses y las estaciones: cada pareja une un dibujo con su palabra, mezclando catalán, castellano e inglés. Trabaja la memoria, el orden del año y el vocabulario en tres idiomas.",
-      en: "Classic memory with the months and seasons: each pair matches a picture with its word, mixing Catalan, Spanish and English. Practises memory, the order of the year and vocabulary in three languages.",
+      ca: "Memory amb l'esquirol Nou: estacions, dies de la setmana, 8 o tots 12 mesos; cada parella uneix un dibuix amb la paraula, barrejant català, castellà i anglès, i el paisatge canvia d'estació. Cada partida dona adhesius per al calendari. Treballa la memòria, l'ordre de l'any i de la setmana i el vocabulari en tres llengües.",
+      es: "Memory con la ardilla Nou: estaciones, días de la semana, 8 o los 12 meses; cada pareja une un dibujo con la palabra, mezclando catalán, castellano e inglés, y el paisaje cambia de estación. Cada partida da pegatinas para el calendario. Trabaja la memoria, el orden del año y de la semana y el vocabulario en tres idiomas.",
+      en: "Memory with Nou the squirrel: seasons, days of the week, 8 or all 12 months; each pair matches a picture with its word, mixing Catalan, Spanish and English, and the scenery changes season. Every game earns stickers for a calendar. Practises memory, the order of the year and the week, and vocabulary in three languages.",
     },
   },
   {
