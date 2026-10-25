@@ -1,6 +1,6 @@
 // Ràdio Mellis scripts. Each story: 4–5 characters (the narrator included), ~40 short lines
 // (≤ 15 words, so a line fits a small phone), ~350–600 words ≈ 5–10 minutes of reading aloud.
-// fx = the silly voice in the final show: normal | chipmunk | giant | robot | echo
+// fx = the silly voice in the final show: normal | squeak | squeakHi | squeakLo | robot | robotFast | robotSqueak
 // sfx (optional) plays just before the line: knock door bubble tada whoosh ding boing magic splash roar alarm
 (function () {
   const L = (ca, es, en) => ({ ca, es, en });
@@ -13,10 +13,10 @@
       blurb: L('Un llop que només vol fer sopa de verdures!', '¡Un lobo que solo quiere hacer sopa de verduras!', 'A wolf who only wants to make vegetable soup!'),
       cast: [
         { id: 'n', e: '📻', fx: 'normal', color: '#3a3a5c', name: L('Narradora', 'Narradora', 'Narrator') },
-        { id: 'wolf', e: '🐺', fx: 'giant', color: '#6c757d', name: L('El llop', 'El lobo', 'The wolf') },
-        { id: 'girl', e: '👧', fx: 'chipmunk', color: '#e5383b', name: L('La Caputxeta', 'Caperucita', 'Little Red') },
-        { id: 'gran', e: '👵', fx: 'echo', color: '#9b5de5', name: L("L'àvia", 'La abuela', 'Grandma') },
-        { id: 'bird', e: '🐦', fx: 'robot', color: '#3a86ff', name: L("L'ocellet", 'El pajarito', 'The little bird') },
+        { id: 'wolf', e: '🐺', fx: 'robotFast', color: '#6c757d', name: L('El llop', 'El lobo', 'The wolf') },
+        { id: 'girl', e: '👧', fx: 'squeak', color: '#e5383b', name: L('La Caputxeta', 'Caperucita', 'Little Red') },
+        { id: 'gran', e: '👵', fx: 'robot', color: '#9b5de5', name: L("L'àvia", 'La abuela', 'Grandma') },
+        { id: 'bird', e: '🐦', fx: 'squeakHi', color: '#3a86ff', name: L("L'ocellet", 'El pajarito', 'The little bird') },
       ],
       lines: [
         l('n', 'Hi havia una vegada un bosc molt verd, amb un llop molt especial.', 'Había una vez un bosque muy verde, con un lobo muy especial.', 'Once upon a time there was a green forest with a very special wolf.'),
@@ -68,10 +68,10 @@
       blurb: L("Un extraterrestre ha perdut la seva estrella mascota!", '¡Un extraterrestre ha perdido su estrella mascota!', 'An alien has lost its pet star!'),
       cast: [
         { id: 'n', e: '📻', fx: 'normal', color: '#3a3a5c', name: L('Narradora', 'Narradora', 'Narrator') },
-        { id: 'cap', e: '👩‍🚀', fx: 'echo', color: '#ff9f1c', name: L('La capitana Lluna', 'La capitana Luna', 'Captain Moon') },
+        { id: 'cap', e: '👩‍🚀', fx: 'squeakLo', color: '#ff9f1c', name: L('La capitana Lluna', 'La capitana Luna', 'Captain Moon') },
         { id: 'bot', e: '🤖', fx: 'robot', color: '#6c757d', name: L('El robot Pip', 'El robot Pip', 'Pip the robot') },
-        { id: 'cat', e: '🐱', fx: 'giant', color: '#9b5de5', name: L('El gat Galàctic', 'El gato Galáctico', 'Galactic the cat') },
-        { id: 'alien', e: '👽', fx: 'chipmunk', color: '#3fb36b', name: L('En Glup', 'Glup', 'Glup') },
+        { id: 'cat', e: '🐱', fx: 'robotFast', color: '#9b5de5', name: L('El gat Galàctic', 'El gato Galáctico', 'Galactic the cat') },
+        { id: 'alien', e: '👽', fx: 'squeakHi', color: '#3fb36b', name: L('En Glup', 'Glup', 'Glup') },
       ],
       lines: [
         l('n', "A l'espai, entre estrelles i planetes, volava la nau Mandarina.", 'En el espacio, entre estrellas y planetas, volaba la nave Mandarina.', 'In space, among stars and planets, flew the spaceship Tangerine.', 'whoosh'),
@@ -123,10 +123,10 @@
       blurb: L("Ha desaparegut el pastís d'aniversari de l'elefanta!", '¡Ha desaparecido la tarta de cumpleaños de la elefanta!', "The elephant's birthday cake has vanished!"),
       cast: [
         { id: 'n', e: '📻', fx: 'normal', color: '#3a3a5c', name: L('Narradora', 'Narradora', 'Narrator') },
-        { id: 'det', e: '🕵️‍♀️', fx: 'echo', color: '#e5383b', name: L('La detectiva Lupa', 'La detective Lupa', 'Detective Lupa') },
-        { id: 'ele', e: '🐘', fx: 'giant', color: '#9aa5b1', name: L("L'elefanta Rosa", 'La elefanta Rosa', 'Rosa the elephant') },
-        { id: 'peng', e: '🐧', fx: 'chipmunk', color: '#3a86ff', name: L('El pingüí Pep', 'El pingüino Pep', 'Pep the penguin') },
-        { id: 'monkey', e: '🐒', fx: 'robot', color: '#a0522d', name: L('El mico Bru', 'El mono Bru', 'Bru the monkey') },
+        { id: 'det', e: '🕵️‍♀️', fx: 'squeakLo', color: '#e5383b', name: L('La detectiva Lupa', 'La detective Lupa', 'Detective Lupa') },
+        { id: 'ele', e: '🐘', fx: 'robotFast', color: '#9aa5b1', name: L("L'elefanta Rosa", 'La elefanta Rosa', 'Rosa the elephant') },
+        { id: 'peng', e: '🐧', fx: 'squeakHi', color: '#3a86ff', name: L('El pingüí Pep', 'El pingüino Pep', 'Pep the penguin') },
+        { id: 'monkey', e: '🐒', fx: 'robotSqueak', color: '#a0522d', name: L('El mico Bru', 'El mono Bru', 'Bru the monkey') },
       ],
       lines: [
         l('n', 'Al zoo de la ciutat, avui era un dia molt especial.', 'En el zoo de la ciudad, hoy era un día muy especial.', 'At the city zoo, today was a very special day.'),
@@ -178,10 +178,10 @@
       blurb: L('Un gall que canta a mitjanit!', '¡Un gallo que canta a medianoche!', 'A rooster who crows at midnight!'),
       cast: [
         { id: 'n', e: '📻', fx: 'normal', color: '#3a3a5c', name: L('Narradora', 'Narradora', 'Narrator') },
-        { id: 'rooster', e: '🐓', fx: 'chipmunk', color: '#e5383b', name: L('El gall', 'El gallo', 'The rooster') },
-        { id: 'cow', e: '🐄', fx: 'giant', color: '#a0522d', name: L('La vaca Margarida', 'La vaca Margarita', 'Daisy the cow') },
+        { id: 'rooster', e: '🐓', fx: 'squeakHi', color: '#e5383b', name: L('El gall', 'El gallo', 'The rooster') },
+        { id: 'cow', e: '🐄', fx: 'robotFast', color: '#a0522d', name: L('La vaca Margarida', 'La vaca Margarita', 'Daisy the cow') },
         { id: 'pig', e: '🐷', fx: 'robot', color: '#ff6fb5', name: L('El porquet Ton', 'El cerdito Ton', 'Tom the piglet') },
-        { id: 'sheep', e: '🐑', fx: 'echo', color: '#9b5de5', name: L("L'ovella Bela", 'La oveja Bela', 'Bella the sheep') },
+        { id: 'sheep', e: '🐑', fx: 'squeak', color: '#9b5de5', name: L("L'ovella Bela", 'La oveja Bela', 'Bella the sheep') },
       ],
       lines: [
         l('n', 'En una granja petita, quan es feia fosc, tothom anava a dormir.', 'En una granja pequeña, cuando se hacía de noche, todos se iban a dormir.', 'On a little farm, when it got dark, everyone went to sleep.'),

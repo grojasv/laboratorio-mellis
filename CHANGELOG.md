@@ -4,6 +4,10 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.19.1] — 2026-10-25
+### Changed
+- Ràdio Mellis: the show plays at 1.5× (pitch preserved) and each take's leading/trailing silence is trimmed (shorter 0.25 s gaps), so the show no longer drags. The giant and echo voices are gone; characters now use squeaky (normal / high / low) and robot (normal / fast / squeaky) variants. Saved shows re-render with the new voices. Service worker cache `mellis-v17`.
+
 ## [1.19.0] — 2026-10-25
 ### Added
 - **Ràdio Mellis** (`games/radio/`, 📚 Llegim): family radio play on one device. 4 stories (El llop cuiner, La nau Mandarina, El misteri del pastís del zoo, La granja on ningú dormia), each 41 lines ≤ 15 words, ~380 words per language. Readers come from the passport family (1 … cast size); parts are handed out by a roulette, balanced by words. Hold-to-talk 🎙️ per line (one mic stream, a MediaRecorder per hold, 200 ms tail, holds under 400 ms ignored, ⬅️ to redo), live sound effects and a turn badge. The show decodes every take and renders it with an OfflineAudioContext (22 kHz mono) — chipmunk/giant via playbackRate, robot via ring modulation, echo via a feedback delay, synth jingle + sound effects — into one WAV, played with the speaking character on stage (⏸️/⏹️). Last 5 shows saved in IndexedDB (takes + parts) and re-rendered on replay; 📤 shares the WAV (download fallback); without a microphone the phone reads the show with a pitch per character.

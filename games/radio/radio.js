@@ -367,7 +367,18 @@
   }
 
   // ---------- The show: decode the takes, add the silly voices, render one WAV ----------
-  const FX_RATE = { chipmunk: 1.38, giant: 0.74, robot: 1, echo: 1, normal: 1 };
+  // the silly voices: squeaky ones (faster + higher) and robots (ring modulation), in a few flavours
+  const FX = {
+    normal: { rate: 1 },
+    squeak: { rate: 1.38 },
+    squeakHi: { rate: 1.6 },
+    squeakLo: { rate: 1.22 },
+    robot: { rate: 1, ring: 45 },
+    robotFast: { rate: 1.15, ring: 70 },
+    robotSqueak: { rate: 1.3, ring: 55 },
+  };
+  const fxOf = (c) => FX[c.fx] || FX.normal;
+  const SHOW_SPEED = 1.5;                            // the live show plays faster (pitch kept)
   let lastShowLang = 'ca', wavBlob = null, timeline = [], audioEl = null, timer = 0;
   async function decodeAll() {
     const AC = window.AudioContext || window.webkitAudioContext;
@@ -376,21 +387,36 @@
     for (let i = 0; i < story.lines.length; i++) {
       out[i] = null;
       if (!takes[i]) continue;
-      try { out[i] = await ctx.decodeAudioData(await takes[i].arrayBuffer()); } catch (e) { /* skip a broken take */ }
+      try { out[i] = trim(ctx, await ctx.decodeAudioData(await takes[i].arrayBuffer())); } catch (e) { /* skip a broken take */ }
       $('make-bar').style.width = `${(i / story.lines.length) * 60}%`;
     }
     ctx.close();
     return out;
   }
+  // cut the silence before and after the voice (the hold starts before reading and ends after it)
+  function trim(ctx, b) {
+    const d = b.getChannelData(0), pad = Math.round(b.sampleRate * 0.08);
+    const peak = d.reduce((m, v) => Math.max(m, Math.abs(v)), 0);
+    const th = Math.max(0.015, peak * 0.12);
+    let a = 0, z = d.length - 1;
+    while (a < d.length && Math.abs(d[a]) < th) a++;
+    while (z > a && Math.abs(d[z]) < th) z--;
+    a = Math.max(0, a - pad);
+    z = Math.min(d.length, z + pad);
+    if (z - a < b.sampleRate * 0.2) return b;     // nothing loud enough: keep it as it is
+    const out = ctx.createBuffer(1, z - a, b.sampleRate);
+    out.copyToChannel(d.subarray(a, z), 0);
+    return out;
+  }
   async function render(buffers) {
-    const GAP = 0.35;
+    const GAP = 0.25;
     timeline = [];
     let t = 1.3;                                       // after the jingle
     story.lines.forEach((line, i) => {
       if (line.sfx) t += SFX_LEN[line.sfx] || 0.6;
       const b = buffers[i];
       const c = story.cast.find((x) => x.id === line.who);
-      const dur = b ? b.duration / FX_RATE[c.fx] + (c.fx === 'echo' ? 0.5 : 0) : 0;
+      const dur = b ? b.duration / fxOf(c).rate : 0;
       timeline.push({ i, at: t, sfxAt: line.sfx ? t - (SFX_LEN[line.sfx] || 0.6) : null, dur });
       t += dur + (b ? GAP : 0);
     });
@@ -407,24 +433,18 @@
       const c = story.cast.find((x) => x.id === line.who);
       const src = ctx.createBufferSource();
       src.buffer = b;
-      src.playbackRate.value = FX_RATE[c.fx];
+      src.playbackRate.value = fxOf(c).rate;
       const g = ctx.createGain();
       g.gain.value = 1.2;
       src.connect(g);
-      if (c.fx === 'robot') {                          // ring modulation: a buzzy robot voice
+      if (fxOf(c).ring) {                              // ring modulation: a buzzy robot voice
         const ring = ctx.createGain();
         ring.gain.value = 0;
         const osc = ctx.createOscillator();
-        osc.frequency.value = 45;
+        osc.frequency.value = fxOf(c).ring;
         osc.connect(ring.gain);
         osc.start(ev.at); osc.stop(ev.at + ev.dur + 0.1);
         g.connect(ring).connect(master);
-      } else if (c.fx === 'echo') {                    // a spooky echo
-        const d = ctx.createDelay(1), fb = ctx.createGain();
-        d.delayTime.value = 0.18; fb.gain.value = 0.38;
-        g.connect(master);
-        g.connect(d).connect(fb).connect(d);
-        d.connect(master);
       } else g.connect(master);
       src.start(ev.at);
     });
@@ -468,6 +488,9 @@
   function playWav() {
     if (audioEl) { audioEl.pause(); URL.revokeObjectURL(audioEl.src); }
     audioEl = new Audio(URL.createObjectURL(wavBlob));
+    audioEl.preservesPitch = audioEl.webkitPreservesPitch = audioEl.mozPreservesPitch = true;
+    audioEl.playbackRate = SHOW_SPEED;
+    audioEl.defaultPlaybackRate = SHOW_SPEED;
     $('show-ctrl').hidden = false;
     $('pause').textContent = '⏸️';
     audioEl.onended = endShow;
@@ -511,7 +534,7 @@
   $('replay').addEventListener('click', () => { M.sounds.pop(); $('show-end').hidden = true; playWav(); });
 
   // no microphone: the phone reads every line with a different pitch per character
-  const FX_PITCH = { chipmunk: 1.8, giant: 0.5, robot: 0.8, echo: 1.3, normal: 1 };
+  const FX_PITCH = { normal: 1, squeak: 1.7, squeakHi: 2, squeakLo: 1.4, robot: 0.8, robotFast: 1.1, robotSqueak: 1.5 };
   async function speakShow() {
     $('making').hidden = true;
     $('share').disabled = true;
@@ -523,7 +546,7 @@
       $('stage-text').textContent = line.t[M.lang];
       $('stage').style.setProperty('--c', c.color);
       if (line.sfx) { sfxLive(line.sfx); await wait(600); }
-      await new Promise((r) => say(line.t[M.lang], { pitch: FX_PITCH[c.fx], onend: r }));
+      await new Promise((r) => say(line.t[M.lang], { pitch: FX_PITCH[c.fx] || 1, rate: 1.1, onend: r }));
       if ($('show').hidden) return;
     }
     endShow();
