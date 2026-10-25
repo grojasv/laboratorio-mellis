@@ -4,6 +4,13 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.17.0] — 2026-10-25
+### Added
+- Hub section **📚 Llegim** (games with `section: 'reading'` in `games.js`); *Contes en veu alta* moves there from 🎮 Jocs.
+- **Passaport lector** (`games/passport/`): the family's passport for real books. Wizard: cover (camera photo resized to 300×400 JPEG, or emoji + colour) → title + language → who read it → each reader's face rating (🥱 😐 🙂 😃 🤩) → up to 3 stickers. Stamp animation + medals (first stamp, 5/10/20 books, family book, 3 languages, all the feelings). Book page with edit, delete (tap twice) and 📤 share: a 720×960 recommendation card via the Web Share API (download fallback). Editable family (emoji + name). Data and photos only in localStorage; if a photo doesn't fit, the book is saved with its emoji cover.
+### Changed
+- Service worker cache `mellis-v14`.
+
 ## [1.16.0] — 2026-10-22
 ### Added
 - Aprenem **El meu poble** (`learn/town/`): a drawn map of the made-up *Poble Mellis* with 12 places. Lesson 1 *Places*: tap every building, then "where would you go if…?" (a walker strolls to the place) and odd-one-out by kind (shops, help, learn/play). Lesson 2 *Jobs*: meet 12 workers, walk each one to their workplace, "what do they work with?", "who works at…?". Album = the town map, which colours in as she learns places and jobs. Mellis rule as usual.

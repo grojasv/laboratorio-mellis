@@ -60,4 +60,7 @@ window.MELLIS_NEWS = [
   { id: 19, date: '2026-10-22', icon: '💛', type: 'game', game: 'friends', path: 'learn/friends/index.html',
     title: { ca: 'Nou: bons amics!', es: '¡Nuevo: buenos amigos!', en: 'New: good friends!' },
     text: { ca: 'Què faria un bon amic?', es: '¿Qué haría un buen amigo?', en: 'What would a good friend do?' } },
+  { id: 20, date: '2026-10-25', icon: '🛂', type: 'game', game: 'passport',
+    title: { ca: 'Nou: Passaport lector!', es: '¡Nuevo: Pasaporte lector!', en: 'New: Reading passport!' },
+    text: { ca: 'Segella els llibres que llegiu', es: 'Sella los libros que leéis', en: 'Stamp the books you read' } },
 ];

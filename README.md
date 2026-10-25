@@ -15,6 +15,13 @@ Simple learning games for 7-year-olds, in Catalan, Spanish and English. Built fo
 | 📖 Contes en veu alta | Funny branching stories to read **out loud** (short/long). A voice meter fills while she reads, she can play back her own voice, and a question at the end adds the book to her shelf. Stories live in `games/reading/stories.js` |
 | 🎭 Teatre de titelles | English from the school's *Back to School* unit: build your puppet, answer *All about me*, then the puppet hosts scenes (feelings, weather, seasons, school things, counting to 20). The finale is a puppet show where she reads her own *All about me* aloud and the puppet lip-syncs to her recording |
 
+## Llegim (we read)
+
+| Game | What it does |
+|---|---|
+| 📖 Contes en veu alta | (see Games above) read-aloud stories with a voice meter |
+| 🛂 Passaport lector | The family's passport for **real paper books**: add a book (📷 cover photo or emoji + colour, title, language), tick who read it, each reader rates it on a funny face scale (🥱 → 🤩) and picks up to 3 "what's it like" stickers (😂 😱 😢 🥰 🤯…). The book gets **stamped**; medals for 1/5/10/20 books, a family book (3+ readers), 3 languages, all the feelings. 📤 shares a recommendation card image (WhatsApp etc.). Family members are editable (emoji + name). Everything, photos included, stays on the device (localStorage) |
+
 ## Aprenem (we learn)
 
 School subjects as short interactive lessons, following what the girls study this term (in Catalan). Each lesson: **explore** (tap and listen) → **do** (an interactive task) → **check** (Mellis rule) → **reward** (cards for the unit's album).

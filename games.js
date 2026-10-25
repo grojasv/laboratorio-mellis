@@ -1,5 +1,5 @@
 // The game catalogue shown on the hub. To add a game: create games/<id>/index.html
-// and add one entry here.
+// and add one entry here. section: 'reading' puts it under 📚 Llegim instead of 🎮 Jocs.
 window.MELLIS_GAMES = [
   {
     id: 'memory',
@@ -35,6 +35,7 @@ window.MELLIS_GAMES = [
   },
   {
     id: 'reading',
+    section: 'reading',
     path: 'games/reading/index.html',
     icon: '📖',
     color: '#3a86ff',
@@ -48,6 +49,15 @@ window.MELLIS_GAMES = [
     color: '#c0392b',
     name: { ca: 'Teatre de titelles', es: 'Teatro de títeres', en: 'Puppet Show' },
     tagline: { ca: 'Anglès: Back to School', es: 'Inglés: Back to School', en: 'English: Back to School' },
+  },
+  {
+    id: 'passport',
+    section: 'reading',
+    path: 'games/passport/index.html',
+    icon: '🛂',
+    color: '#2a9d8f',
+    name: { ca: 'Passaport lector', es: 'Pasaporte lector', en: 'Reading passport' },
+    tagline: { ca: 'Els llibres que llegim en família', es: 'Los libros que leemos en familia', en: 'The books we read as a family' },
   },
 ];
 

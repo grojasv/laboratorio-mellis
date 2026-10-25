@@ -219,6 +219,8 @@
     <button class="news-banner" id="news-banner" hidden>🎁 <span id="news-banner-label"></span> <b class="news-count" id="news-count"></b></button>
     <h2 class="section-title" id="games-title"></h2>
     <section class="games" id="games"></section>
+    <h2 class="section-title" id="read-title"></h2>
+    <section class="games" id="read"></section>
     <h2 class="section-title" id="learn-title"></h2>
     <section class="games" id="learn"></section>
     <div class="hub-foot">
@@ -423,13 +425,14 @@
       renderNewsButtons();
       if (!document.getElementById('news-pop').hidden) renderNews();
       document.getElementById('install-label').textContent = M.t(INSTALL);
-      const cards = window.MELLIS_GAMES.map((g) => `
-        <a class="game" href="${g.path}" style="background:${g.color}">
+      const card = (g) => `
+        <a class="game${g.soon ? ' soon' : ''}" ${g.soon ? '' : `href="${g.path}"`} style="${g.soon ? '' : `background:${g.color}`}">
           ${isNewGame(g.id) ? `<span class="new-sticker">${M.t(NT.sticker)}</span>` : ''}
           <span class="icon">${g.icon}</span>
           <span class="name">${M.t(g.name)}</span>
           <span class="tag">${M.t(g.tagline)}</span>
-        </a>`);
+        </a>`;
+      const cards = window.MELLIS_GAMES.filter((g) => !g.section).map(card);
       cards.push(`
         <button class="game soon" type="button">
           <span class="icon">🔬</span>
@@ -438,15 +441,12 @@
       document.getElementById('games').innerHTML = cards.join('');
       document.getElementById('games-title').textContent = M.t(GAMES_T);
       document.getElementById('learn-title').textContent = M.t(LEARN_T);
-      document.getElementById('learn').innerHTML = window.MELLIS_LEARN.map((u) => `
-        <a class="game${u.soon ? ' soon' : ''}" ${u.soon ? '' : `href="${u.path}"`} style="${u.soon ? '' : `background:${u.color}`}">
-          ${isNewGame(u.id) ? `<span class="new-sticker">${M.t(NT.sticker)}</span>` : ''}
-          <span class="icon">${u.icon}</span>
-          <span class="name">${M.t(u.name)}</span>
-          <span class="tag">${M.t(u.tagline)}</span>
-        </a>`).join('');
+      document.getElementById('read-title').textContent = M.t(READ_T);
+      document.getElementById('read').innerHTML = window.MELLIS_GAMES.filter((g) => g.section === 'reading').map(card).join('');
+      document.getElementById('learn').innerHTML = window.MELLIS_LEARN.map(card).join('');
     }
     const GAMES_T = L('🎮 Jocs', '🎮 Juegos', '🎮 Games');
+    const READ_T = L('📚 Llegim', '📚 Leemos', "📚 Let's read");
     const LEARN_T = L('🎒 Aprenem', '🎒 Aprendemos', "🎒 Let's learn");
     const INSTALL = L("Instal·la el laboratori", 'Instala el laboratorio', 'Install the lab');
     render();
@@ -465,6 +465,7 @@
       setTimeout(() => { location.href = card.getAttribute('href'); }, 300);
     };
     document.getElementById('games').addEventListener('click', onCard);
+    document.getElementById('read').addEventListener('click', onCard);
     document.getElementById('learn').addEventListener('click', onCard);
 
     // Background bubbles

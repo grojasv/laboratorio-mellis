@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#2a9d8f">
+  <link rel="manifest" href="../../manifest.webmanifest">
+  <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Mellis">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>Passaport lector · Laboratorio Mellis</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛂</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../shared/styles.css">
+  <link rel="stylesheet" href="../../shared/game.css">
+  <link rel="stylesheet" href="passport.css">
+</head>
+<body class="passport-bg">
+  <header class="topbar">
+    <a class="home" href="../../index.html" aria-label="home">🏠</a>
+    <h1 class="title" id="title"></h1>
+    <div id="controls"></div>
+  </header>
+
+  <!-- The passport -->
+  <main id="home" class="screen">
+    <section class="pass">
+      <h2 class="pass-head" id="head"></h2>
+      <div class="members" id="members"></div>
+      <div class="medals" id="medals"></div>
+      <p class="medal-name" id="medal-name" hidden></p>
+    </section>
+    <div class="stamps" id="stamps"></div>
+    <button class="go-btn add-btn stick-bottom" id="add">➕ <span id="add-label"></span></button>
+  </main>
+
+  <!-- Add / edit a book -->
+  <main id="wizard" class="screen" hidden>
+    <div class="w-dots" id="w-dots"></div>
+    <p class="task" id="w-ask"></p>
+    <div class="w-body" id="w-body"></div>
+    <div class="w-nav stick-bottom">
+      <button class="go-btn back" id="w-back">⬅️</button>
+      <button class="go-btn" id="w-next">➡️</button>
+    </div>
+    <input type="file" id="photo-in" accept="image/*" capture="environment" hidden>
+  </main>
+
+  <!-- The family -->
+  <main id="family" class="screen" hidden>
+    <h2 class="pass-head" id="f-title"></h2>
+    <p class="w-help" id="f-help"></p>
+    <div class="f-list" id="f-list"></div>
+    <button class="go-btn f-add" id="f-add"></button>
+    <button class="go-btn stick-bottom" id="f-ok">👍</button>
+  </main>
+
+  <!-- A book's page -->
+  <div id="book" class="win" hidden>
+    <div class="win-box book-box">
+      <span class="cover big" id="b-cover"></span>
+      <h3 class="b-title" id="b-title"></h3>
+      <p class="b-meta" id="b-meta"></p>
+      <div id="b-readers"></div>
+      <div class="b-tags" id="b-tags"></div>
+      <div class="b-buttons">
+        <button class="go-btn" id="b-share"></button>
+        <button class="go-btn small" id="b-edit">✏️</button>
+        <button class="go-btn small danger" id="b-del">🗑️</button>
+        <button class="go-btn close" id="b-close">👍</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stamped! -->
+  <div id="stamp" class="win" hidden>
+    <div class="win-box">
+      <div class="stamp-show"><span class="cover big" id="stamp-cover"></span><span class="stamp-word" id="stamp-word"></span></div>
+      <p class="stamp-note" id="stamp-note"></p>
+      <p class="win-text" id="stamp-head"></p>
+      <div class="stamp-medals" id="stamp-medals"></div>
+      <div class="win-buttons"><button class="big-btn" id="stamp-ok" style="background:var(--yellow)">👍</button></div>
+    </div>
+  </div>
+
+  <script src="../../shared/app.js"></script>
+  <script src="passport.js"></script>
+</body>
+</html>
