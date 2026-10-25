@@ -104,14 +104,6 @@
       border-radius: 999px; padding: 4px 14px;
     }
     .section-title { margin: 22px 4px 10px; font-size: clamp(1.4rem, 6vw, 1.9rem); color: var(--purple); }
-    .game.soon {
-      background: repeating-linear-gradient(45deg, #fff 0 16px, #f3eaff 16px 32px);
-      color: var(--purple);
-      border-style: dashed;
-      box-shadow: none;
-    }
-    .game.soon .name { text-shadow: none; font-size: 1.3rem; }
-    .game.soon .icon { animation-duration: 1.4s; }
     @keyframes wiggle {
       0%, 80%, 100% { transform: rotate(0); }
       85% { transform: rotate(-10deg); }
@@ -282,7 +274,6 @@
       sneeze: L('Atxím! Perdó, és la pols del laboratori! 🤧', '¡Achís! ¡Perdón, es el polvo del laboratorio! 🤧', 'Achoo! Sorry, lab dust! 🤧'),
     };
     const PARTY = L('Festa al laboratori! 🎉💃', '¡Fiesta en el laboratorio! 🎉💃', 'Lab party! 🎉💃');
-    const SOON = { ca: 'Aviat, més experiments!', es: '¡Pronto, más experimentos!', en: 'More experiments soon!' };
 
     M.mountControls(document.getElementById('controls'));
     const mascots = document.getElementById('mascots');
@@ -432,19 +423,13 @@
       document.getElementById('install-label').textContent = M.t(INSTALL);
       document.getElementById('families-label').textContent = M.t(FAMILIES);
       const card = (g) => `
-        <a class="game${g.soon ? ' soon' : ''}" ${g.soon ? '' : `href="${g.path}"`} style="${g.soon ? '' : `background:${g.color}`}">
+        <a class="game" href="${g.path}" style="background:${g.color}">
           ${isNewGame(g.id) ? `<span class="new-sticker">${M.t(NT.sticker)}</span>` : ''}
           <span class="icon">${g.icon}</span>
           <span class="name">${M.t(g.name)}</span>
           <span class="tag">${M.t(g.tagline)}</span>
         </a>`;
-      const cards = window.MELLIS_GAMES.filter((g) => !g.section).map(card);
-      cards.push(`
-        <button class="game soon" type="button">
-          <span class="icon">🔬</span>
-          <span class="name">${M.t(SOON)}</span>
-        </button>`);
-      document.getElementById('games').innerHTML = cards.join('');
+      document.getElementById('games').innerHTML = window.MELLIS_GAMES.filter((g) => !g.section).map(card).join('');
       document.getElementById('games-title').textContent = M.t(GAMES_T);
       document.getElementById('learn-title').textContent = M.t(LEARN_T);
       document.getElementById('read-title').textContent = M.t(READ_T);
@@ -467,7 +452,6 @@
       if (!card) return;
       e.preventDefault();
       card.classList.remove('tap'); void card.offsetWidth; card.classList.add('tap');
-      if (card.classList.contains('soon')) { M.sounds.boing(); return; }
       M.sounds.pop();
       setTimeout(() => { location.href = card.getAttribute('href'); }, 300);
     };

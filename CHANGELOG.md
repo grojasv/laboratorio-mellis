@@ -4,6 +4,10 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.24.1] — 2026-10-25
+### Removed
+- Hub: the "Aviat, més experiments!" placeholder card at the end of 🎮 Jocs (and its styles). Service worker cache `mellis-v23`.
+
 ## [1.24.0] — 2026-10-25
 ### Added
 - **Laboratori de pocions revamp.** Hosts: Bruixa Xiruca (a young witch whose hat jumps on mistakes) and her cat Bigotis (miaus, sneezes), with short lines that never hint; coloured smoke puffs on wrong answers. Three new levels (6 in a 2-column picker): 🔍 *Ingredient secret* (missing number, within 20 or in tens; decoy: doing the other operation), 🪞 *Doble i meitat* (doubles to 50, halves to 100; decoys: forgot to double, doubled instead of halving), 🦘 *Salts màgics* (counting by 2, 5, 10, gap at the end or in the middle; decoys: the wrong step). Decoys never repeat a number already shown. 30 named creatures (was 16 unnamed) living in 🌳 *El jardí màgic*: they wander on a loose grid, jump and say their name when tapped, golden ones glow. Xiruca's hut look (teal walls, jar shelf).
