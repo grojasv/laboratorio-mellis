@@ -13,6 +13,7 @@ Guessing must never pay. Use the shared `Mellis.round()` from `shared/app.js`; d
 5. **0 hearts** → silly-sad twins + "Oh, oh! No queden cors!" → the **whole round restarts with new questions** (`onOut`), never the same ones.
 6. Exception — **Memory-style games** (exploring is the mechanic): no hearts, stars from the number of mismatches.
 7. Exception — **social-emotional stories** (e.g. Aprenem *Bons amics*): no hearts; a wrong choice shows its consequence (the friend's feeling + why) and she picks again; stars from first-try choices.
+8. Exception — **creative / family activities** with no right answer (Ràdio Mellis, Passaport lector): no hearts at all.
 
 ## Small phones (every screen, current and future)
 

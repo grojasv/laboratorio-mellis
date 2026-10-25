@@ -127,12 +127,12 @@
   const STEPS = ['cover', 'title', 'readers', 'rate', 'tags'];
   let draft = null, step = 0, editing = null;
 
-  function startWizard(id) {
+  function startWizard(id, preset, atStep) {
     editing = id;
     const b = id && books().find((x) => x.id === id);
     draft = b ? JSON.parse(JSON.stringify(b))
-      : { id: 'b' + Date.now(), date: new Date().toISOString(), title: '', cover: null, emoji: COVER_EMOJI[0], color: COLORS[0], lang: M.lang, readers: {}, tags: [] };
-    step = 0;
+      : { id: 'b' + Date.now(), date: new Date().toISOString(), title: '', cover: null, emoji: COVER_EMOJI[0], color: COLORS[0], lang: M.lang, readers: {}, tags: [], ...(preset || {}) };
+    step = atStep ? STEPS.indexOf(atStep) : 0;
     show('wizard');
     renderStep(true);
   }
@@ -494,5 +494,11 @@
   M.onLang(renderText);
   show('home');
   renderText();
+  // a book sent from Ràdio Mellis: pre-filled, straight to "how much did you like it?"
+  try {
+    const pending = JSON.parse(localStorage.getItem('mellis.passport.pending'));
+    localStorage.removeItem('mellis.passport.pending');
+    if (pending) startWizard(null, pending, 'rate');
+  } catch (e) { /* ignore */ }
   window.__passport = () => ({ draft, step, books: books(), family: family() }); // for automated testing
 })();

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#3a3a5c">
+  <link rel="manifest" href="../../manifest.webmanifest">
+  <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Mellis">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>Ràdio Mellis · Laboratorio Mellis</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📻</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../shared/styles.css">
+  <link rel="stylesheet" href="../../shared/game.css">
+  <link rel="stylesheet" href="radio.css">
+</head>
+<body class="studio">
+  <header class="topbar">
+    <a class="home" href="../../index.html" aria-label="home">🏠</a>
+    <h1 class="title" id="title"></h1>
+    <div id="controls"></div>
+  </header>
+
+  <!-- Pick a story + our saved shows -->
+  <main id="home" class="screen">
+    <div class="home-head"><div id="mascots" class="r-mascots"></div><p class="ask" id="pick"></p></div>
+    <div class="stories" id="stories"></div>
+    <h2 class="mine-title" id="mine-title"></h2>
+    <div class="mine" id="mine"></div>
+  </main>
+
+  <!-- Who's reading? -->
+  <main id="who" class="screen" hidden>
+    <p class="story-chip" id="who-story"></p>
+    <p class="ask" id="who-ask"></p>
+    <div class="members" id="members"></div>
+    <p class="who-max" id="who-max"></p>
+    <div class="nav stick-bottom">
+      <button class="go-btn back" id="who-back">⬅️</button>
+      <button class="go-btn" id="who-next">➡️</button>
+    </div>
+  </main>
+
+  <!-- Hand out the parts -->
+  <main id="roles" class="screen" hidden>
+    <p class="ask" id="roles-ask"></p>
+    <div class="cast" id="cast"></div>
+    <button class="go-btn spin stick-bottom" id="spin"></button>
+    <button class="go-btn stick-bottom" id="roles-go" hidden></button>
+  </main>
+
+  <!-- Reading: one line at a time -->
+  <main id="read" class="screen" hidden>
+    <div class="progress"><div class="bar" id="bar"></div><span id="l-count"></span></div>
+    <div class="l-card" id="l-card">
+      <div class="l-head"><span class="l-char" id="l-char"></span><span class="l-name" id="l-name"></span><span class="l-done" id="l-done" hidden>✅</span></div>
+      <p class="l-who" id="l-who"></p>
+      <p class="l-text" id="l-text"></p>
+    </div>
+    <p class="l-tip" id="l-tip"></p>
+    <div class="l-nav">
+      <button class="go-btn back" id="l-back">⬅️</button>
+      <button class="mic" id="mic" aria-label="hold to record">🎙️</button>
+      <button class="go-btn" id="l-next" hidden></button>
+    </div>
+  </main>
+
+  <!-- The radio show -->
+  <main id="show" class="screen" hidden>
+    <div class="radio-box">
+      <p class="on-air" id="on-air"></p>
+      <p class="show-title" id="show-title"></p>
+      <div class="stage" id="stage">
+        <span class="stage-char" id="stage-char">📻</span>
+        <span class="stage-name" id="stage-name"></span>
+        <p class="stage-text" id="stage-text"></p>
+      </div>
+      <div class="making" id="making" hidden><p id="making-text"></p><div class="progress"><div class="bar" id="make-bar"></div></div></div>
+      <div class="show-ctrl" id="show-ctrl" hidden>
+        <button class="go-btn" id="pause">⏸️</button>
+        <button class="go-btn" id="stop">⏹️</button>
+      </div>
+      <div class="show-end" id="show-end" hidden>
+        <p class="end-text" id="end-text"></p>
+        <div class="end-btns">
+          <button class="go-btn" id="share"></button>
+          <button class="go-btn pass" id="to-passport"></button>
+          <button class="go-btn" id="replay">▶️</button>
+          <button class="go-btn back" id="again"></button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="../../shared/app.js"></script>
+  <script src="radio-stories.js"></script>
+  <script src="radio.js"></script>
+</body>
+</html>

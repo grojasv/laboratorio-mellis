@@ -59,6 +59,15 @@ window.MELLIS_GAMES = [
     name: { ca: 'Passaport lector', es: 'Pasaporte lector', en: 'Reading passport' },
     tagline: { ca: 'Els llibres que llegim en família', es: 'Los libros que leemos en familia', en: 'The books we read as a family' },
   },
+  {
+    id: 'radio',
+    section: 'reading',
+    path: 'games/radio/index.html',
+    icon: '📻',
+    color: '#6a4c93',
+    name: { ca: 'Ràdio Mellis', es: 'Radio Mellis', en: 'Radio Mellis' },
+    tagline: { ca: 'Teatre radiofònic en família', es: 'Radioteatro en familia', en: 'A family radio play' },
+  },
 ];
 
 // "Aprenem" (we learn): school subjects as short interactive lessons, one card per unit.

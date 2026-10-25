@@ -66,4 +66,7 @@ window.MELLIS_NEWS = [
   { id: 21, date: '2026-10-25', icon: '🎲', type: 'change', game: 'passport',
     title: { ca: 'El dau dels llibres!', es: '¡El dado de los libros!', en: 'The book dice!' },
     text: { ca: 'Tira el dau i parlem del llibre', es: 'Tira el dado y hablamos del libro', en: 'Roll it and talk about the book' } },
+  { id: 22, date: '2026-10-25', icon: '📻', type: 'game', game: 'radio',
+    title: { ca: 'Nou: Ràdio Mellis!', es: '¡Nuevo: Radio Mellis!', en: 'New: Radio Mellis!' },
+    text: { ca: 'Feu teatre radiofònic amb veus boges', es: 'Haced radioteatro con voces locas', en: 'Make a radio play with silly voices' } },
 ];
