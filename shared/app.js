@@ -1,6 +1,7 @@
 // Shared helpers for the hub and every game: language, sound, mascots.
 // Classic script (no modules) so pages also work when opened straight from disk.
 (function () {
+  const VERSION = '1.20.0'; // bump on every release (shown in the hub footer), with CACHE in sw.js
   const LANGS = ['ca', 'es', 'en'];
   const LANG_KEY = 'mellis.lang';
   const MUTE_KEY = 'mellis.muted';
@@ -573,7 +574,22 @@
   // ---------- Installable web app (offline + home-screen icon) ----------
   const appScript = document.currentScript;
   if ('serviceWorker' in navigator && location.protocol.startsWith('http') && appScript) {
-    navigator.serviceWorker.register(new URL('../sw.js', appScript.src)).catch(() => { /* ignore */ });
+    const hadController = !!navigator.serviceWorker.controller;
+    navigator.serviceWorker.register(new URL('../sw.js', appScript.src)).then((reg) => {
+      // Installed apps are often resumed from memory without a new page load, so look
+      // for a new version every time the app comes back to the screen.
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') reg.update().catch(() => { /* offline */ });
+      });
+    }).catch(() => { /* ignore */ });
+    // A new version took over. The hub reloads to show it; games never reload mid-play,
+    // they get the new code on the next page open (pages are fetched network-first).
+    let reloading = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (!hadController || gameMatch || reloading) return;
+      reloading = true;
+      location.reload();
+    });
   }
   // Chrome/Android offer an install prompt we can trigger from our own button.
   let installEvent = null;
@@ -594,7 +610,7 @@
   }
 
   window.Mellis = {
-    LANGS, get lang() { return lang; }, setLang, t, onLang: (fn) => langListeners.push(fn),
+    VERSION, LANGS, get lang() { return lang; }, setLang, t, onLang: (fn) => langListeners.push(fn),
     sounds, music, speak, canSpeak, isMuted, setMuted, mountControls, mascotsSVG, playfulMascots, confetti,
     onInstallable, install, round, starsHTML,
   };

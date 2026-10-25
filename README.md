@@ -64,7 +64,7 @@ learn/<unit>/       one folder per Aprenem unit (catalogue: MELLIS_LEARN in game
 
 It's a PWA: `manifest.webmanifest` + `sw.js` (offline cache) + `icons/`. On iPhone/iPad: Safari → Share → *Add to Home Screen*. On Android/Chrome: the hub shows an "Install" button (or menu → *Install app*).
 
-`sw.js` serves files from the cache and refreshes them in the background, so changes appear on the second open after a deploy.
+`sw.js` serves pages and code network-first (cache fallback offline or after 3 s), so a deploy shows on the next page open. The app checks for a new version whenever it comes back to the screen; the hub then reloads itself (games never reload mid-play). The hub footer shows the running version (`VERSION` in `shared/app.js`) — bump it together with `CACHE` in `sw.js` on every release.
 
 ### Adding a game
 

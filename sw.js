@@ -1,7 +1,11 @@
-// Offline support. Pages and assets are served from the cache straight away
-// and refreshed in the background, so a new version shows on the next visit.
+// Offline support. Pages and code (HTML/JS/CSS) come from the network first, so a
+// new version shows on the next page open; the cache is the fallback when offline
+// or when the network takes more than NET_TIMEOUT. Images and fonts are served from
+// the cache straight away and refreshed in the background.
 // When you add a game, add its files to PRECACHE (or they get cached on first visit).
-const CACHE = 'mellis-v17';
+// Every release: bump CACHE here and VERSION in shared/app.js.
+const CACHE = 'mellis-v18';
+const NET_TIMEOUT = 3000;
 const PRECACHE = [
   './',
   './games.js',
@@ -63,7 +67,9 @@ const PRECACHE = [
 ];
 
 self.addEventListener('install', (e) => {
-  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(PRECACHE)).then(() => self.skipWaiting()));
+  // cache: 'reload' skips the browser's HTTP cache, so the new version gets fresh files
+  const reqs = PRECACHE.map((u) => new Request(u, { cache: 'reload' }));
+  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(reqs)).then(() => self.skipWaiting()));
 });
 
 self.addEventListener('activate', (e) => {
@@ -72,6 +78,15 @@ self.addEventListener('activate', (e) => {
     .then(() => self.clients.claim()));
 });
 
+// Revalidate with the server (ETag) instead of trusting the HTTP cache. A navigation
+// request can't be copied with options, so fetch its URL (falling back to the original
+// request if the server redirects, which a navigation response must not be).
+async function fetchFresh(req) {
+  if (req.mode !== 'navigate') return fetch(req, { cache: 'no-cache' });
+  const res = await fetch(req.url, { cache: 'no-cache', credentials: 'same-origin' });
+  return res.redirected ? fetch(req) : res;
+}
+
 self.addEventListener('fetch', (e) => {
   const req = e.request;
   if (req.method !== 'GET') return;
@@ -79,12 +94,20 @@ self.addEventListener('fetch', (e) => {
   const ours = url.origin === location.origin;
   const fonts = /fonts\.(googleapis|gstatic)\.com$/.test(url.hostname);
   if (!ours && !fonts) return;
+  const networkFirst = ours && !/\.(png|jpe?g|svg|ico|webp|woff2?)$/i.test(url.pathname);
   e.respondWith(caches.open(CACHE).then(async (cache) => {
-    const cached = await cache.match(req, { ignoreSearch: ours });
-    const fresh = fetch(req).then((res) => {
+    // Folder URLs (games/memory/) are precached as their index.html
+    const cached = await cache.match(req, { ignoreSearch: ours })
+      || (ours && url.pathname.endsWith('/') ? await cache.match(url.pathname + 'index.html') : undefined);
+    const fresh = (networkFirst ? fetchFresh(req) : fetch(req)).then((res) => {
       if (res.ok || res.type === 'opaque') cache.put(req, res.clone());
-      return res;
-    }).catch(() => cached);
-    return cached || fresh;
+      return res.ok || !cached ? res : cached;
+    });
+    e.waitUntil(fresh.catch(() => {}));
+    const fallback = fresh.catch(() => cached || Response.error());
+    if (!cached) return fallback;
+    if (!networkFirst) return cached;
+    const slow = new Promise((r) => setTimeout(() => r(cached), NET_TIMEOUT));
+    return Promise.race([fallback, slow]);
   }));
 });

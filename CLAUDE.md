@@ -28,7 +28,7 @@ She must never need to know she has to scroll to continue.
 ## Changelogs (update on every change, in the same commit)
 - **`CHANGELOG.md`** — technical, Keep a Changelog + SemVer (new game/feature = minor, fix = patch). Add a new version section at the top.
 - **`news.js`** — kid-facing news for the hub's 🎁: only changes the girls would notice, a few words, emoji + CA/ES/EN, `id` always increasing, `type: 'game'` + `game: '<id>'` for new games (adds the "NOU!" card sticker until played). Pure technical changes don't go here.
-- Add `news.js`/new files to `PRECACHE` and bump `CACHE` in `sw.js` when needed.
+- Every release: bump `CACHE` in `sw.js` **and** `VERSION` in `shared/app.js` (shown in the hub footer, matches the CHANGELOG version). Add `news.js`/new files to `PRECACHE`.
 
 ## New ideas
 - When brainstorming new games or interactive lessons, check the references in README → "Ideas & references" (e.g. the Marble curriculum) for topics and skills.

@@ -4,6 +4,16 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.20.0] — 2026-10-25
+### Changed
+- **Updates reach installed phones.** The service worker now serves pages and code (HTML/JS/CSS/manifest) network-first, revalidating with the server (`cache: 'no-cache'`), with the cache as fallback when offline or after a 3 s timeout; images and fonts stay cache-first. Precaching bypasses the HTTP cache (`cache: 'reload'`), so a new version never stores stale files.
+- The app checks for a new version (`registration.update()`) every time it comes back to the screen. When a new version takes over, the hub reloads itself silently; games and Ràdio never reload mid-play and get the new code on the next page open.
+- Service worker cache `mellis-v18`.
+### Added
+- Version stamp (`Mellis.VERSION`, e.g. `v1.20.0`) in small grey text at the bottom of the hub, to check which version a phone runs.
+### Fixed
+- Offline: folder URLs (`games/memory/`) fall back to their precached `index.html`.
+
 ## [1.19.1] — 2026-10-25
 ### Changed
 - Ràdio Mellis: the show plays at 1.5× (pitch preserved) and each take's leading/trailing silence is trimmed (shorter 0.25 s gaps), so the show no longer drags. The giant and echo voices are gone; characters now use squeaky (normal / high / low) and robot (normal / fast / squeaky) variants. Saved shows re-render with the new voices. Service worker cache `mellis-v17`.
