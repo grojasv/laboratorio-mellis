@@ -4,6 +4,12 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.18.0] — 2026-10-25
+### Added
+- Passaport lector: 🎲 *En parlem?* on each book's page — a CSS 3D die bounces and spins (tick sounds), lands on a face (🦸 characters, ✏️ change the story, 💗 feelings & me; opposite faces share a kind) and pops out one of 6 questions of that kind, read aloud. No repeats within a kind until all have come up; 🎲 rolls again, 🔊 repeats. Everyone answers out loud.
+### Changed
+- Service worker cache `mellis-v15`.
+
 ## [1.17.0] — 2026-10-25
 ### Added
 - Hub section **📚 Llegim** (games with `section: 'reading'` in `games.js`); *Contes en veu alta* moves there from 🎮 Jocs.

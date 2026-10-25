@@ -67,11 +67,38 @@
       <p class="b-meta" id="b-meta"></p>
       <div id="b-readers"></div>
       <div class="b-tags" id="b-tags"></div>
+      <button class="go-btn dice-btn" id="b-dice"></button>
       <div class="b-buttons">
         <button class="go-btn" id="b-share"></button>
         <button class="go-btn small" id="b-edit">✏️</button>
         <button class="go-btn small danger" id="b-del">🗑️</button>
         <button class="go-btn close" id="b-close">👍</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Book-club dice: roll, then everyone answers out loud -->
+  <div id="dice" class="win" hidden>
+    <div class="win-box dice-box">
+      <p class="dice-book" id="dice-book"></p>
+      <div class="dice-stage">
+        <div class="dice-bounce" id="dice-bounce">
+          <div class="cube" id="cube">
+            <span class="f front">🦸</span><span class="f back">🦸</span>
+            <span class="f right">✏️</span><span class="f left">✏️</span>
+            <span class="f top">💗</span><span class="f bottom">💗</span>
+          </div>
+        </div>
+        <div class="dice-shadow"></div>
+      </div>
+      <div class="q-card" id="q-card" hidden>
+        <p class="q-cat" id="q-cat"></p>
+        <p class="q-text" id="q-text"></p>
+      </div>
+      <div class="win-buttons">
+        <button class="big-btn" id="dice-again" style="background:var(--orange)">🎲</button>
+        <button class="big-btn" id="dice-say" style="background:var(--teal)">🔊</button>
+        <button class="big-btn" id="dice-ok" style="background:var(--yellow)">👍</button>
       </div>
     </div>
   </div>

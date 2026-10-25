@@ -63,4 +63,7 @@ window.MELLIS_NEWS = [
   { id: 20, date: '2026-10-25', icon: '🛂', type: 'game', game: 'passport',
     title: { ca: 'Nou: Passaport lector!', es: '¡Nuevo: Pasaporte lector!', en: 'New: Reading passport!' },
     text: { ca: 'Segella els llibres que llegiu', es: 'Sella los libros que leéis', en: 'Stamp the books you read' } },
+  { id: 21, date: '2026-10-25', icon: '🎲', type: 'change', game: 'passport',
+    title: { ca: 'El dau dels llibres!', es: '¡El dado de los libros!', en: 'The book dice!' },
+    text: { ca: 'Tira el dau i parlem del llibre', es: 'Tira el dado y hablamos del libro', en: 'Roll it and talk about the book' } },
 ];

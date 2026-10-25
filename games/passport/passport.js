@@ -59,6 +59,7 @@
     stamped: L('SEGELLAT!', '¡SELLADO!', 'STAMPED!'),
     newMedal: L('Medalla nova!', '¡Medalla nueva!', 'New medal!'),
     share: L('Compartir', 'Compartir', 'Share'),
+    talk: L('En parlem?', '¿Hablamos?', "Let's talk!"),
     recommend: L('Et recomano aquest llibre!', '¡Te recomiendo este libro!', 'I recommend this book!'),
     del: L('Esborrar', 'Borrar', 'Delete'),
     sure: L('Segur? Toca una altra vegada', '¿Seguro? Toca otra vez', 'Sure? Tap again'),
@@ -282,6 +283,7 @@
       `<div class="rate-row small"><span class="r-who">${memberLabel(m)}</span><span class="r-face">${FACES[b.readers[m.id]].e} ${M.t(FACES[b.readers[m.id]].name)}</span></div>`).join('');
     $('b-tags').innerHTML = b.tags.map((id) => { const t = TAGS.find((x) => x.id === id); return `<span class="chip">${t.e} ${M.t(t.name)}</span>`; }).join('');
     $('b-share').textContent = '📤 ' + M.t(TEXT.share);
+    $('b-dice').textContent = '🎲 ' + M.t(TEXT.talk);
     $('b-del').textContent = delArmed ? '🗑️ ' + M.t(TEXT.sure) : '🗑️';
   }
   $('b-close').addEventListener('click', () => { M.sounds.pop(); $('book').hidden = true; });
@@ -294,6 +296,87 @@
     renderHome();
   });
   $('b-share').addEventListener('click', () => { M.sounds.pop(); shareBook(books().find((x) => x.id === openId)); });
+
+  // ---------- Book-club dice: a 3D die picks a kind of question, everyone answers out loud ----------
+  const QUESTIONS = {
+    chars: { e: '🦸', name: L('Personatges', 'Personajes', 'Characters'), list: [
+      L('Quin és el teu personatge preferit? Per què?', '¿Cuál es tu personaje favorito? ¿Por qué?', 'Who is your favourite character? Why?'),
+      L('Amb quin personatge et faries amiga?', '¿Con qué personaje te harías amiga?', 'Which character would you be friends with?'),
+      L('Quin personatge no convidaries mai a casa teva?', '¿A qué personaje no invitarías nunca a tu casa?', 'Which character would you never invite home?'),
+      L('Si fossis un personatge del llibre, quin series?', 'Si fueras un personaje del libro, ¿cuál serías?', 'If you were a character in the book, who would you be?'),
+      L('Quin personatge és el més valent?', '¿Qué personaje es el más valiente?', 'Which character is the bravest?'),
+      L('Quina pregunta li faries al protagonista?', '¿Qué pregunta le harías al protagonista?', 'What would you ask the main character?'),
+    ] },
+    change: { e: '✏️', name: L('Canvia la història', 'Cambia la historia', 'Change the story'), list: [
+      L('Canvia el final! Com acabaria si l\'escrivissis tu?', '¡Cambia el final! ¿Cómo acabaría si lo escribieras tú?', 'Change the ending! How would it end if you wrote it?'),
+      L('I si el dolent fos bo? Què passaria?', '¿Y si el malo fuera bueno? ¿Qué pasaría?', 'What if the baddie was good? What would happen?'),
+      L('Afegeix un personatge nou a la història. Qui és?', 'Añade un personaje nuevo a la historia. ¿Quién es?', 'Add a new character to the story. Who is it?'),
+      L('I si la història passés al nostre poble?', '¿Y si la historia pasara en nuestro pueblo?', 'What if the story happened in our town?'),
+      L("Què creus que passa després de l'última pàgina?", '¿Qué crees que pasa después de la última página?', 'What do you think happens after the last page?'),
+      L('Inventa un títol nou per al llibre!', '¡Inventa un título nuevo para el libro!', 'Make up a new title for the book!'),
+    ] },
+    feel: { e: '💗', name: L('Com et sents', 'Cómo te sientes', 'Feelings & me'), list: [
+      L("Quina part t'ha fet riure més?", '¿Qué parte te ha hecho reír más?', 'Which part made you laugh the most?'),
+      L("Hi ha alguna part que t'hagi fet por o pena?", '¿Hay alguna parte que te haya dado miedo o pena?', 'Was there a part that scared you or made you sad?'),
+      L('Què hauries fet tu en el lloc del protagonista?', '¿Qué habrías hecho tú en el lugar del protagonista?', 'What would you have done in the main character\'s place?'),
+      L("T'ha recordat alguna cosa que t'ha passat a tu?", '¿Te ha recordado algo que te ha pasado a ti?', 'Did it remind you of something that happened to you?'),
+      L('Com se sentia el protagonista al final? I tu?', '¿Cómo se sentía el protagonista al final? ¿Y tú?', 'How did the main character feel at the end? And you?'),
+      L('A qui li regalaries aquest llibre? Per què?', '¿A quién le regalarías este libro? ¿Por qué?', 'Who would you give this book to? Why?'),
+    ] },
+  };
+  // the die's faces: opposite faces share a kind of question (rotation that brings each face to the front)
+  const FACES3D = [
+    { cat: 'chars', x: 0, y: 0 }, { cat: 'chars', x: 0, y: 180 },
+    { cat: 'change', x: 0, y: -90 }, { cat: 'change', x: 0, y: 90 },
+    { cat: 'feel', x: -90, y: 0 }, { cat: 'feel', x: 90, y: 0 },
+  ];
+  let asked = {}, rolling = false, current = null, turns = 0;
+  function openDice() {
+    const b = books().find((x) => x.id === openId);
+    asked = {};
+    $('dice-book').textContent = b && b.title ? `📖 ${b.title}` : '';
+    $('q-card').hidden = true;
+    $('dice').hidden = false;
+    roll();
+  }
+  function roll() {
+    if (rolling) return;
+    rolling = true;
+    current = null;
+    $('q-card').hidden = true;
+    const face = FACES3D[Math.floor(Math.random() * 6)];
+    turns += 2 + Math.floor(Math.random() * 2);
+    const cube = $('cube');
+    // a slight tilt at rest so it reads as a real 3D die
+    cube.style.transform = `rotateX(-16deg) rotateY(-22deg) rotateX(${face.x + 360 * turns}deg) rotateY(${face.y + 360 * (turns + 1)}deg) rotateZ(${360 * turns}deg)`;
+    const bounce = $('dice-bounce');
+    bounce.classList.remove('roll'); void bounce.offsetWidth; bounce.classList.add('roll');
+    [0, 160, 340, 540, 760, 1000].forEach((t) => setTimeout(() => M.sounds.flip(), t));
+    setTimeout(() => {
+      M.sounds.boing();
+      const q = QUESTIONS[face.cat];
+      const left = q.list.map((_, i) => i).filter((i) => !(asked[face.cat] || []).includes(i));
+      const pickI = (left.length ? left : q.list.map((_, i) => i))[Math.floor(Math.random() * (left.length || q.list.length))];
+      asked[face.cat] = left.length ? (asked[face.cat] || []).concat(pickI) : [pickI];
+      current = { cat: face.cat, i: pickI };
+      renderQuestion();
+      $('q-card').hidden = false;
+      $('q-card').classList.remove('pop'); void $('q-card').offsetWidth; $('q-card').classList.add('pop');
+      rolling = false;
+      sayQuestion();
+    }, 1500);
+  }
+  function renderQuestion() {
+    if (!current) return;
+    const q = QUESTIONS[current.cat];
+    $('q-cat').textContent = `${q.e} ${M.t(q.name)}`;
+    $('q-text').textContent = M.t(q.list[current.i]);
+  }
+  function sayQuestion() { if (current) say(M.t(QUESTIONS[current.cat].list[current.i])); }
+  $('b-dice').addEventListener('click', () => { M.sounds.pop(); openDice(); });
+  $('dice-again').addEventListener('click', () => { M.sounds.pop(); roll(); });
+  $('dice-say').addEventListener('click', () => { M.sounds.pop(); sayQuestion(); });
+  $('dice-ok').addEventListener('click', () => { M.sounds.pop(); $('dice').hidden = true; });
 
   // ---------- Share: a recommendation card as an image ----------
   function wrap(ctx, text, max) {
@@ -405,6 +488,7 @@
     if (!$('wizard').hidden) { if ($('title-in')) draft.title = $('title-in').value; renderStep(false); }
     if (!$('family').hidden) renderFamily();
     if (!$('book').hidden) renderBook();
+    if (!$('dice').hidden) renderQuestion();
   }
   M.mountControls($('controls'));
   M.onLang(renderText);

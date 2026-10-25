@@ -117,7 +117,43 @@ body.passport-bg {
 .stamp-medals { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; font-weight: 700; font-size: 1.2rem; }
 .stamp-medals:empty { display: none; }
 
+/* book-club dice */
+.dice-btn { background: var(--orange); width: 100%; max-width: 300px; animation: wiggle 2.4s ease-in-out infinite; }
+@keyframes wiggle { 0%, 80%, 100% { transform: rotate(0); } 85% { transform: rotate(-4deg); } 90% { transform: rotate(4deg); } }
+.dice-box { max-width: 420px; width: 100%; display: flex; flex-direction: column; align-items: center; }
+.dice-book { margin: 0 0 4px; font-weight: 700; color: #1d6f66; }
+.dice-stage { position: relative; height: 170px; width: 100%; display: flex; justify-content: center; perspective: 700px; }
+.dice-bounce { position: absolute; top: 20px; }
+.dice-bounce.roll { animation: dice-bounce 1.5s cubic-bezier(.3, .7, .4, 1); }
+@keyframes dice-bounce {
+  0% { transform: translate(-120px, -60px) scale(.6); }
+  25% { transform: translate(-50px, 30px) scale(1); }
+  40% { transform: translate(0, -40px); }
+  60% { transform: translate(30px, 20px); }
+  75% { transform: translate(10px, -10px); }
+  100% { transform: translate(0, 0); }
+}
+.cube { position: relative; width: 110px; height: 110px; transform-style: preserve-3d; transition: transform 1.5s cubic-bezier(.2, .8, .3, 1); }
+.cube .f {
+  position: absolute; inset: 0; display: grid; place-items: center; font-size: 3.4rem;
+  background: #fff; border: 4px solid var(--ink); border-radius: 18px; backface-visibility: hidden;
+  box-shadow: inset 0 0 0 6px #fff3c4;
+}
+.cube .front { transform: translateZ(55px); }
+.cube .back { transform: rotateY(180deg) translateZ(55px); }
+.cube .right { transform: rotateY(90deg) translateZ(55px); }
+.cube .left { transform: rotateY(-90deg) translateZ(55px); }
+.cube .top { transform: rotateX(90deg) translateZ(55px); }
+.cube .bottom { transform: rotateX(-90deg) translateZ(55px); }
+.dice-shadow { position: absolute; bottom: 4px; width: 110px; height: 16px; border-radius: 50%; background: rgba(0, 0, 0, .15); }
+.q-card { width: 100%; background: #fff8dc; border: 4px solid var(--ink); border-radius: 20px; padding: 10px 14px; margin-bottom: 14px; box-shadow: 0 5px 0 var(--ink); }
+.q-card.pop { animation: q-pop .5s cubic-bezier(.3, 1.6, .6, 1); }
+@keyframes q-pop { from { transform: scale(.4) rotate(-6deg); opacity: 0; } }
+.q-cat { margin: 0; font-weight: 700; color: var(--orange); }
+.q-text { margin: 4px 0 0; font-size: clamp(1.25rem, 5.6vw, 1.6rem); font-weight: 700; line-height: 1.25; }
+
 @media (max-height: 700px) {
+  .dice-stage { height: 150px; }
   .cover.big { width: 120px; }
   .reader { padding: 6px 4px; }
   .r-e { font-size: 2rem; }

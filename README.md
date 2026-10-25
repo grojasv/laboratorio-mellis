@@ -20,7 +20,7 @@ Simple learning games for 7-year-olds, in Catalan, Spanish and English. Built fo
 | Game | What it does |
 |---|---|
 | 📖 Contes en veu alta | (see Games above) read-aloud stories with a voice meter |
-| 🛂 Passaport lector | The family's passport for **real paper books**: add a book (📷 cover photo or emoji + colour, title, language), tick who read it, each reader rates it on a funny face scale (🥱 → 🤩) and picks up to 3 "what's it like" stickers (😂 😱 😢 🥰 🤯…). The book gets **stamped**; medals for 1/5/10/20 books, a family book (3+ readers), 3 languages, all the feelings. 📤 shares a recommendation card image (WhatsApp etc.). Family members are editable (emoji + name). Everything, photos included, stays on the device (localStorage) |
+| 🛂 Passaport lector | The family's passport for **real paper books**: add a book (📷 cover photo or emoji + colour, title, language), tick who read it, each reader rates it on a funny face scale (🥱 → 🤩) and picks up to 3 "what's it like" stickers (😂 😱 😢 🥰 🤯…). The book gets **stamped**; medals for 1/5/10/20 books, a family book (3+ readers), 3 languages, all the feelings. 📤 shares a recommendation card image (WhatsApp etc.). 🎲 *En parlem?* on each book rolls a 3D book-club die (🦸 characters, ✏️ change the story, 💗 feelings & me) that picks a question for everyone to answer out loud. Family members are editable (emoji + name). Everything, photos included, stays on the device (localStorage) |
 
 ## Aprenem (we learn)
 
