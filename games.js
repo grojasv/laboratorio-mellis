@@ -1,9 +1,10 @@
 // The game catalogue shown on the hub. To add a game: create games/<id>/index.html
-// and add one entry here. section: 'reading' puts it under 📚 Llegim instead of 🎮 Jocs.
+// and add one entry here. shelf: the hub shelf it sits on (see MELLIS_SHELVES at the end).
 // guide: 2–3 sentences for adults (what she does + what it practises), shown on families/.
 window.MELLIS_GAMES = [
   {
     id: 'memory',
+    shelf: 'maths',
     path: 'games/memory/index.html',
     icon: '🗓️',
     color: '#ff6fb5',
@@ -17,6 +18,7 @@ window.MELLIS_GAMES = [
   },
   {
     id: 'potions',
+    shelf: 'maths',
     path: 'games/potions/index.html',
     icon: '🧪',
     color: '#2ec4b6',
@@ -30,6 +32,7 @@ window.MELLIS_GAMES = [
   },
   {
     id: 'monsters',
+    shelf: 'english',
     path: 'games/monsters/index.html',
     icon: '🎃',
     color: '#9b5de5',
@@ -43,6 +46,7 @@ window.MELLIS_GAMES = [
   },
   {
     id: 'detective',
+    shelf: 'language',
     path: 'games/detective/index.html',
     icon: '🕵️',
     color: '#ff9f1c',
@@ -56,6 +60,7 @@ window.MELLIS_GAMES = [
   },
   {
     id: 'clock',
+    shelf: 'maths',
     path: 'games/clock/index.html',
     icon: '🕰️',
     color: '#e76f51',
@@ -69,6 +74,7 @@ window.MELLIS_GAMES = [
   },
   {
     id: 'crafts',
+    shelf: 'make',
     path: 'games/crafts/index.html',
     icon: '✂️',
     color: '#3d8a6b',
@@ -82,6 +88,7 @@ window.MELLIS_GAMES = [
   },
   {
     id: 'cheetah',
+    shelf: 'maths',
     path: 'games/cheetah/index.html',
     icon: '🐆',
     color: '#e9a23b',
@@ -95,7 +102,7 @@ window.MELLIS_GAMES = [
   },
   {
     id: 'reading',
-    section: 'reading',
+    shelf: 'language',
     path: 'games/reading/index.html',
     icon: '📖',
     color: '#3a86ff',
@@ -109,6 +116,7 @@ window.MELLIS_GAMES = [
   },
   {
     id: 'puppets',
+    shelf: 'english',
     path: 'games/puppets/index.html',
     icon: '🎭',
     color: '#c0392b',
@@ -122,7 +130,7 @@ window.MELLIS_GAMES = [
   },
   {
     id: 'passport',
-    section: 'reading',
+    shelf: 'language',
     path: 'games/passport/index.html',
     icon: '🛂',
     color: '#2a9d8f',
@@ -136,7 +144,7 @@ window.MELLIS_GAMES = [
   },
   {
     id: 'radio',
-    section: 'reading',
+    shelf: 'make',
     path: 'games/radio/index.html',
     icon: '📻',
     color: '#6a4c93',
@@ -154,6 +162,7 @@ window.MELLIS_GAMES = [
 window.MELLIS_LEARN = [
   {
     id: 'animals',
+    shelf: 'world',
     path: 'learn/animals/index.html',
     icon: '🐾',
     color: '#3fb36b',
@@ -167,6 +176,7 @@ window.MELLIS_LEARN = [
   },
   {
     id: 'body',
+    shelf: 'world',
     path: 'learn/body/index.html',
     icon: '🫀',
     color: '#ff6fb5',
@@ -180,6 +190,7 @@ window.MELLIS_LEARN = [
   },
   {
     id: 'town',
+    shelf: 'world',
     path: 'learn/town/index.html',
     icon: '🏘️',
     color: '#ff9f1c',
@@ -193,6 +204,7 @@ window.MELLIS_LEARN = [
   },
   {
     id: 'friends',
+    shelf: 'world',
     path: 'learn/friends/index.html',
     icon: '💛',
     color: '#c2185b',
@@ -204,4 +216,13 @@ window.MELLIS_LEARN = [
       en: "Short classroom stories about being a good friend, fairness and what to do when we get angry. She picks what a good friend would do; a wrong choice shows how the other child feels and why. Social-emotional learning, no penalties.",
     },
   },
+];
+
+// Hub shelves, by school subject, in this order. Every game and lesson has one `shelf`.
+window.MELLIS_SHELVES = [
+  { id: 'maths', icon: '🔢', color: '#ff9f1c', name: { ca: 'Números', es: 'Números', en: 'Numbers' } },
+  { id: 'language', icon: '🔤', color: '#9b5de5', name: { ca: 'Lletres i contes', es: 'Letras y cuentos', en: 'Words & stories' } },
+  { id: 'english', icon: '🇬🇧', color: '#3a86ff', name: { ca: 'English', es: 'English', en: 'English' } },
+  { id: 'world', icon: '🌍', color: '#3fb36b', name: { ca: 'El món', es: 'El mundo', en: 'Our world' } },
+  { id: 'make', icon: '🎨', color: '#ff6fb5', name: { ca: 'Fem en família', es: 'En familia', en: 'Family time' } },
 ];

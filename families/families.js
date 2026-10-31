@@ -20,9 +20,6 @@
       'Laboratorio Mellis: juegos para aprender en catalán, castellano e inglés. Guía para familias y docentes:',
       'Laboratorio Mellis: learning games in Catalan, Spanish and English. A guide for parents & teachers:'),
     idea: L('La idea', 'La idea', 'The idea'),
-    games: L('🎮 Jocs', '🎮 Juegos', '🎮 Games'),
-    read: L('📚 Llegim', '📚 Leemos', '📚 We read'),
-    learn: L('🔬 Aprenem', '🔬 Aprendemos', '🔬 We learn'),
     learnNote: L(
       "Unitats que segueixen el que s'estudia a l'escola. Cada lliçó: explorar (tocar i escoltar) → fer → comprovar → recompensa (cromos per a l'àlbum de la unitat).",
       'Unidades que siguen lo que se estudia en la escuela. Cada lección: explorar (tocar y escuchar) → hacer → comprobar → recompensa (cromos para el álbum de la unidad).',
@@ -102,13 +99,11 @@
     ['share-label', 'share-label-2'].forEach((id) => { $(id).textContent = M.t(T.share); });
     $('idea-title').textContent = M.t(T.idea);
     $('idea').innerHTML = points(IDEA);
-    $('games-title').textContent = M.t(T.games);
-    $('read-title').textContent = M.t(T.read);
-    $('learn-title').textContent = M.t(T.learn);
-    $('learn-note').textContent = M.t(T.learnNote);
-    $('games').innerHTML = window.MELLIS_GAMES.filter((g) => !g.section).map(card).join('');
-    $('read').innerHTML = window.MELLIS_GAMES.filter((g) => g.section === 'reading').map(card).join('');
-    $('learn').innerHTML = window.MELLIS_LEARN.map(card).join('');
+    // Same shelves as the hub; the school-unit note goes with the 🌍 lessons
+    const all = [...window.MELLIS_GAMES, ...window.MELLIS_LEARN];
+    $('shelves').innerHTML = window.MELLIS_SHELVES.map((sh) => `<h3 class="sec">${sh.icon} ${esc(M.t(sh.name))}</h3>
+      ${sh.id === 'world' ? `<p class="sec-note">${esc(M.t(T.learnNote))}</p>` : ''}
+      <div class="cards">${all.filter((g) => g.shelf === sh.id).map(card).join('')}</div>`).join('');
     $('tips-title').textContent = M.t(T.tips);
     $('tips').innerHTML = points(TIPS);
   }

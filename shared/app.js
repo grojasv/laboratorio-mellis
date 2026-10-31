@@ -1,7 +1,7 @@
 // Shared helpers for the hub and every game: language, sound, mascots.
 // Classic script (no modules) so pages also work when opened straight from disk.
 (function () {
-  const VERSION = '1.28.1'; // bump on every release (shown in the hub footer), with CACHE in sw.js
+  const VERSION = '1.29.0'; // bump on every release (shown in the hub footer), with CACHE in sw.js
   const LANGS = ['ca', 'es', 'en'];
   const LANG_KEY = 'mellis.lang';
   const MUTE_KEY = 'mellis.muted';
@@ -685,6 +685,10 @@
     let played = [];
     try { played = JSON.parse(load('mellis.played')) || []; } catch (e) { /* ignore */ }
     if (!played.includes(gameMatch[1])) { played.push(gameMatch[1]); save('mellis.played', JSON.stringify(played)); }
+    // Most recent first, for the hub's ⭐ Today row
+    let recent = [];
+    try { recent = JSON.parse(load('mellis.recent')) || []; } catch (e) { /* ignore */ }
+    save('mellis.recent', JSON.stringify([gameMatch[1], ...recent.filter((id) => id !== gameMatch[1])].slice(0, 6)));
   }
 
   // ---------- Installable web app (offline + home-screen icon) ----------

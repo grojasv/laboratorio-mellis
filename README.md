@@ -4,6 +4,10 @@ Simple learning games for 7-year-olds, in Catalan, Spanish and English. Built fo
 
 **Play:** https://grojasv.github.io/laboratorio-mellis/
 
+## The hub
+
+`index.html` groups everything on **shelves by school subject** (`MELLIS_SHELVES` in `games.js`; each game and lesson has one `shelf`): 🔢 Numbers · 🔤 Words & stories · 🇬🇧 English · 🌍 Our world · 🎨 Family time. A **⭐ Today** row on top shows new games (NOU!) and the last ones played (`mellis.recent`, written by `shared/app.js` when a game opens). Phones show two cards per row. `families/` uses the same shelves.
+
 ## Games
 
 | Game | What it practises |
@@ -23,7 +27,7 @@ Simple learning games for 7-year-olds, in Catalan, Spanish and English. Built fo
 | Game | What it does |
 |---|---|
 | 📖 Contes en veu alta | (see Games above) read-aloud stories with a voice meter |
-| 📻 Ràdio Mellis | A family radio play on one phone: pick a story (4: fairy-tale twist, space, mystery, animals; ~380 words, 41 lines, 4–5 characters incl. the narrator), tap who's reading (the passport family, up to the cast size), a roulette hands out the parts (fair by words), then everyone reads their lines holding the 🎙️ (each line shows the character and whose turn it is). The show plays back their real voices with a silly effect per character (squeaky and robot voices in a few flavours), silences trimmed, played at 1.5× and sound effects, rendered offline into one WAV; the last 5 shows are kept (IndexedDB), 📤 shares the audio, 🛂 sends the book to the passport pre-filled at the rating step. Scripts in `games/radio/radio-stories.js` |
+| 📻 Ràdio Mellis | A family radio play on one phone: pick a story (7: fairy-tale twist, space, animals and four Detective Lupa mysteries; ~380–450 words, 41–45 lines, 4–5 characters incl. the narrator), tap who's reading (the passport family, up to the cast size), a roulette hands out the parts (fair by words), then everyone reads their lines holding the 🎙️ (each line shows the character and whose turn it is). The show plays back their real voices with a silly effect per character (squeaky and robot voices in a few flavours), silences trimmed, sound effects, an outro jingle and rolling credits, rendered offline into one WAV; the last 5 shows are kept (IndexedDB), 📤 shares the audio, 🛂 sends the book to the passport pre-filled at the rating step. Scripts in `games/radio/radio-stories.js` |
 | 🛂 Passaport lector | The family's passport for **real paper books**: add a book (📷 cover photo or emoji + colour, title, language), tick who read it, each reader rates it on a funny face scale (🥱 → 🤩) and picks up to 3 "what's it like" stickers (😂 😱 😢 🥰 🤯…). The book gets **stamped**; medals for 1/5/10/20 books, a family book (3+ readers), 3 languages, all the feelings. 📤 shares a recommendation card image (WhatsApp etc.). 🎲 *En parlem?* on each book rolls a 3D book-club die (🦸 characters, ✏️ change the story, 💗 feelings & me) that picks a question for everyone to answer out loud. Family members are editable (emoji + name). Everything, photos included, stays on the device (localStorage) |
 
 ## Aprenem (we learn)

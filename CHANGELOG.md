@@ -4,6 +4,15 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.29.0] — 2026-10-31
+### Changed
+- Hub restructured into **shelves by school subject**, replacing 🎮 Jocs / 📚 Llegim / 🎒 Aprenem: 🔢 Números (Memory, Potions, Clock, Chita), 🔤 Lletres i contes (Detectives, Read-aloud stories, Reading passport), 🇬🇧 English (Monsters, Puppets), 🌍 El món (the four Aprenem units), 🎨 Fem en família (Ràdio, Taller).
+  - Each game and lesson has a `shelf` in `games.js` (`section` is gone), and `MELLIS_SHELVES` sets the order, icon and colour.
+  - A **⭐ Avui** row on top shows new games, then the last 3 played (`mellis.recent`, kept by `shared/app.js`), up to 4 cards.
+  - Phones show two smaller cards per row.
+  - The families guide uses the same shelves.
+- README: Ràdio row updated (7 stories, no speed-up). Service worker cache `mellis-v31`.
+
 ## [1.28.1] — 2026-10-31
 ### Fixed
 - La cursa de la Chita:

@@ -104,6 +104,11 @@
       border-radius: 999px; padding: 4px 14px;
     }
     .section-title { margin: 22px 4px 10px; font-size: clamp(1.4rem, 6vw, 1.9rem); color: var(--purple); }
+    .shelf-title { display: flex; align-items: center; gap: 10px; color: var(--ink); }
+    .shelf-chip {
+      display: inline-grid; place-items: center; width: 1.9em; height: 1.9em; flex: none;
+      border: 3px solid var(--ink); border-radius: 14px; box-shadow: 0 4px 0 var(--ink); font-size: .9em;
+    }
     @keyframes wiggle {
       0%, 80%, 100% { transform: rotate(0); }
       85% { transform: rotate(-10deg); }
@@ -169,6 +174,15 @@
       background: var(--teal); border: 3px solid var(--ink); border-radius: 16px;
       box-shadow: 0 4px 0 var(--ink); padding: 8px 10px; font-weight: 700;
     }
+    /* Phones: two smaller cards per row so a shelf fits on screen */
+    @media (max-width: 560px) {
+      .games { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+      .game { padding: 14px 6px 12px; gap: 4px; box-shadow: 0 6px 0 var(--ink); border-radius: 22px; }
+      .game .icon { font-size: 2.9rem; }
+      .game .name { font-size: clamp(1rem, 4.6vw, 1.2rem); line-height: 1.15; }
+      .game .tag { font-size: clamp(.72rem, 3.3vw, .85rem); padding: 2px 8px; line-height: 1.2; }
+      .section-title { margin: 18px 4px 8px; }
+    }
     @media (max-width: 380px) {
       .news-item { flex-wrap: wrap; gap: 8px; }
       .n-icon { font-size: 2.1rem; }
@@ -211,12 +225,7 @@
       <p class="bubble-talk" id="greeting"></p>
     </section>
     <button class="news-banner" id="news-banner" hidden>🎁 <span id="news-banner-label"></span> <b class="news-count" id="news-count"></b></button>
-    <h2 class="section-title" id="games-title"></h2>
-    <section class="games" id="games"></section>
-    <h2 class="section-title" id="read-title"></h2>
-    <section class="games" id="read"></section>
-    <h2 class="section-title" id="learn-title"></h2>
-    <section class="games" id="learn"></section>
+    <div id="shelves"></div>
     <div class="hub-foot">
       <button class="install" id="news-all">🎁 <span id="news-all-label"></span></button>
       <button class="install" id="install" hidden>📲 <span id="install-label"></span></button>
@@ -337,7 +346,7 @@
     // progress from before the news existed gets the latest 3 items.
     if (store.get('mellis.news.seen') === null) {
       let returning = false;
-      try { returning = Object.keys(localStorage).some((k) => k.startsWith('mellis.') && !k.startsWith('mellis.news') && k !== 'mellis.played'); } catch (e) { /* ignore */ }
+      try { returning = Object.keys(localStorage).some((k) => k.startsWith('mellis.') && !k.startsWith('mellis.news') && k !== 'mellis.played' && k !== 'mellis.recent'); } catch (e) { /* ignore */ }
       const start = returning ? Math.max(0, LAST_ID - 3) : LAST_ID;
       store.set('mellis.news.seen', String(start));
       store.set('mellis.news.base', String(start));
@@ -429,16 +438,19 @@
           <span class="name">${M.t(g.name)}</span>
           <span class="tag">${M.t(g.tagline)}</span>
         </a>`;
-      document.getElementById('games').innerHTML = window.MELLIS_GAMES.filter((g) => !g.section).map(card).join('');
-      document.getElementById('games-title').textContent = M.t(GAMES_T);
-      document.getElementById('learn-title').textContent = M.t(LEARN_T);
-      document.getElementById('read-title').textContent = M.t(READ_T);
-      document.getElementById('read').innerHTML = window.MELLIS_GAMES.filter((g) => g.section === 'reading').map(card).join('');
-      document.getElementById('learn').innerHTML = window.MELLIS_LEARN.map(card).join('');
+      // ⭐ Today: new games first, then the last ones played; then one shelf per school subject
+      const all = [...window.MELLIS_GAMES, ...window.MELLIS_LEARN];
+      const byId = (id) => all.find((g) => g.id === id);
+      const recent = (() => { try { return JSON.parse(store.get('mellis.recent')) || []; } catch (e) { return []; } })();
+      const today = [...new Set([...all.filter((g) => isNewGame(g.id)).map((g) => g.id), ...recent.slice(0, 3)])]
+        .map(byId).filter(Boolean).slice(0, 4);
+      const head = (icon, color, name) => `<h2 class="section-title shelf-title"><span class="shelf-chip" style="background:${color}">${icon}</span>${name}</h2>`;
+      document.getElementById('shelves').innerHTML =
+        (today.length ? head('⭐', '#ffd23f', M.t(TODAY_T)) + `<section class="games">${today.map(card).join('')}</section>` : '') +
+        window.MELLIS_SHELVES.map((sh) => head(sh.icon, sh.color, M.t(sh.name)) +
+          `<section class="games">${all.filter((g) => g.shelf === sh.id).map(card).join('')}</section>`).join('');
     }
-    const GAMES_T = L('🎮 Jocs', '🎮 Juegos', '🎮 Games');
-    const READ_T = L('📚 Llegim', '📚 Leemos', "📚 Let's read");
-    const LEARN_T = L('🎒 Aprenem', '🎒 Aprendemos', "🎒 Let's learn");
+    const TODAY_T = L('Avui', 'Hoy', 'Today');
     const INSTALL = L("Instal·la el laboratori", 'Instala el laboratorio', 'Install the lab');
     const FAMILIES = L('Per a famílies i mestres', 'Para familias y docentes', 'For parents & teachers');
     render();
@@ -455,9 +467,7 @@
       M.sounds.pop();
       setTimeout(() => { location.href = card.getAttribute('href'); }, 300);
     };
-    document.getElementById('games').addEventListener('click', onCard);
-    document.getElementById('read').addEventListener('click', onCard);
-    document.getElementById('learn').addEventListener('click', onCard);
+    document.getElementById('shelves').addEventListener('click', onCard);
 
     // Background bubbles
     const bubbles = document.querySelector('.bubbles');

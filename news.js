@@ -90,4 +90,7 @@ window.MELLIS_NEWS = [
   { id: 29, date: '2026-10-31', icon: '🐆', type: 'game', game: 'cheetah',
     title: { ca: 'Nou: La cursa de la Chita!', es: '¡Nuevo: La carrera de Chita!', en: "New: Chita's Dash!" },
     text: { ca: 'Corre per la sabana, salta roques i encerta les portes', es: 'Corre por la sabana, salta rocas y acierta las puertas', en: 'Race the savanna, jump rocks, pick the right gates' } },
+  { id: 30, date: '2026-10-31', icon: '🗂️', type: 'change',
+    title: { ca: 'Tot més ordenat!', es: '¡Todo más ordenado!', en: 'All tidied up!' },
+    text: { ca: 'Números, lletres, English, el món i fem en família', es: 'Números, letras, English, el mundo y en familia', en: 'Numbers, words, English, our world and family time' } },
 ];
