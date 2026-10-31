@@ -4,6 +4,13 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.28.1] — 2026-10-31
+### Fixed
+- La cursa de la Chita:
+  - A heard-word gate is now checked when it appears, not at race start. On a phone whose Catalan voice turns out to be the Spanish fallback (or when sound is muted mid-race), it becomes a picture question instead of a dictation in the wrong voice.
+  - Changing language mid-race restarts the race with questions in the new language.
+  - Spelling traps that were too close or possibly real words were replaced: CA SERB → SARP, FLÓR → FLUR, PLATAN → PLÀNTAN. Service worker cache `mellis-v30`.
+
 ## [1.28.0] — 2026-10-31
 ### Added
 - **La cursa de la Chita** (`games/cheetah/`), a 3-lane savanna runner with Chita the cheetah. Canvas pseudo-3D track (acacias, savanna animals, lane lines), Chita drawn in SVG from behind (galloping legs, swinging tail).

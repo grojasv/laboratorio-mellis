@@ -62,7 +62,7 @@
     { e: '🦒', ca: ['GIRAFA', 'JIRAFA', 'GIRAFFA'], es: ['JIRAFA', 'GIRAFA', 'JIRRAFA'], en: ['GIRAFFE', 'GIRAFE', 'JIRAFFE'] },
     { e: '🐆', ca: ['GUEPARD', 'GEPARD', 'GUEPART'], es: null, en: ['CHEETAH', 'CHETAH', 'CHEETA'] },
     { e: '🐒', ca: ['MICO', 'MIKO', 'MICU'], es: ['MONO', 'MONNO', 'NOMO'], en: ['MONKEY', 'MUNKEY', 'MONKY'] },
-    { e: '🐍', ca: ['SERP', 'SERB', 'CERP'], es: null, en: ['SNAKE', 'SNAIK', 'SNAK'] },
+    { e: '🐍', ca: ['SERP', 'SARP', 'CERP'], es: null, en: ['SNAKE', 'SNAIK', 'SNAK'] },
     { e: '🐢', ca: ['TORTUGA', 'TURTUGA', 'TORTUCA'], es: ['TORTUGA', 'TORTUJA', 'TURTUGA'], en: ['TURTLE', 'TURTEL', 'TURTL'] },
     { e: '🌳', ca: ['ARBRE', 'ARBE', 'ALBRE'], es: ['ÁRBOL', 'ÁRBOR', 'ÁLBOL'], en: ['TREE', 'TRE', 'TREA'] },
     { e: '☀️', ca: ['SOL', 'SOLL', 'SUL'], es: ['SOL', 'ZOL', 'SOLL'], en: ['SUN', 'SAN', 'SUNN'] },
@@ -71,13 +71,13 @@
     { e: '🐟', ca: ['PEIX', 'PEIG', 'PEX'], es: ['PEZ', 'PEZZ', 'PEC'], en: ['FISH', 'FICH', 'FISCH'] },
     { e: '🐦', ca: ['OCELL', 'OSELL', 'OCEL'], es: ['PÁJARO', 'PÁGARO', 'PÁHARO'], en: ['BIRD', 'BURD', 'BERD'] },
     { e: '🏠', ca: ['CASA', 'KASA', 'CAZA'], es: ['CASA', 'KASA', 'CASSA'], en: ['HOUSE', 'HOWSE', 'HAUSE'] },
-    { e: '🌸', ca: ['FLOR', 'FLÓR', 'FLLOR'], es: ['FLOR', 'FLORR', 'FOLR'], en: ['FLOWER', 'FLOWR', 'FLAWER'] },
+    { e: '🌸', ca: ['FLOR', 'FLUR', 'FLLOR'], es: ['FLOR', 'FLORR', 'FOLR'], en: ['FLOWER', 'FLOWR', 'FLAWER'] },
     { e: '🍎', ca: ['POMA', 'POME', 'POMMA'], es: ['MANZANA', 'MANSANA', 'MAZANA'], en: ['APPLE', 'APPEL', 'APLE'] },
     { e: '🐸', ca: ['GRANOTA', 'GRANUTA', 'GRANOTE'], es: ['RANA', 'RRANA', 'RANNA'], en: ['FROG', 'FROGG', 'FRAG'] },
     { e: '🐝', ca: ['ABELLA', 'AVELLA', 'ABELA'], es: ['ABEJA', 'AVEJA', 'ABEGA'], en: null },
     { e: '🐱', ca: ['GAT', 'GATT', 'GAD'], es: ['GATO', 'GATTO', 'GATU'], en: ['CAT', 'KAT', 'CATT'] },
     { e: '🐶', ca: ['GOS', 'GOSS', 'GOZ'], es: ['PERRO', 'PERRU', 'PEROO'], en: ['DOG', 'DOGG', 'DAG'] },
-    { e: '🍌', ca: ['PLÀTAN', 'PLATAN', 'PLÀTEN'], es: ['PLÁTANO', 'PLÁTAÑO', 'PLATANNO'], en: ['BANANA', 'BANANNA', 'BANAANA'] },
+    { e: '🍌', ca: ['PLÀTAN', 'PLÀNTAN', 'PLÀTEN'], es: ['PLÁTANO', 'PLÁTAÑO', 'PLATANNO'], en: ['BANANA', 'BANANNA', 'BANAANA'] },
     { e: '🦉', ca: ['MUSSOL', 'MUSOL', 'MUSSUL'], es: ['BÚHO', 'BÚO', 'BÚJO'], en: ['OWL', 'OWEL', 'OUL'] },
     { e: '🐄', ca: ['VACA', 'VAKA', 'VACCA'], es: ['VACA', 'VAKA', 'VACCA'], en: ['COW', 'KOW', 'COWW'] },
     { e: '🦊', ca: ['GUINEU', 'GINEU', 'GUINEO'], es: ['ZORRO', 'SORRO', 'ZORO'], en: ['FOX', 'FOKS', 'FOXX'] },
@@ -377,6 +377,8 @@
   function spawnGate(again) {
     const q = R.qs[R.qi];
     q.opts = shuffle(q.opts.slice());
+    // Decided per gate: the Catalan voice may turn out to be the Spanish fallback mid-race, or the sound gets muted.
+    if (q.kind === 'heard' && !canHear()) q.kind = 'pic';
     R.gate = { q, opts: q.opts, d: again ? 34 : FAR, committed: false, waiting: false, result: null, picked: null };
     renderQuestion(q);
     renderProgress();
@@ -633,7 +635,11 @@
 
   // ---------- Start ----------
   M.mountControls($('controls'));
-  M.onLang(() => { if (!$('home').hidden) renderHome(); if (!$('wardrobe').hidden) renderWardrobe(); });
+  M.onLang(() => {
+    if (!$('race').hidden && R && !R.done) { startRace(R.mode); return; } // fresh questions in the new language
+    if (!$('home').hidden) renderHome();
+    if (!$('wardrobe').hidden) renderWardrobe();
+  });
   M.music.button($('music'));
   M.music.play('savanna');
   show('home');
