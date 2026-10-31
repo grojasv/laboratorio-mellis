@@ -4,6 +4,10 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.26.2] — 2026-10-31
+### Added
+- Families guide (`families/`): a 🗣️ tip on installing a Catalan text-to-speech voice (Android: Speech Services by Google → Install voice data → Catalan, Samsung engine switch; iPhone/iPad: Accessibility → Spoken Content → Voices → Catalan), for devices where Catalan falls back to the Spanish voice. Service worker cache `mellis-v27`.
+
 ## [1.26.1] — 2026-10-31
 ### Fixed
 - Spoken voice in Catalan stayed silent on devices without a Catalan TTS voice (many Android / Samsung phones, some iPhones), in every game. `Mellis.speak()` now reads Catalan with the Spanish voice (`es-ES`, utterance `lang` set to the voice's own) when no Catalan voice exists, and when a listed Catalan voice fails (not downloaded) it retries once with Spanish and keeps using Spanish for the session. `canSpeak('ca')` is true when that fallback exists. Voice matching ignores case and `_`/`-`, and re-reads the voice list when it is still empty (no `voiceschanged`). English/Spanish stay strict: never read with another language's voice. Service worker cache `mellis-v26`.

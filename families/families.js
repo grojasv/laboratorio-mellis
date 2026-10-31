@@ -70,6 +70,10 @@
       "Canvieu la llengua amb les banderes de dalt: textos i veus canvien alhora. Jugar en una altra llengua és una bona pràctica.",
       'Cambiad el idioma con las banderas de arriba: textos y voces cambian a la vez. Jugar en otro idioma es una buena práctica.',
       'Switch language with the flags at the top: texts and voices change together. Playing in another language is good practice.')],
+    ['🗣️', L(
+      "Si en català la veu sona amb accent castellà, el dispositiu no té veu catalana. Android: Configuració → cerqueu \"Text a veu\" → motor \"Serveis de veu de Google\" → ⚙️ → Instal·la dades de veu → Català (als Samsung, canvieu primer el motor a Google). iPhone/iPad: Configuració → Accessibilitat → Contingut parlat → Veus → Català → baixeu-ne una. Després, recarregueu el laboratori.",
+      'Si en catalán la voz suena con acento castellano, el dispositivo no tiene voz catalana. Android: Ajustes → buscad "Texto a voz" → motor "Servicios de voz de Google" → ⚙️ → Instalar datos de voz → Catalán (en los Samsung, cambiad antes el motor a Google). iPhone/iPad: Ajustes → Accesibilidad → Contenido leído → Voces → Catalán → descargad una. Después, recargad el laboratorio.',
+      'If the Catalan voice sounds Spanish, the device has no Catalan voice. Android: Settings → search "Text-to-speech" → engine "Speech Services by Google" → ⚙️ → Install voice data → Catalan (on Samsung, switch the engine to Google first). iPhone/iPad: Settings → Accessibility → Spoken Content → Voices → Catalan → download one. Then reload the lab.')],
     ['⏱️', L(
       'Les partides són curtes (5–10 minuts). Millor una estona cada dia que una sessió llarga.',
       'Las partidas son cortas (5–10 minutos). Mejor un rato cada día que una sesión larga.',
