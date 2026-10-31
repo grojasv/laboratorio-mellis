@@ -78,4 +78,7 @@ window.MELLIS_NEWS = [
   { id: 25, date: '2026-10-25', icon: '🧙‍♀️', type: 'change', game: 'potions',
     title: { ca: 'Pocions noves amb la Xiruca!', es: '¡Pociones nuevas con Xiruca!', en: 'New potions with Xiruca!' },
     text: { ca: 'Dobles, salts màgics i un jardí de criatures', es: 'Dobles, saltos mágicos y un jardín de criaturas', en: 'Doubles, magic hops and a creature garden' } },
+  { id: 26, date: '2026-10-31', icon: '📻', type: 'change', game: 'radio',
+    title: { ca: 'Ràdio Mellis amb crèdits!', es: '¡Radio Mellis con créditos!', en: 'Radio Mellis with credits!' },
+    text: { ca: 'Al final surten els vostres noms, com al cine', es: 'Al final salen vuestros nombres, como en el cine', en: 'Your names roll at the end, like at the movies' } },
 ];

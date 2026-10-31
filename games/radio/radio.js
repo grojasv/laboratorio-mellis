@@ -30,6 +30,7 @@
     again: L('Una altra', 'Otra', 'Another'),
     empty: L('Encara no heu gravat cap emissió.', 'Todavía no habéis grabado ninguna emisión.', "You haven't recorded a show yet."),
     reader: L('Lector', 'Lector', 'Reader'),
+    cast: L('Repartiment', 'Reparto', 'Starring'),
   };
 
   const $ = (id) => document.getElementById(id);
@@ -354,9 +355,11 @@
       roar: () => tone(110, 0, 0.9, 'sawtooth', 0.25, 60),
       alarm: () => [0, 0.3, 0.6].forEach((s) => tone(880, s, 0.22, 'square', 0.12, 660)),
       jingle: () => [392, 523, 659, 784, 659, 784].forEach((f, i) => tone(f, i * 0.14, 0.22, 'triangle', 0.22)),
+      // the sign-off: the opening jingle walking back down, ending on a long low note
+      outro: () => [784, 659, 784, 659, 523, 392].forEach((f, i) => tone(f, i * 0.16, i === 5 ? 0.9 : 0.22, 'triangle', 0.22)),
     }[name] || (() => {}))();
   }
-  const SFX_LEN = { knock: 0.7, door: 1, bubble: 0.6, tada: 1, whoosh: 0.6, ding: 0.8, boing: 0.5, magic: 0.7, splash: 0.7, roar: 1, alarm: 0.9, jingle: 1.1 };
+  const SFX_LEN = { knock: 0.7, door: 1, bubble: 0.6, tada: 1, whoosh: 0.6, ding: 0.8, boing: 0.5, magic: 0.7, splash: 0.7, roar: 1, alarm: 0.9, jingle: 1.1, outro: 1.8 };
   let liveCtx = null;
   function sfxLive(name) {
     if (M.isMuted()) return;
@@ -378,7 +381,6 @@
     robotSqueak: { rate: 1.3, ring: 55 },
   };
   const fxOf = (c) => FX[c.fx] || FX.normal;
-  const SHOW_SPEED = 1.5;                            // the live show plays faster (pitch kept)
   let lastShowLang = 'ca', wavBlob = null, timeline = [], audioEl = null, timer = 0;
   async function decodeAll() {
     const AC = window.AudioContext || window.webkitAudioContext;
@@ -420,7 +422,8 @@
       timeline.push({ i, at: t, sfxAt: line.sfx ? t - (SFX_LEN[line.sfx] || 0.6) : null, dur });
       t += dur + (b ? GAP : 0);
     });
-    const total = t + 1.4;
+    const outroAt = t + 0.3;
+    const total = outroAt + SFX_LEN.outro + 0.3;
     const ctx = new OfflineAudioContext(1, Math.ceil(total * RATE), RATE);
     const master = ctx.createDynamicsCompressor();
     master.connect(ctx.destination);
@@ -448,7 +451,7 @@
       } else g.connect(master);
       src.start(ev.at);
     });
-    sfx(ctx, 'tada', total - 1.3, master);
+    sfx(ctx, 'outro', outroAt, master);
     $('make-bar').style.width = '80%';
     return ctx.startRendering();
   }
@@ -488,10 +491,9 @@
   function playWav() {
     if (audioEl) { audioEl.pause(); URL.revokeObjectURL(audioEl.src); }
     audioEl = new Audio(URL.createObjectURL(wavBlob));
-    audioEl.preservesPitch = audioEl.webkitPreservesPitch = audioEl.mozPreservesPitch = true;
-    audioEl.playbackRate = SHOW_SPEED;
-    audioEl.defaultPlaybackRate = SHOW_SPEED;
     $('show-ctrl').hidden = false;
+    $('stage').hidden = false;
+    $('credits').hidden = true;
     $('pause').textContent = '⏸️';
     audioEl.onended = endShow;
     audioEl.play().catch(() => { $('pause').textContent = '▶️'; });
@@ -523,8 +525,23 @@
     $('share').textContent = '📤 ' + M.t(TEXT.share);
     $('to-passport').textContent = '🛂 ' + M.t(TEXT.passport);
     $('again').textContent = '🔁 ' + M.t(TEXT.again);
-    M.sounds.win();
+    rollCredits();
     M.confetti();
+  }
+  // movie-style credits: the title, who played each character, and the radio's name, sliding up
+  function rollCredits() {
+    $('stage').hidden = true;
+    $('credits').hidden = false;
+    const cast = story.cast.map((c) => {
+      const m = family().find((x) => x.id === parts[c.id]);
+      return `<p class="cr-line"><span class="cr-e">${c.e}</span><b style="color:${c.color}">${esc(M.t(c.name))}</b>${m ? `<span>${esc(memberLabel(m))}</span>` : ''}</p>`;
+    }).join('');
+    $('credits-roll').innerHTML = `<p class="cr-title">${story.emoji} ${esc(M.t(story.title))}</p>`
+      + `<p class="cr-head">🎭 ${M.t(TEXT.cast)}</p>${cast}<p class="cr-radio">📻 ${M.t(TEXT.title)}</p>`;
+    const view = $('credits').clientHeight, h = $('credits-roll').offsetHeight;
+    const end = Math.min(0, view - h - 12);           // stop when the last line is in view
+    $('credits-roll').animate([{ transform: `translateY(${view}px)` }, { transform: `translateY(${end}px)` }],
+      { duration: Math.max(3000, (view - end) * 18), easing: 'ease-out', fill: 'forwards' });
   }
   $('pause').addEventListener('click', () => {
     if (!audioEl) return;
@@ -549,6 +566,7 @@
       await new Promise((r) => say(line.t[M.lang], { pitch: FX_PITCH[c.fx] || 1, rate: 1.1, onend: r }));
       if ($('show').hidden) return;
     }
+    sfxLive('outro');
     endShow();
   }
 

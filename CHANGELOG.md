@@ -4,6 +4,13 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.25.0] — 2026-10-31
+### Changed
+- Ràdio Mellis: the show plays at normal speed again (the 1.5× pitch-preserving playback made voices and effects sound doubled/phasey). Silence trimming between lines stays.
+- Ràdio Mellis ending: one radio sign-off jingle (the opening jingle walking back down) baked into the recording, replacing the tada + the live win fanfare that played on top of each other. The no-microphone (phone voices) show ends with the same jingle.
+### Added
+- Ràdio Mellis: movie-style credits roll at the end of the show (title, each character with who played it, 📻 Ràdio Mellis). Service worker cache `mellis-v24`.
+
 ## [1.24.1] — 2026-10-25
 ### Removed
 - Hub: the "Aviat, més experiments!" placeholder card at the end of 🎮 Jocs (and its styles). Service worker cache `mellis-v23`.

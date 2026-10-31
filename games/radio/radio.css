@@ -111,6 +111,17 @@ body.studio {
 @keyframes talk { to { transform: scale(1.12, .92) translateY(4px); } }
 .stage-name { font-weight: 700; color: var(--c); }
 .stage-text { margin: 6px 0 0; font-size: clamp(1.1rem, 5vw, 1.4rem); font-weight: 700; text-align: center; }
+.credits {
+  width: 100%; height: 200px; overflow: hidden; background: #fff8dc; border: 4px solid var(--ink); border-top: 12px solid #e5383b; border-radius: 18px;
+  color: var(--ink); text-align: center;
+}
+.credits-roll { padding: 8px 10px; }
+.credits-roll p { margin: 0; }
+.cr-title { font-size: 1.35rem; font-weight: 700; margin-bottom: 10px !important; }
+.cr-head { font-size: .95rem; opacity: .75; letter-spacing: .05em; margin-bottom: 4px !important; }
+.cr-line { display: flex; align-items: center; justify-content: center; gap: 6px; flex-wrap: wrap; font-size: 1.05rem; line-height: 1.6; }
+.cr-e { font-size: 1.4rem; }
+.cr-radio { margin-top: 12px !important; font-weight: 700; font-size: 1.2rem; }
 .making { width: 100%; color: #fff; font-weight: 700; text-align: center; }
 .making p { margin: 0 0 6px; }
 .show-ctrl { display: flex; gap: 12px; }
@@ -129,5 +140,6 @@ body.studio {
   .mic { width: 92px; height: 92px; font-size: 2.6rem; }
   .l-text { margin-top: 6px; }
   .stage { min-height: 160px; }
+  .credits { height: 160px; }
   .stage-char { font-size: 3.2rem; }
 }
