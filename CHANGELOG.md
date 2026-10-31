@@ -4,6 +4,10 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.27.0] — 2026-10-31
+### Added
+- Ràdio Mellis: three new Detective Lupa scripts (theme 🔎), with recurring characters from *The Zoo Cake Mystery*: *Lupa and the Giraffe's Scarf* (🦒 Gina, Pep as Lupa's assistant, Piu the bird), *Lupa and the Dinosaur's Bone* (🦉 Ot the night guard, Bru the monkey, Bimbo the dog) and *Lupa and the Library Noise* (Rosa the librarian, Pep, 🐭 Mia the mouse). 43–45 lines each, ≤ 15 words per line, CA/ES/EN. Service worker cache `mellis-v28`.
+
 ## [1.26.2] — 2026-10-31
 ### Added
 - Families guide (`families/`): a 🗣️ tip on installing a Catalan text-to-speech voice (Android: Speech Services by Google → Install voice data → Catalan, Samsung engine switch; iPhone/iPad: Accessibility → Spoken Content → Voices → Catalan), for devices where Catalan falls back to the Spanish voice. Service worker cache `mellis-v27`.

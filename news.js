@@ -84,4 +84,7 @@ window.MELLIS_NEWS = [
   { id: 27, date: '2026-10-31', icon: '✂️', type: 'game', game: 'crafts',
     title: { ca: 'Nou: Taller Mellis!', es: '¡Nuevo: Taller Mellis!', en: 'New: Mellis Craft Workshop!' },
     text: { ca: 'Fantasmes, mòmies, flocs de neu i estrelles de paper', es: 'Fantasmas, momias, copos de nieve y estrellas de papel', en: 'Paper ghosts, mummies, snowflakes and stars' } },
+  { id: 28, date: '2026-10-31', icon: '🕵️‍♀️', type: 'change', game: 'radio',
+    title: { ca: 'Tres casos nous de la detectiva Lupa!', es: '¡Tres casos nuevos de la detective Lupa!', en: 'Three new Detective Lupa cases!' },
+    text: { ca: 'Una girafa, un dinosaure i una biblioteca misteriosa', es: 'Una jirafa, un dinosaurio y una biblioteca misteriosa', en: 'A giraffe, a dinosaur and a mysterious library' } },
 ];

@@ -1,7 +1,7 @@
 // Shared helpers for the hub and every game: language, sound, mascots.
 // Classic script (no modules) so pages also work when opened straight from disk.
 (function () {
-  const VERSION = '1.26.2'; // bump on every release (shown in the hub footer), with CACHE in sw.js
+  const VERSION = '1.27.0'; // bump on every release (shown in the hub footer), with CACHE in sw.js
   const LANGS = ['ca', 'es', 'en'];
   const LANG_KEY = 'mellis.lang';
   const MUTE_KEY = 'mellis.muted';
