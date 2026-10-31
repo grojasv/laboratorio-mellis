@@ -81,4 +81,7 @@ window.MELLIS_NEWS = [
   { id: 26, date: '2026-10-31', icon: '📻', type: 'change', game: 'radio',
     title: { ca: 'Ràdio Mellis amb crèdits!', es: '¡Radio Mellis con créditos!', en: 'Radio Mellis with credits!' },
     text: { ca: 'Al final surten els vostres noms, com al cine', es: 'Al final salen vuestros nombres, como en el cine', en: 'Your names roll at the end, like at the movies' } },
+  { id: 27, date: '2026-10-31', icon: '✂️', type: 'game', game: 'crafts',
+    title: { ca: 'Nou: Taller Mellis!', es: '¡Nuevo: Taller Mellis!', en: 'New: Mellis Craft Workshop!' },
+    text: { ca: 'Fantasmes, mòmies, flocs de neu i estrelles de paper', es: 'Fantasmas, momias, copos de nieve y estrellas de papel', en: 'Paper ghosts, mummies, snowflakes and stars' } },
 ];

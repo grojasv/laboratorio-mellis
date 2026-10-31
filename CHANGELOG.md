@@ -4,6 +4,10 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.26.0] — 2026-10-31
+### Added
+- New game **Taller Mellis** (`games/crafts/`, in 🎮 Jocs): real paper crafts explained like IKEA/LEGO instructions. Four crafts: 👻 ghost garland and 🧻 toilet-roll mummy (Halloween), ❄️ paper snowflake and ⭐ slot-together 3D star (Christmas). Each starts with the finished craft turning in 3D (the star is 4 half-planes spinning) and a "what you need" list; every step is an animated SMIL line drawing (folds, scissors following the cut line, slides) with a spoken caption, a 🔊 repeat, ⬅️ back and a big ✅ Fet! that fills a LEGO-style progress bar. Host: Tisoreta, the chatty scissors. At the end she photographs her craft (or pins the drawing) onto a cork board of polaroids (`mellis.crafts.board`, small JPEGs, max 40). No hearts (creative activity). New `workshop` music theme in `shared/app.js`. Service worker cache `mellis-v25`.
+
 ## [1.25.0] — 2026-10-31
 ### Changed
 - Ràdio Mellis: the show plays at normal speed again (the 1.5× pitch-preserving playback made voices and effects sound doubled/phasey). Silence trimming between lines stays.

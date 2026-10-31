@@ -1,7 +1,7 @@
 // Shared helpers for the hub and every game: language, sound, mascots.
 // Classic script (no modules) so pages also work when opened straight from disk.
 (function () {
-  const VERSION = '1.25.0'; // bump on every release (shown in the hub footer), with CACHE in sw.js
+  const VERSION = '1.26.0'; // bump on every release (shown in the hub footer), with CACHE in sw.js
   const LANGS = ['ca', 'es', 'en'];
   const LANG_KEY = 'mellis.lang';
   const MUTE_KEY = 'mellis.muted';
@@ -202,6 +202,21 @@
       ] },
       { voice: 'pluck', vol: 0.17, seq: 'F2 C3 F2 Bb2 F2 Bb2 C3 F2'.split(' ').map((n) => [n, 6]) },
       { voice: 'plop', vol: 0.07, seq: Array(8).fill([[null, 2], ['A5', 2], ['C6', 2]]).flat() },
+    ],
+  };
+  // Taller Mellis: a cosy, unhurried tune in D for building things (4/4, 8 eighth-steps per bar)
+  THEMES.workshop = {
+    step: 60 / 84 / 2,
+    tracks: [
+      { voice: 'vibes', vol: 0.1, seq: [
+        ['F#5', 2], ['A5', 2], ['D6', 2], ['A5', 2], ['B5', 2], ['A5', 2], ['F#5', 4],
+        ['G5', 2], ['B5', 2], ['E6', 2], ['B5', 2], ['A5', 4], [null, 4],
+        ['F#5', 2], ['A5', 2], ['D6', 2], ['F#6', 2], ['E6', 2], ['D6', 2], ['B5', 4],
+        ['G5', 2], ['E5', 2], ['A5', 2], ['C#6', 2], ['D6', 6], [null, 2],
+      ] },
+      { voice: 'pluck', vol: 0.15, seq: 'D3 A2 G2 D3 E3 B2 A2 A2 D3 A2 G2 G2 E3 A2 D3 D3'.split(' ').map((n) => [n, 4]) },
+      { voice: 'soft', vol: 0.05, seq: [['F#4', 'A4'], ['G4', 'B4'], ['G4', 'B4'], ['E4', 'A4'], ['F#4', 'A4'], ['G4', 'B4'], ['C#4', 'G4'], ['F#4', 'A4']]
+        .flatMap((c) => [[null, 2], [c, 2], [null, 2], [c, 2]]) },
     ],
   };
   const music = (() => {

@@ -68,6 +68,19 @@ window.MELLIS_GAMES = [
     },
   },
   {
+    id: 'crafts',
+    path: 'games/crafts/index.html',
+    icon: '✂️',
+    color: '#3d8a6b',
+    name: { ca: 'Taller Mellis', es: 'Taller Mellis', en: 'Mellis Craft Workshop' },
+    tagline: { ca: 'Manualitats de paper pas a pas', es: 'Manualidades de papel paso a paso', en: 'Paper crafts step by step' },
+    guide: {
+      ca: "Manualitats reals amb paper, tisores i cola, explicades com unes instruccions de LEGO o IKEA: un dibuix animat per pas, la frase llegida en veu alta i un ✅ quan l'ha fet. Halloween (garlanda de fantasmes, mòmia de rotllo) i Nadal (floc de neu, estrella 3D). Al final li fa una foto i la penja al suro. Treballa la motricitat fina, seguir instruccions i la visió espacial (plegar i desplegar).",
+      es: "Manualidades reales con papel, tijeras y pegamento, explicadas como unas instrucciones de LEGO o IKEA: un dibujo animado por paso, la frase leída en voz alta y un ✅ cuando lo ha hecho. Halloween (guirnalda de fantasmas, momia de rollo) y Navidad (copo de nieve, estrella 3D). Al final le hace una foto y la cuelga en el corcho. Trabaja la motricidad fina, seguir instrucciones y la visión espacial (doblar y desplegar).",
+      en: "Real crafts with paper, scissors and glue, explained like LEGO or IKEA instructions: one animated drawing per step, the line read aloud, and a ✅ when she's done it. Halloween (ghost garland, toilet-roll mummy) and Christmas (snowflake, 3D star). At the end she photographs it and pins it on the cork board. Practises fine motor skills, following instructions and spatial thinking (folding and unfolding).",
+    },
+  },
+  {
     id: 'reading',
     section: 'reading',
     path: 'games/reading/index.html',
