@@ -143,3 +143,18 @@ body.savanna {
   .ward-h { margin: 4px 0 2px; }
   .i-e { font-size: 1.4rem; }
 }
+
+/* the 3 answers over the sky, one per lane */
+.lanes {
+  position: absolute; left: 6px; right: 6px; top: 6px; z-index: 2; pointer-events: none;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px;
+}
+.lanes span {
+  display: grid; place-items: center; min-height: 40px; padding: 2px 4px;
+  background: #fffdf5; border: 3px solid var(--ink); border-radius: 12px; box-shadow: 0 3px 0 rgba(0, 0, 0, .2);
+  font-weight: 700; font-size: clamp(1rem, 5.4vw, 1.5rem); line-height: 1.1; overflow-wrap: anywhere; text-align: center;
+  transition: transform .12s, background .2s;
+}
+.lanes span.me { border-color: #ff9f1c; box-shadow: 0 0 0 3px #ffb400; transform: scale(1.06); }
+.lanes span.ok { background: #8be08b; }
+.lanes span.bad { background: #ff8f8f; }

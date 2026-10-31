@@ -4,6 +4,13 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.30.0] — 2026-10-31
+### Changed
+- La cursa de la Chita is now a real action game: the gate no longer stops at a think line. Whatever lane she is in when it arrives is her answer, and ⚡ is an optional sprint.
+  - To leave time to read, the 3 answers also show in big type over the sky, left / middle / right like the lanes, with her current lane highlighted. The signs on the track only become readable in the last second.
+  - The pace adapts within a race: it starts at about 5–6 s per gate, gets faster (+0.8) after each right gate and slower (−2.5, down to about 8 s per gate) after each miss.
+  - The Mellis rule still applies: a lane she never chose costs a heart when it's wrong. Service worker cache `mellis-v32`.
+
 ## [1.29.0] — 2026-10-31
 ### Changed
 - Hub restructured into **shelves by school subject**, replacing 🎮 Jocs / 📚 Llegim / 🎒 Aprenem: 🔢 Números (Memory, Potions, Clock, Chita), 🔤 Lletres i contes (Detectives, Read-aloud stories, Reading passport), 🇬🇧 English (Monsters, Puppets), 🌍 El món (the four Aprenem units), 🎨 Fem en família (Ràdio, Taller).

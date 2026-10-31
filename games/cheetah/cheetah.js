@@ -162,7 +162,9 @@
 
   // ---------- The world (canvas) ----------
   const cv = $('world'), cx = cv.getContext('2d');
-  const K = 12, CH = 2, THINK = 7, FAR = 70, RUN = 18, TROT = 3, SPRINT = 46, TURBO = 36;
+  // No stopping: the gate keeps coming at her pace. The pace adapts: quicker after a right gate, slower after a miss.
+  const K = 12, CH = 2, FAR = 70, SPRINT = 46, PACE_MIN = 8, PACE_MAX = 20;
+  const RUN = () => R.pace, TURBO = () => R.pace * 1.6;
   let W = 300, H = 300, HY = 60, RW = 80;
   const sc = (d) => K / (K + Math.max(d, -K * 0.8));
   const gy = (d) => HY + (H - HY) * sc(d);
@@ -259,7 +261,7 @@
         if (txt === g.q.answer && (g.result === 'right' || g.reveal)) fill = '#8be08b';
         else if (lane === g.picked && g.result === 'wrong') fill = '#ff8f8f';
       }
-      const mine = !g.result && lane === R.lane && g.d <= THINK + 6;
+      const mine = !g.result && lane === R.lane;
       roundRect(x - w / 2, top, w, h, 10 * s);
       cx.fillStyle = fill; cx.fill();
       cx.lineWidth = Math.max(1.5, (mine ? 6 : 3.5) * s);
@@ -321,7 +323,7 @@
   function startRace(mode) {
     show('race');
     R = {
-      mode, qs: makeRace(mode), qi: 0, lane: 0, dist: 0, speed: 0, target: 0, turboT: 0,
+      mode, qs: makeRace(mode), qi: 0, pace: mode === 'num' ? 12.5 : 11, lane: 0, dist: 0, speed: 0, target: 0, turboT: 0,
       gate: null, rocks: [], finishLine: null, rockNext: false, scenery: [], nextScene: 0, parts: [], partT: 0,
       time: 0, phase: 'count', frozen: false, jumpT: 0, tripT: 0, results: [], done: false,
     };
@@ -329,6 +331,7 @@
     $('gates').innerHTML = Array.from({ length: GATES }, () => '<span></span>').join('');
     $('timer').textContent = '0:00';
     $('question').innerHTML = '';
+    $('lanes').innerHTML = '';
     $('question').className = 'question';
     $('runner-body').innerHTML = CHITA.back(S.wear);
     $('runner').className = 'runner idle';
@@ -349,7 +352,7 @@
       el.textContent = n;
       el.style.animation = 'none'; void el.offsetWidth; el.style.animation = '';
       if (i < 3) M.sounds.tick(); else M.sounds.match();
-      if (i === 3) setTimeout(() => { el.hidden = true; R.phase = 'run'; R.target = RUN; $('runner').className = 'runner'; }, 450);
+      if (i === 3) setTimeout(() => { el.hidden = true; R.phase = 'run'; R.target = RUN(); $('runner').className = 'runner'; }, 450);
     }, 300 + i * 650));
   }
 
@@ -367,11 +370,23 @@
     const lb = $('q-listen');
     if (lb) lb.onclick = () => say(q.say());
   }
+  // The 3 answers in big type over the sky, left / middle / right like the lanes
+  function renderLanes() {
+    const g = R && R.gate, el = $('lanes');
+    if (!g) { el.innerHTML = ''; return; }
+    el.innerHTML = g.opts.map((o, i) => {
+      const lane = i - 1;
+      let c = lane === R.lane ? 'me' : '';
+      if (g.result && o === g.q.answer && (g.result === 'right' || g.reveal)) c = 'ok';
+      else if (g.result === 'wrong' && lane === g.picked) c = 'bad';
+      return `<span class="${c}">${o}</span>`;
+    }).join('');
+  }
   function renderDash() {
     const g = R && R.gate;
     const ok = g && !g.result && !g.committed && !g.waiting && !R.frozen;
     $('dash').disabled = !ok;
-    $('dash').classList.toggle('ready', !!(ok && g.d <= THINK + 0.5));
+    $('dash').classList.toggle('ready', !!ok);
     $('dash').innerHTML = `⚡ ${M.t(TEXT.dash)}`;
   }
   function spawnGate(again) {
@@ -379,8 +394,9 @@
     q.opts = shuffle(q.opts.slice());
     // Decided per gate: the Catalan voice may turn out to be the Spanish fallback mid-race, or the sound gets muted.
     if (q.kind === 'heard' && !canHear()) q.kind = 'pic';
-    R.gate = { q, opts: q.opts, d: again ? 34 : FAR, committed: false, waiting: false, result: null, picked: null };
+    R.gate = { q, opts: q.opts, d: again ? 50 : FAR, committed: false, waiting: false, result: null, picked: null };
     renderQuestion(q);
+    renderLanes();
     renderProgress();
     if (q.kind === 'heard') {
       R.gate.waiting = true;
@@ -409,6 +425,7 @@
     R.lane = n;
     M.sounds.pop();
     placeRunner();
+    renderLanes();
   }
   function jump() {
     if (!R || R.phase !== 'run' || R.frozen || R.jumpT > 0 || R.tripT > 0) return;
@@ -426,28 +443,33 @@
       g.result = 'right';
       R.results[R.qi] = R.results[R.qi] || 'on';
       M.sounds.match();
+      R.pace = Math.min(PACE_MAX, R.pace + 0.8);
       R.turboT = 1.2;
-      R.target = TURBO;
+      R.target = TURBO();
       $('question').className = 'question good';
+      renderLanes();
       next();
       return;
     }
     g.result = 'wrong';
+    R.pace = Math.max(PACE_MIN, R.pace - 2.5);
     R.frozen = true;
     R.speed = 0; R.target = 0;
     $('runner').className = 'runner trip';
     renderDash();
+    renderLanes();
     round.wrong(g.q.key).then(({ reveal }) => {
       $('runner').className = 'runner';
-      if (!reveal) { R.frozen = false; R.target = RUN; R.gate = null; spawnGate(true); return; }
+      if (!reveal) { R.frozen = false; R.target = RUN(); R.gate = null; spawnGate(true); return; }
       // 2nd miss: show the whole answer, then move on
       const q = g.q;
       g.reveal = true;
+      renderLanes();
       $('question').className = 'question reveal';
       $('question').innerHTML = `<b class="q-big">${q.full}</b>`;
       say(q.fullSay());
       R.results[R.qi] = 'shown';
-      setTimeout(() => { R.frozen = false; R.target = RUN; R.gate = null; next(); }, 2600);
+      setTimeout(() => { R.frozen = false; R.target = RUN(); R.gate = null; renderLanes(); next(); }, 2600);
     });
   }
   function next() {
@@ -467,8 +489,8 @@
       $('timer').textContent = fmt(R.time);
     }
     // speed
-    if (R.turboT > 0) { R.turboT -= dt; if (R.turboT <= 0 && R.target === TURBO) R.target = RUN; }
-    if (R.tripT > 0) { R.tripT -= dt; R.speed = 0; if (R.tripT <= 0) { $('runner').className = 'runner'; R.target = RUN; } }
+    if (R.turboT > 0) { R.turboT -= dt; if (R.turboT <= 0 && !(R.gate && R.gate.committed)) R.target = RUN(); }
+    if (R.tripT > 0) { R.tripT -= dt; R.speed = 0; if (R.tripT <= 0) { $('runner').className = 'runner'; R.target = R.gate && R.gate.committed ? SPRINT : RUN(); } }
     else R.speed += (R.target - R.speed) * Math.min(1, dt * 4);
     if (R.jumpT > 0) R.jumpT -= dt;
     const move = R.frozen ? 0 : R.speed * dt;
@@ -503,17 +525,16 @@
       if (g) {
         if (!g.waiting && !g.result) {
           g.d -= move;
-          if (!g.committed && g.d <= THINK) { g.d = THINK; R.target = TROT; }
           if (g.d <= CH) resolve(g);
         } else if (g.result === 'right') {
           g.d -= move;
-          if (g.d < -3) R.gate = null;
+          if (g.d < -3) { R.gate = null; renderLanes(); }
         }
         renderDash();
       }
       if (R.finishLine) {
         R.finishLine.d -= move;
-        if (R.target === RUN) R.target = TURBO;
+        if (R.target < TURBO()) R.target = TURBO();
         if (R.finishLine.d <= CH && !R.done) finish();
       }
     }
@@ -531,7 +552,7 @@
     }
     R.parts.forEach((p) => { p.x += p.vx * dt; p.y += p.vy * dt; p.life -= dt * 1.6; p.r += dt * 6; });
     R.parts = R.parts.filter((p) => p.life > 0);
-    $('runner').classList.toggle('fast', R.speed > RUN + 6);
+    $('runner').classList.toggle('fast', R.speed > RUN() + 6);
     draw();
   }
   document.addEventListener('visibilitychange', () => { hidden = document.hidden; last = performance.now(); });

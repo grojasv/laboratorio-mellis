@@ -93,4 +93,7 @@ window.MELLIS_NEWS = [
   { id: 30, date: '2026-10-31', icon: '🗂️', type: 'change',
     title: { ca: 'Tot més ordenat!', es: '¡Todo más ordenado!', en: 'All tidied up!' },
     text: { ca: 'Números, lletres, English, el món i fem en família', es: 'Números, letras, English, el mundo y en familia', en: 'Numbers, words, English, our world and family time' } },
+  { id: 31, date: '2026-10-31', icon: '🐆', type: 'change', game: 'cheetah',
+    title: { ca: 'La Chita ja no para!', es: '¡Chita ya no para!', en: "Chita doesn't stop now!" },
+    text: { ca: 'Tria el carril bo abans que arribi la porta', es: 'Elige el carril bueno antes de que llegue la puerta', en: 'Pick the right lane before the gate arrives' } },
 ];
