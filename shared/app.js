@@ -1,7 +1,7 @@
 // Shared helpers for the hub and every game: language, sound, mascots.
 // Classic script (no modules) so pages also work when opened straight from disk.
 (function () {
-  const VERSION = '1.27.0'; // bump on every release (shown in the hub footer), with CACHE in sw.js
+  const VERSION = '1.28.0'; // bump on every release (shown in the hub footer), with CACHE in sw.js
   const LANGS = ['ca', 'es', 'en'];
   const LANG_KEY = 'mellis.lang';
   const MUTE_KEY = 'mellis.muted';
@@ -219,6 +219,21 @@
         .flatMap((c) => [[null, 2], [c, 2], [null, 2], [c, 2]]) },
     ],
   };
+  // Savanna run: bouncy marimba in C at a jogging tempo
+  THEMES.savanna = {
+    step: 60 / 128 / 2,
+    tracks: [
+      { voice: 'vibes', vol: 0.09, seq: [
+        ['G5', 1], ['C6', 1], ['E6', 2], ['D6', 1], ['C6', 1], ['A5', 2], ['G5', 2], ['E5', 2], [null, 2], ['G5', 2],
+        ['A5', 1], ['C6', 1], ['F6', 2], ['E6', 1], ['D6', 1], ['C6', 2], ['D6', 4], [null, 4],
+        ['G5', 1], ['C6', 1], ['E6', 2], ['D6', 1], ['C6', 1], ['A5', 2], ['G5', 2], ['A5', 2], ['C6', 2], ['E6', 2],
+        ['F6', 2], ['E6', 2], ['D6', 2], ['B5', 2], ['C6', 6], [null, 2],
+      ] },
+      { voice: 'bass', vol: 0.14, seq: 'C3 C3 G2 G2 F2 F2 G2 G2 C3 C3 A2 A2 F2 G2 C3 C3'.split(' ').map((n) => [n, 4]) },
+      { voice: 'wood', vol: 0.04, seq: Array(16).fill([['C7', 1], ['G6', 1], ['G6', 1], ['G6', 1]]).flat() },
+      { voice: 'brush', vol: 0.04, seq: Array(32).fill([[null, 1], ['C4', 1]]).flat() },
+    ],
+  };
   const music = (() => {
     let on = load(MUSIC_KEY) !== '0', theme = null, timer = 0, bus = null, ducked = false;
     let nextT = 0, stepIx = 0, noise = null;
@@ -345,6 +360,13 @@
     if (!voices.length) loadVoices();
     if (!voices.length) return true;
     return !!pickVoice(VOICE_TAGS[lang] || lang);
+  }
+  // True when the language is read by its own voice (not the Catalan → Spanish fallback).
+  function ownVoice(lang) {
+    if (!window.speechSynthesis) return false;
+    if (!voices.length) loadVoices();
+    if (lang === 'ca' && caBroken) return false;
+    return !voices.length || !!voiceFor(VOICE_TAGS[lang] || lang);
   }
   // opts (optional): { onstart, onend, rate, pitch } — onend always fires once, even when muted,
   // when there is no voice, or when the engine forgets to report the end.
@@ -705,7 +727,7 @@
 
   window.Mellis = {
     VERSION, LANGS, get lang() { return lang; }, setLang, t, onLang: (fn) => langListeners.push(fn),
-    sounds, music, speak, canSpeak, isMuted, setMuted, mountControls, mascotsSVG, playfulMascots, confetti,
+    sounds, music, speak, canSpeak, ownVoice, isMuted, setMuted, mountControls, mascotsSVG, playfulMascots, confetti,
     onInstallable, install, round, starsHTML,
   };
   document.documentElement.lang = lang;

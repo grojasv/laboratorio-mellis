@@ -87,4 +87,7 @@ window.MELLIS_NEWS = [
   { id: 28, date: '2026-10-31', icon: '🕵️‍♀️', type: 'change', game: 'radio',
     title: { ca: 'Tres casos nous de la detectiva Lupa!', es: '¡Tres casos nuevos de la detective Lupa!', en: 'Three new Detective Lupa cases!' },
     text: { ca: 'Una girafa, un dinosaure i una biblioteca misteriosa', es: 'Una jirafa, un dinosaurio y una biblioteca misteriosa', en: 'A giraffe, a dinosaur and a mysterious library' } },
+  { id: 29, date: '2026-10-31', icon: '🐆', type: 'game', game: 'cheetah',
+    title: { ca: 'Nou: La cursa de la Chita!', es: '¡Nuevo: La carrera de Chita!', en: "New: Chita's Dash!" },
+    text: { ca: 'Corre per la sabana, salta roques i encerta les portes', es: 'Corre por la sabana, salta rocas y acierta las puertas', en: 'Race the savanna, jump rocks, pick the right gates' } },
 ];

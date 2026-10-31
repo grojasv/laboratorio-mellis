@@ -1,0 +1,145 @@
+/* La cursa de la Chita: a warm savanna afternoon */
+body.savanna {
+  background: linear-gradient(180deg, #ffd59e 0%, #ffe9c4 45%, #e9d48a 100%) fixed;
+  overflow-x: hidden;
+}
+.screen {
+  max-width: 560px; margin: 0 auto; padding: 0 14px max(14px, env(safe-area-inset-bottom));
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+}
+.round-btn {
+  position: relative; width: 48px; height: 48px; border-radius: 50%;
+  background: #fff3d6; border: 3px solid var(--ink); font-size: 1.4rem; display: grid; place-items: center; flex: none;
+}
+.round-btn:active { transform: scale(.9); }
+.count { position: absolute; top: -8px; right: -12px; background: var(--pink); color: #fff; font-size: .75rem; font-weight: 700; border-radius: 999px; padding: 0 5px; white-space: nowrap; }
+.count:empty { display: none; }
+
+/* home */
+.host-row { display: flex; align-items: center; gap: 10px; width: 100%; }
+.host-row .tools { display: flex; flex-direction: column; gap: 10px; }
+.chita-host { width: 120px; flex: none; }
+.chita-host svg { width: 100%; display: block; overflow: visible; }
+#home-chita svg { animation: chita-bob 2.2s ease-in-out infinite; }
+@keyframes chita-bob { 50% { transform: translateY(-5px) rotate(-2deg); } }
+.say {
+  position: relative; flex: 1; margin: 0; background: #fff; border: 3px solid var(--ink); border-radius: 18px;
+  padding: 8px 12px; font-weight: 700; font-size: 1.05rem;
+}
+.say::before {
+  content: ''; position: absolute; left: -11px; top: 50%; margin-top: -8px;
+  border: 8px solid transparent; border-right: 10px solid var(--ink); border-left: 0;
+}
+.modes { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+.mode {
+  display: flex; align-items: center; gap: 12px; padding: 10px 14px; text-align: left;
+  background: #fff; border: 4px solid var(--ink); border-left: 16px solid var(--c); border-radius: 22px; box-shadow: 0 6px 0 var(--ink);
+}
+.mode:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--ink); }
+.m-e { font-size: 2.2rem; flex: none; }
+.m-text { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+.m-text b { font-size: 1.4rem; }
+.m-text small { font-size: .95rem; color: #555; }
+.m-rec { font-weight: 700; font-size: 1rem; white-space: nowrap; }
+
+/* race */
+.race {
+  max-width: 560px; margin: 0 auto; padding: 0 10px max(10px, env(safe-area-inset-bottom));
+  height: calc(100dvh - 84px); display: flex; flex-direction: column; justify-content: center; gap: 8px;
+}
+.hud { display: flex; align-items: center; gap: 8px; }
+.hud .hearts { font-size: 1.3rem; flex: none; }
+.gates { flex: 1; display: flex; gap: 3px; }
+.gates span { flex: 1; height: 14px; border-radius: 4px; background: rgba(255, 255, 255, .6); border: 2px solid var(--ink); }
+.gates span.on { background: var(--yellow); }
+.gates span.shown { background: var(--orange); }
+.gates span.now { background: #fff; animation: now 1s ease-in-out infinite; }
+@keyframes now { 50% { background: #ffe9a8; } }
+.timer { flex: none; font-weight: 700; font-size: 1.1rem; background: #fff; border: 3px solid var(--ink); border-radius: 12px; padding: 0 8px; font-variant-numeric: tabular-nums; }
+.question {
+  min-height: 62px; display: flex; align-items: center; justify-content: center; gap: 12px;
+  background: #fff; border: 4px solid var(--ink); border-radius: 20px; box-shadow: 0 4px 0 rgba(0, 0, 0, .2); padding: 4px 12px;
+}
+.question:empty { visibility: hidden; }
+.question.pop { animation: q-pop .35s cubic-bezier(.3, 1.6, .6, 1); }
+@keyframes q-pop { from { transform: scale(.8); } }
+.question.good { background: #d8f7d8; }
+.question.reveal { background: #ffe0a6; animation: q-pop .35s cubic-bezier(.3, 1.6, .6, 1); }
+.q-big { font-size: clamp(1.8rem, 9vw, 2.4rem); letter-spacing: 1px; }
+.q-emoji { font-size: 2.6rem; line-height: 1; }
+.q-small { font-size: 1.1rem; font-weight: 700; }
+.q-listen { width: 52px; height: 52px; border-radius: 50%; border: 3px solid var(--ink); background: var(--yellow); font-size: 1.6rem; }
+.q-listen:active { transform: scale(.9); }
+.track {
+  position: relative; flex: 1; min-height: 220px; max-height: min(118vw, 660px); border: 4px solid var(--ink); border-radius: 22px; overflow: hidden;
+  touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none;
+}
+.track canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.runner { position: absolute; transition: left .15s ease-out; pointer-events: none; }
+.runner-body svg { width: 100%; display: block; overflow: visible; }
+.runner:not(.idle):not(.trip) .runner-body { animation: gallop .32s linear infinite; }
+.runner.fast:not(.trip) .runner-body { animation-duration: .2s; }
+@keyframes gallop { 50% { transform: translateY(-6px) scaleY(1.04); } }
+.runner:not(.idle) .leg-a { animation: leg .32s linear infinite; }
+.runner:not(.idle) .leg-b { animation: leg .32s linear infinite reverse; }
+@keyframes leg { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+.runner .tail { transform-box: fill-box; transform-origin: 50% 0; animation: tail .5s ease-in-out infinite alternate; }
+@keyframes tail { from { transform: rotate(-12deg); } to { transform: rotate(12deg); } }
+.runner .cape, .runner .flap { animation: flap .3s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: 50% 0; }
+@keyframes flap { to { transform: skewX(6deg) scaleY(.94); } }
+.runner.jump .runner-body { animation: hop .7s cubic-bezier(.3, .7, .5, 1) !important; }
+@keyframes hop { 45% { transform: translateY(-70%) scale(1.08); } }
+.runner.trip .runner-body { animation: trip .9s ease-out; }
+@keyframes trip { 20% { transform: rotate(-25deg) translateY(10%); } 50% { transform: rotate(18deg) translateY(4%); } 75% { transform: rotate(-8deg); } }
+.count-down {
+  position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none;
+  font-size: 5rem; font-weight: 700; color: #fff; text-shadow: 0 4px 0 var(--ink), 0 0 12px rgba(0, 0, 0, .3);
+  animation: count .6s cubic-bezier(.3, 1.6, .6, 1);
+}
+@keyframes count { from { transform: scale(2); opacity: 0; } }
+.dash {
+  flex: none; background: var(--orange); color: #fff; border: 4px solid var(--ink); border-radius: 22px; box-shadow: 0 6px 0 var(--ink);
+  padding: 10px; font-size: 1.6rem; font-weight: 700; text-shadow: 0 2px 0 rgba(0, 0, 0, .2);
+}
+.dash:active:not(:disabled) { transform: translateY(4px); box-shadow: 0 2px 0 var(--ink); }
+.dash:disabled { background: #e8c9a0; color: rgba(255, 255, 255, .85); box-shadow: 0 6px 0 rgba(58, 58, 92, .4); border-color: rgba(58, 58, 92, .5); }
+.dash.ready { animation: ready .8s ease-in-out infinite; }
+@keyframes ready { 50% { transform: scale(1.04); background: #ff7b00; } }
+
+/* finish */
+.win-time { font-size: 1.6rem; font-weight: 700; margin: 4px 0; }
+.win-record { font-size: 1.3rem; font-weight: 700; color: #e5383b; margin: 0 0 6px; animation: q-pop .5s cubic-bezier(.3, 1.6, .6, 1) both .3s; }
+.win-unlock { font-weight: 700; background: #fff; border: 3px dashed var(--purple); border-radius: 14px; padding: 6px 10px; margin: 6px 0 14px; }
+.chita-host.big { width: 150px; margin: 0 auto; }
+.chita-host.gold svg { filter: drop-shadow(0 0 12px rgba(255, 210, 63, .9)); }
+
+/* wardrobe */
+.wardrobe-box { text-align: center; }
+.ward-title { margin: 0 0 6px; font-size: 1.5rem; font-weight: 700; }
+#ward-chita { margin: 0 auto 4px; width: 110px; }
+.ward-h { margin: 8px 0 4px; font-weight: 700; text-align: left; }
+.ward-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(56px, 1fr)); gap: 6px; }
+.item { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 6px 2px; background: #fff; border: 3px solid var(--ink); border-radius: 14px; }
+.item.on { background: #ffe9a8; box-shadow: 0 0 0 3px var(--orange); }
+.item.locked { opacity: .55; }
+.item.locked .i-e { filter: grayscale(1); }
+.item.shake { animation: shake .4s; }
+@keyframes shake { 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+.i-e { font-size: 1.7rem; line-height: 1.1; }
+.item small { font-size: .72rem; font-weight: 600; line-height: 1.1; }
+#ward-close { margin: 12px auto 0; }
+.wardrobe-box { padding: 14px; }
+
+@media (max-height: 700px) {
+  .chita-host { width: 92px; }
+  .mode { padding: 6px 12px; }
+  .m-e { font-size: 1.8rem; }
+  .question { min-height: 52px; }
+  .q-big { font-size: 1.7rem; }
+  .q-emoji { font-size: 2.1rem; }
+  .dash { padding: 6px; font-size: 1.4rem; }
+  .chita-host.big { width: 110px; }
+  #ward-chita { width: 64px; }
+  .ward-h { margin: 4px 0 2px; }
+  .i-e { font-size: 1.4rem; }
+}

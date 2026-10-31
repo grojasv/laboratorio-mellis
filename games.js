@@ -81,6 +81,19 @@ window.MELLIS_GAMES = [
     },
   },
   {
+    id: 'cheetah',
+    path: 'games/cheetah/index.html',
+    icon: '🐆',
+    color: '#e9a23b',
+    name: { ca: 'La cursa de la Chita', es: 'La carrera de Chita', en: "Chita's Dash" },
+    tagline: { ca: 'Corre i encerta sumes i paraules', es: 'Corre y acierta sumas y palabras', en: 'Run through sums and words' },
+    guide: {
+      ca: "Una cursa per la sabana amb la Chita 🐆: canvia de carril tocant o lliscant, salta les roques i corre (⚡) cap a la porta amb la resposta correcta. Cursa de 10 portes: 🔢 sumes i restes fins a 20, dobles i el número que falta (cada cop més difícil), 🔤 paraules (dibuix → com s'escriu, o paraula escoltada) o barreja. Amb estrelles es desbloquegen complements i rastres per a la Chita, i hi ha rècord de temps. Treballa el càlcul mental ràpid i l'ortografia.",
+      es: "Una carrera por la sabana con Chita 🐆: cambia de carril tocando o deslizando, salta las rocas y corre (⚡) hacia la puerta con la respuesta correcta. Carrera de 10 puertas: 🔢 sumas y restas hasta 20, dobles y el número que falta (cada vez más difícil), 🔤 palabras (dibujo → cómo se escribe, o palabra escuchada) o mezcla. Con estrellas se desbloquean complementos y rastros para Chita, y hay récord de tiempo. Trabaja el cálculo mental rápido y la ortografía.",
+      en: "A savanna race with Chita the cheetah: switch lanes by tapping or swiping, jump the rocks and sprint (⚡) through the gate with the right answer. 10 gates per race: 🔢 sums and take-aways to 20, doubles and missing numbers (getting harder), 🔤 words (picture → spelling, or a word read aloud) or mixed. Stars unlock accessories and trails for Chita, and there is a best time to beat. Practises quick mental maths and spelling.",
+    },
+  },
+  {
     id: 'reading',
     section: 'reading',
     path: 'games/reading/index.html',

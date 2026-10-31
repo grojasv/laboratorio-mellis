@@ -4,6 +4,15 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.28.0] — 2026-10-31
+### Added
+- **La cursa de la Chita** (`games/cheetah/`), a 3-lane savanna runner with Chita the cheetah. Canvas pseudo-3D track (acacias, savanna animals, lane lines), Chita drawn in SVG from behind (galloping legs, swinging tail).
+  - Tap a lane or swipe to switch lanes; tap Chita or swipe up to jump the rocks and logs, which only cost time. Each race has 10 answer gates, one per lane. A gate waits at a "think line" until she presses ⚡ *Corre!*, so a slow reader is never forced into an answer, and the time record rewards quick ones.
+  - 🔢 Numbers rise during the race: sums to 10, then sums to 20 and doubles, then take-aways and missing numbers. 🔤 Letters: picture → spelling, and a heard word (only when the language has its own voice, never Catalan read by the Spanish fallback). 🎲 Mixed. The spelling traps are never real words.
+  - Mellis rule: a wrong gate makes Chita trip and costs a heart, the same question comes back, the 2nd miss shows the full answer, and 0 hearts restarts with new questions. ⭐⭐⭐ = golden Chita and the gold coat.
+  - Stars unlock wardrobe items: scarf, bow, cap, superhero cape and crown, plus heart, star and rainbow trails. Best time per race type.
+- Shared: `M.ownVoice(lang)` (true when the language has its own voice, not the Catalan → Spanish fallback) and the `savanna` music theme. Service worker cache `mellis-v29`.
+
 ## [1.27.0] — 2026-10-31
 ### Added
 - Ràdio Mellis: three new Detective Lupa scripts (theme 🔎), with recurring characters from *The Zoo Cake Mystery*: *Lupa and the Giraffe's Scarf* (🦒 Gina, Pep as Lupa's assistant, Piu the bird), *Lupa and the Dinosaur's Bone* (🦉 Ot the night guard, Bru the monkey, Bimbo the dog) and *Lupa and the Library Noise* (Rosa the librarian, Pep, 🐭 Mia the mouse). 43–45 lines each, ≤ 15 words per line, CA/ES/EN. Service worker cache `mellis-v28`.
