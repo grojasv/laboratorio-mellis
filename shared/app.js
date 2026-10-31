@@ -1,7 +1,7 @@
 // Shared helpers for the hub and every game: language, sound, mascots.
 // Classic script (no modules) so pages also work when opened straight from disk.
 (function () {
-  const VERSION = '1.26.0'; // bump on every release (shown in the hub footer), with CACHE in sw.js
+  const VERSION = '1.26.1'; // bump on every release (shown in the hub footer), with CACHE in sw.js
   const LANGS = ['ca', 'es', 'en'];
   const LANG_KEY = 'mellis.lang';
   const MUTE_KEY = 'mellis.muted';
@@ -320,17 +320,31 @@
   }
   // Accepts 'ca' / 'es' / 'en' or a full tag like 'en-GB'.
   const VOICE_TAGS = { ca: 'ca-ES', es: 'es-ES', en: 'en-GB' };
+  // Many phones have no Catalan voice (or list one that is not downloaded): read
+  // Catalan with a Spanish voice rather than stay silent. Only for Catalan —
+  // never read a language with a voice that would teach the wrong sounds (e.g. English).
+  const VOICE_FALLBACK = { ca: 'es-ES' };
+  let caBroken = false;                  // the listed Catalan voice failed once: use the fallback
+  const lc = (tag) => String(tag || '').replace(/_/g, '-').toLowerCase();
   function voiceFor(tag) {
-    const norm = (v) => v.lang.replace('_', '-');
-    return voices.find((v) => norm(v) === tag) ||
-      voices.find((v) => norm(v).startsWith(tag.slice(0, 2))) || null;
+    if (!voices.length) loadVoices();    // some iOS / WebViews never fire voiceschanged
+    const want = lc(tag), primary = want.split('-')[0];
+    return voices.find((v) => lc(v.lang) === want) ||
+      voices.find((v) => lc(v.lang).split('-')[0] === primary) || null;
   }
-  // False only when we know the device has no voice for that language
-  // (never read Catalan with an English voice).
+  // The voice to use for a tag: its own, else the fallback language's. null = none.
+  function pickVoice(tag) {
+    const primary = lc(tag).split('-')[0];
+    const fallback = VOICE_FALLBACK[primary];
+    const own = primary === 'ca' && caBroken ? null : voiceFor(tag);
+    return own || (fallback ? voiceFor(fallback) : null);
+  }
+  // False only when we know the device has no voice for that language (or its fallback).
   function canSpeak(lang) {
     if (!window.speechSynthesis) return false;
+    if (!voices.length) loadVoices();
     if (!voices.length) return true;
-    return !!voiceFor(VOICE_TAGS[lang] || lang);
+    return !!pickVoice(VOICE_TAGS[lang] || lang);
   }
   // opts (optional): { onstart, onend, rate, pitch } — onend always fires once, even when muted,
   // when there is no voice, or when the engine forgets to report the end.
@@ -349,7 +363,7 @@
     };
     const estimate = 600 + text.length * 75;   // fallback if onend never comes
     const tag = VOICE_TAGS[voiceLang] || voiceLang || 'en-GB';
-    const voice = window.speechSynthesis ? voiceFor(tag) : null;
+    const voice = window.speechSynthesis ? pickVoice(tag) : null;
     if (muted || !window.speechSynthesis || (voices.length && !voice)) {
       if (o.onstart) o.onstart();
       speakDone = done;
@@ -357,18 +371,32 @@
       return;
     }
     speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = tag;
-    u.voice = voice;
-    u.rate = o.rate || 0.85;
-    u.pitch = o.pitch || 1.1;
-    u.onend = done;
-    u.onerror = done;
+    const say = (v, retry) => {
+      const u = new SpeechSynthesisUtterance(text);
+      // A voice and a lang that disagree make some Android engines refuse the line.
+      u.lang = v ? v.lang.replace(/_/g, '-') : tag;
+      if (v) u.voice = v;
+      u.rate = o.rate || 0.85;
+      u.pitch = o.pitch || 1.1;
+      u.onend = done;
+      u.onerror = (e) => {
+        // A Catalan voice listed but not installed fails here: retry once with the fallback.
+        const err = e && e.error;
+        if (retry && err !== 'interrupted' && err !== 'canceled' && !finished && speakDone === done) {
+          caBroken = true;
+          const fb = pickVoice(tag);
+          if (fb) { say(fb, false); return; }
+        }
+        done();
+      };
+      speechSynthesis.speak(u);
+    };
     speakDone = done;
     music.duck(true);
     if (o.onstart) o.onstart();
     timer = setTimeout(done, estimate * 1.6);
-    speechSynthesis.speak(u);
+    const primary = lc(tag).split('-')[0];
+    say(voice, primary === 'ca' && !caBroken && (!voice || lc(voice.lang).startsWith('ca')));
   }
   // iOS only speaks after a tap: say nothing once inside the first tap to unlock it.
   window.addEventListener('pointerdown', () => {
