@@ -5,7 +5,7 @@
   const $ = (id) => document.getElementById(id);
   const L = (ca, es, en) => ({ ca, es, en });
   const rnd = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
-  const shuffle = (a) => { for (let i = a.length - 1; i > 0; i--) { const j = rnd(0, i); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  const { shuffle } = M;
   const GATES = 10;
 
   const TEXT = {
@@ -87,8 +87,8 @@
   // ---------- Saved progress (one device, shared by the twins) ----------
   const STORE = 'mellis.cheetah';
   let S = { stars: 0, best: {}, gold: false, wear: { acc: 'none', trail: 'dust', coat: 'normal' } };
-  try { S = Object.assign(S, JSON.parse(localStorage.getItem(STORE)) || {}); } catch (e) { /* ignore */ }
-  const persist = () => { try { localStorage.setItem(STORE, JSON.stringify(S)); } catch (e) { /* ignore */ } };
+  S = Object.assign(S, M.store.get(STORE, {}));
+  const persist = () => { M.store.set(STORE, S); };
   const owned = (kind, it) => (it.gold ? S.gold : S.stars >= it.need);
   const fmt = (ms) => { const s = Math.round(ms / 1000); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`; };
   const say = (t, opts) => M.speak(String(typeof t === 'string' ? t : M.t(t)).replace(/[¡!¿]/g, ''), M.lang, opts);

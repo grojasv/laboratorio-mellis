@@ -82,14 +82,7 @@
 
   const $ = (id) => document.getElementById(id);
   const rand = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
-  const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
-  function shuffle(a) {
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-  }
+  const { pick, shuffle } = M;
 
   // ---------- Questions ----------
   // 1: within 20. 2: up to 100, no carrying. 3: up to 100, carrying.
@@ -191,16 +184,15 @@
 
   // ---------- Collection ----------
   function owned() {
-    try { return JSON.parse(localStorage.getItem(STORE_KEY)) || []; } catch (e) { return []; }
+    return M.store.get(STORE_KEY, []);
   }
   function golden() {
-    try { return JSON.parse(localStorage.getItem(GOLD_KEY)) || []; } catch (e) { return []; }
+    return M.store.get(GOLD_KEY, []);
   }
   function addTo(key, c) {
-    let list = [];
-    try { list = JSON.parse(localStorage.getItem(key)) || []; } catch (e) { /* ignore */ }
+    const list = M.store.get(key, []);
     if (!list.includes(c)) list.push(c);
-    try { localStorage.setItem(key, JSON.stringify(list)); } catch (e) { /* ignore */ }
+    M.store.set(key, list);
   }
   const creatureOf = (e) => CREATURES.find((c) => c.e === e);
 

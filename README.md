@@ -65,7 +65,7 @@ games.js            game catalogue shown on the hub (+ guide texts for families/
 families/           guide for parents & teachers
 news.js             kid-friendly news (hub 🎁 button)
 CHANGELOG.md        technical changelog (SemVer)
-shared/app.js       language, sounds, mascots, confetti (window.Mellis)
+shared/app.js       language, sounds, mascots, confetti, Mellis rule, store / pick / shuffle helpers (window.Mellis)
 shared/styles.css   colours, flags, mascots
 shared/game.css     top bar, level picker, win screen for game pages
 games/<id>/         one folder per game

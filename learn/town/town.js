@@ -21,18 +21,11 @@
   };
 
   const $ = (id) => document.getElementById(id);
-  const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+  const { pick, shuffle } = M;
   const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
   const byId = (id) => PLACES.find((p) => p.id === id);
-  function shuffle(a) {
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-  }
-  function load(key, def) { try { return JSON.parse(localStorage.getItem(key)) || def; } catch (e) { return def; } }
-  function save(key, v) { try { localStorage.setItem(key, JSON.stringify(v)); } catch (e) { /* ignore */ } }
+  const load = M.store.get;
+  const save = M.store.set;
   const learnedState = () => { const s = load(LEARNED_KEY, {}); s.places = s.places || {}; s.jobs = s.jobs || {}; return s; };
   const say = (text, opts) => M.speak(text.replace(/[¡!¿]/g, '').replace(/\bNO\b/g, 'no'), M.lang, opts);
   const jobAt = (p) => TEXT.worksAt[M.lang](M.t(p.job.the), M.t(p.in));

@@ -5,15 +5,8 @@
   const ALBUM_KEY = 'mellis.clock.album';
 
   const $ = (id) => document.getElementById(id);
-  const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+  const { pick, shuffle } = M;
   const mod = (n, d) => ((n % d) + d) % d;
-  function shuffle(a) {
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-  }
 
   // ---------- Telling the time ----------
   // A time is { h: 1…12, m: 0…55, H: 0…23 (24 h, for the sky and Hard) }.
@@ -206,10 +199,10 @@
   ];
   const cuckooOf = (id) => CUCKOOS.find((c) => c.id === id);
   function album() {
-    try { return JSON.parse(localStorage.getItem(ALBUM_KEY)) || {}; } catch (e) { return {}; }
+    return M.store.get(ALBUM_KEY, {});
   }
   function saveAlbum(a) {
-    try { localStorage.setItem(ALBUM_KEY, JSON.stringify(a)); } catch (e) { /* private mode */ }
+    M.store.set(ALBUM_KEY, a);
   }
 
   // ---------- Drawing ----------

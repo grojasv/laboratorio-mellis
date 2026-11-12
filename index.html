@@ -353,7 +353,7 @@
     }
     const seenId = () => +store.get('mellis.news.seen') || 0;
     const baseId = +store.get('mellis.news.base') || 0;
-    const played = () => { try { return JSON.parse(store.get('mellis.played')) || []; } catch (e) { return []; } };
+    const played = () => Mellis.store.get('mellis.played', []);
     const unread = () => NEWS.filter((n) => n.id > seenId());
     // "NOU!" sticker: a game announced after this device started, not played yet
     const isNewGame = (id) => NEWS.some((n) => n.type === 'game' && n.game === id && n.id > baseId) && !played().includes(id);
@@ -441,7 +441,7 @@
       // ⭐ Today: new games first, then the last ones played; then one shelf per school subject
       const all = [...window.MELLIS_GAMES, ...window.MELLIS_LEARN];
       const byId = (id) => all.find((g) => g.id === id);
-      const recent = (() => { try { return JSON.parse(store.get('mellis.recent')) || []; } catch (e) { return []; } })();
+      const recent = Mellis.store.get('mellis.recent', []);
       const today = [...new Set([...all.filter((g) => isNewGame(g.id)).map((g) => g.id), ...recent.slice(0, 3)])]
         .map(byId).filter(Boolean).slice(0, 4);
       const head = (icon, color, name) => `<h2 class="section-title shelf-title"><span class="shelf-chip" style="background:${color}">${icon}</span>${name}</h2>`;

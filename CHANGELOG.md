@@ -4,6 +4,12 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.30.1] — 2026-11-12
+### Changed
+- Shared helpers in `shared/app.js` replace the copies in each game: `Mellis.shuffle` (12 copies), `Mellis.pick` (9 copies) and `Mellis.store.get(key, def)` / `Mellis.store.set(key, value)` for JSON in localStorage (15 files). No change in behaviour or in the saved data.
+  - Taller Mellis and Passaport lector keep their own save, because they react when storage is full.
+  - Service worker cache `mellis-v33`.
+
 ## [1.30.0] — 2026-10-31
 ### Changed
 - La cursa de la Chita is now a real action game: the gate no longer stops at a think line. Whatever lane she is in when it arrives is her answer, and ⚡ is an optional sprint.

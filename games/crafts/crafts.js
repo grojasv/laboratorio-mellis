@@ -111,7 +111,7 @@
   let craft = null, step = 0, cheer = 0, lastPin = null;
 
   // ---------- Cork board (localStorage: small JPEGs) ----------
-  function loadBoard() { try { return JSON.parse(localStorage.getItem(BOARD_KEY)) || []; } catch (e) { return []; } }
+  function loadBoard() { return M.store.get(BOARD_KEY, []); }
   function saveBoard(list) { localStorage.setItem(BOARD_KEY, JSON.stringify(list.slice(0, MAX_PINS))); }
   function pin(photo) {
     const list = loadBoard();

@@ -38,8 +38,7 @@
   const wait = (ms) => new Promise((r) => setTimeout(r, ms));
   const say = (t, o) => M.speak(t.replace(/[¡!¿«»]/g, ''), M.lang, o);
   function family() {
-    let f = null;
-    try { f = JSON.parse(localStorage.getItem(FAMILY_KEY)); } catch (e) { /* ignore */ }
+    const f = M.store.get(FAMILY_KEY, null);
     return f && f.length ? f : [{ id: 'm1', e: '👧', name: '' }, { id: 'm2', e: '👧🏻', name: '' }, { id: 'm3', e: '👩', name: '' }, { id: 'm4', e: '👨', name: '' }];
   }
   const memberName = (m) => m.name || m.e;

@@ -24,28 +24,22 @@
   };
 
   const $ = (id) => document.getElementById(id);
-  function shuffle(a) {
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-  }
+  const { shuffle } = M;
   function doneList() {
-    try { return JSON.parse(localStorage.getItem(DONE_KEY)) || []; } catch (e) { return []; }
+    return M.store.get(DONE_KEY, []);
   }
   function goldList() {
-    try { return JSON.parse(localStorage.getItem(GOLD_KEY)) || []; } catch (e) { return []; }
+    return M.store.get(GOLD_KEY, []);
   }
   function markGold(id) {
     const list = goldList();
     if (!list.includes(id)) list.push(id);
-    try { localStorage.setItem(GOLD_KEY, JSON.stringify(list)); } catch (e) { /* ignore */ }
+    M.store.set(GOLD_KEY, list);
   }
   function markDone(id) {
     const list = doneList();
     if (!list.includes(id)) list.push(id);
-    try { localStorage.setItem(DONE_KEY, JSON.stringify(list)); } catch (e) { /* ignore */ }
+    M.store.set(DONE_KEY, list);
   }
 
   // ---------- State ----------

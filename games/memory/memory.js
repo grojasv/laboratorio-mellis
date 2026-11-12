@@ -88,14 +88,7 @@
 
   const $ = (id) => document.getElementById(id);
   const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
-  const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
-  function shuffle(a) {
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-  }
+  const { pick, shuffle } = M;
 
   // ---------- Nou the squirrel ----------
   const NOU_SVG = `<svg viewBox="0 0 120 110" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -145,10 +138,10 @@
 
   // ---------- Calendar album ----------
   function album() {
-    try { return JSON.parse(localStorage.getItem(ALBUM_KEY)) || {}; } catch (e) { return {}; }
+    return M.store.get(ALBUM_KEY, {});
   }
   function saveAlbum(a) {
-    try { localStorage.setItem(ALBUM_KEY, JSON.stringify(a)); } catch (e) { /* private mode */ }
+    M.store.set(ALBUM_KEY, a);
   }
   // One sticker per round (two, golden, on ⭐⭐⭐), from a month of the round, missing ones first.
   function award(months, gold) {

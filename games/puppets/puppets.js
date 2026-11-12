@@ -57,16 +57,12 @@
   };
 
   const $ = (id) => document.getElementById(id);
-  const pick = (a) => a[Math.floor(Math.random() * a.length)];
-  function shuffle(a) {
-    for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
-    return a;
-  }
+  const { pick, shuffle } = M;
   const plain = (html) => html.replace(/<[^>]+>/g, '');
 
   // ---------- Saved puppets (one per twin) ----------
-  function load() { try { return JSON.parse(localStorage.getItem(STORE)) || []; } catch (e) { return []; } }
-  function save(list) { try { localStorage.setItem(STORE, JSON.stringify(list)); } catch (e) { /* ignore */ } }
+  const load = () => M.store.get(STORE, []);
+  const save = (list) => { M.store.set(STORE, list); };
   let profiles = load();
   let current = null;   // the profile being built / played
 

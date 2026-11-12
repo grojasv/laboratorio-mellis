@@ -70,7 +70,7 @@
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const say = (t) => M.speak(t.replace(/[¡!¿]/g, ''), M.lang);
-  function load(key, def) { try { return JSON.parse(localStorage.getItem(key)) || def; } catch (e) { return def; } }
+  const load = M.store.get;
   function save(key, v) { localStorage.setItem(key, JSON.stringify(v)); } // throws when full: callers handle it
   const books = () => load(BOOKS_KEY, []);
   function family() {

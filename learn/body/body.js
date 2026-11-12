@@ -28,17 +28,10 @@
   };
 
   const $ = (id) => document.getElementById(id);
-  const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+  const { pick, shuffle } = M;
   const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
-  function shuffle(a) {
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-  }
-  function load(key) { try { return JSON.parse(localStorage.getItem(key)) || {}; } catch (e) { return {}; } }
-  function save(key, v) { try { localStorage.setItem(key, JSON.stringify(v)); } catch (e) { /* ignore */ } }
+  const load = (key) => M.store.get(key, {});
+  const save = M.store.set;
   const pic = (p) => (p.startsWith('<svg') ? p : `<span class="emoji">${p}</span>`);
   const say = (text, opts) => M.speak(text.replace(/[¡!¿«»"]/g, '').replace(/\bNO\b/g, 'no').replace(/\bSÍ\b/g, 'sí'), M.lang, opts);
   const nameOf = (it) => M.t(it.name || it.the);

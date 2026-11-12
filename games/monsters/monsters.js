@@ -105,16 +105,9 @@
   };
 
   const $ = (id) => document.getElementById(id);
-  const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+  const { pick, shuffle } = M;
   const find = (part, id) => PARTS[part].list.find((o) => o.id === id);
   const colorOf = (id) => COLORS.find((c) => c.id === id);
-  function shuffle(a) {
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-  }
 
   // ---------- Drawing ----------
   const EYE_LAYOUT = {
@@ -324,10 +317,10 @@
 
   // ---------- Album ----------
   function album() {
-    try { return JSON.parse(localStorage.getItem(ALBUM_KEY)) || []; } catch (e) { return []; }
+    return M.store.get(ALBUM_KEY, []);
   }
   function saveAlbum(list) {
-    try { localStorage.setItem(ALBUM_KEY, JSON.stringify(list.slice(0, ALBUM_MAX))); } catch (e) { /* ignore */ }
+    M.store.set(ALBUM_KEY, list.slice(0, ALBUM_MAX));
   }
 
   // ---------- Text ----------

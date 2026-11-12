@@ -166,14 +166,7 @@
 
   // ---------- Helpers ----------
   const $ = (id) => document.getElementById(id);
-  const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
-  function shuffle(a) {
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-  }
+  const { pick, shuffle } = M;
   const bold = (s) => s.replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
   const plain = (s) => s.replace(/\*\*(.+?)\*\*/g, (_, w) => w.toLowerCase());
   function say(text, opts) { M.speak(plain(text), M.lang, opts); }
@@ -188,7 +181,7 @@
   const solvedCount = () => loadNum(SOLVED_KEY);
   const goldCount = () => loadNum(GOLD_KEY);
   function caughtList() {
-    try { return JSON.parse(localStorage.getItem(CAUGHT_KEY)) || []; } catch (e) { return []; }
+    return M.store.get(CAUGHT_KEY, []);
   }
   function rankFor(n) { return RANKS.filter(([min]) => n >= min).pop()[1]; }
 

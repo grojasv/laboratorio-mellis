@@ -1,7 +1,7 @@
 // Shared helpers for the hub and every game: language, sound, mascots.
 // Classic script (no modules) so pages also work when opened straight from disk.
 (function () {
-  const VERSION = '1.30.0'; // bump on every release (shown in the hub footer), with CACHE in sw.js
+  const VERSION = '1.30.1'; // bump on every release (shown in the hub footer), with CACHE in sw.js
   const LANGS = ['ca', 'es', 'en'];
   const LANG_KEY = 'mellis.lang';
   const MUTE_KEY = 'mellis.muted';
@@ -12,6 +12,16 @@
   function save(key, value) {
     try { localStorage.setItem(key, value); } catch (e) { /* private mode: ignore */ }
   }
+  // JSON storage for the games; never throws.
+  // store.get(key, def) -> saved value, or def when missing/broken; store.set(key, value) -> true when saved
+  const store = {
+    get(key, def) {
+      try { const v = JSON.parse(localStorage.getItem(key)); return v == null ? def : v; } catch (e) { return def; }
+    },
+    set(key, value) {
+      try { localStorage.setItem(key, JSON.stringify(value)); return true; } catch (e) { return false; }
+    },
+  };
 
   // ---------- Language ----------
   function guessLang() {
@@ -559,6 +569,14 @@
     kidEl.querySelector('.face').innerHTML = faceSVG(+kidEl.dataset.x, expr);
   }
   function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+  // Shuffles the array in place and returns it
+  function shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
   const REACTION_SOUNDS = {
     laugh: () => sounds.giggle(), surprised: () => sounds.boing(), tongue: () => sounds.raspberry(),
     sneeze: () => sounds.sneeze(), love: () => sounds.match(), starry: () => sounds.match(),
@@ -682,13 +700,11 @@
   // ---------- Remember which games were played (removes the hub's "NOU!" sticker) ----------
   const gameMatch = location.pathname.match(/\/(?:games|learn)\/([^/]+)\//);
   if (gameMatch) {
-    let played = [];
-    try { played = JSON.parse(load('mellis.played')) || []; } catch (e) { /* ignore */ }
-    if (!played.includes(gameMatch[1])) { played.push(gameMatch[1]); save('mellis.played', JSON.stringify(played)); }
+    const played = store.get('mellis.played', []);
+    if (!played.includes(gameMatch[1])) { played.push(gameMatch[1]); store.set('mellis.played', played); }
     // Most recent first, for the hub's ⭐ Today row
-    let recent = [];
-    try { recent = JSON.parse(load('mellis.recent')) || []; } catch (e) { /* ignore */ }
-    save('mellis.recent', JSON.stringify([gameMatch[1], ...recent.filter((id) => id !== gameMatch[1])].slice(0, 6)));
+    const recent = store.get('mellis.recent', []);
+    store.set('mellis.recent', [gameMatch[1], ...recent.filter((id) => id !== gameMatch[1])].slice(0, 6));
   }
 
   // ---------- Installable web app (offline + home-screen icon) ----------
@@ -732,7 +748,7 @@
   window.Mellis = {
     VERSION, LANGS, get lang() { return lang; }, setLang, t, onLang: (fn) => langListeners.push(fn),
     sounds, music, speak, canSpeak, ownVoice, isMuted, setMuted, mountControls, mascotsSVG, playfulMascots, confetti,
-    onInstallable, install, round, starsHTML,
+    onInstallable, install, round, starsHTML, store, pick, shuffle,
   };
   document.documentElement.lang = lang;
 })();

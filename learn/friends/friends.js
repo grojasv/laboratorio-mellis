@@ -22,15 +22,9 @@
 
   const $ = (id) => document.getElementById(id);
   const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
-  function shuffle(a) {
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-  }
-  function load(key) { try { return JSON.parse(localStorage.getItem(key)) || {}; } catch (e) { return {}; } }
-  function save(key, v) { try { localStorage.setItem(key, JSON.stringify(v)); } catch (e) { /* ignore */ } }
+  const { shuffle } = M;
+  const load = (key) => M.store.get(key, {});
+  const save = M.store.set;
   const say = (text, opts) => M.speak(text.replace(/[¡!¿«»“”]/g, ''), M.lang, opts);
   const adj = (mood, kid) => (M.lang === 'en' ? FEELINGS[mood].adj.en : FEELINGS[mood].adj[M.lang][kid.f ? 1 : 0]);
 
