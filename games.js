@@ -31,6 +31,20 @@ window.MELLIS_GAMES = [
     },
   },
   {
+    id: 'shop',
+    shelf: 'maths',
+    path: 'games/shop/index.html',
+    icon: '🛒',
+    color: '#ff9f1c',
+    name: { ca: 'La botiga de la Guardiola', es: 'La tienda de Hucha', en: "Penny's Shop" },
+    tagline: { ca: 'Euros, cèntims i canvi', es: 'Euros, céntimos y cambio', en: 'Euros, cents & change' },
+    guide: {
+      ca: "A la botiga de la porqueta Guardiola, paga el preu just posant monedes i bitllets a la safata: euros sencers, euros amb cèntims i bitllets fins a 50 €. A l'últim nivell la botiga és seva i torna el canvi als clients. No veu la suma de la safata: l'ha de calcular ella. Treballa el valor de les monedes i els bitllets, la suma i el canvi.",
+      es: "En la tienda de la cerdita Hucha, paga el precio justo poniendo monedas y billetes en la bandeja: euros enteros, euros con céntimos y billetes hasta 50 €. En el último nivel la tienda es suya y devuelve el cambio a los clientes. No ve la suma de la bandeja: la tiene que calcular ella. Trabaja el valor de las monedas y los billetes, la suma y el cambio.",
+      en: "In Penny the pig's shop, she pays the exact price by putting coins and notes on the tray: whole euros, euros with cents, and notes up to €50. On the last level the shop is hers and she gives the customers their change. The tray never shows its total: she has to work it out. Practises the value of coins and notes, adding up and giving change.",
+    },
+  },
+  {
     id: 'monsters',
     shelf: 'english',
     path: 'games/monsters/index.html',

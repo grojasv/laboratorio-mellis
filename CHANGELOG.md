@@ -4,6 +4,15 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.31.0] — 2026-11-12
+### Added
+- **La botiga de la Guardiola** (`games/shop/`, Numbers shelf): pay the exact price by tapping euro coins and notes onto a tray, 8 purchases per round.
+  - Levels: whole euros with 1 €, 2 € and 5 € · euros with cents (10c, 20c, 50c) · notes up to 50 € · change, where she runs the shop and gives a customer the change from 5 €, 10 € or 20 €.
+  - The tray never shows its total, so she has to add the coins herself. Any combination that makes the amount is right.
+  - Mellis rule: a wrong payment costs a heart with no hint; the 2nd miss on the same purchase lays out the fewest coins with their total.
+  - Things bought go to 🧺 *El meu cistell* (24 items, golden on ⭐⭐⭐), saved in `mellis.shop.items`.
+  - Service worker cache `mellis-v34`.
+
 ## [1.30.1] — 2026-11-12
 ### Changed
 - Shared helpers in `shared/app.js` replace the copies in each game: `Mellis.shuffle` (12 copies), `Mellis.pick` (9 copies) and `Mellis.store.get(key, def)` / `Mellis.store.set(key, value)` for JSON in localStorage (15 files). No change in behaviour or in the saved data.

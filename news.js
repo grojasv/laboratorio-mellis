@@ -96,4 +96,7 @@ window.MELLIS_NEWS = [
   { id: 31, date: '2026-10-31', icon: '🐆', type: 'change', game: 'cheetah',
     title: { ca: 'La Chita ja no para!', es: '¡Chita ya no para!', en: "Chita doesn't stop now!" },
     text: { ca: 'Tria el carril bo abans que arribi la porta', es: 'Elige el carril bueno antes de que llegue la puerta', en: 'Pick the right lane before the gate arrives' } },
+  { id: 32, date: '2026-11-12', icon: '🛒', type: 'game', game: 'shop',
+    title: { ca: 'Nou: La botiga de la Guardiola!', es: '¡Nuevo: La tienda de Hucha!', en: "New: Penny's Shop!" },
+    text: { ca: 'Paga amb euros i torna el canvi', es: 'Paga con euros y devuelve el cambio', en: 'Pay with euros and give the change' } },
 ];

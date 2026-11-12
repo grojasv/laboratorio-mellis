@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#fff3d6">
+  <link rel="manifest" href="../../manifest.webmanifest">
+  <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Mellis">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>Penny's Shop · Laboratorio Mellis</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛒</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../shared/styles.css">
+  <link rel="stylesheet" href="../../shared/game.css">
+  <link rel="stylesheet" href="shop.css">
+</head>
+<body class="shop">
+  <div class="awning" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="home" href="../../index.html" aria-label="home">🏠</a>
+    <h1 class="title" id="title"></h1>
+    <div id="controls"></div>
+  </header>
+
+  <!-- Level picker -->
+  <main id="levels" class="levels">
+    <div class="levels-head">
+      <div class="pig big" id="pig-levels"></div>
+      <button class="round-btn" id="music-levels"></button>
+    </div>
+    <p class="levels-ask" id="ask"></p>
+    <div class="level-grid">
+      <button class="level" data-level="1" style="background:var(--teal)">
+        <span class="level-name" id="l1-name"></span>
+        <span class="level-sub">1 € · 2 € · 5 €</span>
+      </button>
+      <button class="level" data-level="2" style="background:var(--orange)">
+        <span class="level-name" id="l2-name"></span>
+        <span class="level-sub" id="l2-sub"></span>
+      </button>
+      <button class="level" data-level="3" style="background:var(--purple)">
+        <span class="level-name" id="l3-name"></span>
+        <span class="level-sub">10 € · 20 €</span>
+      </button>
+      <button class="level" data-level="4" style="background:#3a86ff">
+        <span class="level-name" id="l4-name"></span>
+        <span class="level-sub">10 € − 7 € = ?</span>
+      </button>
+    </div>
+    <button class="shelf-btn" id="open-album">🧺 <span id="album-label"></span> <b id="album-count"></b></button>
+  </main>
+
+  <!-- Play -->
+  <main id="play" class="play" hidden>
+    <div class="status"><div id="hearts"></div><button class="round-btn" id="music"></button></div>
+    <div class="progress" id="progress"></div>
+    <div class="scene">
+      <div class="who" id="who"></div>
+      <div class="bubble">
+        <span class="item" id="item"></span>
+        <div class="bubble-text">
+          <p id="line"></p>
+          <p class="tags"><b class="price" id="price"></b><span class="paid" id="paid" hidden></span></p>
+        </div>
+      </div>
+    </div>
+    <p class="task" id="task"></p>
+    <div class="tray" id="tray"></div>
+    <div class="wallet" id="wallet"></div>
+    <button class="pay" id="pay">✅ <span id="pay-label"></span></button>
+  </main>
+
+  <!-- Round finished -->
+  <div id="win" class="win" hidden>
+    <div class="win-box">
+      <p class="win-text" id="win-text"></p>
+      <div id="win-stars"></div>
+      <div class="bag" id="bag"></div>
+      <div class="win-buttons">
+        <button class="big-btn" id="again" style="background:var(--pink)">🔁</button>
+        <button class="big-btn" id="other" style="background:var(--orange)">🎚️</button>
+        <button class="big-btn" id="to-album" style="background:#3fb36b">🧺</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Everything she has bought -->
+  <div id="album" class="win" hidden>
+    <div class="win-box album-box">
+      <div class="album-top">
+        <p class="album-title"><span id="album-title"></span> <b id="album-count2"></b></p>
+        <button class="round-btn" id="close-album">↩️</button>
+      </div>
+      <div class="album-grid" id="album-grid"></div>
+      <p class="album-name" id="album-name"></p>
+    </div>
+  </div>
+
+  <script src="../../shared/app.js"></script>
+  <script src="shop.js"></script>
+</body>
+</html>

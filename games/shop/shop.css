@@ -1,0 +1,133 @@
+/* La botiga de la Guardiola: pay with euro coins and notes. */
+body.shop { background: linear-gradient(180deg, #fff3d6 0%, #ffe9c2 100%); }
+.awning {
+  position: fixed; inset: 0 0 auto 0; height: 14px; z-index: 0;
+  background: repeating-linear-gradient(90deg, #ff6f91 0 28px, #fff 28px 56px);
+  border-bottom: 3px solid var(--ink);
+}
+
+.levels-head { display: flex; align-items: center; justify-content: center; gap: 18px; }
+.pig svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.pig.big { width: min(30vw, 130px); }
+.round-btn {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: #fff; border: 3px solid var(--ink);
+  font-size: 1.4rem; display: grid; place-items: center; flex: none;
+}
+.round-btn:active { transform: scale(0.9); }
+.level-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; width: 100%; max-width: 560px; }
+.level-grid .level { padding: 10px 8px; gap: 4px; box-shadow: 0 6px 0 var(--ink); }
+.level-grid .level-name { font-size: clamp(1.1rem, 4.6vw, 1.5rem); line-height: 1.1; }
+.level-grid .level-sub { font-size: clamp(.78rem, 3.4vw, 1rem); padding: 1px 8px; white-space: nowrap; }
+.shelf-btn {
+  margin-top: 8px; background: #fff; border: 4px solid var(--ink); border-radius: 999px;
+  box-shadow: var(--shadow); padding: 10px 22px; font-size: 1.3rem; font-weight: 700;
+}
+.shelf-btn:active { transform: translateY(4px); box-shadow: none; }
+
+/* ---------- Play ---------- */
+.play {
+  --c: clamp(40px, 12.5vw, 60px); /* coin size */
+  display: flex; flex-direction: column; align-items: center;
+  gap: clamp(6px, 1.6vh, 14px);
+  padding: 0 16px max(12px, env(safe-area-inset-bottom));
+  min-height: calc(100dvh - 90px);
+  max-width: 560px; margin: 0 auto;
+}
+.status { display: flex; align-items: center; gap: 12px; }
+.status .round-btn { width: 40px; height: 40px; font-size: 1.1rem; }
+.progress { display: flex; gap: 5px; justify-content: center; }
+.progress span {
+  width: clamp(24px, 7.4vw, 34px); height: clamp(24px, 7.4vw, 34px);
+  border-radius: 10px; border: 3px solid var(--ink); background: #fff;
+  display: grid; place-items: center; font-size: clamp(14px, 4.4vw, 20px); line-height: 1;
+}
+.progress span.full { background: #d8f5d0; animation: pop-in-c .35s; }
+
+.scene { display: flex; align-items: flex-end; gap: 8px; width: 100%; }
+.who { flex: none; width: clamp(64px, 20vw, 100px); font-size: clamp(52px, 16vw, 80px); line-height: 1; text-align: center; }
+.who svg { width: 100%; display: block; overflow: visible; }
+.who.hop { animation: hop .45s; }
+.who.oops { animation: oops .5s; }
+@keyframes hop { 40% { transform: translateY(-14px); } }
+@keyframes oops { 25% { transform: rotate(-8deg); } 75% { transform: rotate(8deg); } }
+.bubble {
+  flex: 1; min-width: 0; display: flex; align-items: center; gap: 8px;
+  background: #fff; border: 4px solid var(--ink); border-radius: 22px; box-shadow: var(--shadow);
+  padding: 8px 12px;
+}
+.item { font-size: clamp(40px, 13vw, 64px); line-height: 1; flex: none; }
+.bubble-text { min-width: 0; }
+.bubble-text p { margin: 0; font-size: clamp(.95rem, 4vw, 1.25rem); font-weight: 700; line-height: 1.15; }
+.tags { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 4px !important; }
+.price {
+  background: var(--yellow); border: 3px solid var(--ink); border-radius: 10px;
+  padding: 0 10px; font-size: clamp(1.4rem, 6.4vw, 2rem); white-space: nowrap;
+}
+.paid { display: inline-flex; align-items: center; gap: 4px; font-size: 1.2rem; }
+
+.task { margin: 0; font-size: clamp(1rem, 4.2vw, 1.3rem); font-weight: 700; color: var(--purple); text-align: center; }
+.tray {
+  width: 100%; flex: 1; min-height: calc(var(--c) * 2 + 26px); max-height: 220px;
+  display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; align-content: center;
+  background: rgba(255, 255, 255, .7); border: 4px dashed var(--ink); border-radius: 20px; padding: 8px;
+}
+.tray.shake { animation: oops .4s; }
+.tray .total { flex-basis: 100%; text-align: center; font-size: 1.4rem; font-weight: 700; color: #2a9d54; }
+.wallet { display: flex; gap: 6px; justify-content: center; align-items: center; width: 100%; }
+
+/* Coins and notes */
+.money {
+  flex: none; display: grid; place-items: center; padding: 0;
+  width: var(--c); height: var(--c); border-radius: 50%;
+  border: 3px solid var(--ink); color: var(--ink);
+  font-family: inherit; font-weight: 700; font-size: calc(var(--c) * .34); line-height: 1; white-space: nowrap;
+  box-shadow: 0 4px 0 var(--ink);
+}
+.money:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--ink); }
+.tray .money { box-shadow: 0 2px 0 var(--ink); animation: pop-in-c .25s; }
+.money.c10, .money.c20, .money.c50 { background: radial-gradient(circle at 35% 30%, #ffe08a, #e0a72e); }
+.money.c10 { transform-origin: center; width: calc(var(--c) * .84); height: calc(var(--c) * .84); }
+.money.c20 { width: calc(var(--c) * .92); height: calc(var(--c) * .92); }
+.money.e1 { background: radial-gradient(circle, #eef0f3 0 52%, #e0a72e 54%); }
+.money.e2 { background: radial-gradient(circle, #f2c654 0 52%, #cfd4db 54%); }
+.money.note { width: calc(var(--c) * 1.25); height: calc(var(--c) * .82); border-radius: 8px; }
+.money.n5 { background: linear-gradient(135deg, #dfe8d6, #a9bd9c); }
+.money.n10 { background: linear-gradient(135deg, #ffd0c9, #f08a7e); }
+.money.n20 { background: linear-gradient(135deg, #cfe2ff, #7fb0f0); }
+.paid .money { box-shadow: none; --c: 38px; }
+
+.pay {
+  width: 100%; max-width: 360px; padding: 10px; border-radius: 999px;
+  background: #3fb36b; color: #fff; border: 4px solid var(--ink); box-shadow: 0 6px 0 var(--ink);
+  font-family: inherit; font-size: clamp(1.2rem, 5.4vw, 1.6rem); font-weight: 700;
+}
+.pay:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--ink); }
+.pay:disabled { background: #c9cbd6; }
+
+/* ---------- Win and album ---------- */
+#win-stars { margin: -6px 0 10px; }
+.bag { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin: 0 0 16px; font-size: 2rem; }
+.bag span, .album-grid button {
+  width: 52px; height: 52px; display: grid; place-items: center; line-height: 1; padding: 0;
+  background: #fff; border: 3px solid var(--ink); border-radius: 14px; font-size: 1.9rem;
+}
+.bag span.gold, .album-grid button.gold { background: radial-gradient(circle, #fff6c9, #ffd23f); box-shadow: 0 0 10px 2px rgba(255, 210, 63, .8); }
+.album-box { width: min(520px, 100%); }
+.album-top { display: flex; align-items: center; gap: 10px; }
+.album-title { flex: 1; margin: 0; font-size: 1.3rem; font-weight: 700; text-align: left; }
+.album-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(52px, 1fr)); gap: 8px; justify-items: center; margin: 12px 0; }
+.album-grid button.empty { background: #eee; color: transparent; text-shadow: 0 0 0 #c9cbd6; }
+.album-name { min-height: 1.5em; margin: 0; font-size: 1.2rem; font-weight: 700; }
+
+/* Short phones: everything on one screen, pay button included */
+@media (max-height: 700px) {
+  .play { --c: clamp(38px, 12vw, 48px); gap: 6px; }
+  .status .round-btn { width: 34px; height: 34px; font-size: 1rem; }
+  .who { font-size: 48px; width: 56px; }
+  .item { font-size: 40px; }
+  .bubble { padding: 6px 10px; border-width: 3px; }
+  .tray { padding: 6px; }
+  .pay { padding: 7px; }
+  .pig.big { width: min(24vw, 96px); }
+}
