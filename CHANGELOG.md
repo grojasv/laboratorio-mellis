@@ -4,6 +4,14 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.32.0] — 2026-11-12
+### Added
+- Teatre de titelles: three new scene topics on top of the *Back to School* ones, so a show now draws 6 of 8 topics and no topic repeats in a round.
+  - 🧺 Food (14 words): "Can I have some cheese, please?" → tap the picture → "Yummy! I like cheese!".
+  - 👕 Clothes (11 words): "Where are my socks?" → tap the picture, it flies from the suitcase scene onto the host puppet → "I'm wearing my socks!".
+  - 👵 Family (7 words): a framed photo, "Who is this?" → tap the word → "This is my grandma!".
+  - Same Mellis rule as the other scenes. Service worker cache `mellis-v35`.
+
 ## [1.31.0] — 2026-11-12
 ### Added
 - **La botiga de la Guardiola** (`games/shop/`, Numbers shelf): pay the exact price by tapping euro coins and notes onto a tray, 8 purchases per round.

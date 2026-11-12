@@ -1,6 +1,7 @@
 // Puppet Show — English practice from the school's "Back to School" unit.
 // Build a puppet → answer "All about me" → the puppet hosts quiz scenes
-// (feelings, weather, seasons, school things, numbers to 20) → finale where she
+// (feelings, weather, seasons, school things, numbers to 20, food, clothes,
+// family: 6 of the 8 per round) → finale where she
 // reads her own "All about me" out loud and the puppet lip-syncs to her voice.
 (function () {
   const M = window.Mellis;
@@ -17,6 +18,17 @@
   const THINGS = { desk: 'desk', jumper: 'jumper', chair: 'chair', pencilcase: 'pencil case', rubber: 'rubber', ruler: 'ruler', pencil: 'pencil', pen: 'pen', book: 'book' };
   const NUMS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve',
     'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'];
+
+  // Everyday words: [word, picture, how she asks for it / wears it, "I like …"]
+  const MEALS = [['apple', '🍎', 'an apple', 'apples'], ['banana', '🍌', 'a banana', 'bananas'], ['orange', '🍊', 'an orange', 'oranges'],
+    ['egg', '🥚', 'an egg', 'eggs'], ['sandwich', '🥪', 'a sandwich', 'sandwiches'], ['bread', '🍞', 'some bread', 'bread'],
+    ['cheese', '🧀', 'some cheese', 'cheese'], ['milk', '🥛', 'some milk', 'milk'], ['chicken', '🍗', 'some chicken', 'chicken'],
+    ['rice', '🍚', 'some rice', 'rice'], ['soup', '🍲', 'some soup', 'soup'], ['salad', '🥗', 'some salad', 'salad'],
+    ['cake', '🍰', 'some cake', 'cake'], ['juice', '🧃', 'some juice', 'juice']];
+  // [word, picture, plural?]
+  const CLOTHES = [['T-shirt', '👕'], ['dress', '👗'], ['hat', '👒'], ['coat', '🧥'], ['scarf', '🧣'],
+    ['trousers', '👖', 1], ['shoes', '👟', 1], ['socks', '🧦', 1], ['gloves', '🧤', 1], ['shorts', '🩳', 1], ['boots', '🥾', 1]];
+  const FAMILY = { mum: '👩', dad: '👨', sister: '👧', brother: '👦', baby: '👶', grandma: '👵', grandad: '👴' };
 
   const ABOUT = [
     { id: 'name', q: "What's your name?", sub: { ca: 'Com et dius?', es: '¿Cómo te llamas?', en: 'Type your name' } },
@@ -230,11 +242,7 @@
   let scenes = [], sceneIdx = 0, scene = null, busy = false;
 
   function planScenes() {
-    const topics = shuffle(['feelings', 'weather', 'season', 'bag', 'numbers']);
-    let extra;
-    do { extra = pick(topics); } while (extra === topics[topics.length - 1]);
-    topics.push(extra);
-    return topics.map(makeScene);
+    return shuffle(['feelings', 'weather', 'season', 'bag', 'numbers', 'food', 'clothes', 'family']).slice(0, SCENES).map(makeScene);
   }
 
   function makeScene(topic) {
@@ -262,6 +270,22 @@
       const opts = shuffle([ans, ...shuffle(ids.filter((i) => i !== ans)).slice(0, 3)]);
       return { topic, ans, opts, q: `Put the <b>${THINGS[ans]}</b> in my bag!`, a: `I've got a ${THINGS[ans]}!` };
     }
+    if (topic === 'food' || topic === 'clothes') {
+      // picture answers, like the school bag: 1 right + 3 others
+      const list = topic === 'food' ? MEALS : CLOTHES;
+      const [ans, , form, like] = pick(list);
+      const icons = Object.fromEntries(list.map(([w, e]) => [w, e]));
+      const opts = shuffle([ans, ...shuffle(list.map(([w]) => w).filter((w) => w !== ans)).slice(0, 3)]);
+      return topic === 'food'
+        ? { topic, ans, opts, icons, q: `Can I have <b>${form}</b>, please?`, a: `Yummy! I like ${like}!` }
+        : { topic, ans, opts, icons, q: `Where ${form ? 'are' : 'is'} my <b>${ans}</b>?`, a: `I'm wearing my ${ans}!` };
+    }
+    if (topic === 'family') {
+      const ids = Object.keys(FAMILY);
+      const ans = pick(ids);
+      const opts = shuffle([ans, ...shuffle(ids.filter((i) => i !== ans)).slice(0, 3)]);
+      return { topic, ans, opts, q: 'This is my family. Who is this?', a: `This is my ${ans}!` };
+    }
     const n = 6 + Math.floor(Math.random() * 15);           // 6..20
     const lo = Math.min(n - 1, 18);
     const opts = shuffle([lo, lo + 1, lo + 2]);
@@ -286,19 +310,23 @@
     if (scene.topic === 'feelings') sc.innerHTML = `<div class="feel-scene">${A.puppetSVG(current.puppet, scene.ans)}</div>`;
     else if (scene.topic === 'weather' || scene.topic === 'season') sc.innerHTML = A.windowSVG(scene.ans);
     else if (scene.topic === 'bag') sc.innerHTML = '<div class="bag-scene" id="bag">🎒</div>';
+    else if (scene.topic === 'food') sc.innerHTML = '<div class="bag-scene" id="bag">🧺</div>';
+    else if (scene.topic === 'clothes') sc.innerHTML = '<div class="bag-scene">🧳</div>'; // the clothes fly to the host puppet
+    else if (scene.topic === 'family') sc.innerHTML = `<div class="photo-scene">${FAMILY[scene.ans]}</div>`;
     else sc.innerHTML = A.pencilsSVG(scene.ans);
     $('host-puppet').style.visibility = scene.topic === 'feelings' ? 'hidden' : '';
     $('question').innerHTML = scene.q;
     const opts = $('options');
     opts.style.gridTemplateColumns = scene.topic === 'numbers' ? '1fr 1fr 1fr' : '';
-    opts.innerHTML = scene.opts.map((o) => scene.topic === 'bag'
-      ? `<button class="opt pic" data-v="${o}">${A.thingHTML(o)}</button>`
+    opts.innerHTML = scene.opts.map((o) => scene.topic === 'bag' || scene.icons
+      ? `<button class="opt pic" data-v="${o}">${scene.icons ? `<span class="thing-emoji">${scene.icons[o]}</span>` : A.thingHTML(o)}</button>`
       : `<button class="opt" data-v="${o}">${scene.topic === 'numbers' ? NUMS[o] : o}</button>`).join('');
     speaker().classList.remove('talking');
     setTimeout(() => talk(speaker(), scene.q), 250);
   }
   // in the feelings scene the big puppet on the stage is the one talking
   window.__puppetScene = () => scene; // for automated testing
+  window.__puppetTopic = (topic) => { scenes[sceneIdx] = makeScene(topic); nextScene(); }; // test hook: swap the current scene
   function speaker() { return scene && scene.topic === 'feelings' ? $('scene').firstElementChild : $('host-puppet'); }
 
   $('say').addEventListener('click', () => { M.sounds.pop(); talk(speaker(), scene.q); });
@@ -325,7 +353,7 @@
     const btn = [...$('options').children].find((x) => String(x.dataset.v) === String(scene.ans));
     btn.classList.add('reveal');
     if (!revealed) M.sounds.match();
-    if (scene.topic === 'bag') flyIntoBag(btn);
+    if (scene.topic === 'bag' || scene.icons) flyIntoBag(btn);
     setTimeout(() => talk(speaker(), scene.a, () => setTimeout(advance, 500)), revealed ? 600 : 300);
   }
   function advance() {
@@ -334,7 +362,8 @@
     else startFinale();
   }
   function flyIntoBag(btn) {
-    const from = btn.getBoundingClientRect(), to = $('bag').getBoundingClientRect();
+    const target = () => (scene.topic === 'clothes' ? $('host-puppet') : $('bag'));
+    const from = btn.getBoundingClientRect(), to = target().getBoundingClientRect();
     const f = document.createElement('div');
     f.className = 'flying';
     f.innerHTML = btn.innerHTML;
@@ -346,7 +375,7 @@
       { transform: `translate(${dx}px, ${dy}px) scale(.3)`, opacity: 0.6 }], { duration: 700, easing: 'ease-in', fill: 'forwards' });
     setTimeout(() => {
       f.remove();
-      const bag = $('bag');
+      const bag = target();
       if (bag) bag.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.2, .85)' }, { transform: 'scale(1)' }], { duration: 300 });
     }, 720);
   }

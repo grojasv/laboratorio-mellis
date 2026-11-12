@@ -146,6 +146,11 @@ body.theatre {
 .scene .window, .scene .table { width: min(100%, 300px); height: auto; }
 .scene .bag-scene { font-size: 5rem; position: relative; }
 .scene .feel-scene { width: 120px; aspect-ratio: 200 / 282; }
+.scene .photo-scene {
+  font-size: 4.6rem; line-height: 1; padding: 10px 16px 14px; background: #fff8ef;
+  border: 8px solid #b9772f; border-radius: 10px; box-shadow: inset 0 0 0 3px #7a4a17, 0 6px 0 rgba(0, 0, 0, .25);
+  transform: rotate(-3deg);
+}
 .host-puppet { width: 88px; flex: none; aspect-ratio: 200 / 282; }
 
 .options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -163,6 +168,7 @@ body.theatre {
   .scene .window, .scene .table { width: min(100%, 230px); }
   .scene .feel-scene { width: 96px; }
   .scene .bag-scene { font-size: 4rem; }
+  .scene .photo-scene { font-size: 3.4rem; padding: 6px 12px 10px; }
   .host-puppet { width: 66px; }
   .opt { min-height: 62px; padding: 8px 6px; }
   .opt.pic { height: 88px; }

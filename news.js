@@ -99,4 +99,7 @@ window.MELLIS_NEWS = [
   { id: 32, date: '2026-11-12', icon: '🛒', type: 'game', game: 'shop',
     title: { ca: 'Nou: La botiga de la Guardiola!', es: '¡Nuevo: La tienda de Hucha!', en: "New: Penny's Shop!" },
     text: { ca: 'Paga amb euros i torna el canvi', es: 'Paga con euros y devuelve el cambio', en: 'Pay with euros and give the change' } },
+  { id: 33, date: '2026-11-12', icon: '🎭', type: 'change', game: 'puppets',
+    title: { ca: 'Escenes noves al teatre!', es: '¡Escenas nuevas en el teatro!', en: 'New scenes at the Puppet Show!' },
+    text: { ca: 'Menjar, roba i família en anglès', es: 'Comida, ropa y familia en inglés', en: 'Food, clothes and family in English' } },
 ];

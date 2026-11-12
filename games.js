@@ -135,11 +135,11 @@ window.MELLIS_GAMES = [
     icon: '🎭',
     color: '#c0392b',
     name: { ca: 'Teatre de titelles', es: 'Teatro de títeres', en: 'Puppet Show' },
-    tagline: { ca: 'Anglès: Back to School', es: 'Inglés: Back to School', en: 'English: Back to School' },
+    tagline: { ca: 'Anglès: escola, menjar, roba, família', es: 'Inglés: cole, comida, ropa, familia', en: 'English: school, food, clothes, family' },
     guide: {
-      ca: "Anglès de la unitat \"Back to School\": crea un titella, respon \"All about me\" i el titella presenta escenes (emocions, temps, estacions, material escolar, comptar fins a 20). Al final llegeix en veu alta i el titella mou la boca amb la seva veu.",
-      es: "Inglés de la unidad \"Back to School\": crea un títere, responde \"All about me\" y el títere presenta escenas (emociones, tiempo, estaciones, material escolar, contar hasta 20). Al final lee en voz alta y el títere mueve la boca con su voz.",
-      en: "English from the \"Back to School\" unit: make a puppet, answer \"All about me\", and the puppet hosts scenes (feelings, weather, seasons, school things, counting to 20). At the end she reads aloud and the puppet lip-syncs to her voice.",
+      ca: "Anglès de la unitat \"Back to School\": crea un titella, respon \"All about me\" i el titella presenta escenes (emocions, temps, estacions, material escolar, comptar fins a 20, menjar, roba i família). Al final llegeix en veu alta i el titella mou la boca amb la seva veu.",
+      es: "Inglés de la unidad \"Back to School\": crea un títere, responde \"All about me\" y el títere presenta escenas (emociones, tiempo, estaciones, material escolar, contar hasta 20, comida, ropa y familia). Al final lee en voz alta y el títere mueve la boca con su voz.",
+      en: "English from the \"Back to School\" unit: make a puppet, answer \"All about me\", and the puppet hosts scenes (feelings, weather, seasons, school things, counting to 20, food, clothes and family). At the end she reads aloud and the puppet lip-syncs to her voice.",
     },
   },
   {
