@@ -4,6 +4,10 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.32.1] — 2026-11-12
+### Fixed
+- Hub at 320 px wide: the mute button was cut off and the page scrolled sideways by 12 px. Below 345 px the logo and the flag and mute buttons are a little smaller (44 px), so the top bar fits. Service worker cache `mellis-v36`.
+
 ## [1.32.0] — 2026-11-12
 ### Added
 - Teatre de titelles: three new scene topics on top of the *Back to School* ones, so a show now draws 6 of 8 topics and no topic repeats in a round.

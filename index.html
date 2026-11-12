@@ -183,6 +183,11 @@
       .game .tag { font-size: clamp(.72rem, 3.3vw, .85rem); padding: 2px 8px; line-height: 1.2; }
       .section-title { margin: 18px 4px 8px; }
     }
+    /* Narrow phones (320 px): the logo plus the 3 flags and the mute button must fit the top bar */
+    @media (max-width: 345px) {
+      .logo { font-size: 1.35rem; }
+      .topbar .flag, .topbar .mute { width: 44px; height: 44px; border-radius: 14px; }
+    }
     @media (max-width: 380px) {
       .news-item { flex-wrap: wrap; gap: 8px; }
       .n-icon { font-size: 2.1rem; }
