@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#e8f4ff">
+  <link rel="manifest" href="../../manifest.webmanifest">
+  <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Mellis">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>Calendari · Laboratorio Mellis</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📅</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../shared/styles.css">
+  <link rel="stylesheet" href="../../shared/game.css">
+  <link rel="stylesheet" href="calendar.css">
+</head>
+<body class="cal-bg">
+  <header class="topbar">
+    <a class="home" href="../../index.html" aria-label="home">🏠</a>
+    <h1 class="title" id="title"></h1>
+    <div id="controls"></div>
+  </header>
+
+  <!-- Picker: the month page, then a level -->
+  <main id="levels" class="picker">
+    <div class="picker-head">
+      <button class="round-btn" id="album-btn" aria-label="album">📒</button>
+      <div class="full big" id="full-levels" data-host></div>
+      <button class="round-btn" id="music-levels"></button>
+    </div>
+    <div class="months" id="months"></div>
+    <div class="level-buttons">
+      <button class="level" data-level="1" style="background:var(--teal)">
+        <span class="level-icons">☀️</span><span class="level-name" id="l1-name"></span><span class="level-sub" id="l1-sub"></span>
+      </button>
+      <button class="level" data-level="2" style="background:var(--orange)">
+        <span class="level-icons">🗓️</span><span class="level-name" id="l2-name"></span><span class="level-sub" id="l2-sub"></span>
+      </button>
+      <button class="level" data-level="3" style="background:var(--purple)">
+        <span class="level-icons">🦘</span><span class="level-name" id="l3-name"></span><span class="level-sub" id="l3-sub"></span>
+      </button>
+      <button class="level" data-level="4" style="background:#e5383b">
+        <span class="level-icons">🌍</span><span class="level-name" id="l4-name"></span><span class="level-sub" id="l4-sub"></span>
+      </button>
+    </div>
+  </main>
+
+  <!-- Play -->
+  <main id="play" class="play" hidden>
+    <div class="status">
+      <button class="round-btn" id="back" aria-label="levels">⬅️</button>
+      <div id="hearts"></div>
+      <div class="progress" id="progress"></div>
+    </div>
+    <div class="scene">
+      <div class="full" id="full" data-host></div>
+      <button class="bubble" id="bubble"><span id="mission"></span><span class="again">🔊</span></button>
+    </div>
+    <div class="cal">
+      <p class="cal-title" id="cal-title"></p>
+      <div class="dow" id="dow"></div>
+      <div class="grid" id="grid"></div>
+    </div>
+    <div class="opts" id="opts"></div>
+  </main>
+
+  <!-- Round finished -->
+  <div id="win" class="win" hidden>
+    <div class="win-box">
+      <div class="full win-full" id="full-win" data-host></div>
+      <p class="win-text" id="win-text"></p>
+      <div id="win-stars" class="win-stars"></div>
+      <div class="prize" id="prize"></div>
+      <div class="win-buttons">
+        <button class="big-btn" id="again" style="background:var(--pink)">🔁</button>
+        <button class="big-btn" id="other" style="background:var(--teal)">🎚️</button>
+        <a class="big-btn" href="../../index.html" style="background:var(--yellow)">🏠</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- El meu calendari: sticker album, 12 months × 3 -->
+  <div id="album" class="win" hidden>
+    <div class="win-box album-box">
+      <p class="win-text" id="album-title"></p>
+      <p class="album-count" id="album-count"></p>
+      <div class="cal-grid" id="cal-grid"></div>
+      <button class="big-btn album-ok stick-bottom" id="album-close" style="background:var(--yellow)">👍</button>
+    </div>
+  </div>
+
+  <script src="../../shared/app.js"></script>
+  <script src="calendar.js"></script>
+</body>
+</html>

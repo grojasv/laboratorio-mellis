@@ -1,7 +1,7 @@
 // Shared helpers for the hub and every game: language, sound, mascots.
 // Classic script (no modules) so pages also work when opened straight from disk.
 (function () {
-  const VERSION = '1.35.0'; // bump on every release (shown in the hub footer), with CACHE in sw.js
+  const VERSION = '1.36.0'; // bump on every release (shown in the hub footer), with CACHE in sw.js
   const LANGS = ['ca', 'es', 'en'];
   const LANG_KEY = 'mellis.lang';
   const MUTE_KEY = 'mellis.muted';
@@ -687,7 +687,7 @@
   // Confetti burst on a full-screen canvas: paper bits plus the game's own things
   // (coins in the shop, acorns in Memory...). M.confetti(['🪙']) overrides the theme.
   const CONFETTI = {
-    shop: ['🪙', '💶', '🛒'], memory: ['🌰', '🍂', '🌸'], potions: ['🫧', '✨', '🧪'], monsters: ['🎃', '👻', '🦇'],
+    shop: ['🪙', '💶', '🛒'], calendar: ['📅', '📄', '⭐'], memory: ['🌰', '🍂', '🌸'], potions: ['🫧', '✨', '🧪'], monsters: ['🎃', '👻', '🦇'],
     detective: ['🔍', '👣', '🕵️'], clock: ['⏰', '🐦', '🍕'], cheetah: ['🐾', '⚡', '🏁'], reading: ['📖', '⭐', '🎈'],
     puppets: ['🎭', '🎀', '⭐'], radio: ['🎙️', '🎵', '📻'], passport: ['📚', '🛂', '⭐'], crafts: ['✂️', '⭐', '🎨'],
     animals: ['🐾', '🦋', '🐞'], body: ['💪', '❤️', '🍎'], town: ['🏠', '🌳', '🚲'], friends: ['💛', '🤝', '🌈'],

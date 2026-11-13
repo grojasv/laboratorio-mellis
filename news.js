@@ -111,4 +111,7 @@ window.MELLIS_NEWS = [
   { id: 36, date: '2026-11-13', icon: '🐿️', type: 'game', game: 'memory',
     title: { ca: 'Memory nou de trinca!', es: '¡Memory nuevo del todo!', en: 'A brand-new Memory!' },
     text: { ca: 'Tria joc, juga sola o per torns i omple el rebost de la Nou', es: 'Elige juego, juega sola o por turnos y llena la despensa de Nou', en: "Pick a game, play alone or in turns and fill Nou's pantry" } },
+  { id: 37, date: '2026-11-13', icon: '📅', type: 'game', game: 'calendar',
+    title: { ca: "Joc nou: El calendari d'en Full!", es: '¡Juego nuevo: El calendario de Hojita!', en: "New game: Paige's Calendar!" },
+    text: { ca: 'Missions amb els dies, els mesos i les festes', es: 'Misiones con los días, los meses y las fiestas', en: 'Missions with days, months and holidays' } },
 ];

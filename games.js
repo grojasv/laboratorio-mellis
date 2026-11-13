@@ -18,6 +18,20 @@ window.MELLIS_GAMES = [
     },
   },
   {
+    id: 'calendar',
+    shelf: 'maths',
+    path: 'games/calendar/index.html',
+    icon: '📅',
+    color: '#e5383b',
+    name: { ca: "El calendari d'en Full", es: 'El calendario de Hojita', en: "Paige's Calendar" },
+    tagline: { ca: 'Dies, setmanes, mesos i festes', es: 'Días, semanas, meses y fiestas', en: 'Days, weeks, months & holidays' },
+    guide: {
+      ca: "Missions sobre el calendari real de l'any: demà, d'aquí a 3 dies, fa una setmana, quin dia cau Sant Jordi. Treballa els dies, les dates, els mesos i les estacions.",
+      es: "Misiones sobre el calendario real del año: mañana, dentro de 3 días, hace una semana, qué día cae Sant Jordi. Trabaja los días, las fechas, los meses y las estaciones.",
+      en: "Missions on the real calendar of the year: tomorrow, in 3 days, a week ago, what day a holiday falls on. Practises days, dates, months and seasons.",
+    },
+  },
+  {
     id: 'potions',
     shelf: 'maths',
     path: 'games/potions/index.html',

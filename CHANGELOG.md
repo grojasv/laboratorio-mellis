@@ -4,6 +4,18 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.36.0] — 2026-11-13
+### Added
+- **El calendari d'en Full** (`games/calendar/`, shelf Numbers): missions on a real month page of the real year, Monday first, hosted by Full the tear-off calendar page.
+  - She picks any month of the year (the real one is marked and preselected) and one of 4 levels; 8 missions per round with the Mellis rule (`Mellis.round`): the 2nd miss on a mission shows the right day or answer.
+  - The first mission of a visit on the current month's page asks for the real today.
+  - Levels: the week (day before/after, yesterday, tomorrow, weekend) · the month (day of the week of a date, nth weekday, last day, how many Mondays, days in the month, holidays) · jumps from a pretend "today" (days and weeks forward and back, how many days until a date or a holiday) · the year (month order, the month of a written date, days in each month, the month of a holiday, seasons, jumps into the next month's first days).
+  - Important dates, Mallorca + Spain: Cap d'Any, Reis, Sant Antoni, Carnaval, Dia de les Illes Balears, Pasqua, Sant Jordi, Festa del Treball, Sant Joan, Mare de Déu d'Agost, Festa Nacional, les Verges, Halloween, Tots Sants, Constitució, Nadal, Nit de Cap d'Any and the first day of each season. Easter and Carnival are computed for the year; the season starts use fixed days (20/3, 21/6, 23/9, 21/12).
+  - Reward: the *El meu calendari* sticker album from the old Memory returns (12 months × 3, same key `mellis.memory.calendar` and format, so earlier stickers are kept). A round gives one sticker of the month played, two golden ones on ⭐⭐⭐.
+  - The background and music follow the season of the month played. Uses the shared host, `M.fly` (a torn page flies to the progress row), `M.confetti`, `M.starsHTML`, `M.store`.
+- Trophy room and hub rings: new `calendar` reader in `shared/rewards.js` (36 stickers).
+- `games.js` entry with shelf and guide, files in `PRECACHE`, service worker cache `mellis-v42`.
+
 ## [1.35.0] — 2026-11-13
 ### Changed
 - **Memory is a new game: Memory de la Nou** (replaces *Memory dels mesos*; same folder `games/memory/`, same id). Classic pairs, hosted by Nou the squirrel:

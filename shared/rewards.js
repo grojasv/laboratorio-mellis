@@ -16,6 +16,12 @@
     doubles: ['🥕', '🌽', '🥦', '🎃', '🫛'], clock: ['🧀', '🥖', '🥐', '🥨', '🧇'], money: ['🍪', '🍩', '🧁', '🍫', '🍬'],
     english: ['🥞', '🍰', '🥧', '🍮', '🍭'], mix: ['🍉', '🍍', '🥥', '🥭', '🍈'],
   };
+  // El calendari d'en Full: the calendar stickers, 12 months × 3 (same list as games/calendar/calendar.js)
+  const MONTH_STICKERS = [
+    ['👑', '⛄', '🎿'], ['🎭', '🥞', '💌'], ['🌱', '🪁', '🐣'], ['🌹', '📚', '☔'],
+    ['🌼', '🐝', '🍓'], ['🔥', '🎆', '🍒'], ['🏖️', '🍦', '🏊'], ['🍉', '⛱️', '🌻'],
+    ['🎒', '🍇', '✏️'], ['🎃', '🍄', '🦇'], ['🌰', '🍠', '🍂'], ['🎄', '🎁', '⭐'],
+  ];
   // Chita's wardrobe: [emoji, stars needed]
   const WARDROBE = [['🧣', 3], ['💖', 4], ['🎀', 6], ['🧢', 10], ['⭐', 12], ['🦸‍♀️', 15], ['🌈', 18], ['👑', 21]];
 
@@ -24,6 +30,11 @@
       const a = S.get('mellis.memory.pantry', {});
       const items = keys(a).map((k) => { const [d, i] = k.split('-'); return { e: (PANTRY[d] || [])[i], g: a[k] === 2 }; }).filter((i) => i.e);
       return { name: L('El rebost de la Nou', 'La despensa de Nou', "Nou's pantry"), total: 40, items };
+    },
+    calendar() {
+      const a = S.get('mellis.memory.calendar', {});   // the album started in the old Memory keeps its key
+      const items = keys(a).map((k) => { const [m, s] = k.split('-'); return { e: (MONTH_STICKERS[m] || [])[s], g: a[k] === 2 }; }).filter((i) => i.e);
+      return { name: L('El meu calendari', 'Mi calendario', 'My calendar'), total: 36, items };
     },
     potions() {
       const gold = S.get('mellis.potions.gold', []);
