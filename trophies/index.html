@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffe9f5">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Mellis">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>Sala de trofeus · Laboratorio Mellis</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared/styles.css">
+  <link rel="stylesheet" href="../shared/game.css">
+  <style>
+    /* The trophy room: one bookcase, one shelf per game, every reward standing on its plank */
+    .room { max-width: 640px; margin: 0 auto; padding: 0 12px max(24px, env(safe-area-inset-bottom)); }
+    .room-head { display: flex; align-items: center; gap: 10px; margin: 0 4px 10px; }
+    .room-head .mini-twins { width: clamp(64px, 20vw, 96px); }
+    .room-say { flex: 1; min-width: 0; }
+    .room-say p { margin: 0 0 6px; font-size: clamp(1.05rem, 4.6vw, 1.4rem); font-weight: 700; line-height: 1.15; }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chip { background: #fff; border: 3px solid var(--ink); border-radius: 999px; padding: 1px 10px; font-weight: 700; font-size: 1rem; white-space: nowrap; }
+    .chip.gold { background: var(--yellow); }
+
+    .case {
+      background: #8a5a34; border: 4px solid var(--ink); border-radius: 22px; box-shadow: 0 8px 0 var(--ink);
+      padding: 10px 8px 4px; display: flex; flex-direction: column; gap: 10px;
+      background-image: repeating-linear-gradient(90deg, rgba(0, 0, 0, .06) 0 2px, transparent 2px 22px);
+    }
+    .t-shelf {
+      display: block; text-decoration: none; color: var(--ink);
+      background: #fdf3e1; border: 3px solid var(--ink); border-radius: 14px 14px 6px 6px;
+      border-bottom: 10px solid #5e3a1e; padding: 6px 8px 6px;
+      animation: shelf-in .45s cubic-bezier(.3, 1.4, .6, 1) backwards; animation-delay: calc(var(--n, 0) * 60ms);
+      transition: transform .2s cubic-bezier(.3, 1.9, .6, 1);
+    }
+    .t-shelf:active { transform: scale(.97); }
+    @keyframes shelf-in { from { transform: translateX(-30px); opacity: 0; } }
+    .t-plate { display: flex; align-items: center; gap: 8px; }
+    .t-icon {
+      flex: none; width: 40px; height: 40px; display: grid; place-items: center; font-size: 1.5rem; line-height: 1;
+      background: var(--c); border: 3px solid var(--ink); border-radius: 12px;
+    }
+    .t-names { flex: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.1; }
+    .t-names b { font-size: clamp(1rem, 4.4vw, 1.2rem); }
+    .t-names small { font-size: .82rem; color: #7a6a5a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .t-count { flex: none; background: #fff; border: 3px solid var(--ink); border-radius: 999px; padding: 0 8px; font-weight: 700; font-size: .95rem; white-space: nowrap; }
+    .full .t-count { background: var(--yellow); }
+    .t-go { flex: none; width: 36px; height: 36px; display: grid; place-items: center; background: var(--teal); color: #fff; border: 3px solid var(--ink); border-radius: 50%; box-shadow: 0 3px 0 var(--ink); font-size: 1rem; }
+
+    .t-row { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; min-height: 36px; align-items: flex-end; }
+    .t-item {
+      width: 34px; height: 34px; display: grid; place-items: center; font-size: 1.35rem; line-height: 1;
+      background: #fff; border: 2px solid var(--ink); border-radius: 9px;
+      animation: pop-in-c .3s cubic-bezier(.3, 1.6, .6, 1) backwards; animation-delay: calc(var(--n, 0) * 60ms + var(--i, 0) * 25ms + 150ms);
+    }
+    .t-item.g { background: radial-gradient(circle, #fff6c9, #ffd23f); box-shadow: 0 0 8px 1px rgba(255, 210, 63, .9); }
+    .t-item.slot { background: rgba(94, 58, 30, .1); border: 2px dashed rgba(94, 58, 30, .35); animation: none; }
+    .t-item.more { background: var(--ink); color: #fff; font-size: .8rem; font-weight: 700; }
+    .t-empty { margin: 0; font-size: .95rem; font-weight: 700; color: #7a6a5a; }
+    .full { background: #fff6cf; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="home" href="../index.html" aria-label="home">🏠</a>
+    <h1 class="title" id="title"></h1>
+    <div id="controls"></div>
+  </header>
+
+  <main class="room">
+    <section class="room-head">
+      <div class="mini-twins" id="twins" data-host></div>
+      <div class="room-say"><p id="say"></p><div class="chips" id="chips"></div></div>
+    </section>
+    <div class="case" id="case"></div>
+  </main>
+
+  <script src="../shared/app.js"></script>
+  <script src="../games.js"></script>
+  <script src="../shared/rewards.js"></script>
+  <script>
+    (function () {
+      const M = window.Mellis, R = window.MELLIS_REWARDS;
+      const $ = (id) => document.getElementById(id);
+      const L = (ca, es, en) => ({ ca, es, en });
+      const TEXT = {
+        title: L('Sala de trofeus', 'Sala de trofeos', 'Trophy room'),
+        say: L('Mireu tot el que heu guanyat!', '¡Mirad todo lo que habéis ganado!', "Look at everything you've won!"),
+        none: L('Encara no hi ha res. Juguem i omplim els prestatges!', 'Todavía no hay nada. ¡Juguemos y llenemos los estantes!', "Nothing here yet. Let's play and fill the shelves!"),
+        empty: L('Encara buit. Juga per omplir-lo!', 'Todavía vacío. ¡Juega para llenarlo!', 'Still empty. Play to fill it!'),
+      };
+      const MAX = 24; // tiles shown per shelf (the count always shows the real number)
+      const games = [...window.MELLIS_GAMES, ...window.MELLIS_LEARN];
+
+      function shelfHTML(g, r, n) {
+        const shown = r.items.slice(0, r.items.length > MAX ? MAX - 1 : MAX);
+        const tiles = shown.map((it, i) => `<span class="t-item${it.g ? ' g' : ''}" style="--i:${i}">${it.e}</span>`).join('') +
+          (r.items.length > shown.length ? `<span class="t-item more">+${r.items.length - shown.length}</span>` : '');
+        // a closed collection shows the places still to fill
+        const slots = r.total ? '<span class="t-item slot"></span>'.repeat(Math.max(0, Math.min(r.total, MAX) - Math.min(r.items.length, MAX))) : '';
+        return `
+          <a class="t-shelf${r.full ? ' full' : ''}" href="../${g.path}" style="--c:${g.color};--n:${n}">
+            <span class="t-plate">
+              <span class="t-icon">${g.icon}</span>
+              <span class="t-names"><b>${M.t(r.name)}</b><small>${M.t(g.name)}</small></span>
+              <span class="t-count">${r.full ? '🏆 ' : ''}${r.have}${r.total ? '/' + r.total : ''}</span>
+              <span class="t-go">▶</span>
+            </span>
+            <span class="t-row">${r.items.length ? tiles + slots : `<span class="t-empty">${M.t(TEXT.empty)}</span>`}</span>
+          </a>`;
+      }
+
+      function render() {
+        document.title = `${M.t(TEXT.title)} · Laboratorio Mellis`;
+        $('title').textContent = M.t(TEXT.title);
+        const rows = games.map((g) => ({ g, r: R.read(g.id) })).filter((x) => x.r);
+        const have = rows.reduce((n, x) => n + x.r.items.length, 0);
+        const gold = rows.reduce((n, x) => n + x.r.gold, 0);
+        const full = rows.filter((x) => x.r.full).length;
+        $('say').textContent = M.t(have ? TEXT.say : TEXT.none);
+        $('chips').innerHTML = `<span class="chip">🏅 ${have}</span><span class="chip gold">🥇 ${gold}</span><span class="chip">🏆 ${full}</span>`;
+        // shelves with something on them first, in the hub's order
+        rows.sort((a, b) => (b.r.items.length > 0) - (a.r.items.length > 0));
+        $('case').innerHTML = rows.map((x, n) => shelfHTML(x.g, x.r, n)).join('');
+      }
+
+      M.mountControls($('controls'));
+      $('twins').innerHTML = M.mascotsSVG('cheer');
+      $('twins').addEventListener('click', () => M.speak(M.t(TEXT.say).replace(/[¡!]/g, ''), M.lang));
+      $('case').addEventListener('click', (e) => { if (e.target.closest('.t-shelf')) M.sounds.pop(); });
+      render();
+      M.onLang(render);
+      // coming back from a game with the back button: show what was just won
+      window.addEventListener('pageshow', (e) => { if (e.persisted) render(); });
+    })();
+  </script>
+</body>
+</html>

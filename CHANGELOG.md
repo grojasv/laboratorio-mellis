@@ -4,6 +4,16 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.34.0] — 2026-11-13
+### Added
+- **Trophy room** (`trophies/`, opened from the gold 🏆 button on the hub): one bookcase with a shelf per game. Each shelf shows the collection's name, the count (`12/30`), every reward as a tile (golden ones glow, empty places are dashed, more than 24 collapse into `+N`) and a ▶ that opens the game. Shelves with rewards come first. The header counts all rewards, golden ones and finished collections.
+- **Progress rings on the hub cards**: a gold arc shows how full that game's collection is, with the number inside; a finished collection shows 🏆. Open collections (monsters, books, photos, puppet stickers) show the count on a full ring.
+- **`shared/rewards.js`** (`MELLIS_REWARDS.read(id)`): the one place that reads what each game already saves. 15 collections; Ràdio Mellis has none (its shows live in IndexedDB). No game was changed and no saved data was touched.
+- Service worker cache `mellis-v39`; `shared/rewards.js` and `trophies/index.html` are precached.
+### Known limits
+- Rewards that the games draw themselves (monsters, thieves, cuckoos, lesson cards) appear as a stand-in emoji, not as their own drawing.
+- The collection totals in `shared/rewards.js` repeat each game's own list, so a game that adds rewards must update its reader there.
+
 ## [1.33.1] — 2026-11-13
 ### Fixed
 - La cursa de la Chita: her own idle rule (`#home-chita svg`) outranked the shared host, so she did not dance on a right answer or hop when tapped. The rule is gone; the shared host moves her.

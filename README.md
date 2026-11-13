@@ -42,6 +42,10 @@ School subjects as short interactive lessons, following what the girls study thi
 | 🏘️ El meu poble | Made-up *Poble Mellis* map: 1. Places (tap the 12 buildings, "where would you go if…?" and a walker strolls there, odd one out) · 2. Jobs (walk each worker to their workplace, what they work with, who works where). The map colours in as she learns (album). Data in `learn/town/town-data.js` |
 | 💛 Bons amics | Short stories with the Mellis and classmates: 1. Being a good friend · 2. Is it fair? · 3. When we get angry. She picks what a good friend would do; wrong choices show the consequence (no hearts), then "How does … feel?". Friendship-corner stickers. Data in `learn/friends/friends-data.js` |
 
+## Sala de trofeus
+
+`trophies/` is the trophy room, opened from the hub's 🏆 button: a bookcase with one shelf per game showing every reward she has collected, with a ▶ to that game. The hub cards carry a progress ring for the same collection. Both read `shared/rewards.js`, which knows where each game saves its rewards.
+
 ## Per a famílies i mestres
 
 `families/` is a guide for parents and teachers (CA/ES/EN), linked from the hub footer: the idea behind the lab, each game's goal (the `guide` field in `games.js`) and tips for adults. Its 📤 button shares the guide's own link, so whoever receives it lands there first.
@@ -64,6 +68,8 @@ Plain HTML/CSS/JS, with no build step.
 index.html          hub
 games.js            game catalogue shown on the hub (+ guide texts for families/)
 families/           guide for parents & teachers
+trophies/           trophy room: every game's rewards on shelves
+shared/rewards.js   reads each game's saved rewards (hub rings + trophy room)
 news.js             kid-friendly news (hub 🎁 button)
 CHANGELOG.md        technical changelog (SemVer)
 shared/app.js       language, sounds, mascots, confetti, Mellis rule, hosts (data-host), fly, store / pick / shuffle helpers (window.Mellis)

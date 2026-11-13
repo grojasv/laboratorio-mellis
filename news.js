@@ -105,4 +105,7 @@ window.MELLIS_NEWS = [
   { id: 34, date: '2026-11-13', icon: '✨', type: 'change',
     title: { ca: 'Tot es mou més!', es: '¡Todo se mueve más!', en: 'Everything moves more!' },
     text: { ca: 'Els personatges et miren i ballen, i les estrelles cauen una a una', es: 'Los personajes te miran y bailan, y las estrellas caen una a una', en: 'The characters watch you and dance, and the stars drop in one by one' } },
+  { id: 35, date: '2026-11-13', icon: '🏆', type: 'change',
+    title: { ca: 'Nova: la sala de trofeus!', es: '¡Nueva: la sala de trofeos!', en: 'New: the trophy room!' },
+    text: { ca: 'Tots els premis junts, i cada joc ensenya quants en tens', es: 'Todos los premios juntos, y cada juego enseña cuántos tienes', en: 'All your prizes together, and each game shows how many you have' } },
 ];

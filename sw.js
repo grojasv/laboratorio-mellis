@@ -4,7 +4,7 @@
 // the cache straight away and refreshed in the background.
 // When you add a game, add its files to PRECACHE (or they get cached on first visit).
 // Every release: bump CACHE here and VERSION in shared/app.js.
-const CACHE = 'mellis-v38';
+const CACHE = 'mellis-v39';
 const NET_TIMEOUT = 3000;
 const PRECACHE = [
   './',
@@ -59,6 +59,8 @@ const PRECACHE = [
   './games/potions/potions.css',
   './games/potions/potions.js',
   './games/reading/index.html',
+  './shared/rewards.js',
+  './trophies/index.html',
   './games/shop/index.html',
   './games/shop/shop.css',
   './games/shop/shop.js',

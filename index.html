@@ -139,6 +139,24 @@
       border-top: 3px solid #fff; border-bottom: 3px solid #fff;
       box-shadow: 0 3px 0 rgba(0,0,0,.2);
     }
+    /* Progress ring on a card: how full that game's collection is */
+    .ring {
+      position: absolute; top: 6px; left: 6px; z-index: 2; width: 34px; height: 34px; border-radius: 50%;
+      background: conic-gradient(#ffd23f calc(var(--p) * 1%), rgba(255, 255, 255, .55) 0);
+      border: 2px solid var(--ink); display: grid; place-items: center;
+    }
+    .ring b { width: 22px; height: 22px; border-radius: 50%; background: #fff; color: var(--ink); display: grid; place-items: center; font-size: .72rem; line-height: 1; }
+    .ring.full b { background: #ffd23f; font-size: .85rem; }
+    /* Door to the trophy room */
+    .trophy-door {
+      display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; color: var(--ink);
+      width: 100%; margin: 0 0 14px; background: linear-gradient(90deg, #ffe9a8, #ffd23f);
+      border: 4px solid var(--ink); border-radius: 22px; box-shadow: 0 6px 0 var(--ink);
+      padding: 8px 12px; font-size: 1.2rem; font-weight: 700;
+      transition: transform .2s cubic-bezier(.3, 1.9, .6, 1);
+    }
+    .trophy-door:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--ink); }
+    .trophy-door b { background: #fff; border: 3px solid var(--ink); border-radius: 999px; padding: 0 10px; font-size: 1rem; }
     .hub-foot { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 28px; }
     .hub-foot .install { margin: 0; }
     .families-link { color: var(--ink); text-decoration: none; font-size: 1rem; }
@@ -263,6 +281,7 @@
       <p class="bubble-talk" id="greeting"></p>
     </section>
     <button class="news-banner" id="news-banner" hidden>🎁 <span id="news-banner-label"></span> <b class="news-count" id="news-count"></b></button>
+    <a class="trophy-door" id="trophy-door" href="trophies/index.html">🏆 <span id="trophy-label"></span> <b id="trophy-count"></b></a>
     <div id="shelves"></div>
     <div class="hub-foot">
       <button class="install" id="news-all">🎁 <span id="news-all-label"></span></button>
@@ -285,6 +304,7 @@
   <script src="shared/app.js"></script>
   <script src="games.js"></script>
   <script src="news.js"></script>
+  <script src="shared/rewards.js"></script>
   <script>
     const M = window.Mellis;
     document.getElementById('version').textContent = 'v' + M.VERSION;
@@ -469,9 +489,17 @@
       if (!document.getElementById('news-pop').hidden) renderNews();
       document.getElementById('install-label').textContent = M.t(INSTALL);
       document.getElementById('families-label').textContent = M.t(FAMILIES);
-      let n = 0;
+      let n = 0, won = 0;
+      // ring: gold arc = how much of the collection she has; the number is how many
+      const ring = (g) => {
+        const r = window.MELLIS_REWARDS.read(g.id);
+        if (!r || (!r.total && !r.have)) return '';
+        const p = r.total ? Math.round(r.have / r.total * 100) : 100;
+        return `<span class="ring${r.full ? ' full' : ''}" style="--p:${p}"><b>${r.full ? '🏆' : r.have}</b></span>`;
+      };
       const card = (g) => `
         <a class="game" href="${g.path}" style="background:${g.color};--n:${n++}">
+          ${ring(g)}
           ${isNewGame(g.id) ? `<span class="new-sticker">${M.t(NT.sticker)}</span>` : ''}
           <span class="icon">${g.icon}</span>
           <span class="name">${M.t(g.name)}</span>
@@ -479,6 +507,9 @@
         </a>`;
       // ⭐ Today: new games first, then the last ones played; then one shelf per school subject
       const all = [...window.MELLIS_GAMES, ...window.MELLIS_LEARN];
+      all.forEach((g) => { const r = window.MELLIS_REWARDS.read(g.id); if (r) won += r.items.length; });
+      document.getElementById('trophy-label').textContent = M.t(TROPHIES);
+      document.getElementById('trophy-count').textContent = won;
       const byId = (id) => all.find((g) => g.id === id);
       const recent = Mellis.store.get('mellis.recent', []);
       const today = [...new Set([...all.filter((g) => isNewGame(g.id)).map((g) => g.id), ...recent.slice(0, 3)])]
@@ -491,6 +522,7 @@
           `<section class="games">${all.filter((g) => g.shelf === sh.id).map(card).join('')}</section>`).join('');
     }
     const TODAY_T = L('Avui', 'Hoy', 'Today');
+    const TROPHIES = L('Sala de trofeus', 'Sala de trofeos', 'Trophy room');
     const INSTALL = L("Instal·la el laboratori", 'Instala el laboratorio', 'Install the lab');
     const FAMILIES = L('Per a famílies i mestres', 'Para familias y docentes', 'For parents & teachers');
     render();
@@ -531,7 +563,10 @@
     };
     document.getElementById('shelves').addEventListener('click', onCard);
     // Coming back with the phone's back button: the hub is shown again as it was, so clear the zoom
-    window.addEventListener('pageshow', () => document.querySelectorAll('.zoom').forEach((z) => z.remove()));
+    window.addEventListener('pageshow', (e) => {
+      document.querySelectorAll('.zoom').forEach((z) => z.remove());
+      if (e.persisted) render();   // the rings show what she just won
+    });
 
     // Background bubbles
     const bubbles = document.querySelector('.bubbles');
