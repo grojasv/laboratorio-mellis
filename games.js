@@ -1,6 +1,7 @@
 // The game catalogue shown on the hub. To add a game: create games/<id>/index.html
 // and add one entry here. shelf: the hub shelf it sits on (see MELLIS_SHELVES at the end).
-// guide: 2–3 sentences for adults (what she does + what it practises), shown on families/.
+// guide: one or two short sentences for families (what she does + what it practises), shown on families/.
+// A game with no guide still appears there, with its tagline.
 window.MELLIS_GAMES = [
   {
     id: 'memory',
@@ -11,9 +12,9 @@ window.MELLIS_GAMES = [
     name: { ca: 'Memory dels mesos', es: 'Memory de los meses', en: 'Months Memory' },
     tagline: { ca: 'Mesos, dies i estacions', es: 'Meses, días y estaciones', en: 'Months, days & seasons' },
     guide: {
-      ca: "Memory amb l'esquirol Nou: estacions, dies de la setmana, 8 o tots 12 mesos; cada parella uneix un dibuix amb la paraula, barrejant català, castellà i anglès, i el paisatge canvia d'estació. Cada partida dona adhesius per al calendari. Treballa la memòria, l'ordre de l'any i de la setmana i el vocabulari en tres llengües.",
-      es: "Memory con la ardilla Nou: estaciones, días de la semana, 8 o los 12 meses; cada pareja une un dibujo con la palabra, mezclando catalán, castellano e inglés, y el paisaje cambia de estación. Cada partida da pegatinas para el calendario. Trabaja la memoria, el orden del año y de la semana y el vocabulario en tres idiomas.",
-      en: "Memory with Nou the squirrel: seasons, days of the week, 8 or all 12 months; each pair matches a picture with its word, mixing Catalan, Spanish and English, and the scenery changes season. Every game earns stickers for a calendar. Practises memory, the order of the year and the week, and vocabulary in three languages.",
+      ca: "Troba les parelles de dibuix i paraula: estacions, dies i mesos. Treballa la memòria i l'ordre de l'any.",
+      es: "Encuentra las parejas de dibujo y palabra: estaciones, días y meses. Trabaja la memoria y el orden del año.",
+      en: "Find the pairs of picture and word: seasons, days and months. Practises memory and the order of the year.",
     },
   },
   {
@@ -25,9 +26,9 @@ window.MELLIS_GAMES = [
     name: { ca: 'Laboratori de pocions', es: 'Laboratorio de pociones', en: 'Potion Lab' },
     tagline: { ca: 'Sumes, restes, dobles i salts', es: 'Sumas, restas, dobles y saltos', en: 'Sums, doubles & counting on' },
     guide: {
-      ca: "Amb la bruixa Xiruca i el seu gat Bigotis, prepara pocions triant l'ampolla amb el número correcte: sumes i restes fins a 20 i fins a 100 (amb i sense portar-ne), l'ingredient secret (? + 4 = 9), dobles i meitats i salts de 2, 5 i 10. Cada poció fa néixer una criatura amb nom que viu al jardí màgic. Treballa el càlcul mental i el sentit del número.",
-      es: "Con la bruja Xiruca y su gato Bigotis, prepara pociones eligiendo la botella con el número correcto: sumas y restas hasta 20 y hasta 100 (con y sin llevadas), el ingrediente secreto (? + 4 = 9), dobles y mitades y saltos de 2, 5 y 10. Cada poción hace nacer una criatura con nombre que vive en el jardín mágico. Trabaja el cálculo mental y el sentido del número.",
-      en: "With Xiruca the witch and her cat Bigotis, brew potions by picking the bottle with the right number: sums up to 20 and 100 (with and without carrying), the secret ingredient (? + 4 = 9), doubles and halves, and counting by 2, 5 and 10. Each potion hatches a named creature that lives in the magic garden. Practises mental arithmetic and number sense.",
+      ca: "Tria l'ampolla amb el número correcte per fer la poció. Treballa sumes, restes, dobles i comptar a salts.",
+      es: "Elige la botella con el número correcto para hacer la poción. Trabaja sumas, restas, dobles y contar a saltos.",
+      en: "Pick the bottle with the right number to brew the potion. Practises adding, taking away, doubles and skip counting.",
     },
   },
   {
@@ -39,9 +40,9 @@ window.MELLIS_GAMES = [
     name: { ca: 'La botiga de la Guardiola', es: 'La tienda de Hucha', en: "Penny's Shop" },
     tagline: { ca: 'Euros, cèntims i canvi', es: 'Euros, céntimos y cambio', en: 'Euros, cents & change' },
     guide: {
-      ca: "A la botiga de la porqueta Guardiola, paga el preu just posant monedes i bitllets a la safata: euros sencers, euros amb cèntims i bitllets fins a 50 €. A l'últim nivell la botiga és seva i torna el canvi als clients. No veu la suma de la safata: l'ha de calcular ella. Treballa el valor de les monedes i els bitllets, la suma i el canvi.",
-      es: "En la tienda de la cerdita Hucha, paga el precio justo poniendo monedas y billetes en la bandeja: euros enteros, euros con céntimos y billetes hasta 50 €. En el último nivel la tienda es suya y devuelve el cambio a los clientes. No ve la suma de la bandeja: la tiene que calcular ella. Trabaja el valor de las monedas y los billetes, la suma y el cambio.",
-      en: "In Penny the pig's shop, she pays the exact price by putting coins and notes on the tray: whole euros, euros with cents, and notes up to €50. On the last level the shop is hers and she gives the customers their change. The tray never shows its total: she has to work it out. Practises the value of coins and notes, adding up and giving change.",
+      ca: "Paga el preu just amb monedes i bitllets, i torna el canvi. Treballa els euros i el càlcul mental.",
+      es: "Paga el precio justo con monedas y billetes, y devuelve el cambio. Trabaja los euros y el cálculo mental.",
+      en: "Pay the exact price with coins and notes, and give the change. Practises euros and mental maths.",
     },
   },
   {
@@ -53,9 +54,9 @@ window.MELLIS_GAMES = [
     name: { ca: 'Laboratori de monstres', es: 'Laboratorio de monstruos', en: 'Monster Lab' },
     tagline: { ca: 'Anglès de Halloween', es: 'Inglés de Halloween', en: 'Halloween English' },
     guide: {
-      ca: "Escolta en anglès com és el monstre i construeix-lo (colors, ulls, banyes, taques…). Els nivells alts afegeixen negacions (\"NO horns\") i només àudio. Treballa la comprensió oral en anglès.",
-      es: "Escucha en inglés cómo es el monstruo y constrúyelo (colores, ojos, cuernos, manchas…). Los niveles altos añaden negaciones (\"NO horns\") y solo audio. Trabaja la comprensión oral en inglés.",
-      en: "Listen to an English description of a monster and build it (colours, eyes, horns, spots…). Higher levels add negatives (\"NO horns\") and audio only. Practises English listening.",
+      ca: "Escolta com és el monstre en anglès i construeix-lo. Treballa la comprensió oral en anglès.",
+      es: "Escucha cómo es el monstruo en inglés y constrúyelo. Trabaja la comprensión oral en inglés.",
+      en: "Listen to the monster's description in English and build it. Practises English listening.",
     },
   },
   {
@@ -67,9 +68,9 @@ window.MELLIS_GAMES = [
     name: { ca: 'Agència de detectives', es: 'Agencia de detectives', en: 'Detective Agency' },
     tagline: { ca: 'Pistes, codis i empremtes', es: 'Pistas, códigos y huellas', en: 'Clues, codes & prints' },
     guide: {
-      ca: "Casos en quatre passos: seguir petjades, desxifrar un codi secret, descartar sospitosos amb pistes i comparar empremtes. Treballa la lògica, la lectura atenta (\"NO porta barret\") i l'observació.",
-      es: "Casos en cuatro pasos: seguir huellas, descifrar un código secreto, descartar sospechosos con pistas y comparar huellas dactilares. Trabaja la lógica, la lectura atenta (\"NO lleva sombrero\") y la observación.",
-      en: "Cases in four steps: follow footprints, crack a secret code, rule out suspects with clues and match fingerprints. Practises logic, careful reading (\"NOT wearing a hat\") and observation.",
+      ca: "Resol casos amb petjades, codis secrets i pistes. Treballa la lògica i la lectura atenta.",
+      es: "Resuelve casos con huellas, códigos secretos y pistas. Trabaja la lógica y la lectura atenta.",
+      en: "Solve cases with footprints, secret codes and clues. Practises logic and careful reading.",
     },
   },
   {
@@ -81,9 +82,9 @@ window.MELLIS_GAMES = [
     name: { ca: 'Rellotgeria Tic-Tac', es: 'Relojería Tic-Tac', en: 'Tic-Tac Clock Shop' },
     tagline: { ca: 'Aprèn a llegir el rellotge', es: 'Aprende a leer el reloj', en: 'Learn to tell the time' },
     guide: {
-      ca: "Aprendre a llegir el rellotge a la manera catalana (\"un quart de cinc\"): posar les agulles, triar el rellotge correcte i dir l'hora. Comença amb un rellotge-pizza i arriba a les 24 h i al pas del temps.",
-      es: "Aprender a leer el reloj, también a la manera catalana (\"un quart de cinc\" = las 4:15): poner las agujas, elegir el reloj correcto y decir la hora. Empieza con un reloj-pizza y llega a las 24 h y al paso del tiempo.",
-      en: "Learning to tell the time, including the Catalan way (\"un quart de cinc\" = 4:15): set the hands, pick the right clock and say the time. Starts with a pizza clock and goes up to 24-hour times and time passing.",
+      ca: "Posa les agulles i digues quina hora és, també a la manera catalana (\"un quart de cinc\"). Treballa llegir el rellotge.",
+      es: "Pon las agujas y di qué hora es, también a la manera catalana (\"un quart de cinc\" = las 4:15). Trabaja leer el reloj.",
+      en: "Set the hands and say the time, including the Catalan way (\"un quart de cinc\" = 4:15). Practises telling the time.",
     },
   },
   {
@@ -95,9 +96,9 @@ window.MELLIS_GAMES = [
     name: { ca: 'Taller Mellis', es: 'Taller Mellis', en: 'Mellis Craft Workshop' },
     tagline: { ca: 'Manualitats de paper pas a pas', es: 'Manualidades de papel paso a paso', en: 'Paper crafts step by step' },
     guide: {
-      ca: "Manualitats reals amb paper, tisores i cola, explicades com unes instruccions de LEGO o IKEA: un dibuix animat per pas, la frase llegida en veu alta i un ✅ quan l'ha fet. Halloween (garlanda de fantasmes, mòmia de rotllo) i Nadal (floc de neu, estrella 3D). Al final li fa una foto i la penja al suro. Treballa la motricitat fina, seguir instruccions i la visió espacial (plegar i desplegar).",
-      es: "Manualidades reales con papel, tijeras y pegamento, explicadas como unas instrucciones de LEGO o IKEA: un dibujo animado por paso, la frase leída en voz alta y un ✅ cuando lo ha hecho. Halloween (guirnalda de fantasmas, momia de rollo) y Navidad (copo de nieve, estrella 3D). Al final le hace una foto y la cuelga en el corcho. Trabaja la motricidad fina, seguir instrucciones y la visión espacial (doblar y desplegar).",
-      en: "Real crafts with paper, scissors and glue, explained like LEGO or IKEA instructions: one animated drawing per step, the line read aloud, and a ✅ when she's done it. Halloween (ghost garland, toilet-roll mummy) and Christmas (snowflake, 3D star). At the end she photographs it and pins it on the cork board. Practises fine motor skills, following instructions and spatial thinking (folding and unfolding).",
+      ca: "Manualitats de paper de veritat, pas a pas, amb un dibuix per a cada pas. Treballa seguir instruccions i la motricitat fina.",
+      es: "Manualidades de papel de verdad, paso a paso, con un dibujo para cada paso. Trabaja seguir instrucciones y la motricidad fina.",
+      en: "Real paper crafts, step by step, with a drawing for each step. Practises following instructions and fine motor skills.",
     },
   },
   {
@@ -109,9 +110,9 @@ window.MELLIS_GAMES = [
     name: { ca: 'La cursa de la Chita', es: 'La carrera de Chita', en: "Chita's Dash" },
     tagline: { ca: 'Corre i encerta sumes i paraules', es: 'Corre y acierta sumas y palabras', en: 'Run through sums and words' },
     guide: {
-      ca: "Una cursa per la sabana amb la Chita 🐆: la Chita no s'atura mai: té uns segons per posar-se al carril de la resposta correcta abans que arribi la porta (⚡ per anar més de pressa), i salta les roques. El ritme s'adapta: més ràpid si encerta, més lent si s'equivoca. Cursa de 10 portes: 🔢 sumes i restes fins a 20, dobles i el número que falta (cada cop més difícil), 🔤 paraules (dibuix → com s'escriu, o paraula escoltada) o barreja. Amb estrelles es desbloquegen complements i rastres per a la Chita, i hi ha rècord de temps. Treballa el càlcul mental ràpid i l'ortografia.",
-      es: "Una carrera por la sabana con Chita 🐆: Chita nunca se para: tiene unos segundos para ponerse en el carril de la respuesta correcta antes de que llegue la puerta (⚡ para ir más deprisa), y salta las rocas. El ritmo se adapta: más rápido si acierta, más lento si se equivoca. Carrera de 10 puertas: 🔢 sumas y restas hasta 20, dobles y el número que falta (cada vez más difícil), 🔤 palabras (dibujo → cómo se escribe, o palabra escuchada) o mezcla. Con estrellas se desbloquean complementos y rastros para Chita, y hay récord de tiempo. Trabaja el cálculo mental rápido y la ortografía.",
-      en: "A savanna race with Chita the cheetah: Chita never stops: she has a few seconds to get into the lane with the right answer before the gate arrives (⚡ to go faster), and jumps the rocks. The pace adapts: quicker after right answers, slower after mistakes. 10 gates per race: 🔢 sums and take-aways to 20, doubles and missing numbers (getting harder), 🔤 words (picture → spelling, or a word read aloud) or mixed. Stars unlock accessories and trails for Chita, and there is a best time to beat. Practises quick mental maths and spelling.",
+      ca: "Una cursa on ha de posar-se al carril de la resposta correcta. Treballa el càlcul ràpid i l'ortografia.",
+      es: "Una carrera donde tiene que ponerse en el carril de la respuesta correcta. Trabaja el cálculo rápido y la ortografía.",
+      en: "A race where she moves into the lane with the right answer. Practises quick maths and spelling.",
     },
   },
   {
@@ -123,9 +124,9 @@ window.MELLIS_GAMES = [
     name: { ca: 'Contes en veu alta', es: 'Cuentos en voz alta', en: 'Read-aloud Stories' },
     tagline: { ca: 'Llegeix i tria què passa', es: 'Lee y elige qué pasa', en: 'Read and choose what happens' },
     guide: {
-      ca: "Contes divertits per llegir en veu alta, amb camins a triar. Un indicador s'omple mentre llegeix, pot escoltar la seva pròpia veu i una pregunta final comprova que ho ha entès. Treballa la fluïdesa lectora i la comprensió.",
-      es: "Cuentos divertidos para leer en voz alta, con caminos a elegir. Un indicador se llena mientras lee, puede escuchar su propia voz y una pregunta final comprueba que lo ha entendido. Trabaja la fluidez lectora y la comprensión.",
-      en: "Funny branching stories to read out loud. A meter fills while she reads, she can play back her own voice, and a final question checks understanding. Practises reading fluency and comprehension.",
+      ca: "Contes divertits per llegir en veu alta, amb una pregunta al final. Treballa la fluïdesa i la comprensió lectora.",
+      es: "Cuentos divertidos para leer en voz alta, con una pregunta al final. Trabaja la fluidez y la comprensión lectora.",
+      en: "Funny stories to read out loud, with a question at the end. Practises reading fluency and comprehension.",
     },
   },
   {
@@ -137,9 +138,9 @@ window.MELLIS_GAMES = [
     name: { ca: 'Teatre de titelles', es: 'Teatro de títeres', en: 'Puppet Show' },
     tagline: { ca: 'Anglès: escola, menjar, roba, família', es: 'Inglés: cole, comida, ropa, familia', en: 'English: school, food, clothes, family' },
     guide: {
-      ca: "Anglès de la unitat \"Back to School\": crea un titella, respon \"All about me\" i el titella presenta escenes (emocions, temps, estacions, material escolar, comptar fins a 20, menjar, roba i família). Al final llegeix en veu alta i el titella mou la boca amb la seva veu.",
-      es: "Inglés de la unidad \"Back to School\": crea un títere, responde \"All about me\" y el títere presenta escenas (emociones, tiempo, estaciones, material escolar, contar hasta 20, comida, ropa y familia). Al final lee en voz alta y el títere mueve la boca con su voz.",
-      en: "English from the \"Back to School\" unit: make a puppet, answer \"All about me\", and the puppet hosts scenes (feelings, weather, seasons, school things, counting to 20, food, clothes and family). At the end she reads aloud and the puppet lip-syncs to her voice.",
+      ca: "Crea un titella i respon les seves preguntes en anglès. Treballa el vocabulari de l'escola i parlar en anglès.",
+      es: "Crea un títere y responde a sus preguntas en inglés. Trabaja el vocabulario del colegio y hablar en inglés.",
+      en: "Build a puppet and answer its questions in English. Practises school vocabulary and speaking English.",
     },
   },
   {
@@ -151,9 +152,9 @@ window.MELLIS_GAMES = [
     name: { ca: 'Passaport lector', es: 'Pasaporte lector', en: 'Reading passport' },
     tagline: { ca: 'Els llibres que llegim en família', es: 'Los libros que leemos en familia', en: 'The books we read as a family' },
     guide: {
-      ca: "El passaport dels llibres de paper que llegiu en família: foto de la coberta, qui l'ha llegit, valoració amb cares i adhesius, segells i medalles. El dau 🎲 \"En parlem?\" proposa preguntes per comentar el llibre. Tot es queda al mòbil.",
-      es: "El pasaporte de los libros de papel que leéis en familia: foto de la portada, quién lo ha leído, valoración con caras y pegatinas, sellos y medallas. El dado 🎲 \"¿Hablamos?\" propone preguntas para comentar el libro. Todo se queda en el móvil.",
-      en: "A passport for the paper books you read as a family: cover photo, who read it, face ratings and stickers, stamps and medals. The 🎲 \"Let's talk\" die suggests questions to discuss the book. Everything stays on the phone.",
+      ca: "El passaport de la família per als llibres de paper: afegiu-los, puntueu-los i guanyeu segells. Anima a llegir junts.",
+      es: "El pasaporte de la familia para los libros de papel: añadidlos, puntuadlos y ganad sellos. Anima a leer juntos.",
+      en: "The family's passport for paper books: add them, rate them and earn stamps. Encourages reading together.",
     },
   },
   {
@@ -165,9 +166,9 @@ window.MELLIS_GAMES = [
     name: { ca: 'Ràdio Mellis', es: 'Radio Mellis', en: 'Radio Mellis' },
     tagline: { ca: 'Teatre radiofònic en família', es: 'Radioteatro en familia', en: 'A family radio play' },
     guide: {
-      ca: "Teatre radiofònic amb un sol mòbil: una ruleta reparteix els personatges, cadascú llegeix les seves frases mantenint premut el 🎙️ i al final s'escolta el programa amb veus divertides i efectes. Lectura expressiva i per torns.",
-      es: "Radioteatro con un solo móvil: una ruleta reparte los personajes, cada uno lee sus frases manteniendo pulsado el 🎙️ y al final se escucha el programa con voces divertidas y efectos. Lectura expresiva y por turnos.",
-      en: "A radio play on one phone: a roulette hands out the parts, everyone reads their lines holding the 🎙️, and then you listen to the show with silly voices and sound effects. Expressive reading and taking turns.",
+      ca: "Una obra de ràdio en família: cadascú llegeix el seu personatge i després l'escolteu amb veus divertides. Treballa llegir amb expressió.",
+      es: "Una obra de radio en familia: cada uno lee su personaje y luego la escucháis con voces divertidas. Trabaja leer con expresión.",
+      en: "A family radio play: everyone reads a character, then you listen back with funny voices. Practises reading with expression.",
     },
   },
 ];
@@ -183,9 +184,9 @@ window.MELLIS_LEARN = [
     name: { ca: 'Els animals', es: 'Los animales', en: 'Animals' },
     tagline: { ca: 'Vertebrats, què mengen, com neixen…', es: 'Vertebrados, qué comen, cómo nacen…', en: 'Groups, food, babies…' },
     guide: {
-      ca: "Vertebrats i invertebrats, què mengen (cadenes alimentàries), com neixen (cicles de vida) i on viuen i com es mouen. Segueix el que estudien a l'escola, amb un àlbum de cromos d'animals.",
-      es: "Vertebrados e invertebrados, qué comen (cadenas alimentarias), cómo nacen (ciclos de vida) y dónde viven y cómo se mueven. Sigue lo que estudian en la escuela, con un álbum de cromos de animales.",
-      en: "Vertebrates and invertebrates, what they eat (food chains), how they're born (life cycles), and where they live and how they move. Follows what they study at school, with an animal-card album.",
+      ca: "Lliçons curtes sobre els animals: grups, què mengen, com neixen i on viuen.",
+      es: "Lecciones cortas sobre los animales: grupos, qué comen, cómo nacen y dónde viven.",
+      en: "Short lessons about animals: groups, what they eat, how they are born and where they live.",
     },
   },
   {
@@ -197,9 +198,9 @@ window.MELLIS_LEARN = [
     name: { ca: 'El cos humà', es: 'El cuerpo humano', en: 'The human body' },
     tagline: { ca: 'Sentits, esquelet, menjar, hàbits', es: 'Sentidos, esqueleto, comida, hábitos', en: 'Senses, skeleton, food, habits' },
     guide: {
-      ca: "Els cinc sentits, les parts del cos i l'esquelet, l'alimentació i la digestió, i hàbits saludables (rentar-se les mans, les dents). Segueix el temari de l'escola, amb un àlbum d'adhesius.",
-      es: "Los cinco sentidos, las partes del cuerpo y el esqueleto, la alimentación y la digestión, y hábitos saludables (lavarse las manos, los dientes). Sigue el temario de la escuela, con un álbum de pegatinas.",
-      en: "The five senses, body parts and the skeleton, food and digestion, and healthy habits (washing hands, brushing teeth). Follows the school syllabus, with a sticker album.",
+      ca: "Lliçons curtes sobre el cos: els sentits, l'esquelet, la digestió i els hàbits saludables.",
+      es: "Lecciones cortas sobre el cuerpo: los sentidos, el esqueleto, la digestión y los hábitos saludables.",
+      en: "Short lessons about the body: the senses, the skeleton, digestion and healthy habits.",
     },
   },
   {
@@ -211,9 +212,9 @@ window.MELLIS_LEARN = [
     name: { ca: 'El meu poble', es: 'Mi pueblo', en: 'My town' },
     tagline: { ca: 'Llocs i oficis', es: 'Sitios y oficios', en: 'Places & jobs' },
     guide: {
-      ca: "Un poble inventat per conèixer els llocs (escola, hospital, mercat…) i els oficis: a on aniries si…?, qui hi treballa i amb què. El mapa es va pintant a mesura que aprèn.",
-      es: "Un pueblo inventado para conocer los sitios (escuela, hospital, mercado…) y los oficios: ¿a dónde irías si…?, quién trabaja allí y con qué. El mapa se va pintando a medida que aprende.",
-      en: "A made-up town to learn places (school, hospital, market…) and jobs: where would you go if…?, who works there and with what. The map colours in as she learns.",
+      ca: "Un poble per explorar: els llocs, qui hi treballa i on aniries per a cada cosa.",
+      es: "Un pueblo para explorar: los lugares, quién trabaja en ellos y adónde irías para cada cosa.",
+      en: "A town to explore: the places, who works there and where you would go for each thing.",
     },
   },
   {
@@ -225,9 +226,9 @@ window.MELLIS_LEARN = [
     name: { ca: 'Bons amics', es: 'Buenos amigos', en: 'Good friends' },
     tagline: { ca: 'Amistat i emocions', es: 'Amistad y emociones', en: 'Friendship & feelings' },
     guide: {
-      ca: "Històries curtes de classe sobre ser un bon amic, què és just i què fer quan ens enfadem. Tria què faria un bon amic; si s'equivoca, veu com se sent l'altre i per què. Educació emocional, sense penalitzacions.",
-      es: "Historias cortas de clase sobre ser un buen amigo, qué es justo y qué hacer cuando nos enfadamos. Elige qué haría un buen amigo; si se equivoca, ve cómo se siente el otro y por qué. Educación emocional, sin penalizaciones.",
-      en: "Short classroom stories about being a good friend, fairness and what to do when we get angry. She picks what a good friend would do; a wrong choice shows how the other child feels and why. Social-emotional learning, no penalties.",
+      ca: "Històries curtes on tria què faria una bona amiga. Ajuda a parlar d'emocions i de com tractar els altres.",
+      es: "Historias cortas donde elige qué haría una buena amiga. Ayuda a hablar de emociones y de cómo tratar a los demás.",
+      en: "Short stories where she picks what a good friend would do. Helps talk about feelings and how to treat others.",
     },
   },
 ];

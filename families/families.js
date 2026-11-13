@@ -1,4 +1,4 @@
-// Guide for parents and teachers: the idea behind the lab and what each game does.
+// Guide for families: the idea behind the lab and, in a line or two, what each game does.
 // Per-game texts come from the `guide` field in games.js, so new games show up here.
 (function () {
   const M = window.Mellis;
@@ -6,19 +6,19 @@
   const $ = (id) => document.getElementById(id);
 
   const T = {
-    title: L('Famílies i mestres', 'Familias y docentes', 'Parents & teachers'),
-    h: L('Guia per a famílies i mestres', 'Guía para familias y docentes', 'A guide for parents & teachers'),
+    title: L('Per a famílies', 'Para familias', 'For families'),
+    h: L('Guia per a famílies', 'Guía para familias', 'A guide for families'),
     lead: L(
-      'El Laboratorio Mellis és una col·lecció de jocs per aprendre per a infants de 6 a 8 anys, en català, castellà i anglès. Aquí teniu què fa cada joc i què treballa.',
-      'El Laboratorio Mellis es una colección de juegos para aprender para niños y niñas de 6 a 8 años, en catalán, castellano e inglés. Aquí tenéis qué hace cada juego y qué trabaja.',
-      'Laboratorio Mellis is a collection of learning games for children aged 6 to 8, in Catalan, Spanish and English. Here is what each game does and what it practises.'),
+      'El Laboratorio Mellis és una col·lecció de jocs per aprendre per a infants de 6 a 8 anys, en català, castellà i anglès. Aquí teniu, en poques paraules, què fa cada joc.',
+      'El Laboratorio Mellis es una colección de juegos para aprender para niños y niñas de 6 a 8 años, en catalán, castellano e inglés. Aquí tenéis, en pocas palabras, qué hace cada juego.',
+      'Laboratorio Mellis is a collection of learning games for children aged 6 to 8, in Catalan, Spanish and English. Here is, in a few words, what each game does.'),
     open: L('Obre el laboratori', 'Abre el laboratorio', 'Open the lab'),
     share: L('Comparteix', 'Comparte', 'Share'),
     copied: L('Enllaç copiat! ✅', '¡Enlace copiado! ✅', 'Link copied! ✅'),
     shareText: L(
-      'Laboratorio Mellis: jocs per aprendre en català, castellà i anglès. Guia per a famílies i mestres:',
-      'Laboratorio Mellis: juegos para aprender en catalán, castellano e inglés. Guía para familias y docentes:',
-      'Laboratorio Mellis: learning games in Catalan, Spanish and English. A guide for parents & teachers:'),
+      'Laboratorio Mellis: jocs per aprendre en català, castellà i anglès. Guia per a famílies:',
+      'Laboratorio Mellis: juegos para aprender en catalán, castellano e inglés. Guía para familias:',
+      'Laboratorio Mellis: learning games in Catalan, Spanish and English. A guide for families:'),
     idea: L('La idea', 'La idea', 'The idea'),
     learnNote: L(
       "Unitats que segueixen el que s'estudia a l'escola. Cada lliçó: explorar (tocar i escoltar) → fer → comprovar → recompensa (cromos per a l'àlbum de la unitat).",
@@ -85,7 +85,6 @@
       <span class="icon">${g.icon}</span>
       <div>
         <h4>${esc(M.t(g.name))}</h4>
-        <p class="tag">${esc(M.t(g.tagline))}</p>
         <p>${esc(M.t(g.guide || g.tagline))}</p>
       </div>
     </a>`;

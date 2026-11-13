@@ -37,7 +37,7 @@ She must never need to know she has to scroll to continue.
 ## Other conventions
 - Languages CA / ES / EN everywhere (`Mellis.t({ca, es, en})`); Catalan forms are feminine where they refer to the girls.
 - Touch-first: big targets, no keyboard, works at 375 px wide.
-- New game: folder `games/<id>/`, entry in `games.js` **with a `shelf`** (hub shelf by school subject, see `MELLIS_SHELVES`) **and a `guide` text** (2–3 sentences for adults, CA/ES/EN: what she does + what it practises; shown on `families/`), files added to `PRECACHE` in `sw.js` (bump `CACHE`).
+- New game: folder `games/<id>/`, entry in `games.js` **with a `shelf`** (hub shelf by school subject, see `MELLIS_SHELVES`) **and a `guide` text** (one or two short sentences for families, CA/ES/EN: what she does + what it practises; shown on `families/`, which lists every game automatically), files added to `PRECACHE` in `sw.js` (bump `CACHE`).
 - **Every game has a host**: put `data-host` on the element that holds its character and group the eyes in `<g class="eyes">`. The shared code (`shared/app.js`) makes it breathe, blink, watch the finger, hop on a tap, dance on a right answer and wobble on a wrong one. Don't re-implement these per game. Things that move from A to B use `Mellis.fly()`.
 - **Collections**: a game with something to collect gets a reader in `shared/rewards.js` (name, total, items). The hub ring and the trophy room (`trophies/`) then show it with no other change. Update the reader when the game's collection grows.
 - Commits use the GitHub noreply email (repo-local git config), never a work address.

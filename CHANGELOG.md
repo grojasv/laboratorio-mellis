@@ -4,6 +4,12 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.34.1] — 2026-11-13
+### Changed
+- `families/` is now a guide for families ("Per a famílies" / "Para familias" / "For families"): the title, the lead, the share text and the hub footer link no longer mention teachers. The idea and the tips sections are unchanged.
+- Game descriptions are much shorter: every `guide` in `games.js` is one or two short sentences (what she does + what it practises); the longest went from 573 to 136 characters. Each card shows the name and that text only (the tagline line is gone).
+- The page still lists every game in `games.js` automatically; a game with no `guide` shows its tagline. Service worker cache `mellis-v40`.
+
 ## [1.34.0] — 2026-11-13
 ### Added
 - **Trophy room** (`trophies/`, opened from the gold 🏆 button on the hub): one bookcase with a shelf per game. Each shelf shows the collection's name, the count (`12/30`), every reward as a tile (golden ones glow, empty places are dashed, more than 24 collapse into `+N`) and a ▶ that opens the game. Shelves with rewards come first. The header counts all rewards, golden ones and finished collections.

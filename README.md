@@ -46,9 +46,9 @@ School subjects as short interactive lessons, following what the girls study thi
 
 `trophies/` is the trophy room, opened from the hub's 🏆 button: a bookcase with one shelf per game showing every reward she has collected, with a ▶ to that game. The hub cards carry a progress ring for the same collection. Both read `shared/rewards.js`, which knows where each game saves its rewards.
 
-## Per a famílies i mestres
+## Per a famílies
 
-`families/` is a guide for parents and teachers (CA/ES/EN), linked from the hub footer: the idea behind the lab, each game's goal (the `guide` field in `games.js`) and tips for adults. Its 📤 button shares the guide's own link, so whoever receives it lands there first.
+`families/` is a short guide for families (CA/ES/EN), linked from the hub footer: the idea behind the lab, one or two sentences per game (the `guide` field in `games.js`) and tips for adults. Every game in `games.js` appears there automatically; one without a `guide` shows its tagline. Its 📤 button shares the guide's own link, so whoever receives it lands there first.
 
 ## Game rules
 
@@ -67,7 +67,7 @@ Plain HTML/CSS/JS, with no build step.
 ```
 index.html          hub
 games.js            game catalogue shown on the hub (+ guide texts for families/)
-families/           guide for parents & teachers
+families/           guide for families
 trophies/           trophy room: every game's rewards on shelves
 shared/rewards.js   reads each game's saved rewards (hub rings + trophy room)
 news.js             kid-friendly news (hub 🎁 button)

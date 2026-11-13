@@ -1,4 +1,4 @@
-/* Guide for parents and teachers: calmer, readable text, same colours as the app. */
+/* Guide for families: calmer, readable text, same colours as the app. */
 .guide { max-width: 760px; margin: 0 auto; padding: 8px 16px 40px; }
 .guide p, .guide li { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; line-height: 1.5; }
 .guide { -webkit-user-select: text; user-select: text; }
@@ -39,5 +39,4 @@
 }
 .card .icon { font-size: 2rem; line-height: 1; }
 .card h4 { margin: 0; font-size: 1.1rem; }
-.card .tag { margin: 0 0 4px; font-size: 0.9rem; opacity: 0.7; }
 .card p:last-child { margin: 0; font-size: 0.95rem; }
