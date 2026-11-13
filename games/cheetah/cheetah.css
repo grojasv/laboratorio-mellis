@@ -20,8 +20,6 @@ body.savanna {
 .host-row .tools { display: flex; flex-direction: column; gap: 10px; }
 .chita-host { width: 120px; flex: none; }
 .chita-host svg { width: 100%; display: block; overflow: visible; }
-#home-chita svg { animation: chita-bob 2.2s ease-in-out infinite; }
-@keyframes chita-bob { 50% { transform: translateY(-5px) rotate(-2deg); } }
 .say {
   position: relative; flex: 1; margin: 0; background: #fff; border: 3px solid var(--ink); border-radius: 18px;
   padding: 8px 12px; font-weight: 700; font-size: 1.05rem;

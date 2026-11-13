@@ -244,7 +244,9 @@
     .bubbles .twinkle { position: absolute; bottom: auto; border: 0; background: none; font-size: 1rem; animation: twinkle 2.4s ease-in-out infinite; }
     @keyframes twinkle { 50% { opacity: .2; transform: scale(.6); } }
     .bubbles .leaf { position: absolute; top: -50px; bottom: auto; border: 0; background: none; font-size: 1.5rem; opacity: .85; animation: fall linear infinite; }
-    @keyframes fall { 25% { margin-left: 26px; } 75% { margin-left: -26px; } to { transform: translateY(115vh) rotate(300deg); } }
+    @keyframes fall { /* transform only, so the falling things never cause layout */
+      25% { transform: translate(26px, 29vh) rotate(75deg); } 50% { transform: translate(0, 58vh) rotate(150deg); }
+      75% { transform: translate(-26px, 87vh) rotate(225deg); } to { transform: translate(0, 116vh) rotate(300deg); } }
   </style>
 </head>
 <body>

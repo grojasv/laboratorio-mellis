@@ -4,6 +4,17 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.33.1] — 2026-11-13
+### Fixed
+- La cursa de la Chita: her own idle rule (`#home-chita svg`) outranked the shared host, so she did not dance on a right answer or hop when tapped. The rule is gone; the shared host moves her.
+### Changed
+- Performance of the 1.33.0 animations:
+  - Eyes follow the finger at most 12 times a second and skip hosts on hidden screens (before: every frame, every host).
+  - Confetti draws each emoji once to a sprite and stamps it, instead of rendering text every frame.
+  - Hub falling leaves animate `transform` only (they animated `margin-left`, which forced layout every frame).
+  - The golden sweep on the win box runs twice and stops (it repaints the box); the `.golden` pulse animates `transform` instead of `filter`.
+- Service worker cache `mellis-v38`.
+
 ## [1.33.0] — 2026-11-13
 ### Added
 - **Shared hosts** (`M.host`, `data-host` in the page): every game's character now breathes, blinks, follows the finger with its eyes (any `.eyes` group in its SVG), hops when tapped, dances on a right answer (`sounds.match` / `sounds.win`) and wobbles on a wrong one (`round.wrong`). No per-game code: the page only marks the element. All 16 game and lesson pages have one; Contes en veu alta and Passaport lector got the twins as a small host.

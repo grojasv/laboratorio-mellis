@@ -218,14 +218,14 @@ button:active { transform: scale(.92); }
 /* ⭐⭐⭐: a golden shine sweeps across the win box */
 .win-box:has(.stars.gold) {
   background: linear-gradient(110deg, transparent 40%, rgba(255, 226, 120, .9) 50%, transparent 60%) 100% 0 / 300% 100% no-repeat, var(--cream);
-  animation: pop-in-c .4s cubic-bezier(.3, 1.6, .6, 1), gold-sweep 2.6s 1.3s ease-in-out infinite;
+  animation: pop-in-c .4s cubic-bezier(.3, 1.6, .6, 1), gold-sweep 2.6s 1.3s ease-in-out 2; /* twice, then rest: it repaints the box */
 }
 @keyframes gold-sweep { from { background-position: 100% 0, 0 0; } 60%, to { background-position: 0% 0, 0 0; } }
 @keyframes star-shine { 50% { transform: scale(1.25) rotate(12deg); filter: drop-shadow(0 0 8px #ffd23f); } }
 .reveal { animation: reveal-glow 1s ease-in-out 2; box-shadow: 0 0 0 5px #2fbf71, 0 0 24px 8px rgba(47, 191, 113, .7) !important; }
 @keyframes reveal-glow { 50% { transform: scale(1.08); } }
 .golden { box-shadow: 0 0 0 6px #ffd23f, 0 0 30px 10px rgba(255, 210, 63, .8) !important; animation: golden-pulse 1.6s ease-in-out infinite; }
-@keyframes golden-pulse { 50% { filter: brightness(1.15) drop-shadow(0 0 6px #ffd23f); } }
+@keyframes golden-pulse { 50% { transform: scale(1.04); } } /* transform only: a shelf can hold many golden things */
 
 /* Continue buttons stay in reach on short screens: they float at the bottom
    while the page scrolls, and sit in their normal place once reached. */

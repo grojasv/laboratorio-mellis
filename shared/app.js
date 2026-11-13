@@ -1,7 +1,7 @@
 // Shared helpers for the hub and every game: language, sound, mascots.
 // Classic script (no modules) so pages also work when opened straight from disk.
 (function () {
-  const VERSION = '1.33.0'; // bump on every release (shown in the hub footer), with CACHE in sw.js
+  const VERSION = '1.33.1'; // bump on every release (shown in the hub footer), with CACHE in sw.js
   const LANGS = ['ca', 'es', 'en'];
   const LANG_KEY = 'mellis.lang';
   const MUTE_KEY = 'mellis.muted';
@@ -709,14 +709,22 @@
       color: colors[(Math.random() * colors.length) | 0],
       e: things.length && i % 5 === 0 ? things[(i / 5) % things.length | 0] : null,
     }));
-    c.textAlign = 'center'; c.textBaseline = 'middle';
+    const sprites = {};
+    things.forEach((e) => {
+      const s = document.createElement('canvas');
+      s.width = s.height = 48;
+      const sc = s.getContext('2d');
+      sc.font = '36px serif'; sc.textAlign = 'center'; sc.textBaseline = 'middle';
+      sc.fillText(e, 24, 26);
+      sprites[e] = s;
+    });
     let frames = 0;
     (function step() {
       c.clearRect(0, 0, W, H);
       parts.forEach((p) => {
         p.vy += 0.35; p.x += p.vx; p.y += p.vy; p.r += p.vr;
         c.save(); c.translate(p.x, p.y); c.rotate(p.r);
-        if (p.e) { c.font = `${p.s * 2.4}px serif`; c.fillText(p.e, 0, 0); }
+        if (p.e) { const d = p.s * 3; c.drawImage(sprites[p.e], -d / 2, -d / 2, d, d); }
         else { c.fillStyle = p.color; c.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); }
         c.restore();
       });
@@ -791,13 +799,13 @@
   }
   function hostsDo(cls, ms) { hosts.forEach((el) => { if (el.offsetParent) pulse(el, cls, ms); }); }
   // Eyes follow the finger, then drift back to the middle
-  let lookFrame = 0, lookTimer = 0;
+  let lookAt = 0, lookTimer = 0;
   function look(px, py) {
     hosts.forEach((el) => {
-      const svg = el.querySelector('svg');
-      if (!svg || !el.offsetParent) return;
+      if (!el.offsetParent) return;          // hidden screen: nothing to do
       const eyes = el.querySelectorAll('.eyes');
-      if (!eyes.length) return;
+      const svg = eyes.length && el.querySelector('svg');
+      if (!svg) return;
       let move = '0px 0px';
       if (px != null) {
         const r = el.getBoundingClientRect();
@@ -812,8 +820,10 @@
   }
   function onPoint(e) {
     if (calm || !hosts.length) return;
-    cancelAnimationFrame(lookFrame);
-    lookFrame = requestAnimationFrame(() => look(e.clientX, e.clientY));
+    const now = Date.now();
+    if (e.type === 'pointermove' && now - lookAt < 80) return;   // a dragged finger fires far more often than the eyes need
+    lookAt = now;
+    look(e.clientX, e.clientY);
     clearTimeout(lookTimer);
     lookTimer = setTimeout(() => look(null), 2500);
   }
