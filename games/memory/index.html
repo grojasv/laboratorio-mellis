@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#ffe9f5">
+  <meta name="theme-color" content="#fff1e0">
   <link rel="manifest" href="../../manifest.webmanifest">
   <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -11,7 +11,7 @@
   <meta name="apple-mobile-web-app-title" content="Mellis">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <title>Memory · Laboratorio Mellis</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗓️</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐿️</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&display=swap" rel="stylesheet">
@@ -19,59 +19,44 @@
   <link rel="stylesheet" href="../../shared/game.css">
   <link rel="stylesheet" href="memory.css">
 </head>
-<body class="forest">
-  <div class="falling" id="falling" aria-hidden="true"></div>
+<body class="pantry-bg">
   <header class="topbar">
     <a class="home" href="../../index.html" aria-label="home">🏠</a>
     <h1 class="title" id="title"></h1>
     <div id="controls"></div>
   </header>
 
-  <!-- Level picker -->
-  <main id="levels" class="levels">
-    <div class="levels-head">
-      <button class="round-btn" id="album-btn" aria-label="calendar">📅</button>
+  <!-- Picker: pairs, players, then tap a deck to start -->
+  <main id="levels" class="picker">
+    <div class="picker-head">
+      <button class="round-btn" id="pantry-btn" aria-label="pantry">🫙</button>
       <div class="nou big" id="nou-levels" data-host></div>
       <button class="round-btn" id="music-levels"></button>
     </div>
-    <p class="levels-ask" id="ask"></p>
-    <div class="level-buttons">
-      <button class="level" data-level="easy" style="background:var(--teal)">
-        <span class="level-icons">❄️🌸☀️🍂</span>
-        <span class="level-name" id="easy-name"></span>
-        <span class="level-sub" id="easy-sub"></span>
-      </button>
-      <button class="level" data-level="days" style="background:var(--orange)">
-        <span class="level-icons">🌙⚡☀️</span>
-        <span class="level-name" id="days-name"></span>
-        <span class="level-sub" id="days-sub"></span>
-      </button>
-      <button class="level" data-level="medium" style="background:var(--purple)">
-        <span class="level-icons">👑🌹🍉🎃</span>
-        <span class="level-name" id="medium-name"></span>
-        <span class="level-sub" id="medium-sub"></span>
-      </button>
-      <button class="level" data-level="hard" style="background:#e5383b">
-        <span class="level-icons">🗓️×12</span>
-        <span class="level-name" id="hard-name"></span>
-        <span class="level-sub" id="hard-sub"></span>
-      </button>
+    <div class="opts">
+      <div class="seg" id="size-seg" role="group">
+        <button data-size="6">6</button><button data-size="8">8</button><button data-size="10">10</button>
+        <span class="seg-label" id="pairs-label"></span>
+      </div>
+      <div class="seg" id="players-seg" role="group">
+        <button data-players="1" aria-label="1">👧</button><button data-players="2" aria-label="2">👧👧</button>
+      </div>
     </div>
+    <p class="picker-ask" id="ask"></p>
+    <div class="decks" id="decks"></div>
   </main>
 
   <!-- Board -->
   <main id="play" class="play" hidden>
     <div class="status">
+      <button class="round-btn" id="back" aria-label="decks">⬅️</button>
       <div class="nou" id="nou" data-host></div>
       <p class="nou-say" id="nou-say"></p>
+      <span class="turn" id="turn" hidden></span>
       <span class="acorns" id="acorns"></span>
-      <button class="round-btn" id="music"></button>
     </div>
     <div id="board" class="board"></div>
   </main>
-
-  <!-- A found pair shows its word in the three languages -->
-  <div id="toast" class="toast" hidden></div>
 
   <!-- Win -->
   <div id="win" class="win" hidden>
@@ -88,13 +73,13 @@
     </div>
   </div>
 
-  <!-- El meu calendari: sticker album -->
-  <div id="album" class="win" hidden>
-    <div class="win-box album-box">
-      <p class="win-text" id="album-title"></p>
-      <p class="album-count" id="album-count"></p>
-      <div class="cal-grid" id="cal-grid"></div>
-      <button class="big-btn album-ok" id="album-close" style="background:var(--yellow)">👍</button>
+  <!-- El rebost de la Nou: one shelf of 5 jars per deck -->
+  <div id="pantry" class="win" hidden>
+    <div class="win-box pantry-box">
+      <p class="win-text" id="pantry-title"></p>
+      <p class="pantry-count" id="pantry-count"></p>
+      <div class="shelves" id="shelves"></div>
+      <button class="big-btn pantry-ok stick-bottom" id="pantry-close" style="background:var(--yellow)">👍</button>
     </div>
   </div>
 

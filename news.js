@@ -108,4 +108,7 @@ window.MELLIS_NEWS = [
   { id: 35, date: '2026-11-13', icon: '🏆', type: 'change',
     title: { ca: 'Nova: la sala de trofeus!', es: '¡Nueva: la sala de trofeos!', en: 'New: the trophy room!' },
     text: { ca: 'Tots els premis junts, i cada joc ensenya quants en tens', es: 'Todos los premios juntos, y cada juego enseña cuántos tienes', en: 'All your prizes together, and each game shows how many you have' } },
+  { id: 36, date: '2026-11-13', icon: '🐿️', type: 'game', game: 'memory',
+    title: { ca: 'Memory nou de trinca!', es: '¡Memory nuevo del todo!', en: 'A brand-new Memory!' },
+    text: { ca: 'Tria joc, juga sola o per torns i omple el rebost de la Nou', es: 'Elige juego, juega sola o por turnos y llena la despensa de Nou', en: "Pick a game, play alone or in turns and fill Nou's pantry" } },
 ];

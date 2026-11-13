@@ -12,7 +12,7 @@ Simple learning games for 7-year-olds, in Catalan, Spanish and English. Built fo
 
 | Game | What it practises |
 |---|---|
-| 🗓️ Memory dels mesos | Match a picture with its word (mix of CA/ES/EN), hosted by Nou the forgetful squirrel (acorn card backs, 🌰 counter). Levels: 4 seasons → 7 days of the week (sky-named: 🌙 dilluns…, week strip on the card) → 8 months → all 12 months. The scene (background, falling snow/petals/butterflies/leaves and the music) changes to the season of each pair found. Each game earns stickers for 📅 *El meu calendari* (12 months × 3 stickers, golden pair on ⭐⭐⭐) |
+| 🐿️ Memory de la Nou | Classic pairs with Nou the forgetful squirrel. She picks a deck, 6 / 8 / 10 pairs and 1 or 2 players (turns on one board; a found pair plays again; stars are for the team). 8 decks: 🌰 classic (same picture) · ➕ sums and take-aways ↔ answer · 🔟 friends of 10 and 100 · 🪞 number ↔ its double · 🕰️ clock ↔ time in words (o'clock and the *quarts*) · 💶 coins ↔ price · 🇬🇧 picture ↔ English word (always read in English) · 🎲 mix (each card carries its deck's sign). Pairs are drawn at random every game. Stars count memory slips only: a mismatch with a card she had already seen (a first look is free). Each game stores one food in 🫙 *El rebost de la Nou* (one shelf of 5 jars per deck, 40 in all, golden on ⭐⭐⭐). The old calendar album (`mellis.memory.calendar`) is no longer used here; its data is left in place for a future calendar game |
 | 🧪 Laboratori de pocions | Bruixa Xiruca and her cat Bigotis (funny lines, smoke puffs on mistakes, never hints): pick the bottle with the right number, 10 per potion. 6 levels: up to 20 · up to 100 · carrying · 🔍 secret ingredient (? + 4 = 9, 70 − ? = 40) · 🪞 doubles & halves · 🦘 counting by 2, 5, 10 (gap at the end or in the middle). Decoys are real slips (±1, ±10, the wrong step, adding instead of taking away) and never a number already shown. Each potion hatches one of 30 named creatures that wander in 🌳 the magic garden (tap one: it jumps and says its name; golden on ⭐⭐⭐). Bubbly waltz music |
 | 🛒 La botiga de la Guardiola | Guardiola the piggy-bank shopkeeper: pay the exact price by tapping euro coins and notes onto a tray (the tray never shows its total). 4 levels: whole euros (1 €, 2 €, 5 €) · euros with cents · notes up to 50 € · change (she runs the shop and gives the change from 5 €, 10 € or 20 €). 2nd miss lays out the fewest coins. Things bought fill 🧺 *El meu cistell* (24 items, golden on ⭐⭐⭐) |
 | 🎃 Laboratori de monstres | Halloween English: build the monster you hear. Easy → Medium (spots/stripes, arms, tail/wings, size) → Hard ("NO …" parts) → Expert (listen only). Doctora Bombolles, 📒 monster album, spooky music |
@@ -52,7 +52,7 @@ School subjects as short interactive lessons, following what the girls study thi
 
 ## Game rules
 
-Every interactive game follows **the Mellis rule** (see `CLAUDE.md`): 3 hearts ❤️❤️❤️, a wrong answer = 💔 + "oh oh!" + a 2-second pause, no hints, the 2nd miss on a question reveals the answer, hearts left = stars, ⭐⭐⭐ = golden reward, 0 hearts = the round restarts with new questions. Memory uses stars only.
+Every interactive game follows **the Mellis rule** (see `CLAUDE.md`): 3 hearts ❤️❤️❤️, a wrong answer = 💔 + "oh oh!" + a 2-second pause, no hints, the 2nd miss on a question reveals the answer, hearts left = stars, ⭐⭐⭐ = golden reward, 0 hearts = the round restarts with new questions. Memory uses stars only (from memory slips).
 
 ## Ideas & references
 

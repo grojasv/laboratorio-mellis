@@ -11,7 +11,7 @@ Guessing must never pay. Use the shared `Mellis.round()` from `shared/app.js`; d
 3. **2nd miss on the same question** (same `key`) → `{ reveal: true }`: the game shows the right answer (or, for build-type games, *which part* is wrong) and moves on. Never reveal on the 1st miss.
 4. **Hearts left = stars** (`round.stars()`, render with `Mellis.starsHTML(n)`). **⭐⭐⭐ = golden reward** (golden creature / 🥇 badge / golden book / crowned monsters…).
 5. **0 hearts** → silly-sad twins + "Oh, oh! No queden cors!" → the **whole round restarts with new questions** (`onOut`), never the same ones.
-6. Exception — **Memory-style games** (exploring is the mechanic): no hearts, stars from the number of mismatches.
+6. Exception — **Memory-style games** (exploring is the mechanic): no hearts, stars from the number of mismatches (in Memory de la Nou, only mismatches with a card she had already seen count).
 7. Exception — **social-emotional stories** (e.g. Aprenem *Bons amics*): no hearts; a wrong choice shows its consequence (the friend's feeling + why) and she picks again; stars from first-try choices.
 8. Exception — **creative / family activities** with no right answer (Ràdio Mellis, Passaport lector, Taller Mellis): no hearts at all.
 

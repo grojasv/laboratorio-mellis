@@ -4,6 +4,20 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.35.0] — 2026-11-13
+### Changed
+- **Memory is a new game: Memory de la Nou** (replaces *Memory dels mesos*; same folder `games/memory/`, same id). Classic pairs, hosted by Nou the squirrel:
+  - 8 decks she picks from: classic (same picture), sums and take-aways ↔ answer, friends of 10 and 100, number ↔ its double, clock ↔ time in words, coins ↔ price, picture ↔ English word, and a mix of all. Except in the classic deck, the two cards of a pair show the same thing in two ways.
+  - 6, 8 or 10 pairs (20 cards at most, so cards stay big at 320 px); pairs are drawn at random every game. In the mix deck no two cards show the same bare number, and each card carries its deck's sign.
+  - 1 or 2 players: turns on one board, a found pair plays again, the stars are for the team. The choice of pairs and players is remembered (`mellis.memory.opts`).
+  - Stars count memory slips only: a mismatch where she had already seen the second card or the first card's partner. ⭐⭐⭐ up to half as many slips as pairs, ⭐⭐ up to as many.
+  - Word cards follow the app language; the English deck is always in English and read aloud in English.
+  - Reward: **El rebost de la Nou**, one shelf of 5 jars per deck (40), one food per game, golden on ⭐⭐⭐. Saved under the new key `mellis.memory.pantry` (`{ 'deck-i': 1 | 2 }`).
+  - Uses the shared host, `M.fly` (an acorn flies to the counter on each pair), `M.confetti`, `M.starsHTML`, `M.store`.
+- The calendar topic (seasons, days, months) is out of Memory. `mellis.memory.calendar` is no longer read or written; saved data is left untouched for a future calendar game.
+- Trophy room and hub rings (`shared/rewards.js`): Memory now shows the pantry (40) instead of the calendar stickers (36).
+- `games.js`: new name, icon 🐿️, tagline and guide. Service worker cache `mellis-v41`.
+
 ## [1.34.1] — 2026-11-13
 ### Changed
 - `families/` is now a guide for families ("Per a famílies" / "Para familias" / "For families"): the title, the lead, the share text and the hub footer link no longer mention teachers. The idea and the tips sections are unchanged.

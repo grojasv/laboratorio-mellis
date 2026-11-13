@@ -10,20 +10,20 @@
   const keys = (o) => Object.keys(o || {});
   const repeat = (e, n, golden) => Array.from({ length: n }, (_, i) => ({ e, g: i < golden }));
 
-  // Memory: the calendar stickers, 12 months × 3
-  const MONTH_STICKERS = [
-    ['👑', '⛄', '🎿'], ['🎭', '🥞', '💌'], ['🌱', '🪁', '🐣'], ['🌹', '📚', '☔'],
-    ['🌼', '🐝', '🍓'], ['🔥', '🎆', '🍒'], ['🏖️', '🍦', '🏊'], ['🍉', '⛱️', '🌻'],
-    ['🎒', '🍇', '✏️'], ['🎃', '🍄', '🦇'], ['🌰', '🍠', '🍂'], ['🎄', '🎁', '⭐'],
-  ];
+  // Memory: Nou's pantry, 8 decks × 5 jars (same order as DECKS in games/memory/memory.js)
+  const PANTRY = {
+    classic: ['🌰', '🥜', '🍄', '🫐', '🍯'], sums: ['🍎', '🍐', '🍊', '🍋', '🍇'], friends: ['🍓', '🍒', '🍑', '🥝', '🍌'],
+    doubles: ['🥕', '🌽', '🥦', '🎃', '🫛'], clock: ['🧀', '🥖', '🥐', '🥨', '🧇'], money: ['🍪', '🍩', '🧁', '🍫', '🍬'],
+    english: ['🥞', '🍰', '🥧', '🍮', '🍭'], mix: ['🍉', '🍍', '🥥', '🥭', '🍈'],
+  };
   // Chita's wardrobe: [emoji, stars needed]
   const WARDROBE = [['🧣', 3], ['💖', 4], ['🎀', 6], ['🧢', 10], ['⭐', 12], ['🦸‍♀️', 15], ['🌈', 18], ['👑', 21]];
 
   const READERS = {
     memory() {
-      const a = S.get('mellis.memory.calendar', {});
-      const items = keys(a).map((k) => { const [m, s] = k.split('-'); return { e: (MONTH_STICKERS[m] || [])[s], g: a[k] === 2 }; }).filter((i) => i.e);
-      return { name: L('El meu calendari', 'Mi calendario', 'My calendar'), total: 36, items };
+      const a = S.get('mellis.memory.pantry', {});
+      const items = keys(a).map((k) => { const [d, i] = k.split('-'); return { e: (PANTRY[d] || [])[i], g: a[k] === 2 }; }).filter((i) => i.e);
+      return { name: L('El rebost de la Nou', 'La despensa de Nou', "Nou's pantry"), total: 40, items };
     },
     potions() {
       const gold = S.get('mellis.potions.gold', []);
