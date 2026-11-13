@@ -1,10 +1,14 @@
 // Shared helpers for the hub and every game: language, sound, mascots.
 // Classic script (no modules) so pages also work when opened straight from disk.
 (function () {
-  const VERSION = '1.32.1'; // bump on every release (shown in the hub footer), with CACHE in sw.js
+  const VERSION = '1.33.0'; // bump on every release (shown in the hub footer), with CACHE in sw.js
   const LANGS = ['ca', 'es', 'en'];
   const LANG_KEY = 'mellis.lang';
   const MUTE_KEY = 'mellis.muted';
+  const gameMatch = location.pathname.match(/\/(?:games|learn)\/([^/]+)\//);
+  const gameId = gameMatch ? gameMatch[1] : '';
+  // "Reduce motion" on the device: no flying things, no confetti, no buzz
+  const calm = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
 
   function load(key) {
     try { return localStorage.getItem(key); } catch (e) { return null; }
@@ -95,7 +99,14 @@
       [523, 659, 784, 1047, 784, 1047].forEach((f, i) =>
         tone(f, i * 0.12, 0.22, 'square', 0.12));
     },
+    clink() { tone(2100, 0, 0.09, 'triangle', 0.16); tone(3100, 0.03, 0.12, 'sine', 0.1); },
+    whoosh() { tone(300, 0, 0.22, 'sine', 0.08, 900); },
   };
+  // A right answer (match) or a finished round (win) makes every host on the page dance.
+  ['match', 'win'].forEach((name) => {
+    const play = sounds[name];
+    sounds[name] = () => { play(); hostsDo('m-cheer', 900); };
+  });
 
 
   // ---------- Background music (synthesized loops, no files) ----------
@@ -618,7 +629,8 @@
       if (!opts.heartsEl) return;
       opts.heartsEl.classList.add('hearts');
       opts.heartsEl.innerHTML = Array.from({ length: HEARTS }, (_, i) =>
-        `<span class="${i < hearts ? '' : 'lost'}${i === broken ? ' breaking' : ''}">${i < hearts ? '❤️' : '🤍'}</span>`).join('');
+        `<span class="${i < hearts ? '' : 'lost'}${i === broken ? ' breaking' : ''}">${i < hearts ? '❤️' : '🤍'}` +
+        (i === broken ? '<i class="hb hb-l">❤️</i><i class="hb hb-r">❤️</i>' : '') + '</span>').join('');
     }
     function start() { hearts = HEARTS; misses = {}; busy = false; draw(); }
     // Call on every wrong answer. Resolves after the pause with
@@ -635,6 +647,8 @@
       oh.hidden = false;
       oh.style.animation = 'none'; void oh.offsetWidth; oh.style.animation = '';
       sounds.ohoh();
+      buzz([30, 50, 30]);
+      hostsDo('m-oops', 700);
       speak(t(RULE_TEXT.ohoh).replace(/[¡!]/g, ''), lang);
       return new Promise((resolve) => {
         setTimeout(() => {
@@ -663,14 +677,23 @@
     return { start, wrong, stars: () => Math.max(1, hearts), get busy() { return busy; } };
   }
 
-  // ⭐⭐☆ for win screens
+  // ⭐⭐☆ for win screens: the stars drop in one by one, each with a higher note
   function starsHTML(n) {
+    if (!calm) [659, 784, 1047].slice(0, n).forEach((f, i) => tone(f, 0.3 + i * 0.32, 0.22, 'triangle', 0.22));
     return `<span class="stars${n === 3 ? ' gold' : ''}">` +
-      [0, 1, 2].map((i) => `<span class="${i < n ? '' : 'off'}">⭐</span>`).join('') + '</span>';
+      [0, 1, 2].map((i) => `<span class="${i < n ? '' : 'off'}" style="--i:${i}">⭐</span>`).join('') + '</span>';
   }
 
-  // Confetti burst on a full-screen canvas.
-  function confetti() {
+  // Confetti burst on a full-screen canvas: paper bits plus the game's own things
+  // (coins in the shop, acorns in Memory...). M.confetti(['🪙']) overrides the theme.
+  const CONFETTI = {
+    shop: ['🪙', '💶', '🛒'], memory: ['🌰', '🍂', '🌸'], potions: ['🫧', '✨', '🧪'], monsters: ['🎃', '👻', '🦇'],
+    detective: ['🔍', '👣', '🕵️'], clock: ['⏰', '🐦', '🍕'], cheetah: ['🐾', '⚡', '🏁'], reading: ['📖', '⭐', '🎈'],
+    puppets: ['🎭', '🎀', '⭐'], radio: ['🎙️', '🎵', '📻'], passport: ['📚', '🛂', '⭐'], crafts: ['✂️', '⭐', '🎨'],
+    animals: ['🐾', '🦋', '🐞'], body: ['💪', '❤️', '🍎'], town: ['🏠', '🌳', '🚲'], friends: ['💛', '🤝', '🌈'],
+  };
+  function confetti(emojis) {
+    if (calm) return;
     const canvas = document.createElement('canvas');
     canvas.className = 'confetti';
     document.body.appendChild(canvas);
@@ -678,27 +701,136 @@
     const W = (canvas.width = innerWidth);
     const H = (canvas.height = innerHeight);
     const colors = ['#ff6fb5', '#2ec4b6', '#ffd23f', '#9b5de5', '#ff9f1c', '#3a86ff'];
-    const parts = Array.from({ length: 140 }, () => ({
+    const things = emojis || CONFETTI[gameId] || [];
+    const parts = Array.from({ length: 140 }, (_, i) => ({
       x: W / 2, y: H / 3,
       vx: (Math.random() - 0.5) * 16, vy: Math.random() * -14 - 4,
       s: Math.random() * 8 + 6, r: Math.random() * 6, vr: (Math.random() - 0.5) * 0.4,
       color: colors[(Math.random() * colors.length) | 0],
+      e: things.length && i % 5 === 0 ? things[(i / 5) % things.length | 0] : null,
     }));
+    c.textAlign = 'center'; c.textBaseline = 'middle';
     let frames = 0;
     (function step() {
       c.clearRect(0, 0, W, H);
       parts.forEach((p) => {
         p.vy += 0.35; p.x += p.vx; p.y += p.vy; p.r += p.vr;
         c.save(); c.translate(p.x, p.y); c.rotate(p.r);
-        c.fillStyle = p.color; c.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2);
+        if (p.e) { c.font = `${p.s * 2.4}px serif`; c.fillText(p.e, 0, 0); }
+        else { c.fillStyle = p.color; c.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); }
         c.restore();
       });
       if (++frames < 180) requestAnimationFrame(step); else canvas.remove();
     })();
   }
 
+  // ---------- Things that travel ----------
+  // M.fly(from, to, { html, ms, lift, scale, spin }) → Promise, resolved on landing.
+  // `from` / `to` are elements or { x, y } screen points. Without `html` a copy of `from` flies.
+  function centre(p) {
+    if (!p.getBoundingClientRect) return { x: p.x, y: p.y, w: 0, h: 0 };
+    const r = p.getBoundingClientRect();
+    return { x: r.left + r.width / 2, y: r.top + r.height / 2, w: r.width, h: r.height };
+  }
+  function fly(from, to, opts) {
+    const o = opts || {};
+    if (calm || !document.body.animate) return Promise.resolve();
+    const a = centre(from), b = centre(to);
+    const el = document.createElement('div');
+    el.className = 'm-fly';
+    if (o.html != null) el.innerHTML = o.html;
+    else {
+      const copy = from.cloneNode(true);
+      copy.removeAttribute('id');
+      copy.style.margin = '0';
+      el.style.width = a.w + 'px'; el.style.height = a.h + 'px';
+      el.appendChild(copy);
+    }
+    if (o.size) el.style.fontSize = o.size + 'px';
+    el.style.left = a.x + 'px'; el.style.top = a.y + 'px';
+    document.body.appendChild(el);
+    const dx = b.x - a.x, dy = b.y - a.y;
+    const lift = o.lift == null ? 60 : o.lift, spin = o.spin || 0, end = o.scale == null ? 1 : o.scale;
+    const at = (x, y, sc, rot) => `translate(-50%, -50%) translate(${x}px, ${y}px) scale(${sc}) rotate(${rot}deg)`;
+    const anim = el.animate([
+      { transform: at(0, 0, 1, 0), easing: 'ease-out' },
+      { transform: at(dx / 2, Math.min(0, dy) - lift, (1 + end) / 2 + 0.15, spin / 2), easing: 'ease-in' },
+      { transform: at(dx, dy, end, spin) },
+    ], { duration: o.ms || 520, fill: 'forwards' });
+    return new Promise((resolve) => {
+      let landed = false;
+      const done = () => { if (landed) return; landed = true; el.remove(); resolve(); };
+      anim.onfinish = done; anim.oncancel = done;
+      setTimeout(done, (o.ms || 520) + 200); // a paused page (app in the background) still lands
+    });
+  }
+
+  // ---------- Hosts: every game's character blinks, breathes, watches the finger and reacts ----------
+  // Put `data-host` on the element that holds the character (its SVG can be drawn later).
+  // Eyes are any `.eyes` group inside. A tap makes it hop (data-host="quiet" turns that off).
+  // Right answers (sounds.match / sounds.win) make it dance, wrong ones (round.wrong) make it wobble.
+  const hosts = [];
+  function host(el, opts) {
+    if (!el || hosts.includes(el)) return;
+    const o = opts || {};
+    el.classList.add('m-host');
+    hosts.push(el);
+    if (o.quiet || el.dataset.host === 'quiet') return;
+    el.addEventListener('click', () => {
+      if (el.classList.contains('m-hop')) return;
+      pick([sounds.giggle, sounds.boing, sounds.pop])();
+      pulse(el, 'm-hop', 600);
+      if (o.onTap) o.onTap();
+    });
+  }
+  function pulse(el, cls, ms) {
+    el.classList.remove('m-hop', 'm-cheer', 'm-oops'); void el.offsetWidth;
+    el.classList.add(cls);
+    clearTimeout(el._pulse);
+    el._pulse = setTimeout(() => el.classList.remove(cls), ms);
+  }
+  function hostsDo(cls, ms) { hosts.forEach((el) => { if (el.offsetParent) pulse(el, cls, ms); }); }
+  // Eyes follow the finger, then drift back to the middle
+  let lookFrame = 0, lookTimer = 0;
+  function look(px, py) {
+    hosts.forEach((el) => {
+      const svg = el.querySelector('svg');
+      if (!svg || !el.offsetParent) return;
+      const eyes = el.querySelectorAll('.eyes');
+      if (!eyes.length) return;
+      let move = '0px 0px';
+      if (px != null) {
+        const r = el.getBoundingClientRect();
+        const dx = px - (r.left + r.width / 2), dy = py - (r.top + r.height / 2);
+        const d = Math.hypot(dx, dy) || 1;
+        const vb = svg.viewBox && svg.viewBox.baseVal && svg.viewBox.baseVal.width || 100;
+        const reach = vb * 0.022 * Math.min(1, d / 80);
+        move = `${(dx / d * reach).toFixed(2)}px ${(dy / d * reach).toFixed(2)}px`;
+      }
+      eyes.forEach((e) => { e.style.translate = move; });
+    });
+  }
+  function onPoint(e) {
+    if (calm || !hosts.length) return;
+    cancelAnimationFrame(lookFrame);
+    lookFrame = requestAnimationFrame(() => look(e.clientX, e.clientY));
+    clearTimeout(lookTimer);
+    lookTimer = setTimeout(() => look(null), 2500);
+  }
+  window.addEventListener('pointerdown', onPoint, { passive: true });
+  window.addEventListener('pointermove', onPoint, { passive: true });
+  document.addEventListener('DOMContentLoaded', () => document.querySelectorAll('[data-host]').forEach((el) => host(el)));
+
+  // ---------- Squishy buttons: a short buzz on every press (Android; iPhones have no vibration) ----------
+  function buzz(pattern) {
+    if (calm || muted || !navigator.vibrate) return;
+    try { navigator.vibrate(pattern); } catch (e) { /* not allowed: ignore */ }
+  }
+  window.addEventListener('pointerdown', (e) => {
+    if (e.target.closest && e.target.closest('button, a.game, a.big-btn, a.home')) buzz(8);
+  }, { passive: true });
+
   // ---------- Remember which games were played (removes the hub's "NOU!" sticker) ----------
-  const gameMatch = location.pathname.match(/\/(?:games|learn)\/([^/]+)\//);
   if (gameMatch) {
     const played = store.get('mellis.played', []);
     if (!played.includes(gameMatch[1])) { played.push(gameMatch[1]); store.set('mellis.played', played); }
@@ -748,7 +880,7 @@
   window.Mellis = {
     VERSION, LANGS, get lang() { return lang; }, setLang, t, onLang: (fn) => langListeners.push(fn),
     sounds, music, speak, canSpeak, ownVoice, isMuted, setMuted, mountControls, mascotsSVG, playfulMascots, confetti,
-    onInstallable, install, round, starsHTML, store, pick, shuffle,
+    onInstallable, install, round, starsHTML, store, pick, shuffle, fly, host, buzz, calm,
   };
   document.documentElement.lang = lang;
 })();

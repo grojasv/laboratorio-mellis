@@ -40,7 +40,7 @@
       ${p.hair === 'pigtails' ? hairSVG(p.hair, c, 'back') : ''}
       ${body}${cavity}${jaw}${head}
       <g class="hair">${hairSVG(p.hair, c, 'front')}</g>
-      ${eyesSVG(p.eyes, feel)}
+      <g class="eyes">${eyesSVG(p.eyes, feel)}</g>
       ${feelSVG(feel)}
       <g class="extra">${extraSVG(p.extra)}</g>
     </svg>`;

@@ -233,7 +233,7 @@
     <path d="M28 40 q-8 -14 4 -20 q2 10 6 12 z M92 40 q8 -14 -4 -20 q-2 10 -6 12 z" fill="#f2f2f2" stroke="${INK}" stroke-width="2.5" stroke-linejoin="round"/>
     <circle cx="47" cy="40" r="9" fill="#e8fbff" stroke="${INK}" stroke-width="3"/><circle cx="73" cy="40" r="9" fill="#e8fbff" stroke="${INK}" stroke-width="3"/>
     <path d="M56 40 h8" stroke="${INK}" stroke-width="3"/>
-    <circle cx="47" cy="41" r="3" fill="${INK}"/><circle cx="73" cy="41" r="3" fill="${INK}"/>
+    <g class="eyes"><circle cx="47" cy="41" r="3" fill="${INK}"/><circle cx="73" cy="41" r="3" fill="${INK}"/></g>
     <ellipse cx="60" cy="52" rx="6" ry="5" fill="#ff9e9e" stroke="${INK}" stroke-width="2.5"/>
     <g class="stache"><path d="M60 58 q-10 -6 -22 0 q-10 6 -14 -2 q2 12 14 10 q12 -1 22 -6 q10 5 22 6 q12 2 14 -10 q-4 8 -14 2 q-12 -6 -22 0 z" fill="#f2f2f2" stroke="${INK}" stroke-width="2.5" stroke-linejoin="round"/></g>
     <path d="M52 70 q8 5 16 0" fill="none" stroke="${INK}" stroke-width="3" stroke-linecap="round"/>

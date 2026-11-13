@@ -102,4 +102,7 @@ window.MELLIS_NEWS = [
   { id: 33, date: '2026-11-12', icon: '🎭', type: 'change', game: 'puppets',
     title: { ca: 'Escenes noves al teatre!', es: '¡Escenas nuevas en el teatro!', en: 'New scenes at the Puppet Show!' },
     text: { ca: 'Menjar, roba i família en anglès', es: 'Comida, ropa y familia en inglés', en: 'Food, clothes and family in English' } },
+  { id: 34, date: '2026-11-13', icon: '✨', type: 'change',
+    title: { ca: 'Tot es mou més!', es: '¡Todo se mueve más!', en: 'Everything moves more!' },
+    text: { ca: 'Els personatges et miren i ballen, i les estrelles cauen una a una', es: 'Los personajes te miran y bailan, y las estrellas caen una a una', en: 'The characters watch you and dance, and the stars drop in one by one' } },
 ];

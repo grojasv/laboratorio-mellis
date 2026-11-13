@@ -78,8 +78,8 @@
     <circle cx="50" cy="54" r="38" fill="#ffb8d6" stroke="#3a3a5c" stroke-width="3"/>
     <rect x="40" y="19" width="20" height="5" rx="2.5" fill="#3a3a5c"/>
     <circle cx="62" cy="14" r="7" fill="#ffd23f" stroke="#3a3a5c" stroke-width="2.5"/>
-    <ellipse cx="36" cy="46" rx="4" ry="5.5" fill="#3a3a5c"/><ellipse cx="64" cy="46" rx="4" ry="5.5" fill="#3a3a5c"/>
-    <circle cx="37.4" cy="44" r="1.5" fill="#fff"/><circle cx="65.4" cy="44" r="1.5" fill="#fff"/>
+    <g class="eyes"><ellipse cx="36" cy="46" rx="4" ry="5.5" fill="#3a3a5c"/><ellipse cx="64" cy="46" rx="4" ry="5.5" fill="#3a3a5c"/>
+    <circle cx="37.4" cy="44" r="1.5" fill="#fff"/><circle cx="65.4" cy="44" r="1.5" fill="#fff"/></g>
     <ellipse cx="50" cy="64" rx="15" ry="11" fill="#ff8fbd" stroke="#3a3a5c" stroke-width="3"/>
     <ellipse cx="44.5" cy="64" rx="2.4" ry="4" fill="#3a3a5c"/><ellipse cx="55.5" cy="64" rx="2.4" ry="4" fill="#3a3a5c"/>
     <path d="M40 80 q10 7 20 0" fill="none" stroke="#3a3a5c" stroke-width="3" stroke-linecap="round"/>
@@ -187,8 +187,12 @@
     if (!b || busy) return;
     if (tray.length >= MAX_TRAY) { M.sounds.miss(); return; }
     tray.push(+b.dataset.v);
-    M.sounds.flip();
+    M.sounds.whoosh();
     renderTray();
+    // the coin jumps from the wallet onto the tray and lands with a clink
+    const landed = $('tray').children[tray.length - 1];
+    landed.style.visibility = 'hidden';
+    M.fly(b, landed, { ms: 380, lift: 40, spin: 360 }).then(() => { landed.style.visibility = ''; M.sounds.clink(); });
   });
   // tap a coin on the tray to take it back
   $('tray').addEventListener('click', (e) => {
@@ -223,9 +227,12 @@
     say(M.t(pick(SAY.yes)));
     bob('hop');
     bought.push(current.item.e);
-    const slot = $('progress').children[done];
-    slot.textContent = current.item.e;
-    slot.classList.add('full');
+    // the thing she bought drops into its place in the basket row
+    const slot = $('progress').children[done], thing = current.item.e;
+    M.fly($('item'), slot, { html: thing, size: 44, scale: 0.45, ms: 600 }).then(() => {
+      slot.textContent = thing;
+      slot.classList.add('full');
+    });
     done++;
     setTimeout(done === ROUND ? finish : next, 900);
   }

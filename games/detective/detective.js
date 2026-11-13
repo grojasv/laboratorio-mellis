@@ -293,7 +293,7 @@
       <path d="M26 22 L36 6 L44 22 Z M94 22 L84 6 L76 22 Z" fill="#8a6a4a" stroke="${INK}" stroke-width="3"/>
       <ellipse cx="60" cy="44" rx="40" ry="34" fill="#a7825a" stroke="${INK}" stroke-width="3.5"/>
       <g fill="#fffdf2" stroke="${INK}" stroke-width="3"><circle cx="42" cy="46" r="13"/><circle cx="78" cy="46" r="13"/></g>
-      <circle cx="42" cy="48" r="${pupil}" fill="${INK}"/><circle cx="78" cy="48" r="${pupil}" fill="${INK}"/>
+      <g class="eyes"><circle cx="42" cy="48" r="${pupil}" fill="${INK}"/><circle cx="78" cy="48" r="${pupil}" fill="${INK}"/></g>
       ${lid}
       <path d="M54 58 L66 58 L60 70 Z" fill="#ffb02e" stroke="${INK}" stroke-width="2.5"/>
       <path d="M18 18 Q60 -4 102 18 L96 24 Q60 8 24 24 Z" fill="#5a4a3a" stroke="${INK}" stroke-width="3"/>

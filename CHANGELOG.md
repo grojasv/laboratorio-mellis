@@ -4,6 +4,18 @@ All notable changes to Laboratorio Mellis. Format: [Keep a Changelog](https://ke
 
 The kid-friendly version of this list lives in `news.js` (shown on the hub's 🎁 button).
 
+## [1.33.0] — 2026-11-13
+### Added
+- **Shared hosts** (`M.host`, `data-host` in the page): every game's character now breathes, blinks, follows the finger with its eyes (any `.eyes` group in its SVG), hops when tapped, dances on a right answer (`sounds.match` / `sounds.win`) and wobbles on a wrong one (`round.wrong`). No per-game code: the page only marks the element. All 16 game and lesson pages have one; Contes en veu alta and Passaport lector got the twins as a small host.
+- **Reward moments** (shared, all games): stars drop in one by one with a rising note, a lost heart cracks into two halves, a golden shine sweeps across the win box on ⭐⭐⭐, and the confetti carries the game's own things (coins in the shop, acorns in Memory, bubbles in the potions…).
+- **`M.fly(from, to, opts)`**: one helper for things that travel in an arc. La botiga de la Guardiola uses it: coins jump from the wallet onto the tray with a clink, and the thing she bought drops into its basket slot.
+- **Squishy buttons**: every button sinks and bounces back; a short vibration on each press and on a wrong answer (Android only, iPhones have no vibration API).
+- **Hub**: a tapped card grows to fill the screen in the game's colour before the game opens; cards drop in one after another on load; shelf icons wiggle; the sky follows the real time of day (morning, day, evening, night with a moon and stars) and the season drifts down (snow, petals, butterflies, leaves). Pages cross-fade into each other where the browser supports cross-document view transitions.
+- New sounds `clink` and `whoosh`. "Reduce motion" on the device turns off the flying things, the confetti, the zoom and the vibration (`M.calm`).
+### Fixed
+- Hub at 320 px: a greeting with a long word ("científiques!") pushed the speech bubble past the screen edge. Below 345 px the twins and the bubble text are a little smaller and long words wrap.
+- Service worker cache `mellis-v37`.
+
 ## [1.32.1] — 2026-11-12
 ### Fixed
 - Hub at 320 px wide: the mute button was cut off and the page scrolled sideways by 12 px. Below 345 px the logo and the flag and mute buttons are a little smaller (44 px), so the top bar fits. Service worker cache `mellis-v36`.

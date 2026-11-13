@@ -66,7 +66,7 @@ games.js            game catalogue shown on the hub (+ guide texts for families/
 families/           guide for parents & teachers
 news.js             kid-friendly news (hub 🎁 button)
 CHANGELOG.md        technical changelog (SemVer)
-shared/app.js       language, sounds, mascots, confetti, Mellis rule, store / pick / shuffle helpers (window.Mellis)
+shared/app.js       language, sounds, mascots, confetti, Mellis rule, hosts (data-host), fly, store / pick / shuffle helpers (window.Mellis)
 shared/styles.css   colours, flags, mascots
 shared/game.css     top bar, level picker, win screen for game pages
 games/<id>/         one folder per game
@@ -83,8 +83,9 @@ It's a PWA: `manifest.webmanifest` + `sw.js` (offline cache) + `icons/`. On iPho
 
 1. Create `games/<id>/index.html`. Copy an existing game for the top bar and the shared scripts.
 2. Add an entry to `games.js` and follow the Mellis rule (`Mellis.round()`).
-3. Add its files to `PRECACHE` in `sw.js` so it works offline from the start.
-4. Use only relative paths. Pages are served under `/laboratorio-mellis/`.
+3. Give the game a host: put `data-host` on the element that holds the character and group its eyes in `<g class="eyes">`. It then breathes, blinks, watches the finger and reacts to right and wrong answers with no extra code. No character of its own? Use the twins (`<div class="mini-twins" data-host>` + `Mellis.mascotsSVG('wave')`).
+4. Add its files to `PRECACHE` in `sw.js` so it works offline from the start.
+5. Use only relative paths. Pages are served under `/laboratorio-mellis/`.
 
 ### Run locally
 

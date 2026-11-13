@@ -43,6 +43,13 @@ button {
   cursor: pointer;
   touch-action: manipulation;
 }
+/* Squishy buttons: every button sinks when pressed and bounces back (games may refine it) */
+button, .big-btn { transition: transform .2s cubic-bezier(.3, 1.9, .6, 1); }
+button:active { transform: scale(.92); }
+
+/* Pages cross-fade into each other (browsers without it just jump) */
+@view-transition { navigation: auto; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: .28s; }
 
 /* Floating background bubbles */
 .bubbles { position: fixed; inset: 0; pointer-events: none; z-index: -1; overflow: hidden; }
@@ -128,15 +135,43 @@ button {
 @keyframes blink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.1); } }
 @keyframes flaskbubble { to { transform: translateY(-18px); opacity: 0; } }
 
+/* ---------- Hosts (M.host / data-host): breathe, blink, watch the finger, dance ---------- */
+.m-host { cursor: pointer; }
+.m-host > svg { transform-origin: 50% 100%; animation: m-breathe 3.4s ease-in-out infinite; }
+.m-host .eyes { transform-box: fill-box; transform-origin: center; animation: blink 4.6s infinite; transition: translate .25s ease-out; }
+.m-host.m-hop > svg { animation: m-hop .6s cubic-bezier(.3, 1.6, .6, 1); }
+.m-host.m-cheer > svg { animation: m-cheer .9s ease-in-out; }
+.m-host.m-oops > svg { animation: m-oops .7s ease-in-out; }
+@keyframes m-breathe { 50% { scale: 1.015 1.035; } }
+@keyframes m-hop { 30% { transform: translateY(3%) scale(1.08, .9); } 60% { transform: translateY(-16%) scale(.95, 1.07); } }
+@keyframes m-cheer { 20% { transform: translateY(-10%) rotate(-9deg); } 40% { transform: translateY(0) rotate(0); } 60% { transform: translateY(-10%) rotate(9deg); } 80% { transform: translateY(0) rotate(0); } }
+@keyframes m-oops { 20% { transform: rotate(-9deg); } 40% { transform: rotate(8deg); } 60% { transform: rotate(-6deg); } 80% { transform: rotate(4deg); } }
+
+/* ---------- Things that travel (M.fly) ---------- */
+.m-fly {
+  position: fixed; z-index: 70; pointer-events: none;
+  display: grid; place-items: center; line-height: 1; font-size: 2rem;
+  transform: translate(-50%, -50%);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
+  .hearts .hb { display: none; }
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
 }
 
 /* ---------- The Mellis rule: hearts, oh oh, stars ---------- */
 .hearts { display: inline-flex; gap: 4px; font-size: 1.5rem; line-height: 1; }
 .hearts .lost { opacity: .45; }
-.hearts .breaking { animation: heart-break .6s ease-in; }
-@keyframes heart-break { 30% { transform: scale(1.5) rotate(-15deg); } 60% { transform: scale(.7) rotate(15deg); } }
+.hearts span { position: relative; display: inline-block; }
+.hearts .breaking { animation: heart-break .5s ease-out; }
+@keyframes heart-break { 0% { transform: scale(1.5); } 40% { transform: scale(.8); } }
+/* the lost heart cracks in two: each half falls away to its side */
+.hearts .hb { position: absolute; inset: 0; font-style: normal; opacity: 0; }
+.hearts .hb-l { clip-path: inset(-20% 50% -20% -20%); animation: hb-l .8s ease-in; }
+.hearts .hb-r { clip-path: inset(-20% -20% -20% 50%); animation: hb-r .8s ease-in; }
+@keyframes hb-l { 0% { opacity: 1; transform: scale(1.4); } 25% { opacity: 1; transform: translate(-5px, -4px) rotate(-14deg) scale(1.4); } 100% { opacity: 0; transform: translate(-16px, 26px) rotate(-50deg); } }
+@keyframes hb-r { 0% { opacity: 1; transform: scale(1.4); } 25% { opacity: 1; transform: translate(5px, -4px) rotate(14deg) scale(1.4); } 100% { opacity: 0; transform: translate(16px, 26px) rotate(50deg); } }
 
 #mellis-rule .ohoh {
   position: fixed; inset: 0; z-index: 60;
@@ -176,13 +211,21 @@ button {
 
 .stars { display: inline-flex; gap: 6px; font-size: 2.4rem; }
 .stars .off { filter: grayscale(1); opacity: .3; }
-.stars.gold span { animation: star-shine 1.2s ease-in-out infinite; }
-.stars.gold span:nth-child(2) { animation-delay: .2s; }
-.stars.gold span:nth-child(3) { animation-delay: .4s; }
+/* each won star drops in after the one before it (the note is played by M.starsHTML) */
+.stars span:not(.off) { animation: star-in .5s cubic-bezier(.3, 1.6, .6, 1) backwards; animation-delay: calc(var(--i, 0) * .32s + .3s); }
+.stars.gold span { animation: star-in .5s cubic-bezier(.3, 1.6, .6, 1) backwards, star-shine 1.2s ease-in-out infinite; animation-delay: calc(var(--i, 0) * .32s + .3s), calc(var(--i, 0) * .2s + 1.6s); }
+@keyframes star-in { from { transform: translateY(-70px) scale(0) rotate(-200deg); opacity: 0; } }
+/* ⭐⭐⭐: a golden shine sweeps across the win box */
+.win-box:has(.stars.gold) {
+  background: linear-gradient(110deg, transparent 40%, rgba(255, 226, 120, .9) 50%, transparent 60%) 100% 0 / 300% 100% no-repeat, var(--cream);
+  animation: pop-in-c .4s cubic-bezier(.3, 1.6, .6, 1), gold-sweep 2.6s 1.3s ease-in-out infinite;
+}
+@keyframes gold-sweep { from { background-position: 100% 0, 0 0; } 60%, to { background-position: 0% 0, 0 0; } }
 @keyframes star-shine { 50% { transform: scale(1.25) rotate(12deg); filter: drop-shadow(0 0 8px #ffd23f); } }
 .reveal { animation: reveal-glow 1s ease-in-out 2; box-shadow: 0 0 0 5px #2fbf71, 0 0 24px 8px rgba(47, 191, 113, .7) !important; }
 @keyframes reveal-glow { 50% { transform: scale(1.08); } }
-.golden { box-shadow: 0 0 0 6px #ffd23f, 0 0 30px 10px rgba(255, 210, 63, .8) !important; }
+.golden { box-shadow: 0 0 0 6px #ffd23f, 0 0 30px 10px rgba(255, 210, 63, .8) !important; animation: golden-pulse 1.6s ease-in-out infinite; }
+@keyframes golden-pulse { 50% { filter: brightness(1.15) drop-shadow(0 0 6px #ffd23f); } }
 
 /* Continue buttons stay in reach on short screens: they float at the bottom
    while the page scrolls, and sit in their normal place once reached. */

@@ -229,7 +229,7 @@
       <ellipse cx="60" cy="56" rx="32" ry="34" fill="#ffd9b8" ${line}/>
       <g fill="#bfe9ff" ${line}><circle cx="46" cy="52" r="12"/><circle cx="74" cy="52" r="12"/></g>
       <path d="M58 52 h4" stroke="${INK}" stroke-width="4"/>
-      <circle cx="47" cy="54" r="4" fill="${INK}"/><circle cx="75" cy="54" r="4" fill="${INK}"/>
+      <g class="eyes"><circle cx="47" cy="54" r="4" fill="${INK}"/><circle cx="75" cy="54" r="4" fill="${INK}"/></g>
       <path d="M46 72 Q60 86 74 72 Z" fill="#5a1a3a" ${line}/>
       <circle cx="34" cy="70" r="5" fill="#ff9ec7" opacity=".7"/><circle cx="86" cy="70" r="5" fill="#ff9ec7" opacity=".7"/>
     </svg>`;

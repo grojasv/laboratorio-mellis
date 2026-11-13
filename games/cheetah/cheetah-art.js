@@ -30,8 +30,8 @@
     const eyes = happy
       ? `<path d="M58 54 q8 -9 16 0" fill="none" ${st} stroke-width="4"/><path d="M86 54 q8 -9 16 0" fill="none" ${st} stroke-width="4"/>`
       : `<circle cx="66" cy="52" r="8" fill="#fff" ${st}/><circle cx="94" cy="52" r="8" fill="#fff" ${st}/>
-         <circle cx="67" cy="53" r="4.5" fill="${INK}"/><circle cx="95" cy="53" r="4.5" fill="${INK}"/>
-         <circle cx="68.5" cy="51" r="1.6" fill="#fff"/><circle cx="96.5" cy="51" r="1.6" fill="#fff"/>`;
+         <g class="eyes"><circle cx="67" cy="53" r="4.5" fill="${INK}"/><circle cx="95" cy="53" r="4.5" fill="${INK}"/>
+         <circle cx="68.5" cy="51" r="1.6" fill="#fff"/><circle cx="96.5" cy="51" r="1.6" fill="#fff"/></g>`;
     // The cheetah's "tear marks" from the eyes to the mouth
     const tears = `<path d="M62 58 Q60 70 68 80" fill="none" stroke="${INK}" stroke-width="3.5" stroke-linecap="round"/>
       <path d="M98 58 Q100 70 92 80" fill="none" stroke="${INK}" stroke-width="3.5" stroke-linecap="round"/>`;

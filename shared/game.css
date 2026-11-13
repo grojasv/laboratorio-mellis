@@ -18,6 +18,9 @@ body { min-height: 100dvh; overflow-x: hidden; } /* vertical scroll stays on: sm
   .topbar .controls { margin-left: auto; }
 }
 
+/* The twins as a small host, for games with no character of their own */
+.mini-twins { width: 64px; flex: none; align-self: center; }
+
 /* ---------- Level picker ---------- */
 .levels {
   display: flex;

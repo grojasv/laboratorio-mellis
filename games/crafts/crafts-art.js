@@ -208,7 +208,7 @@
     <g class="half b"><path d="M55 74 L65 74 L62 10 Q59 3 56 10 Z" fill="#e6edf5" ${ST}/>
       <path d="M58 76 L42 100" stroke="${INK}" stroke-width="7" stroke-linecap="round"/><ellipse cx="34" cy="110" rx="17" ry="13" fill="#ff6fb5" ${ST}/><ellipse cx="34" cy="110" rx="8" ry="5" fill="#fff8dc" ${ST}/></g>
     <circle cx="49" cy="68" r="10" fill="#fff" ${ST}/><circle cx="71" cy="68" r="10" fill="#fff" ${ST}/>
-    <circle class="pupil" cx="51" cy="70" r="4.5" fill="${INK}"/><circle class="pupil" cx="73" cy="70" r="4.5" fill="${INK}"/>
+    <g class="eyes"><circle class="pupil" cx="51" cy="70" r="4.5" fill="${INK}"/><circle class="pupil" cx="73" cy="70" r="4.5" fill="${INK}"/></g>
     <circle cx="42" cy="82" r="4" fill="#ff6fb5" opacity=".5"/><circle cx="78" cy="82" r="4" fill="#ff6fb5" opacity=".5"/>
     <path d="M53 84 Q60 91 67 84" fill="none" stroke="${INK}" stroke-width="2.5" stroke-linecap="round"/></svg>`;
 })();

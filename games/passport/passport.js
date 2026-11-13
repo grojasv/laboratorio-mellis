@@ -491,6 +491,7 @@
     if (!$('dice').hidden) renderQuestion();
   }
   M.mountControls($('controls'));
+  $('twins').innerHTML = M.mascotsSVG('wave');
   M.onLang(renderText);
   show('home');
   renderText();
